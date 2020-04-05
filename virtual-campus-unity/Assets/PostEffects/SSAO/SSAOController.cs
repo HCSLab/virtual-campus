@@ -48,10 +48,10 @@ public class SSAOController : PostEffect
         Vector3 bottomLeft = Vector3.forward * near - toTop - toRight;
         Vector3 bottomRight = Vector3.forward * near + toRight - toTop;
 
-        bottomLeft /= bottomLeft.z;
-        bottomRight /= bottomRight.z;
-        topRight /= topRight.z;
-        topLeft /= topLeft.z;
+        bottomLeft /= near;
+        bottomRight /= near;
+        topRight /= near;
+        topLeft /= near;
 
         frustumCorners.SetRow(0, bottomLeft);
         frustumCorners.SetRow(1, bottomRight);
@@ -63,13 +63,13 @@ public class SSAOController : PostEffect
 
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
-        if (material != null)
+        if (material != null && mode != 0)
         {
             var sampleList = new List<Vector4>();
             for (int i = 0; i < 64; i++)
             {
-                Vector4 dir = new Vector4(1, 0, 0, 0);
-                dir = Mathf.Pow(Random.Range(0f, 1f), 2) * sampleRadius * dir;
+                Vector4 dir = new Vector4(Random.Range(-1, 1), Random.Range(0, 1), Random.Range(-1, 1), 0);
+                dir = Mathf.Pow(Random.Range(0f, 1f), 2) * sampleRadius * dir.normalized;
                 sampleList.Add(dir);
             }
             material.SetVectorArray("_SampleList", sampleList);
@@ -84,20 +84,10 @@ public class SSAOController : PostEffect
             RenderTexture buffer2 = RenderTexture.GetTemporary(w, h, 0);
             buffer2.filterMode = FilterMode.Bilinear;
 
-            if (mode == 0)
-            {
-                Graphics.Blit(src, dest, material, 1);
-                RenderTexture.ReleaseTemporary(buffer);
-                RenderTexture.ReleaseTemporary(buffer2);
-                return;
-            }
-
             Graphics.Blit(src, buffer, material, 0);
 
             for (int i = 0; i < inerations; i++)
             {
-                //material.SetFloat("_BlurSize", (i / 2f + 1f) * blurSpread);
-
                 Graphics.Blit(buffer, buffer2, material, 1);
                 Graphics.Blit(buffer2, buffer, material, 2);
             }

@@ -2,8 +2,7 @@
 {
     Properties
     {
-        _MainTex ("Base (RGB)", 2D) = "white" {}
-        // _SSAOTex ("SSAO (RGB)", 2D) = "white" {}
+        _MainTex ("Base (RGB)", 2D) = "white" {})
         _AOAmount ("AOAmount", Float) = 1
     }
 
@@ -99,12 +98,10 @@
                 float3 viewPos = depth * i.interpolatedRay.xyz;
                 viewPos.z = -viewPos.z;
 
-                float3 up = float3(0, 1, 0);
-                float3 tangent = cross(viewNormal, up);
+                float3 tangent = cross(viewNormal, float3(0, 1, 0));
                 if (length(tangent) < 0.01)
                 {
-                    up = float3(1, 0, 0);
-                    tangent = cross(viewNormal, up);
+                    tangent = cross(viewNormal, float3(1, 0, 0));
                 }
                 tangent = normalize(tangent);
                 float3 bitangent = cross(viewNormal, tangent);
@@ -142,7 +139,6 @@
                     if (depthAtPos > depthAtPosUV)
                     {
                         AO += 1;
-                        // AO += smoothstep(0, 1, _MaxSampleLen / (depthAtPos - depthAtPosUV));
                     }
                 }
 
@@ -187,10 +183,9 @@
             {
                 fixed3 col = tex2D(_MainTex, i.uv);
                 fixed3 AO = tex2D(_SSAOTex, i.uv);
-                AO = AO * _AOAmount + (1 - _AOAmount) + _AOAmount * 0.2;
-                return fixed4(col * pow(AO, 2.2), 1);
+                AO = AO * _AOAmount + (1 - _AOAmount);
+                return fixed4(col * AO, 1);
             }
-            
             ENDCG
         }
     }
