@@ -84,7 +84,7 @@ public class SSAOController : PostEffect
 
             for (int i = 0; i < inerations; i++)
             {
-                material.SetFloat("_BlurSize", blurSpread * (1 + i/2.0f));
+                material.SetFloat("_BlurSize", blurSpread * (1 + (i - 1) / 2.0f));
                 Graphics.Blit(buffer, buffer2, material, 1);
                 Graphics.Blit(buffer2, buffer, material, 2);
             }
