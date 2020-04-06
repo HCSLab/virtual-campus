@@ -22,7 +22,7 @@ public class BSCController : PostEffect
 	[Range(0, 3)]
 	public float contrast = 1;
 
-	private void OnRenderImage(RenderTexture source, RenderTexture destination)
+	public override void OnRender(RenderTexture source, RenderTexture destination)
 	{
 		if (material != null)
 		{

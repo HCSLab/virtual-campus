@@ -34,7 +34,7 @@ public class BloomController : PostEffect
 	[Range(0, 2)]
 	public int mode = 2;
 
-	private void OnRenderImage(RenderTexture source, RenderTexture destination)
+	public override void OnRender(RenderTexture source, RenderTexture destination)
 	{
 		if (material != null && mode != 0)
 		{

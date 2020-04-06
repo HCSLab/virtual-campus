@@ -24,7 +24,7 @@ public class GuassianBlurController : PostEffect
 	[Range(1, 8)]
 	public int downSample = 2;
 
-	private void OnRenderImage(RenderTexture source, RenderTexture destination)
+	public override void OnRender(RenderTexture source, RenderTexture destination)
 	{
 		if (material != null)
 		{

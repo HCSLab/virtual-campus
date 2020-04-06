@@ -22,4 +22,9 @@ public class PostEffect : MonoBehaviour
 		if (material) return material;
 		else return null;
 	}
+
+	public virtual void OnRender(RenderTexture source, RenderTexture destination)
+	{
+		Graphics.Blit(source, destination);
+	}
 }

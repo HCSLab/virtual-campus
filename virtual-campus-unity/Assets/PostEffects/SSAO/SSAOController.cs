@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class SSAOController : PostEffect
 {
     public Shader AOShader;
@@ -74,7 +73,7 @@ public class SSAOController : PostEffect
         material.SetVectorArray("_SampleList", sampleList);
     }
 
-    void OnRenderImage(RenderTexture src, RenderTexture dest)
+    public override void OnRender(RenderTexture src, RenderTexture dest)
     {
         if (material != null && mode != 0)
         {
