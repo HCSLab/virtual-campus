@@ -21,7 +21,7 @@ public class PostEffectManager : MonoBehaviour
 
         foreach (var e in effects)
         {
-            if (!e.enabled) continue;
+            if (e == null || !e.enabled) continue;
 
             e.OnRender(buffer[ptr], buffer[(ptr + 1) % 2]);
             ptr = (ptr + 1) % 2;
