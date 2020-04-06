@@ -33,7 +33,7 @@ public class SSAOController : PostEffect
 
     void Start()
     {
-         Matrix4x4 frustumCorners = Matrix4x4.identity;
+        Matrix4x4 frustumCorners = Matrix4x4.identity;
 
         float fov = GetComponent<Camera>().fieldOfView;
         float near = GetComponent<Camera>().nearClipPlane;
@@ -66,7 +66,9 @@ public class SSAOController : PostEffect
         for (int i = 0; i < 64; i++)
         {
             Vector4 dir = new Vector4(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f), 0);
-            dir = Mathf.Pow(Random.Range(0f, 1f), 2) * sampleRadius * dir.normalized;
+            float x = Mathf.Pow(Random.Range(0f, 1f), 2);
+            dir = x * sampleRadius * dir.normalized;
+            dir.w = x * x * x;
             sampleList.Add(dir);
         }
         material.SetVectorArray("_SampleList", sampleList);
