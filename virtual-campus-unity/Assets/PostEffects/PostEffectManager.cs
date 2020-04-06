@@ -28,5 +28,8 @@ public class PostEffectManager : MonoBehaviour
         }
 
         Graphics.Blit(buffer[ptr], destination);
+
+        RenderTexture.ReleaseTemporary(buffer[0]);
+        RenderTexture.ReleaseTemporary(buffer[1]);
     }
 }
