@@ -1,9 +1,8 @@
-﻿Shader "PostEffect/GuassianBlurShader"
+﻿Shader "PostEffect/GuassianBlur"
 {
     Properties
     {
         _MainTex ("Base (RGB)", 2D) = "white" {}
-		_BlurSize ("BlurSize", Float) = 1 
     }
 
     SubShader
@@ -14,7 +13,6 @@
 		sampler2D _MainTex;
 		float4 _MainTex_TexelSize;
 		float _BlurSize;
-
 
 		struct v2f
 		{
@@ -56,6 +54,8 @@
 
 		fixed4 fragBlur(v2f i) : SV_Target
 		{
+			// return fixed4(tex2D(_MainTex, i.uv[0]).rgb, 1);
+
 			float weight[3] = { 0.4026, 0.2442, 0.0545 };
 
 			fixed3 sum = tex2D(_MainTex, i.uv[0]).rgb * weight[0];

@@ -2,8 +2,8 @@
 {
     Properties
     {
-        _MainTex ("Base (RGB)", 2D) = "white" {})
-        _AOAmount ("AOAmount", Float) = 1
+        _MainTex ("Base (RGB)", 2D) = "white" {}
+		_BlurSize ("BlurSize", Float) = 1 
     }
 
     SubShader
@@ -36,6 +36,7 @@
             };
 
             float4x4 _FrustumCornersRay;
+            float4x4 _CameraProjection;
             sampler2D _CameraDepthNormalsTexture;
             half4 _MainTex_TexelSize;
             float4 _SampleList[SampleNumber];
@@ -95,16 +96,18 @@
 				float depth;
                 DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, i.uv_depth), depth, viewNormal);
                 depth *= _ProjectionParams.z;
+                viewNormal = normalize(viewNormal);
+                // return fixed4(depth/5,depth/5,depth/5, 1);
+                // return fixed4(viewNormal, 1);
                 float3 viewPos = depth * i.interpolatedRay.xyz;
                 viewPos.z = -viewPos.z;
-
                 float3 tangent = cross(viewNormal, float3(0, 1, 0));
                 if (length(tangent) < 0.01)
                 {
                     tangent = cross(viewNormal, float3(1, 0, 0));
                 }
-                tangent = normalize(tangent);
                 float3 bitangent = cross(viewNormal, tangent);
+                tangent = normalize(tangent);
                 bitangent = normalize(bitangent);
 
                 float3x3 tangentSpaceToView = float3x3(tangent.x, viewNormal.x, bitangent.x,
@@ -119,15 +122,21 @@
                                           -s, 0, c);
 
                 float3x3 mat = mul(tangentSpaceToView, rotate);
+                // float3x3 mat = tangentSpaceToView;
 
                 float AO = 0;
                 for (int ii = 0; ii < SampleNumber; ii++)
                 {
                     float3 dir = mul(mat, _SampleList[ii].xyz);
+                    // float3 dir = mul(mat, float3(0, 1, 0));
+                    // float3 dir = viewNormal;
                     float4 pos = float4(viewPos + dir, 1);
                     float depthAtPos = -pos.z;
-                    pos = mul(UNITY_MATRIX_P, pos);
+                    // return fixed4(depthAtPos/5,depthAtPos/5,depthAtPos/5,1);
+                    // return fixed4(pos.xy, depthAtPos, 1);
+                    pos = mul(_CameraProjection, pos);
                     pos.xyz /= pos.w;
+                    // return fixed4(pos.xyz, 1);
                     if (pos.x < -1 || pos.x > 1 || pos.y < -1 || pos.y > 1 || pos.z < -1 || pos.z > 1) 
                     {
                         continue;
@@ -148,8 +157,8 @@
             ENDCG
         }
 
-        UsePass "PostEffect/GuassianBlurShader/GUASSIAN_BLUR_VERTICAL"
-        UsePass "PostEffect/GuassianBlurShader/GUASSIAN_BLUR_HORIZONTAL"
+        UsePass "PostEffect/GuassianBlur/GUASSIAN_BLUR_VERTICAL"
+        UsePass "PostEffect/GuassianBlur/GUASSIAN_BLUR_HORIZONTAL"
 
         Pass
         {
@@ -182,6 +191,7 @@
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed3 col = tex2D(_MainTex, i.uv);
+                // return fixed4(col, 1);
                 fixed3 AO = tex2D(_SSAOTex, i.uv);
                 AO = AO * _AOAmount + (1 - _AOAmount);
                 return fixed4(col * AO, 1);

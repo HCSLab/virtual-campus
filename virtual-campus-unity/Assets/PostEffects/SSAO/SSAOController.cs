@@ -31,51 +31,47 @@ public class SSAOController : PostEffect
         GetComponent<Camera>().depthTextureMode |= DepthTextureMode.DepthNormals;
     }
 
-    private void Start()
-    {
-        Matrix4x4 frustumCorners = Matrix4x4.identity;
-
-        float fov = GetComponent<Camera>().fieldOfView;
-        float near = GetComponent<Camera>().nearClipPlane;
-        float aspect = GetComponent<Camera>().aspect;
-
-        float halfHeight = near * Mathf.Tan(fov * 0.5f * Mathf.Deg2Rad);
-        Vector3 toRight = Vector3.right * halfHeight * aspect;
-        Vector3 toTop = Vector3.up * halfHeight;
-
-        Vector3 topLeft = Vector3.forward * near + toTop - toRight;
-        Vector3 topRight = Vector3.forward * near + toRight + toTop;
-        Vector3 bottomLeft = Vector3.forward * near - toTop - toRight;
-        Vector3 bottomRight = Vector3.forward * near + toRight - toTop;
-
-        bottomLeft /= near;
-        bottomRight /= near;
-        topRight /= near;
-        topLeft /= near;
-
-        frustumCorners.SetRow(0, bottomLeft);
-        frustumCorners.SetRow(1, bottomRight);
-        frustumCorners.SetRow(2, topRight);
-        frustumCorners.SetRow(3, topLeft);
-
-        material.SetMatrix("_FrustumCornersRay", frustumCorners);
-    }
-
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
         if (material != null && mode != 0)
         {
+            Matrix4x4 frustumCorners = Matrix4x4.identity;
+
+            float fov = GetComponent<Camera>().fieldOfView;
+            float near = GetComponent<Camera>().nearClipPlane;
+            float aspect = GetComponent<Camera>().aspect;
+
+            float halfHeight = near * Mathf.Tan(fov * 0.5f * Mathf.Deg2Rad);
+            Vector3 toRight = Vector3.right * halfHeight * aspect;
+            Vector3 toTop = Vector3.up * halfHeight;
+
+            Vector3 topLeft = Vector3.forward * near + toTop - toRight;
+            Vector3 topRight = Vector3.forward * near + toRight + toTop;
+            Vector3 bottomLeft = Vector3.forward * near - toTop - toRight;
+            Vector3 bottomRight = Vector3.forward * near + toRight - toTop;
+
+            bottomLeft /= near;
+            bottomRight /= near;
+            topRight /= near;
+            topLeft /= near;
+
+            frustumCorners.SetRow(0, bottomLeft);
+            frustumCorners.SetRow(1, bottomRight);
+            frustumCorners.SetRow(2, topRight);
+            frustumCorners.SetRow(3, topLeft);
+
+            material.SetMatrix("_FrustumCornersRay", frustumCorners);
+
+            material.SetMatrix("_CameraProjection", GetComponent<Camera>().projectionMatrix);
+
             var sampleList = new List<Vector4>();
             for (int i = 0; i < 64; i++)
             {
-                Vector4 dir = new Vector4(Random.Range(-1, 1), Random.Range(0, 1), Random.Range(-1, 1), 0);
+                Vector4 dir = new Vector4(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f), 0);
                 dir = Mathf.Pow(Random.Range(0f, 1f), 2) * sampleRadius * dir.normalized;
                 sampleList.Add(dir);
             }
             material.SetVectorArray("_SampleList", sampleList);
-
-            material.SetFloat("_AOAmount", AOAmount);
-            material.SetFloat("_BlurSize", blurSpread);
 
             int w = src.width / downSample;
             int h = src.height / downSample;
@@ -88,6 +84,7 @@ public class SSAOController : PostEffect
 
             for (int i = 0; i < inerations; i++)
             {
+                material.SetFloat("_BlurSize", blurSpread * (1 + i/2.0f));
                 Graphics.Blit(buffer, buffer2, material, 1);
                 Graphics.Blit(buffer2, buffer, material, 2);
             }
@@ -100,6 +97,7 @@ public class SSAOController : PostEffect
                 return;
             }
 
+            material.SetFloat("_AOAmount", AOAmount);
             material.SetTexture("_SSAOTex", buffer);
             Graphics.Blit(src, dest, material, 3);
 
