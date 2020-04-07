@@ -128,7 +128,7 @@
                     float depthAtPos = -pos.z;
                     pos = mul(_CameraProjection, pos);
                     pos.xyz /= pos.w;
-                    if (pos.x < -1 || pos.x > 1 || pos.y < -1 || pos.y > 1 || pos.z < -1 || pos.z > 1) 
+                    if (pos.x < -1 || pos.x > 1 || pos.y < -1 || pos.y > 1) 
                     {
                         continue;
                     }

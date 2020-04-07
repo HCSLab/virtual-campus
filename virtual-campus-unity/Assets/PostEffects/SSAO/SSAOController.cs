@@ -24,13 +24,28 @@ public class SSAOController : PostEffect
     [Range(0, 4)] public int inerations = 3;
 
     [Range(0, 2)] public int mode;
+    private int oldMode = -1;
 
     void OnEnable()
     {
         GetComponent<Camera>().depthTextureMode |= DepthTextureMode.DepthNormals;
     }
 
-    private void Start()
+    private void SetSampleList()
+    {
+        var sampleList = new List<Vector4>();
+        for (int i = 0; i < 64; i++)
+        {
+            Vector4 dir = new Vector4(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f), 0);
+            float x = Mathf.Pow(Random.Range(0f, 1f), 2);
+            dir = x * sampleRadius * dir.normalized;
+            dir.w = x * x * x;
+            sampleList.Add(dir);
+        }
+        material.SetVectorArray("_SampleList", sampleList);
+    }
+
+    private void SetCameraParamsToShader()
     {
         Matrix4x4 frustumCorners = Matrix4x4.identity;
 
@@ -60,21 +75,17 @@ public class SSAOController : PostEffect
         material.SetMatrix("_FrustumCornersRay", frustumCorners);
 
         material.SetMatrix("_CameraProjection", GetComponent<Camera>().projectionMatrix);
-
-        var sampleList = new List<Vector4>();
-        for (int i = 0; i < 64; i++)
-        {
-            Vector4 dir = new Vector4(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1f, 1f), 0);
-            float x = Mathf.Pow(Random.Range(0f, 1f), 2);
-            dir = x * sampleRadius * dir.normalized;
-            dir.w = x * x * x;
-            sampleList.Add(dir);
-        }
-        material.SetVectorArray("_SampleList", sampleList);
     }
 
     public override void OnRender(RenderTexture src, RenderTexture dest)
     {
+        if (material != null && oldMode != mode)
+        {
+            SetCameraParamsToShader();
+            SetSampleList();
+            oldMode = mode;
+        }
+
         if (material != null && mode != 0)
         {
             int w = src.width / downSample;
