@@ -30,7 +30,7 @@ public class SSAOController : PostEffect
         GetComponent<Camera>().depthTextureMode |= DepthTextureMode.DepthNormals;
     }
 
-    void Start()
+    private void Start()
     {
         Matrix4x4 frustumCorners = Matrix4x4.identity;
 

@@ -27,4 +27,9 @@ public class PostEffect : MonoBehaviour
 	{
 		Graphics.Blit(source, destination);
 	}
+
+	private void Start()
+	{
+		
+	}
 }
