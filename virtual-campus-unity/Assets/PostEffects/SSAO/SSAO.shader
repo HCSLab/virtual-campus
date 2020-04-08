@@ -111,14 +111,15 @@
                                                        tangent.y, viewNormal.y, bitangent.y,
                                                        tangent.z, viewNormal.z, bitangent.z);
 
-                float theta = noise(i.uv) * PI * 2;
-                float c = cos(theta);
-                float s = sin(theta);
-                float3x3 rotate = float3x3(c, 0, s,
-                                           0, 1, 0,
-                                          -s, 0, c);
+                // float theta = noise(i.uv) * PI * 2;
+                // float c = cos(theta);
+                // float s = sin(theta);
+                // float3x3 rotate = float3x3(c, 0, s,
+                //                            0, 1, 0,
+                //                           -s, 0, c);
 
-                float3x3 mat = mul(tangentSpaceToView, rotate);
+                // float3x3 mat = mul(tangentSpaceToView, rotate);
+                float3x3 mat = tangentSpaceToView;
 
                 float AO = 0;
                 for (int ii = 0; ii < SampleNumber; ii++)
@@ -143,7 +144,7 @@
                 }
 
                 AO = 1 - AO / SampleNumber;
-                return fixed4(AO, AO, AO, 1);
+                return fixed4(AO, 0, 0, 1);
             }
             ENDCG
         }
@@ -182,10 +183,44 @@
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed3 col = tex2D(_MainTex, i.uv);
-                fixed3 AO = tex2D(_SSAOTex, i.uv);
+                fixed AO = tex2D(_SSAOTex, i.uv).r;
                 // AO = pow(AO, 2.2);
                 AO = AO * _AOAmount + (1 - _AOAmount);
                 return fixed4(col * AO, 1);
+            }
+            ENDCG
+        }
+
+        Pass
+        {
+            NAME "SHOW_AO"
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "UnityCG.cginc"
+
+            sampler2D _MainTex;
+
+            struct v2f
+            {
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+			};
+
+            v2f vert(appdata_img v)
+            {
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = v.texcoord;
+				return o;
+            }
+
+            fixed4 frag(v2f i) : SV_Target
+            {
+                fixed AO = tex2D(_MainTex, i.uv).r;
+                return fixed4(AO, AO, AO, 1);
             }
             ENDCG
         }

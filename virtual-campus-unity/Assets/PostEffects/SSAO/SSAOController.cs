@@ -90,9 +90,9 @@ public class SSAOController : PostEffect
         {
             int w = src.width / downSample;
             int h = src.height / downSample;
-            RenderTexture buffer = RenderTexture.GetTemporary(w, h, 0);
+            RenderTexture buffer = RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.R8);
             buffer.filterMode = FilterMode.Bilinear;
-            RenderTexture buffer2 = RenderTexture.GetTemporary(w, h, 0);
+            RenderTexture buffer2 = RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.R8);
             buffer2.filterMode = FilterMode.Bilinear;
 
             Graphics.Blit(src, buffer, material, 0);
@@ -106,7 +106,7 @@ public class SSAOController : PostEffect
 
             if (mode == 1)
             {
-                Graphics.Blit(buffer, dest);
+                Graphics.Blit(buffer, dest, material, 4);
                 RenderTexture.ReleaseTemporary(buffer);
                 RenderTexture.ReleaseTemporary(buffer2);
                 return;
