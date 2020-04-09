@@ -1,4 +1,4 @@
-﻿Shader "Posteffect/DepthOfField"
+﻿Shader "PostEffect/DepthOfField"
 {
     Properties
     {
