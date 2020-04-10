@@ -6,10 +6,14 @@ using UnityEngine;
 
 public class VoxelMaterialEditorWindow : EditorWindow
 {
-    string myString = "Hello World";
-    bool groupEnabled;
-    bool myBool = true;
-    float myFloat = 1.23f;
+    static Color mainColor;
+    static Color specularColor;
+    static float gloss;
+    static float colorScaler;
+
+    static GameObject selectedObj;
+    static Material material;
+    static int mousePosUV_x;
 
     const int mouseNeighbourhoodSize = 200;
     static Texture2D mouseNeighbourhoodTex;
@@ -24,7 +28,7 @@ public class VoxelMaterialEditorWindow : EditorWindow
     }
 
     // Add menu item named "My Window" to the Window menu
-    [MenuItem("Window/My Window")]
+    [MenuItem("Tools/Voxel Material Editor")]
     public static void ShowWindow()
     {
         //Show existing window instance. If one doesn't exist, make one.
@@ -34,7 +38,8 @@ public class VoxelMaterialEditorWindow : EditorWindow
     static void DetectMouseClick(SceneView sv)
     {
         sceneView = sv;
-        if (Event.current.type == EventType.MouseDown)
+        if (Event.current.type == EventType.MouseDown ||
+            Event.current.type == EventType.MouseMove)
         {
             GUIStyle style = "GV Gizmo DropDown";
             Vector2 ribbon = style.CalcSize(sceneView.titleContent);
@@ -49,22 +54,24 @@ public class VoxelMaterialEditorWindow : EditorWindow
             mousePos *= sceneView.camera.pixelHeight / sv_correctSize.y;
             // Debug.Log(mousePos);
 
-            OnClick();
+            DrawMouseNighbourhood();
+
+            if (Event.current.type == EventType.MouseDown)
+                OnClick();
         }
     }
 
     static void OnClick()
     {
         // get selected voxel object and its material and textures
-        GameObject obj = Selection.activeGameObject;
-        if (obj == null || obj.name != "default") return;
-        MeshRenderer render = obj.GetComponent<MeshRenderer>();
+        selectedObj = Selection.activeGameObject;
+        if (selectedObj == null || selectedObj.name != "default") return;
+        MeshRenderer render = selectedObj.GetComponent<MeshRenderer>();
         if (render == null) return;
-        Material mat = render.sharedMaterial;
-        //if (!mat.HasProperty("_MainTex") || !mat.HasProperty("_PropTex")) return;
-        //Texture2D mainTex = (Texture2D)mat.GetTexture("_MainTex");
-        //Texture2D propTex = (Texture2D)mat.GetTexture("_PropTex");
-        Texture2D propTex = null; // for debug
+        material = render.sharedMaterial;
+        if (!material.HasProperty("_MainTex") || !material.HasProperty("_PropTex")) return;
+        Texture2D mainTex = (Texture2D)material.GetTexture("_MainTex");
+        Texture2D propTex = (Texture2D)material.GetTexture("_PropTex");
         if (propTex == null)
         {
             propTex = CreatePropTex();
@@ -73,15 +80,13 @@ public class VoxelMaterialEditorWindow : EditorWindow
         // get the UV at mouse position
         Texture2D UVTex = DrawWithShaderReplacement(Shader.Find("Others/RenderUV"));
         Color col = UVTex.GetPixel((int)mousePos.x, (int)mousePos.y);
-        int uv_x = (int)(UVTex.GetPixel((int)mousePos.x, (int)mousePos.y).r * 255);
+        mousePosUV_x = (int)(UVTex.GetPixel((int)mousePos.x, (int)mousePos.y).r * 255);
 
-        // draw data into properties texture and save it
-        propTex.SetPixel(uv_x, 0, Color.red);
-        propTex.Apply();
-        var pngData = propTex.EncodeToPNG();
-        System.IO.File.WriteAllBytes("./test.png", pngData);
-
-        DrawMouseNighbourhood();
+        // set variables to data from material
+        mainColor = mainTex.GetPixel(mousePosUV_x, 0);
+        colorScaler = propTex.GetPixel(mousePosUV_x, 1).r;
+        specularColor = propTex.GetPixel(mousePosUV_x, 0);
+        gloss = propTex.GetPixel(mousePosUV_x, 1).g;
     }
 
     static void DrawMouseNighbourhood()
@@ -161,7 +166,8 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         for (int i = 0; i < 256; i++)
         {
-            tex.SetPixel(i, 0, new Color(1, 1, 1, 1));
+            tex.SetPixel(i, 0, Color.white);
+            tex.SetPixel(i, 1, Color.white);
         }
 
         return tex;
@@ -169,19 +175,19 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
     void OnGUI()
     {
+        GUILayout.Label("Mouse Select View", EditorStyles.boldLabel);
         GUILayout.Label(mouseNeighbourhoodTex);
-        GUILayout.Label("Base Settings", EditorStyles.boldLabel);
-        myString = EditorGUILayout.TextField("Text Field", myString);
+        GUILayout.Space(5);
 
-        groupEnabled = EditorGUILayout.BeginToggleGroup("Optional Settings", groupEnabled);
-        myBool = EditorGUILayout.Toggle("Toggle", myBool);
-        myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
-        EditorGUILayout.EndToggleGroup();
+        GUILayout.Label("Color", EditorStyles.boldLabel);
+        mainColor = EditorGUILayout.ColorField("Main Color", mainColor);
+        colorScaler = EditorGUILayout.Slider("Color Scaler", colorScaler, 0, 10);
+        GUILayout.Space(5);
 
-        var o = GameObject.Find("Cube");
-        o.transform.localScale = new Vector3(myFloat, myFloat, myFloat);
-
-        if (myFloat < 0) myFloat = -myFloat;
+        GUILayout.Label("Specular", EditorStyles.boldLabel);
+        specularColor = EditorGUILayout.ColorField("Specular Color", specularColor);
+        gloss = EditorGUILayout.Slider("Gloss", gloss, 8, 256);
+        GUILayout.Space(5);
     }
 
     private void Update()
