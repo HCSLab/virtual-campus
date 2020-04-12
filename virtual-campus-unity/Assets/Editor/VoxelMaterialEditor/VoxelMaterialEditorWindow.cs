@@ -11,9 +11,13 @@ public class VoxelMaterialEditorWindow : EditorWindow
     static float gloss;
     static float colorScaler;
 
-    static GameObject selectedObj;
+    static bool targetActive;
+    static GameObject targetObj;
+    static string modelName;
     static Material material;
     static int mousePosUV_x;
+    static Texture2D mainTex;
+    static Texture2D propTex;
 
     const int mouseNeighbourhoodSize = 200;
     static Texture2D mouseNeighbourhoodTex;
@@ -54,31 +58,45 @@ public class VoxelMaterialEditorWindow : EditorWindow
             mousePos *= sceneView.camera.pixelHeight / sv_correctSize.y;
             // Debug.Log(mousePos);
 
-            DrawMouseNighbourhood();
+            if (targetActive)
+                DrawMouseNighbourhood();
 
-            if (Event.current.type == EventType.MouseDown)
+            //if (Event.current.type == EventType.MouseDown)
                 OnClick();
         }
     }
 
     static void OnClick()
     {
+        targetActive = false;
+
         // get selected voxel object and its material and textures
-        selectedObj = Selection.activeGameObject;
-        if (selectedObj == null || selectedObj.name != "default") return;
-        MeshRenderer render = selectedObj.GetComponent<MeshRenderer>();
-        if (render == null) return;
+        targetObj = Selection.activeGameObject;
+        if (targetObj == null || targetObj.name != "default") 
+            return;
+        modelName = targetObj.transform.parent.name;
+
+        MeshRenderer render = targetObj.GetComponent<MeshRenderer>();
+        if (render == null) 
+            return;
+
         material = render.sharedMaterial;
-        if (!material.HasProperty("_MainTex") || !material.HasProperty("_PropTex")) return;
-        Texture2D mainTex = (Texture2D)material.GetTexture("_MainTex");
-        Texture2D propTex = (Texture2D)material.GetTexture("_PropTex");
+        if (!material.HasProperty("_MainTex") || !material.HasProperty("_PropTex"))
+            return;
+
+        targetActive = true;
+
+        mainTex = (Texture2D)material.GetTexture("_MainTex");
+        propTex = (Texture2D)material.GetTexture("_PropTex");
         if (propTex == null)
         {
             propTex = CreatePropTex();
+            SaveTextures();
+            material.SetTexture("_PropTex", propTex);
         }
 
         // get the UV at mouse position
-        Texture2D UVTex = DrawWithShaderReplacement(Shader.Find("Others/RenderUV"));
+        Texture2D UVTex = DrawWithShaderReplacement(Shader.Find("Voxel/VoxelUV"), "CustomType");
         Color col = UVTex.GetPixel((int)mousePos.x, (int)mousePos.y);
         mousePosUV_x = (int)(UVTex.GetPixel((int)mousePos.x, (int)mousePos.y).r * 255);
 
@@ -188,6 +206,34 @@ public class VoxelMaterialEditorWindow : EditorWindow
         specularColor = EditorGUILayout.ColorField("Specular Color", specularColor);
         gloss = EditorGUILayout.Slider("Gloss", gloss, 8, 256);
         GUILayout.Space(5);
+
+        SetDataToTextures();
+    }
+
+    void SetDataToTextures()
+    {
+        if (mainTex == null || propTex == null) 
+            return;
+
+        mainTex.SetPixel(mousePosUV_x, 0, mainColor);
+
+        propTex.SetPixel(mousePosUV_x, 0, specularColor);
+
+        Color prop_1 = new Color(colorScaler, gloss, 0, 1);
+        propTex.SetPixel(mousePosUV_x, 1, prop_1);
+
+        mainTex.Apply();
+        propTex.Apply();
+
+        SaveTextures();
+    }
+
+    static void SaveTextures()
+    {
+        var main_png = mainTex.EncodeToPNG();
+        System.IO.File.WriteAllBytes("./Assets/Models/MagicaVoxel/" + modelName + ".png", main_png);
+        var prop_png = propTex.EncodeToPNG();
+        System.IO.File.WriteAllBytes("./Assets/Models/MagicaVoxel/" + modelName + "_prop.png", prop_png);
     }
 
     private void Update()

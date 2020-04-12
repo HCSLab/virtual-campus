@@ -1,8 +1,8 @@
-﻿Shader "Others/RenderUV"
+﻿Shader "Voxel/VoxelUV"
 {
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque" "CustomType"="Voxel" }
 
         Pass
         {
