@@ -184,8 +184,8 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         for (int i = 0; i < 256; i++)
         {
-            tex.SetPixel(i, 0, Color.white);
-            tex.SetPixel(i, 1, Color.white);
+            tex.SetPixel(i, 0, Color.white / 4);
+            tex.SetPixel(i, 1, new Color(1, 16, 0, 1));
         }
 
         return tex;
