@@ -31,6 +31,8 @@ public class VoxelMaterialEditorWindow : EditorWindow
     {
         SceneView.duringSceneGui += DetectMouseClick;
         mouseNeighbourhoodTex = new Texture2D(mouseNeighbourhoodSize, mouseNeighbourhoodSize);
+
+        targetActive = false;
     }
 
     // Add menu item named "My Window" to the Window menu
@@ -60,35 +62,34 @@ public class VoxelMaterialEditorWindow : EditorWindow
             mousePos *= sceneView.camera.pixelHeight / sv_correctSize.y;
             // Debug.Log(mousePos);
 
-            if (targetActive)
-                DrawMouseNighbourhood();
-            else if (mainTex != null && propTex != null)
+            bool active = OnClick();
+
+            if (targetActive == true && active == false)
             {
                 SaveTextures();
             }
 
-            OnClick();
+            targetActive = active;
+
+            if (targetActive)
+                DrawMouseNighbourhood();
         }
     }
 
-    static void OnClick()
+    static bool OnClick()
     {
-        targetActive = false;
-
         // get selected voxel object and its material and textures
         targetObj = Selection.activeGameObject;
         if (targetObj == null || targetObj.name != "default") 
-            return;
+            return false;
 
         MeshRenderer render = targetObj.GetComponent<MeshRenderer>();
         if (render == null) 
-            return;
+            return false;
 
         material = render.sharedMaterial;
         if (!material.HasProperty("_MainTex") || !material.HasProperty("_PropTex"))
-            return;
-
-        targetActive = true;
+            return false;
 
         mainTex = (Texture2D)material.GetTexture("_MainTex");
         propTex = (Texture2D)material.GetTexture("_PropTex");
@@ -114,6 +115,8 @@ public class VoxelMaterialEditorWindow : EditorWindow
         emission = propTex.GetPixel(mousePosUV_x, 1).r * 10;
         specularColor = propTex.GetPixel(mousePosUV_x, 0);
         gloss = propTex.GetPixel(mousePosUV_x, 1).g * 256;
+
+        return true;
     }
 
     static void DrawMouseNighbourhood()
