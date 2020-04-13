@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro.EditorUtilities;
 using UnityEditor;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class VoxelMaterialEditorWindow : EditorWindow
     static Color mainColor;
     static Color specularColor;
     static float gloss;
-    static float colorScaler;
+    static float emission;
 
     static bool targetActive;
     static GameObject targetObj;
@@ -97,15 +98,17 @@ public class VoxelMaterialEditorWindow : EditorWindow
             SaveTextures();
             material.SetTexture("_PropTex", propTex);
         }
+        mainTex.filterMode = FilterMode.Point;
+        propTex.filterMode = FilterMode.Point;
 
         // get the UV at mouse position
         Texture2D UVTex = DrawWithShaderReplacement(Shader.Find("Voxel/VoxelUV"), "CustomType");
         Color col = UVTex.GetPixel((int)mousePos.x, (int)mousePos.y);
-        mousePosUV_x = (int)(UVTex.GetPixel((int)mousePos.x, (int)mousePos.y).r * 255);
+        mousePosUV_x = (int)( UVTex.GetPixel((int)mousePos.x, (int)mousePos.y).r * 256 );
 
         // set variables to data from material
         mainColor = mainTex.GetPixel(mousePosUV_x, 0);
-        colorScaler = propTex.GetPixel(mousePosUV_x, 1).r * 10;
+        emission = propTex.GetPixel(mousePosUV_x, 1).r * 10;
         specularColor = propTex.GetPixel(mousePosUV_x, 0);
         gloss = propTex.GetPixel(mousePosUV_x, 1).g * 256;
     }
@@ -182,13 +185,13 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
     static Texture2D CreatePropTex()
     {
-        Texture2D tex = new Texture2D(255, 4, TextureFormat.RGBA32, false);
+        Texture2D tex = new Texture2D(256, 4, mainTex.format, false);
         tex.filterMode = FilterMode.Point;
 
         for (int i = 0; i < 256; i++)
         {
             tex.SetPixel(i, 0, new Color(0.3f, 0.3f, 0.3f, 1));
-            tex.SetPixel(i, 1, new Color(1f / 10f, 128f / 256f, 0, 1));
+            tex.SetPixel(i, 1, new Color(0, 128f / 256f, 0, 1));
         }
 
         return tex;
@@ -202,7 +205,7 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         GUILayout.Label("Color", EditorStyles.boldLabel);
         mainColor = EditorGUILayout.ColorField("Main Color", mainColor);
-        colorScaler = EditorGUILayout.Slider("Color Scaler", colorScaler, 0, 10);
+        emission = EditorGUILayout.Slider("Emission", emission, 0, 10);
         GUILayout.Space(5);
 
         GUILayout.Label("Specular", EditorStyles.boldLabel);
@@ -222,7 +225,7 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         propTex.SetPixel(mousePosUV_x, 0, specularColor);
 
-        Color prop_1 = new Color(colorScaler / 10, gloss / 256, 0, 1);
+        Color prop_1 = new Color(emission / 10, gloss / 256, 0, 1);
         propTex.SetPixel(mousePosUV_x, 1, prop_1);
 
         mainTex.Apply();
@@ -233,10 +236,17 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
     static void SaveTextures()
     {
-        var main_png = mainTex.EncodeToPNG();
-        System.IO.File.WriteAllBytes("./Assets/Models/MagicaVoxel/" + modelName + ".png", main_png);
-        var prop_png = propTex.EncodeToPNG();
-        System.IO.File.WriteAllBytes("./Assets/Models/MagicaVoxel/" + modelName + "_prop.png", prop_png);
+        SaveTexture(mainTex, modelName);
+        SaveTexture(propTex, modelName + "_prop");
+    }
+
+    static void SaveTexture(Texture2D tex, string filename)
+    {
+        var pngdata = tex.EncodeToPNG();
+        var file = File.Open("./Assets/Models/MagicaVoxel/" + filename + ".png", FileMode.Create);
+        var writer = new BinaryWriter(file);
+        writer.Write(pngdata);
+        file.Close();
     }
 
     private void Update()
@@ -246,6 +256,8 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
     private void OnDestroy()
     {
+        SaveTextures();
+
         SceneView.duringSceneGui -= DetectMouseClick;
         DestroyImmediate(mouseNeighbourhoodTex);
     }

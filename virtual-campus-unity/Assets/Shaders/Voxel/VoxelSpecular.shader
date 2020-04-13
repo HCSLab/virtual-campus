@@ -77,11 +77,8 @@
 
 			fixed4 frag(v2f i) : SV_Target {
                 fixed3 specularCol = tex2D(_PropTex, fixed2(i.uv.x, propUV_y0)).rgb;
-                fixed3 tmp = tex2D(_PropTex, fixed2(i.uv.x, propUV_y1)).g;
+                fixed3 tmp = tex2D(_PropTex, fixed2(i.uv.x, propUV_y1));
                 fixed gloss = tmp.g * 256;
-                // gloss = 128;
-                // fixed colorScaler = tmp.r * 10;
-                // colorScaler = 1;
 
 				fixed3 lightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 				fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
@@ -89,6 +86,8 @@
 				fixed3 albedo = tex2D(_MainTex, i.uv).rgb * _Color.rgb;
 				
 				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+
+                fixed3 emission = albedo * tmp.r * 10;
 				
 			 	fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(i.worldNormal, lightDir));
 			 	
@@ -103,9 +102,9 @@
 
 				#ifndef LIGHTMAP_OFF
 					// return fixed4(col_lm / 4, 1);
-					return fixed4(ambient + backed + (diffuse + specular) * atten, 1.0);
+					return fixed4(ambient + backed + emission + (diffuse + specular) * atten, 1.0);
 				#else
-					return fixed4(ambient + (diffuse + specular) * atten, 1.0);
+					return fixed4(ambient + emission + (diffuse + specular) * atten, 1.0);
 				#endif
 			}
 			
@@ -171,9 +170,8 @@
 			
 	// 		fixed4 frag(v2f i) : SV_Target {
     //             fixed3 specularCol = tex2D(_PropTex, fixed2(i.uv.x, propUV_y0)).rgb;
-    //             fixed3 tmp = tex2D(_PropTex, fixed2(i.uv.x, propUV_y1)).g;
+    //             fixed3 tmp = tex2D(_PropTex, fixed2(i.uv.x, propUV_y1));
     //             fixed gloss = tmp.g * 256;
-    //             fixed colorScaler = tmp.r * 10;
 
 	// 			fixed3 lightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 	// 			fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
