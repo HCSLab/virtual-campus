@@ -60,9 +60,12 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
             if (targetActive)
                 DrawMouseNighbourhood();
+            else if (mainTex != null && propTex != null)
+            {
+                SaveTextures();
+            }
 
-            //if (Event.current.type == EventType.MouseDown)
-                OnClick();
+            OnClick();
         }
     }
 
@@ -102,9 +105,9 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         // set variables to data from material
         mainColor = mainTex.GetPixel(mousePosUV_x, 0);
-        colorScaler = propTex.GetPixel(mousePosUV_x, 1).r;
+        colorScaler = propTex.GetPixel(mousePosUV_x, 1).r * 10;
         specularColor = propTex.GetPixel(mousePosUV_x, 0);
-        gloss = propTex.GetPixel(mousePosUV_x, 1).g;
+        gloss = propTex.GetPixel(mousePosUV_x, 1).g * 256;
     }
 
     static void DrawMouseNighbourhood()
@@ -184,8 +187,8 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         for (int i = 0; i < 256; i++)
         {
-            tex.SetPixel(i, 0, Color.white / 4);
-            tex.SetPixel(i, 1, new Color(1, 16, 0, 1));
+            tex.SetPixel(i, 0, new Color(0.3f, 0.3f, 0.3f, 1));
+            tex.SetPixel(i, 1, new Color(1f / 10f, 128f / 256f, 0, 1));
         }
 
         return tex;
@@ -219,13 +222,13 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         propTex.SetPixel(mousePosUV_x, 0, specularColor);
 
-        Color prop_1 = new Color(colorScaler, gloss, 0, 1);
+        Color prop_1 = new Color(colorScaler / 10, gloss / 256, 0, 1);
         propTex.SetPixel(mousePosUV_x, 1, prop_1);
 
         mainTex.Apply();
         propTex.Apply();
 
-        SaveTextures();
+        // SaveTextures();
     }
 
     static void SaveTextures()
