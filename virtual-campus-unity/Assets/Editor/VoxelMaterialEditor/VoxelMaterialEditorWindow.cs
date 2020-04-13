@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro.EditorUtilities;
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class VoxelMaterialEditorWindow : EditorWindow
@@ -14,7 +15,7 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
     static bool targetActive;
     static GameObject targetObj;
-    static string modelName;
+    static string assetPathName;
     static Material material;
     static int mousePosUV_x;
     static Texture2D mainTex;
@@ -78,7 +79,6 @@ public class VoxelMaterialEditorWindow : EditorWindow
         targetObj = Selection.activeGameObject;
         if (targetObj == null || targetObj.name != "default") 
             return;
-        modelName = targetObj.transform.parent.name;
 
         MeshRenderer render = targetObj.GetComponent<MeshRenderer>();
         if (render == null) 
@@ -100,6 +100,9 @@ public class VoxelMaterialEditorWindow : EditorWindow
         }
         mainTex.filterMode = FilterMode.Point;
         propTex.filterMode = FilterMode.Point;
+
+        var path = AssetDatabase.GetAssetPath(mainTex);
+        assetPathName = path.Split('.')[0];
 
         // get the UV at mouse position
         Texture2D UVTex = DrawWithShaderReplacement(Shader.Find("Voxel/VoxelUV"), "CustomType");
@@ -236,14 +239,14 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
     static void SaveTextures()
     {
-        SaveTexture(mainTex, modelName);
-        SaveTexture(propTex, modelName + "_prop");
+        SaveTexture(mainTex, assetPathName + ".png");
+        SaveTexture(propTex, assetPathName + "_prop.png");
     }
 
     static void SaveTexture(Texture2D tex, string filename)
     {
         var pngdata = tex.EncodeToPNG();
-        var file = File.Open("./Assets/Models/MagicaVoxel/" + filename + ".png", FileMode.Create);
+        var file = File.Open(filename, System.IO.FileMode.Create);
         var writer = new BinaryWriter(file);
         writer.Write(pngdata);
         file.Close();
