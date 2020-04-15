@@ -78,7 +78,8 @@
 			fixed4 frag(v2f i) : SV_Target {
                 fixed3 specularCol = tex2D(_PropTex, fixed2(i.uv.x, propUV_y0)).rgb;
                 fixed3 tmp = tex2D(_PropTex, fixed2(i.uv.x, propUV_y1));
-                fixed gloss = tmp.g * 256;
+                fixed gloss = tmp.g * 1024;
+                gloss = max(gloss, 8);
 
 				fixed3 lightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 				fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
@@ -171,7 +172,8 @@
 			fixed4 frag(v2f i) : SV_Target {
                 fixed3 specularCol = tex2D(_PropTex, fixed2(i.uv.x, propUV_y0)).rgb;
                 fixed3 tmp = tex2D(_PropTex, fixed2(i.uv.x, propUV_y1));
-                fixed gloss = tmp.g * 256;
+                fixed gloss = tmp.g * 1024;
+                gloss = max(gloss, 8);
 
 				fixed3 lightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 				fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));

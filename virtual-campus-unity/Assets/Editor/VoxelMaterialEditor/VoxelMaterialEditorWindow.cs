@@ -114,7 +114,7 @@ public class VoxelMaterialEditorWindow : EditorWindow
         mainColor = mainTex.GetPixel(mousePosUV_x, 0);
         emission = propTex.GetPixel(mousePosUV_x, 1).r * 10;
         specularColor = propTex.GetPixel(mousePosUV_x, 0);
-        gloss = propTex.GetPixel(mousePosUV_x, 1).g * 256;
+        gloss = propTex.GetPixel(mousePosUV_x, 1).g;
 
         return true;
     }
@@ -216,7 +216,7 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         GUILayout.Label("Specular", EditorStyles.boldLabel);
         specularColor = EditorGUILayout.ColorField("Specular Color", specularColor);
-        gloss = EditorGUILayout.Slider("Gloss", gloss, 8, 256);
+        gloss = EditorGUILayout.Slider("Gloss", gloss, 0, 1);
         GUILayout.Space(5);
 
         SetDataToTextures();
@@ -231,7 +231,7 @@ public class VoxelMaterialEditorWindow : EditorWindow
 
         propTex.SetPixel(mousePosUV_x, 0, specularColor);
 
-        Color prop_1 = new Color(emission / 10, gloss / 256, 0, 1);
+        Color prop_1 = new Color(emission / 10, gloss, 0, 1);
         propTex.SetPixel(mousePosUV_x, 1, prop_1);
 
         mainTex.Apply();
