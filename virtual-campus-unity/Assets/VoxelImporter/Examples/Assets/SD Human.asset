@@ -1,0 +1,1892 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18d146efedd795469a5b245b80f35cf, type: 3}
+  m_Name: SD Human
+  m_EditorClassIdentifier: 
+  voxels:
+  - x: 15
+    y: 8
+    z: 6
+    palette: 7
+    visible: 61
+  - x: 15
+    y: 9
+    z: 6
+    palette: 6
+    visible: 45
+  - x: 15
+    y: 10
+    z: 6
+    palette: 6
+    visible: 45
+  - x: 15
+    y: 11
+    z: 6
+    palette: 6
+    visible: 45
+  - x: 15
+    y: 12
+    z: 6
+    palette: 7
+    visible: 47
+  - x: 15
+    y: 13
+    z: 7
+    palette: 6
+    visible: 63
+  - x: 14
+    y: 9
+    z: 8
+    palette: 0
+    visible: 53
+  - x: 14
+    y: 10
+    z: 8
+    palette: 0
+    visible: 37
+  - x: 14
+    y: 11
+    z: 8
+    palette: 0
+    visible: 45
+  - x: 14
+    y: 12
+    z: 8
+    palette: 0
+    visible: 47
+  - x: 14
+    y: 14
+    z: 8
+    palette: 6
+    visible: 63
+  - x: 13
+    y: 2
+    z: 9
+    palette: 8
+    visible: 62
+  - x: 13
+    y: 2
+    z: 10
+    palette: 8
+    visible: 30
+  - x: 13
+    y: 2
+    z: 11
+    palette: 8
+    visible: 31
+  - x: 13
+    y: 5
+    z: 10
+    palette: 3
+    visible: 53
+  - x: 13
+    y: 6
+    z: 10
+    palette: 6
+    visible: 45
+  - x: 13
+    y: 7
+    z: 10
+    palette: 5
+    visible: 37
+  - x: 13
+    y: 8
+    z: 9
+    palette: 0
+    visible: 52
+  - x: 13
+    y: 8
+    z: 10
+    palette: 0
+    visible: 4
+  - x: 7
+    y: 8
+    z: 12
+    palette: 0
+    visible: 13
+  - x: 13
+    y: 9
+    z: 8
+    palette: 0
+    visible: 48
+  - x: 13
+    y: 9
+    z: 9
+    palette: 7
+    visible: 4
+  - x: 13
+    y: 9
+    z: 10
+    palette: 0
+    visible: 4
+  - x: 13
+    y: 9
+    z: 11
+    palette: 0
+    visible: 4
+  - x: 13
+    y: 9
+    z: 12
+    palette: 0
+    visible: 21
+  - x: 13
+    y: 10
+    z: 8
+    palette: 0
+    visible: 34
+  - x: 13
+    y: 10
+    z: 9
+    palette: 0
+    visible: 4
+  - x: 13
+    y: 10
+    z: 10
+    palette: 7
+    visible: 4
+  - x: 13
+    y: 10
+    z: 11
+    palette: 0
+    visible: 4
+  - x: 13
+    y: 10
+    z: 12
+    palette: 0
+    visible: 7
+  - x: 13
+    y: 11
+    z: 9
+    palette: 4
+    visible: 36
+  - x: 13
+    y: 11
+    z: 10
+    palette: 2
+    visible: 4
+  - x: 13
+    y: 11
+    z: 11
+    palette: 4
+    visible: 5
+  - x: 13
+    y: 12
+    z: 9
+    palette: 2
+    visible: 38
+  - x: 13
+    y: 12
+    z: 10
+    palette: 4
+    visible: 6
+  - x: 13
+    y: 12
+    z: 11
+    palette: 2
+    visible: 7
+  - x: 13
+    y: 13
+    z: 8
+    palette: 4
+    visible: 63
+  - x: 13
+    y: 14
+    z: 9
+    palette: 0
+    visible: 63
+  - x: 12
+    y: 2
+    z: 8
+    palette: 8
+    visible: 63
+  - x: 12
+    y: 2
+    z: 12
+    palette: 8
+    visible: 63
+  - x: 12
+    y: 3
+    z: 9
+    palette: 9
+    visible: 54
+  - x: 12
+    y: 3
+    z: 10
+    palette: 9
+    visible: 22
+  - x: 12
+    y: 3
+    z: 11
+    palette: 9
+    visible: 23
+  - x: 12
+    y: 5
+    z: 10
+    palette: 3
+    visible: 51
+  - x: 12
+    y: 7
+    z: 9
+    palette: 0
+    visible: 52
+  - x: 12
+    y: 7
+    z: 10
+    palette: 0
+    visible: 17
+  - x: 5
+    y: 11
+    z: 8
+    palette: 0
+    visible: 45
+  - x: 12
+    y: 8
+    z: 8
+    palette: 0
+    visible: 52
+  - x: 12
+    y: 8
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 8
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 8
+    z: 11
+    palette: 0
+    visible: 16
+  - x: 11
+    y: 5
+    z: 11
+    palette: 10
+    visible: 5
+  - x: 12
+    y: 9
+    z: 7
+    palette: 0
+    visible: 52
+  - x: 12
+    y: 9
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 9
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 9
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 9
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 9
+    z: 12
+    palette: 0
+    visible: 8
+  - x: 12
+    y: 9
+    z: 13
+    palette: 0
+    visible: 29
+  - x: 12
+    y: 10
+    z: 7
+    palette: 0
+    visible: 38
+  - x: 12
+    y: 10
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 10
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 10
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 10
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 10
+    z: 12
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 10
+    z: 13
+    palette: 0
+    visible: 15
+  - x: 12
+    y: 11
+    z: 8
+    palette: 0
+    visible: 38
+  - x: 12
+    y: 11
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 11
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 11
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 11
+    z: 12
+    palette: 0
+    visible: 7
+  - x: 12
+    y: 12
+    z: 9
+    palette: 4
+    visible: 32
+  - x: 12
+    y: 12
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 12
+    y: 12
+    z: 11
+    palette: 4
+    visible: 1
+  - x: 12
+    y: 13
+    z: 9
+    palette: 2
+    visible: 38
+  - x: 12
+    y: 13
+    z: 10
+    palette: 4
+    visible: 6
+  - x: 12
+    y: 13
+    z: 11
+    palette: 2
+    visible: 7
+  - x: 11
+    y: 0
+    z: 10
+    palette: 10
+    visible: 61
+  - x: 11
+    y: 1
+    z: 10
+    palette: 3
+    visible: 45
+  - x: 11
+    y: 2
+    z: 7
+    palette: 8
+    visible: 55
+  - x: 11
+    y: 2
+    z: 10
+    palette: 10
+    visible: 45
+  - x: 11
+    y: 2
+    z: 13
+    palette: 8
+    visible: 55
+  - x: 11
+    y: 3
+    z: 8
+    palette: 9
+    visible: 54
+  - x: 11
+    y: 3
+    z: 9
+    palette: 9
+    visible: 16
+  - x: 11
+    y: 3
+    z: 10
+    palette: 9
+    visible: 0
+  - x: 10
+    y: 4
+    z: 11
+    palette: 9
+    visible: 1
+  - x: 10
+    y: 5
+    z: 11
+    palette: 10
+    visible: 1
+  - x: 11
+    y: 4
+    z: 9
+    palette: 9
+    visible: 36
+  - x: 11
+    y: 4
+    z: 10
+    palette: 9
+    visible: 4
+  - x: 11
+    y: 4
+    z: 11
+    palette: 9
+    visible: 5
+  - x: 11
+    y: 5
+    z: 9
+    palette: 10
+    visible: 36
+  - x: 11
+    y: 5
+    z: 10
+    palette: 10
+    visible: 0
+  - x: 13
+    y: 8
+    z: 11
+    palette: 0
+    visible: 21
+  - x: 11
+    y: 6
+    z: 9
+    palette: 10
+    visible: 36
+  - x: 11
+    y: 6
+    z: 10
+    palette: 10
+    visible: 4
+  - x: 11
+    y: 6
+    z: 11
+    palette: 10
+    visible: 4
+  - x: 11
+    y: 6
+    z: 12
+    palette: 0
+    visible: 31
+  - x: 11
+    y: 7
+    z: 8
+    palette: 0
+    visible: 52
+  - x: 11
+    y: 7
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 7
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 7
+    z: 11
+    palette: 1
+    visible: 5
+  - x: 11
+    y: 8
+    z: 7
+    palette: 0
+    visible: 52
+  - x: 11
+    y: 8
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 8
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 8
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 8
+    z: 11
+    palette: 11
+    visible: 1
+  - x: 11
+    y: 9
+    z: 6
+    palette: 0
+    visible: 52
+  - x: 11
+    y: 9
+    z: 7
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 9
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 9
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 9
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 9
+    z: 11
+    palette: 0
+    visible: 1
+  - x: 11
+    y: 10
+    z: 6
+    palette: 0
+    visible: 38
+  - x: 11
+    y: 10
+    z: 7
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 10
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 10
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 10
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 10
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 10
+    z: 12
+    palette: 6
+    visible: 17
+  - x: 11
+    y: 11
+    z: 7
+    palette: 0
+    visible: 38
+  - x: 11
+    y: 11
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 11
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 11
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 11
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 11
+    z: 12
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 11
+    z: 13
+    palette: 0
+    visible: 23
+  - x: 11
+    y: 12
+    z: 8
+    palette: 0
+    visible: 38
+  - x: 11
+    y: 12
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 12
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 12
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 11
+    y: 12
+    z: 12
+    palette: 0
+    visible: 7
+  - x: 11
+    y: 13
+    z: 9
+    palette: 4
+    visible: 42
+  - x: 11
+    y: 13
+    z: 10
+    palette: 2
+    visible: 10
+  - x: 11
+    y: 13
+    z: 11
+    palette: 4
+    visible: 11
+  - x: 10
+    y: 2
+    z: 7
+    palette: 8
+    visible: 51
+  - x: 10
+    y: 2
+    z: 13
+    palette: 8
+    visible: 51
+  - x: 10
+    y: 3
+    z: 8
+    palette: 9
+    visible: 50
+  - x: 10
+    y: 3
+    z: 9
+    palette: 9
+    visible: 16
+  - x: 10
+    y: 3
+    z: 10
+    palette: 9
+    visible: 16
+  - x: 9
+    y: 5
+    z: 11
+    palette: 10
+    visible: 1
+  - x: 9
+    y: 6
+    z: 11
+    palette: 10
+    visible: 1
+  - x: 10
+    y: 4
+    z: 9
+    palette: 9
+    visible: 32
+  - x: 10
+    y: 4
+    z: 10
+    palette: 9
+    visible: 0
+  - x: 4
+    y: 9
+    z: 6
+    palette: 6
+    visible: 45
+  - x: 10
+    y: 5
+    z: 9
+    palette: 10
+    visible: 32
+  - x: 10
+    y: 5
+    z: 10
+    palette: 10
+    visible: 0
+  - x: 4
+    y: 10
+    z: 6
+    palette: 6
+    visible: 45
+  - x: 10
+    y: 6
+    z: 9
+    palette: 10
+    visible: 32
+  - x: 10
+    y: 6
+    z: 10
+    palette: 10
+    visible: 0
+  - x: 4
+    y: 13
+    z: 7
+    palette: 6
+    visible: 63
+  - x: 10
+    y: 7
+    z: 8
+    palette: 0
+    visible: 48
+  - x: 10
+    y: 7
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 7
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 7
+    z: 11
+    palette: 1
+    visible: 1
+  - x: 10
+    y: 8
+    z: 7
+    palette: 0
+    visible: 48
+  - x: 10
+    y: 8
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 8
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 8
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 8
+    z: 11
+    palette: 1
+    visible: 1
+  - x: 10
+    y: 9
+    z: 6
+    palette: 0
+    visible: 48
+  - x: 10
+    y: 9
+    z: 7
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 9
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 9
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 9
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 9
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 9
+    z: 12
+    palette: 0
+    visible: 21
+  - x: 10
+    y: 10
+    z: 6
+    palette: 0
+    visible: 34
+  - x: 10
+    y: 10
+    z: 7
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 10
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 10
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 10
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 10
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 10
+    z: 12
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 10
+    z: 13
+    palette: 0
+    visible: 21
+  - x: 10
+    y: 11
+    z: 7
+    palette: 0
+    visible: 34
+  - x: 10
+    y: 11
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 11
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 11
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 11
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 11
+    z: 12
+    palette: 0
+    visible: 0
+  - x: 10
+    y: 11
+    z: 13
+    palette: 0
+    visible: 3
+  - x: 10
+    y: 12
+    z: 8
+    palette: 0
+    visible: 34
+  - x: 10
+    y: 12
+    z: 9
+    palette: 0
+    visible: 2
+  - x: 10
+    y: 12
+    z: 10
+    palette: 0
+    visible: 2
+  - x: 10
+    y: 12
+    z: 11
+    palette: 0
+    visible: 2
+  - x: 10
+    y: 12
+    z: 12
+    palette: 0
+    visible: 3
+  - x: 9
+    y: 2
+    z: 7
+    palette: 8
+    visible: 51
+  - x: 9
+    y: 2
+    z: 13
+    palette: 8
+    visible: 51
+  - x: 9
+    y: 3
+    z: 8
+    palette: 9
+    visible: 50
+  - x: 9
+    y: 3
+    z: 9
+    palette: 9
+    visible: 16
+  - x: 9
+    y: 3
+    z: 10
+    palette: 9
+    visible: 16
+  - x: 8
+    y: 5
+    z: 11
+    palette: 10
+    visible: 9
+  - x: 9
+    y: 6
+    z: 10
+    palette: 10
+    visible: 0
+  - x: 9
+    y: 4
+    z: 9
+    palette: 9
+    visible: 32
+  - x: 9
+    y: 4
+    z: 10
+    palette: 9
+    visible: 0
+  - x: 4
+    y: 8
+    z: 6
+    palette: 7
+    visible: 61
+  - x: 9
+    y: 5
+    z: 9
+    palette: 10
+    visible: 32
+  - x: 9
+    y: 5
+    z: 10
+    palette: 10
+    visible: 0
+  - x: 4
+    y: 11
+    z: 6
+    palette: 6
+    visible: 45
+  - x: 9
+    y: 6
+    z: 9
+    palette: 10
+    visible: 32
+  - x: 5
+    y: 14
+    z: 8
+    palette: 6
+    visible: 63
+  - x: 4
+    y: 12
+    z: 6
+    palette: 7
+    visible: 47
+  - x: 9
+    y: 7
+    z: 8
+    palette: 0
+    visible: 48
+  - x: 9
+    y: 7
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 7
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 7
+    z: 11
+    palette: 1
+    visible: 1
+  - x: 9
+    y: 8
+    z: 7
+    palette: 0
+    visible: 48
+  - x: 9
+    y: 8
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 8
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 8
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 8
+    z: 11
+    palette: 1
+    visible: 1
+  - x: 9
+    y: 9
+    z: 6
+    palette: 0
+    visible: 48
+  - x: 9
+    y: 9
+    z: 7
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 9
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 9
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 9
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 9
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 9
+    z: 12
+    palette: 0
+    visible: 25
+  - x: 9
+    y: 10
+    z: 6
+    palette: 0
+    visible: 34
+  - x: 9
+    y: 10
+    z: 7
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 10
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 10
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 10
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 10
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 10
+    z: 12
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 10
+    z: 13
+    palette: 0
+    visible: 25
+  - x: 9
+    y: 11
+    z: 7
+    palette: 0
+    visible: 34
+  - x: 9
+    y: 11
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 11
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 11
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 11
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 11
+    z: 12
+    palette: 0
+    visible: 0
+  - x: 9
+    y: 11
+    z: 13
+    palette: 0
+    visible: 3
+  - x: 9
+    y: 12
+    z: 8
+    palette: 0
+    visible: 34
+  - x: 9
+    y: 12
+    z: 9
+    palette: 0
+    visible: 2
+  - x: 9
+    y: 12
+    z: 10
+    palette: 0
+    visible: 2
+  - x: 9
+    y: 12
+    z: 11
+    palette: 0
+    visible: 2
+  - x: 9
+    y: 12
+    z: 12
+    palette: 0
+    visible: 3
+  - x: 8
+    y: 0
+    z: 10
+    palette: 10
+    visible: 61
+  - x: 8
+    y: 1
+    z: 10
+    palette: 3
+    visible: 45
+  - x: 8
+    y: 2
+    z: 7
+    palette: 8
+    visible: 59
+  - x: 8
+    y: 2
+    z: 10
+    palette: 10
+    visible: 45
+  - x: 8
+    y: 2
+    z: 13
+    palette: 8
+    visible: 59
+  - x: 8
+    y: 3
+    z: 8
+    palette: 9
+    visible: 58
+  - x: 8
+    y: 3
+    z: 9
+    palette: 9
+    visible: 16
+  - x: 8
+    y: 3
+    z: 10
+    palette: 9
+    visible: 0
+  - x: 10
+    y: 6
+    z: 11
+    palette: 10
+    visible: 1
+  - x: 5
+    y: 12
+    z: 8
+    palette: 0
+    visible: 47
+  - x: 8
+    y: 4
+    z: 9
+    palette: 9
+    visible: 40
+  - x: 8
+    y: 4
+    z: 10
+    palette: 9
+    visible: 8
+  - x: 5
+    y: 10
+    z: 8
+    palette: 0
+    visible: 41
+  - x: 8
+    y: 5
+    z: 9
+    palette: 10
+    visible: 40
+  - x: 8
+    y: 5
+    z: 10
+    palette: 10
+    visible: 0
+  - x: 7
+    y: 7
+    z: 12
+    palette: 0
+    visible: 61
+  - x: 8
+    y: 6
+    z: 9
+    palette: 10
+    visible: 40
+  - x: 8
+    y: 6
+    z: 10
+    palette: 10
+    visible: 8
+  - x: 8
+    y: 6
+    z: 11
+    palette: 10
+    visible: 8
+  - x: 8
+    y: 6
+    z: 12
+    palette: 0
+    visible: 31
+  - x: 8
+    y: 7
+    z: 8
+    palette: 0
+    visible: 56
+  - x: 8
+    y: 7
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 7
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 7
+    z: 11
+    palette: 1
+    visible: 9
+  - x: 8
+    y: 8
+    z: 7
+    palette: 0
+    visible: 56
+  - x: 8
+    y: 8
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 8
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 8
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 8
+    z: 11
+    palette: 11
+    visible: 1
+  - x: 8
+    y: 9
+    z: 6
+    palette: 0
+    visible: 56
+  - x: 8
+    y: 9
+    z: 7
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 9
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 9
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 9
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 9
+    z: 11
+    palette: 0
+    visible: 1
+  - x: 8
+    y: 10
+    z: 6
+    palette: 0
+    visible: 42
+  - x: 8
+    y: 10
+    z: 7
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 10
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 10
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 10
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 10
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 10
+    z: 12
+    palette: 6
+    visible: 17
+  - x: 8
+    y: 11
+    z: 7
+    palette: 0
+    visible: 42
+  - x: 8
+    y: 11
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 11
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 11
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 11
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 11
+    z: 12
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 11
+    z: 13
+    palette: 0
+    visible: 27
+  - x: 8
+    y: 12
+    z: 8
+    palette: 0
+    visible: 42
+  - x: 8
+    y: 12
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 12
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 12
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 8
+    y: 12
+    z: 12
+    palette: 0
+    visible: 11
+  - x: 8
+    y: 13
+    z: 9
+    palette: 4
+    visible: 38
+  - x: 8
+    y: 13
+    z: 10
+    palette: 2
+    visible: 6
+  - x: 8
+    y: 13
+    z: 11
+    palette: 4
+    visible: 7
+  - x: 7
+    y: 2
+    z: 8
+    palette: 8
+    visible: 63
+  - x: 7
+    y: 2
+    z: 12
+    palette: 8
+    visible: 63
+  - x: 7
+    y: 3
+    z: 9
+    palette: 9
+    visible: 58
+  - x: 7
+    y: 3
+    z: 10
+    palette: 9
+    visible: 26
+  - x: 7
+    y: 3
+    z: 11
+    palette: 9
+    visible: 27
+  - x: 7
+    y: 5
+    z: 10
+    palette: 3
+    visible: 51
+  - x: 7
+    y: 7
+    z: 9
+    palette: 0
+    visible: 56
+  - x: 7
+    y: 7
+    z: 10
+    palette: 0
+    visible: 17
+  - x: 12
+    y: 7
+    z: 12
+    palette: 0
+    visible: 61
+  - x: 7
+    y: 8
+    z: 8
+    palette: 0
+    visible: 56
+  - x: 7
+    y: 8
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 8
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 8
+    z: 11
+    palette: 0
+    visible: 16
+  - x: 12
+    y: 8
+    z: 12
+    palette: 0
+    visible: 13
+  - x: 7
+    y: 9
+    z: 7
+    palette: 0
+    visible: 56
+  - x: 7
+    y: 9
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 9
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 9
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 9
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 9
+    z: 12
+    palette: 0
+    visible: 4
+  - x: 7
+    y: 9
+    z: 13
+    palette: 0
+    visible: 29
+  - x: 7
+    y: 10
+    z: 7
+    palette: 0
+    visible: 42
+  - x: 7
+    y: 10
+    z: 8
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 10
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 10
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 10
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 10
+    z: 12
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 10
+    z: 13
+    palette: 0
+    visible: 15
+  - x: 7
+    y: 11
+    z: 8
+    palette: 0
+    visible: 42
+  - x: 7
+    y: 11
+    z: 9
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 11
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 11
+    z: 11
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 11
+    z: 12
+    palette: 0
+    visible: 11
+  - x: 7
+    y: 12
+    z: 9
+    palette: 4
+    visible: 32
+  - x: 7
+    y: 12
+    z: 10
+    palette: 0
+    visible: 0
+  - x: 7
+    y: 12
+    z: 11
+    palette: 4
+    visible: 1
+  - x: 7
+    y: 13
+    z: 9
+    palette: 2
+    visible: 42
+  - x: 7
+    y: 13
+    z: 10
+    palette: 4
+    visible: 10
+  - x: 7
+    y: 13
+    z: 11
+    palette: 2
+    visible: 11
+  - x: 6
+    y: 2
+    z: 9
+    palette: 8
+    visible: 62
+  - x: 6
+    y: 2
+    z: 10
+    palette: 8
+    visible: 30
+  - x: 6
+    y: 2
+    z: 11
+    palette: 8
+    visible: 31
+  - x: 6
+    y: 5
+    z: 10
+    palette: 3
+    visible: 57
+  - x: 6
+    y: 6
+    z: 10
+    palette: 6
+    visible: 45
+  - x: 6
+    y: 7
+    z: 10
+    palette: 5
+    visible: 41
+  - x: 6
+    y: 8
+    z: 9
+    palette: 0
+    visible: 56
+  - x: 6
+    y: 8
+    z: 10
+    palette: 0
+    visible: 8
+  - x: 6
+    y: 8
+    z: 11
+    palette: 0
+    visible: 25
+  - x: 6
+    y: 9
+    z: 8
+    palette: 0
+    visible: 48
+  - x: 6
+    y: 9
+    z: 9
+    palette: 7
+    visible: 8
+  - x: 6
+    y: 9
+    z: 10
+    palette: 0
+    visible: 8
+  - x: 6
+    y: 9
+    z: 11
+    palette: 0
+    visible: 8
+  - x: 6
+    y: 9
+    z: 12
+    palette: 0
+    visible: 25
+  - x: 6
+    y: 10
+    z: 8
+    palette: 0
+    visible: 34
+  - x: 6
+    y: 10
+    z: 9
+    palette: 0
+    visible: 8
+  - x: 6
+    y: 10
+    z: 10
+    palette: 7
+    visible: 8
+  - x: 6
+    y: 10
+    z: 11
+    palette: 0
+    visible: 8
+  - x: 6
+    y: 10
+    z: 12
+    palette: 0
+    visible: 11
+  - x: 6
+    y: 11
+    z: 9
+    palette: 4
+    visible: 40
+  - x: 6
+    y: 11
+    z: 10
+    palette: 2
+    visible: 8
+  - x: 6
+    y: 11
+    z: 11
+    palette: 4
+    visible: 9
+  - x: 6
+    y: 12
+    z: 9
+    palette: 2
+    visible: 42
+  - x: 6
+    y: 12
+    z: 10
+    palette: 4
+    visible: 10
+  - x: 6
+    y: 12
+    z: 11
+    palette: 2
+    visible: 11
+  - x: 6
+    y: 13
+    z: 8
+    palette: 4
+    visible: 63
+  - x: 6
+    y: 14
+    z: 9
+    palette: 0
+    visible: 63
+  - x: 5
+    y: 9
+    z: 8
+    palette: 0
+    visible: 57
+  - x: 8
+    y: 4
+    z: 11
+    palette: 9
+    visible: 9
+  - x: 9
+    y: 4
+    z: 11
+    palette: 9
+    visible: 1
+  - x: 11
+    y: 3
+    z: 11
+    palette: 9
+    visible: 16
+  - x: 10
+    y: 3
+    z: 11
+    palette: 9
+    visible: 16
+  - x: 9
+    y: 3
+    z: 11
+    palette: 9
+    visible: 16
+  - x: 8
+    y: 3
+    z: 11
+    palette: 9
+    visible: 16
+  - x: 11
+    y: 3
+    z: 12
+    palette: 9
+    visible: 23
+  - x: 10
+    y: 3
+    z: 12
+    palette: 9
+    visible: 19
+  - x: 9
+    y: 3
+    z: 12
+    palette: 9
+    visible: 19
+  - x: 8
+    y: 3
+    z: 12
+    palette: 9
+    visible: 27
+  palettes:
+  - {r: 0.8, g: 0.9882353, b: 0.9882353, a: 1}
+  - {r: 0.9882353, g: 0.8, b: 0.59607846, a: 1}
+  - {r: 1, g: 0.9882353, b: 0, a: 1}
+  - {r: 0.9882353, g: 0.59607846, b: 0.39215687, a: 1}
+  - {r: 0.59607846, g: 0.9882353, b: 0, a: 1}
+  - {r: 0.9882353, g: 0, b: 0.39215687, a: 1}
+  - {r: 0.59607846, g: 0.8, b: 0.9882353, a: 1}
+  - {r: 0.39215687, g: 0.59607846, b: 0.9882353, a: 1}
+  - {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 1}
+  - {r: 0.1882353, g: 0.1882353, b: 0.1882353, a: 1}
+  - {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
+  voxelSize:
+    x: 20
+    y: 20
+    z: 21

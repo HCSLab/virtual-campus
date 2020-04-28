@@ -1,0 +1,510 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ec11ee8e977524ebba52f9f25bd9e8, type: 3}
+  m_Name: Maximum Humanoid (Mecanim) Unity5.6.0 or later
+  m_EditorClassIdentifier: 
+  boneInitializeData:
+  - name: Hips
+    parentName: 
+    position: {x: 0, y: 6, z: 0}
+    disablePositionAnimation: 0
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 0
+    mirrorSetBonePosition: 0
+    mirrorSetBoneWeight: 0
+  - name: Spine
+    parentName: Hips
+    position: {x: 0, y: 1.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 0
+    mirrorSetBonePosition: 0
+    mirrorSetBoneWeight: 0
+  - name: Chest
+    parentName: Spine
+    position: {x: 0, y: 1, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: UpperChest
+    parentName: Chest
+    position: {x: 0, y: 1, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: LeftShoulder
+    parentName: UpperChest
+    position: {x: -1.5, y: 0.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftUpperArm
+    parentName: LeftShoulder
+    position: {x: -1.5, y: -0.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: LeftLowerArm
+    parentName: LeftUpperArm
+    position: {x: -2, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: LeftHand
+    parentName: LeftLowerArm
+    position: {x: -2.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: LeftThumbProximal
+    parentName: LeftHand
+    position: {x: -0.5, y: 0, z: 1}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftThumbIntermediate
+    parentName: LeftThumbProximal
+    position: {x: -0.5, y: 0, z: 0.5}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftThumbDistal
+    parentName: LeftThumbIntermediate
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftIndexProximal
+    parentName: LeftHand
+    position: {x: -1, y: 0, z: 0.5}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftIndexIntermediate
+    parentName: LeftIndexProximal
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftIndexDistal
+    parentName: LeftIndexIntermediate
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftMiddleProximal
+    parentName: LeftHand
+    position: {x: -1, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftMiddleIntermediate
+    parentName: LeftMiddleProximal
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftMiddleDistal
+    parentName: LeftMiddleIntermediate
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftRingProximal
+    parentName: LeftHand
+    position: {x: -1, y: 0, z: -0.5}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftRingIntermediate
+    parentName: LeftRingProximal
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftRingDistal
+    parentName: LeftRingIntermediate
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftLittleProximal
+    parentName: LeftHand
+    position: {x: -1, y: 0, z: -1}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftLittleIntermediate
+    parentName: LeftLittleProximal
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftLittleDistal
+    parentName: LeftLittleIntermediate
+    position: {x: -0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightShoulder
+    parentName: UpperChest
+    position: {x: 1.5, y: 0.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightUpperArm
+    parentName: RightShoulder
+    position: {x: 1.5, y: -0.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: RightLowerArm
+    parentName: RightUpperArm
+    position: {x: 2, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: RightHand
+    parentName: RightLowerArm
+    position: {x: 2.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: RightThumbProximal
+    parentName: RightHand
+    position: {x: 0.5, y: 0, z: 1}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightThumbIntermediate
+    parentName: RightThumbProximal
+    position: {x: 0.5, y: 0, z: 0.5}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightThumbDistal
+    parentName: RightThumbIntermediate
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightIndexProximal
+    parentName: RightHand
+    position: {x: 1, y: 0, z: 0.5}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightIndexIntermediate
+    parentName: RightIndexProximal
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightIndexDistal
+    parentName: RightIndexIntermediate
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightMiddleProximal
+    parentName: RightHand
+    position: {x: 1, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightMiddleIntermediate
+    parentName: RightMiddleProximal
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightMiddleDistal
+    parentName: RightMiddleIntermediate
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightRingProximal
+    parentName: RightHand
+    position: {x: 1, y: 0, z: -0.5}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightRingIntermediate
+    parentName: RightRingProximal
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightRingDistal
+    parentName: RightRingIntermediate
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightLittleProximal
+    parentName: RightHand
+    position: {x: 1, y: 0, z: -1}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightLittleIntermediate
+    parentName: RightLittleProximal
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightLittleDistal
+    parentName: RightLittleIntermediate
+    position: {x: 0.5, y: 0, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: Neck
+    parentName: UpperChest
+    position: {x: 0, y: 2, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: Head
+    parentName: Neck
+    position: {x: 0, y: 2, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 0
+    mirrorSetBonePosition: 0
+    mirrorSetBoneWeight: 0
+  - name: LeftEye
+    parentName: Head
+    position: {x: -2, y: 2, z: 2}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightEye
+    parentName: Head
+    position: {x: 2, y: 2, z: 2}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: Jaw
+    parentName: Head
+    position: {x: 0, y: -1, z: 2}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: LeftUpperLeg
+    parentName: Hips
+    position: {x: -0.99999994, y: -1, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: LeftLowerLeg
+    parentName: LeftUpperLeg
+    position: {x: 0, y: -2.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: LeftFoot
+    parentName: LeftLowerLeg
+    position: {x: 0, y: -2.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: LeftToes
+    parentName: LeftFoot
+    position: {x: 0, y: 0, z: 1}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
+  - name: RightUpperLeg
+    parentName: Hips
+    position: {x: 0.99999994, y: -1, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: RightLowerLeg
+    parentName: RightUpperLeg
+    position: {x: 0, y: -2.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: RightFoot
+    parentName: RightLowerLeg
+    position: {x: 0, y: -2.5, z: 0}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 1
+  - name: RightToes
+    parentName: RightFoot
+    position: {x: -0, y: 0, z: 1}
+    disablePositionAnimation: 1
+    disableRotationAnimation: 0
+    disableScaleAnimation: 1
+    mirrorSetBoneAnimation: 1
+    mirrorSetBonePosition: 1
+    mirrorSetBoneWeight: 0
