@@ -20,25 +20,31 @@ ScriptedImporter:
   shareSameFace: 1
   removeUnusedPalettes: 1
   outputStructure: 0
-  generateLightmapUVs: 0
+  generateLightmapUVs: 1
   generateLightmapUVsAngleError: 8
   generateLightmapUVsAreaError: 15
   generateLightmapUVsHardAngle: 88
   generateLightmapUVsPackMargin: 4
-  generateTangents: 0
+  generateTangents: 1
   meshFaceVertexOffset: 0
   loadFromVoxelFile: 1
-  generateMipMaps: 0
+  generateMipMaps: 1
   colliderType: 0
   createContactChunkFaces: 0
   materialMode: 0
   materials:
-  - {instanceID: 0}
-  - {instanceID: 0}
-  - {instanceID: 0}
+  - {fileID: -156486658544998735, guid: 9dacb81ea8cb33141b77c0f9040e344a, type: 3}
+  - {fileID: 5865586234719623449, guid: 9dacb81ea8cb33141b77c0f9040e344a, type: 3}
+  - {fileID: 3473123015285894068, guid: 9dacb81ea8cb33141b77c0f9040e344a, type: 3}
   materialNames:
   - mat0
   - mat1
   - mat2
-  remappedMaterials: []
+  remappedMaterials:
+  - name: mat0
+    material: {fileID: 2100000, guid: 2a76420b12d7eb84c95dce5ec1e1685f, type: 2}
+  - name: mat1
+    material: {fileID: 2100000, guid: 269b6ee48b905d643802c314d4c28985, type: 2}
+  - name: mat2
+    material: {fileID: 2100000, guid: f3b29050071722748aa0f0c2df000935, type: 2}
   export: 0
