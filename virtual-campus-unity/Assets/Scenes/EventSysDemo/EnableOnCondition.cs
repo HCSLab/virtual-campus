@@ -8,18 +8,6 @@ public class EnableOnCondition : MonoBehaviour
 {
     public List<string> hasFlag = new List<string>();
 
-    private void Start()
-    {
-        if (CheckConditions())
-        {
-            gameObject.SetActive(true);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
     public bool CheckConditions()
     {
         foreach (var flag in hasFlag)

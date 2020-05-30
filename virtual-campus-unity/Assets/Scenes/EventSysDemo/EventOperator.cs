@@ -10,6 +10,7 @@ public class EventOperator : MonoBehaviour
     public List<string> delFlags = new List<string>();
 
     public List<GameObject> createList = new List<GameObject>();
+    public List<GameObject> enableList = new List<GameObject>();
     public List<GameObject> DestroyList = new List<GameObject>();
 
     public bool CheckPreconditions()
@@ -37,9 +38,14 @@ public class EventOperator : MonoBehaviour
             FlagBag.Instance.DelFlag(flag);
         }
 
-        foreach (var window in createList)
+        foreach (var obj in createList)
         {
-            Instantiate(window);
+            Instantiate(obj);
+        }
+
+        foreach (var obj in enableList)
+        {
+            obj.SetActive(true);
         }
 
         foreach (var obj in DestroyList)
@@ -51,11 +57,16 @@ public class EventOperator : MonoBehaviour
         }
     }
 
-    public void CheckAndExecute()
+    public bool ExecuteOnConditions()
     {
         if (CheckPreconditions())
         {
             ExecuteOperations();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
