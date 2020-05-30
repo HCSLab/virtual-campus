@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float cameraRotationSpeed;
     public float cameraScalingSpeed;
     public float mouseSensitivity;
+    public float jumpSpeed;
     Animator animator;
     Rigidbody rigidbody;
     Vector3 cameraPositionOffset;
@@ -32,14 +34,31 @@ public class PlayerController : MonoBehaviour
     void UpdatePlayerRotationAndAnimation()
     {
         Vector3 movement = new Vector3(-Input.GetAxis("Vertical"), 0f, Input.GetAxis("Horizontal"));
+        if (Input.GetKey(KeyCode.Space))
+        {
+            bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f);
+            if (isGrounded)
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(0, jumpSpeed, 0);
+            }
+        }
         if (movement.magnitude > 0.1f)
         {
-            animator.SetBool("Walk", true);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                animator.SetBool("Run", true);
+                animator.SetBool("Walk", false);
+            }
+            else {
+                animator.SetBool("Walk", true);
+                animator.SetBool("Run", false);
+            }
             model.transform.LookAt(model.transform.position + movement);
             model.transform.Rotate(0f, playerCamera.transform.eulerAngles.y, 0f);
         }
         else {
             animator.SetBool("Walk", false);
+            animator.SetBool("Run", false);
         }
     }
 

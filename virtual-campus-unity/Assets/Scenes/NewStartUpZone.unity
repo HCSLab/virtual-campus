@@ -1476,12 +1476,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c9bce4cadee5a44d8acf717ffea7b91, type: 3}
---- !u!4 &390818575 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4106514544660422737, guid: 8dd717fea4e68ce4184e2a0384cc6c86,
-    type: 3}
-  m_PrefabInstance: {fileID: 1819251310}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &470239173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4319,22 +4313,22 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8423527852393707604}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4106514544660422737, guid: 8dd717fea4e68ce4184e2a0384cc6c86,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.59
       objectReference: {fileID: 0}
     - target: {fileID: 4106514544660422737, guid: 8dd717fea4e68ce4184e2a0384cc6c86,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 4106514544660422737, guid: 8dd717fea4e68ce4184e2a0384cc6c86,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -19.11
       objectReference: {fileID: 0}
     - target: {fileID: 4106514544660422737, guid: 8dd717fea4e68ce4184e2a0384cc6c86,
         type: 3}
@@ -4359,7 +4353,7 @@ PrefabInstance:
     - target: {fileID: 4106514544660422737, guid: 8dd717fea4e68ce4184e2a0384cc6c86,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4106514544660422737, guid: 8dd717fea4e68ce4184e2a0384cc6c86,
         type: 3}
@@ -5873,7 +5867,7 @@ Transform:
   - {fileID: 4450239622465234}
   - {fileID: 4725976586761138}
   m_Father: {fileID: 8423527852393707604}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4659624644491278
 Transform:
@@ -8576,7 +8570,6 @@ Transform:
   m_LocalPosition: {x: 5.59, y: 2.5, z: -19.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 390818575}
   - {fileID: 4642438321165046}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -8619,6 +8612,7 @@ MonoBehaviour:
   cameraRotationSpeed: 1
   cameraScalingSpeed: 0.2
   mouseSensitivity: 0.3
+  jumpSpeed: 8
 --- !u!136 &8434584244300514404
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8662,9 +8656,9 @@ MonoBehaviour:
   walkByDefault: 1
   walkSpeed: 8
   sprintKey: 304
-  sprintSpeed: 12
+  sprintSpeed: 14
   jumpPower: 5
-  canJump: 0
+  canJump: 1
   canHoldJump: 0
   useStamina: 0
   staminaDepletionSpeed: 2
@@ -8672,8 +8666,8 @@ MonoBehaviour:
   speed: 0
   staminaInternal: 0
   _crouchModifiers:
-    useCrouch: 0
-    toggleCrouch: 0
+    useCrouch: 1
+    toggleCrouch: 1
     crouchKey: 306
     crouchWalkSpeedMultiplier: 0.5
     crouchJumpPowerMultiplier: 0
@@ -8791,17 +8785,17 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 965861ab37dcd9549912eca505055b63, type: 3}
     mudClipSet: []
     customClipSet:
-    - {fileID: 8300000, guid: fb6839219f2c6674996d76c7d9626311, type: 3}
-    - {fileID: 8300000, guid: a2cf935dcad44514894bf910c443d507, type: 3}
-    - {fileID: 8300000, guid: 0b36ebf0a6b6c234c89643b5bb83ec59, type: 3}
-    - {fileID: 8300000, guid: f556827165c098547be10e15323aa490, type: 3}
-    - {fileID: 8300000, guid: 5a1e73ebb16d027419df7efded694efa, type: 3}
-    - {fileID: 8300000, guid: 884f1d42e7a5e98478d53bfc4b98aada, type: 3}
-    - {fileID: 8300000, guid: 8bbd5871530ec774ebef27eaea21e860, type: 3}
-    - {fileID: 8300000, guid: 8742d0ca3e03b034fb383ae7aba7d4a6, type: 3}
-    - {fileID: 8300000, guid: fef61cddf814a2c49bf7a6c33791c766, type: 3}
-    - {fileID: 8300000, guid: 73f938638097f8042ad7842aa5b04ac5, type: 3}
-    - {fileID: 8300000, guid: e06c6ae1948cafd45a952ab85ebe4fa7, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
 --- !u!222 &8473876789158307021
 CanvasRenderer:
   m_ObjectHideFlags: 0
