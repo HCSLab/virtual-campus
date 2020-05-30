@@ -741,31 +741,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bag: []
---- !u!1 &1449975793 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8046019088574429741, guid: 2c73ec2b4290e6c4d95444d2ed9cceed,
-    type: 3}
-  m_PrefabInstance: {fileID: 1875964437}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1449975796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449975793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa01a729e284767459ec2b356209b865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasFlags: []
-  addFlags:
-  - bunny lost
-  delFlags: []
-  createList: []
-  enableList: []
-  DestroyList: []
 --- !u!1 &1508451391 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8752666330926494170, guid: 9dacb81ea8cb33141b77c0f9040e344a,
@@ -885,24 +860,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2037586454, guid: 2c73ec2b4290e6c4d95444d2ed9cceed, type: 3}
-      propertyPath: delFlags.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2037586454, guid: 2c73ec2b4290e6c4d95444d2ed9cceed, type: 3}
-      propertyPath: delFlags.Array.data[0]
-      value: bunny lost
-      objectReference: {fileID: 0}
-    - target: {fileID: 5208617161281862653, guid: 2c73ec2b4290e6c4d95444d2ed9cceed,
-        type: 3}
-      propertyPath: hasFlag.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5208617161281862653, guid: 2c73ec2b4290e6c4d95444d2ed9cceed,
-        type: 3}
-      propertyPath: hasFlag.Array.data[0]
-      value: bunny lost
-      objectReference: {fileID: 0}
     - target: {fileID: 5391602735679164148, guid: 2c73ec2b4290e6c4d95444d2ed9cceed,
         type: 3}
       propertyPath: m_LocalPosition.x

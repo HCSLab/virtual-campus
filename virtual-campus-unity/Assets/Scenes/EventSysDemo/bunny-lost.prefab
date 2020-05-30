@@ -433,7 +433,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   talk: {fileID: 0}
-  hasFlag: []
+  hasFlag:
+  - bunny lost
   talkerName: headmaster
 --- !u!114 &2037586450
 MonoBehaviour:
@@ -465,7 +466,8 @@ MonoBehaviour:
   hasFlags: []
   addFlags:
   - finding bunny
-  delFlags: []
+  delFlags:
+  - bunny lost
   createList: []
   enableList:
   - {fileID: 4594904601225398408}
@@ -663,6 +665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5391602735679164148}
   - component: {fileID: 1449975794}
+  - component: {fileID: 1449975796}
   m_Layer: 0
   m_Name: bunny-lost
   m_TagString: Untagged
@@ -699,6 +702,25 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1449975796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046019088574429741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa01a729e284767459ec2b356209b865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasFlags: []
+  addFlags:
+  - bunny lost
+  delFlags: []
+  createList: []
+  enableList: []
+  DestroyList: []
 --- !u!1001 &5540989353822933377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -788,15 +810,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1277725ab6be3674ea2b1a0cf5c7a2fc, type: 3}
---- !u!1 &4594904601225398408 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 1277725ab6be3674ea2b1a0cf5c7a2fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 5540989353822933377}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &693335244443482779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 1277725ab6be3674ea2b1a0cf5c7a2fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5540989353822933377}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4594904601225398408 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 1277725ab6be3674ea2b1a0cf5c7a2fc,
     type: 3}
   m_PrefabInstance: {fileID: 5540989353822933377}
   m_PrefabAsset: {fileID: 0}
