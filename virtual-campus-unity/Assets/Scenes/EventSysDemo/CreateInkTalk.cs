@@ -5,6 +5,7 @@ using UnityEngine;
 public class CreateInkTalk : MonoBehaviour
 {
     public TextAsset inkFile;
+    public string executeFunction;
 
     public GameObject talkPrefab;
 
@@ -17,6 +18,7 @@ public class CreateInkTalk : MonoBehaviour
         var ink = talk.GetComponent<InkTalk>();
         ink.inkFile = inkFile;
         ink.talk = talk;
+        ink.executeFunction = executeFunction;
 
         var eventOp = GetComponent<EventOperator>();
         if (eventOp)

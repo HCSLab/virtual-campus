@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InkTalk : MonoBehaviour
 {
     public TextAsset inkFile;
+    public string executeFunction;
 
     private Story inkStroy;
     private bool nextStep;
@@ -33,7 +34,10 @@ public class InkTalk : MonoBehaviour
 
         inkStroy = new Story(inkFile.text);
 
-        EventCenter.AddListener("create_new_talk", DestroySelf);
+        if (inkStroy.HasFunction(executeFunction))
+        {
+            inkStroy.EvaluateFunction(executeFunction, text,text);
+        }
     }
 
     private void Update()
@@ -48,9 +52,10 @@ public class InkTalk : MonoBehaviour
             }
         }
 
-        if (inkStroy.canContinue)
+        text.text = "";
+        while (inkStroy.canContinue)
         {
-            text.text = inkStroy.Continue();
+            text.text += inkStroy.Continue();
         }
 
         for (var i = 0; i < inkStroy.currentChoices.Count; i++)
@@ -92,10 +97,5 @@ public class InkTalk : MonoBehaviour
         }
 
         UIManager.Instance.CloseTalk();
-    }
-
-    private void DestroySelf(object data)
-    {
-        Destroy(gameObject);
     }
 }
