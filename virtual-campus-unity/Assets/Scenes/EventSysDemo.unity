@@ -224,6 +224,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bag: []
+--- !u!1 &249044567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8046019088574429741, guid: 2c73ec2b4290e6c4d95444d2ed9cceed,
+    type: 3}
+  m_PrefabInstance: {fileID: 1875964437}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &385796860
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,9 +871,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1376850601, guid: 2c73ec2b4290e6c4d95444d2ed9cceed, type: 3}
+      propertyPath: DestroyList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376850601, guid: 2c73ec2b4290e6c4d95444d2ed9cceed, type: 3}
       propertyPath: hasFlags.Array.data[0]
       value: found bunny
       objectReference: {fileID: 0}
+    - target: {fileID: 1376850601, guid: 2c73ec2b4290e6c4d95444d2ed9cceed, type: 3}
+      propertyPath: DestroyList.Array.data[0]
+      value: 
+      objectReference: {fileID: 249044567}
     - target: {fileID: 2037586454, guid: 2c73ec2b4290e6c4d95444d2ed9cceed, type: 3}
       propertyPath: hasFlags.Array.size
       value: 1
@@ -936,7 +950,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: bunny-lost
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1886124855, guid: 2c73ec2b4290e6c4d95444d2ed9cceed, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2c73ec2b4290e6c4d95444d2ed9cceed, type: 3}
 --- !u!1001 &1910320248
 PrefabInstance:
@@ -1021,6 +1036,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e62f5703e5f8d2488a5e1bc8433be41, type: 3}
+--- !u!1 &1953792004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4594904601225398408, guid: 2c73ec2b4290e6c4d95444d2ed9cceed,
+    type: 3}
+  m_PrefabInstance: {fileID: 1875964437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1953792005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953792004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31749eb0dcaece4458c9365890b494b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasFlags: []
+  addFlags:
+  - found bunny
+  delFlags:
+  - finding bunny
+  createList: []
+  enableList: []
+  DestroyList:
+  - {fileID: 1953792004}
+--- !u!114 &1953792006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953792004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a349b4f568534dd4ca853f7c9976f5fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFile: {fileID: 4900000, guid: e1d8ec893c72a8944bdacbee9fa6dd99, type: 3}
+  talkPrefab: {fileID: 7845050267080054249, guid: b097a1a43b8aff2409fa10ab1282016b,
+    type: 3}
 --- !u!1 &1990847648
 GameObject:
   m_ObjectHideFlags: 0

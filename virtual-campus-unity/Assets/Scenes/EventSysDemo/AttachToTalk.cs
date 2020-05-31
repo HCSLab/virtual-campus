@@ -29,6 +29,10 @@ public class AttachToTalk : MonoBehaviour
         {
             btn.SetActive(true);
         }
-        
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener("create_" + talkerName + "_talk", OnTalkCreate);
     }
 }
