@@ -15,10 +15,15 @@ public class UIManager : MonoBehaviour
 
     public void OpenTalk(GameObject talk)
     {
+        CloseTalk();
+        currentTalk = talk;
+    }
+
+    public void CloseTalk()
+    {
         if (currentTalk)
         {
             Destroy(currentTalk);
         }
-        currentTalk = talk;
     }
 }

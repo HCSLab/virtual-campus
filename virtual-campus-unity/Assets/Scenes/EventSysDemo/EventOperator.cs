@@ -13,7 +13,7 @@ public class EventOperator : MonoBehaviour
     public List<GameObject> enableList = new List<GameObject>();
     public List<GameObject> DestroyList = new List<GameObject>();
 
-    public bool CheckPreconditions()
+    public bool CheckConditions()
     {
         var fbag = FlagBag.Instance;
         foreach (var flag in hasFlags)
@@ -59,7 +59,7 @@ public class EventOperator : MonoBehaviour
 
     public bool ExecuteOnConditions()
     {
-        if (CheckPreconditions())
+        if (CheckConditions())
         {
             ExecuteOperations();
             return true;

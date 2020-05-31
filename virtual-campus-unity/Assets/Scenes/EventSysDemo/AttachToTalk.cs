@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttachToTalk : MonoBehaviour
 {
     [HideInInspector] public GameObject talk;
-
-    public List<string> hasFlag = new List<string>();
 
     public string talkerName;
 
@@ -24,18 +19,16 @@ public class AttachToTalk : MonoBehaviour
         var btn = Instantiate(gameObject);
         btn.transform.parent = buttons;
         Destroy(btn.GetComponent<AttachToTalk>());
-        btn.SetActive(CheckConditions());
-    }
 
-    public bool CheckConditions()
-    {
-        foreach (var flag in hasFlag)
+        var eventOp = GetComponent<EventOperator>();
+        if (eventOp)
         {
-            if (!FlagBag.Instance.HasFlag(flag))
-            {
-                return false;
-            }
+            btn.SetActive(eventOp.CheckConditions());
         }
-        return true;
+        else
+        {
+            btn.SetActive(true);
+        }
+        
     }
 }

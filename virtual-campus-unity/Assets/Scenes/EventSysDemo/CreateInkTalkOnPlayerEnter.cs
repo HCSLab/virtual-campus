@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateInkTalkOnCollision : CreateInkTalk
+public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 {
     private void OnTriggerEnter(Collider other)
     {
@@ -16,7 +16,7 @@ public class CreateInkTalkOnCollision : CreateInkTalk
     {
         if (other.tag == "Player")
         {
-            Destroy(talk);
+            UIManager.Instance.CloseTalk();
         }
     }
 }

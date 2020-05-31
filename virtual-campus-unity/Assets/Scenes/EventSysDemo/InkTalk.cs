@@ -91,7 +91,7 @@ public class InkTalk : MonoBehaviour
             eventOp.ExecuteOnConditions();
         }
 
-        Destroy(talk);
+        UIManager.Instance.CloseTalk();
     }
 
     private void DestroySelf(object data)
