@@ -172,7 +172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4630031331154280428
 RectTransform:
   m_ObjectHideFlags: 0
@@ -267,7 +267,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1886124855
+--- !u!114 &1953792005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4594904601225398408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763fac0b45868c043a02e6221d80cb45, type: 3}
+  m_Script: {fileID: 11500000, guid: 31749eb0dcaece4458c9365890b494b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hasFlags: []
@@ -288,6 +288,22 @@ MonoBehaviour:
   enableList: []
   DestroyList:
   - {fileID: 4594904601225398408}
+--- !u!114 &1953792006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4594904601225398408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a349b4f568534dd4ca853f7c9976f5fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFile: {fileID: 4900000, guid: bd10ae24af780244cb3f9fa5b1c88778, type: 3}
+  executeFunction: part2
+  talkPrefab: {fileID: 7845050267080054249, guid: b097a1a43b8aff2409fa10ab1282016b,
+    type: 3}
 --- !u!1 &5588231267372635996
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,8 +449,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   talk: {fileID: 0}
-  hasFlag:
-  - bunny lost
   talkerName: headmaster
 --- !u!114 &2037586450
 MonoBehaviour:
@@ -448,7 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28430e09c0f5df64694686427b2c39d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFile: {fileID: 4900000, guid: bff12456503b746439e4b161f9883d26, type: 3}
+  inkFile: {fileID: 4900000, guid: bd10ae24af780244cb3f9fa5b1c88778, type: 3}
+  executeFunction: part1
   talkPrefab: {fileID: 7845050267080054249, guid: b097a1a43b8aff2409fa10ab1282016b,
     type: 3}
 --- !u!114 &2037586454
@@ -463,7 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31749eb0dcaece4458c9365890b494b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasFlags: []
+  hasFlags:
+  - bunny lost
   addFlags:
   - finding bunny
   delFlags:
@@ -617,8 +633,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   talk: {fileID: 0}
-  hasFlag:
-  - found bunny
   talkerName: headmaster
 --- !u!114 &1376850597
 MonoBehaviour:
@@ -632,7 +646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28430e09c0f5df64694686427b2c39d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFile: {fileID: 4900000, guid: 73070693ebba6714bbeed0f338daa4b4, type: 3}
+  inkFile: {fileID: 4900000, guid: bd10ae24af780244cb3f9fa5b1c88778, type: 3}
+  executeFunction: part3
   talkPrefab: {fileID: 7845050267080054249, guid: b097a1a43b8aff2409fa10ab1282016b,
     type: 3}
 --- !u!114 &1376850601
@@ -647,7 +662,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31749eb0dcaece4458c9365890b494b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasFlags: []
+  hasFlags:
+  - found bunny
   addFlags: []
   delFlags:
   - found bunny
