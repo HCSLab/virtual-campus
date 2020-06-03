@@ -74,7 +74,8 @@ public class PlayerController : MonoBehaviour
         float cameraRotation = 0f;
         if(Input.GetKey(KeyCode.Q)) cameraRotation -= 1f;
         if(Input.GetKey(KeyCode.E)) cameraRotation += 1f;
-        if(Input.GetMouseButton(1)){
+        //if (Input.GetMouseButton(0)) minimapCamera.GetComponent<MinimapCamera>().ZoomInButtonClick();
+        if (Input.GetMouseButton(1)){
             cameraRotation = (Input.mousePosition - lastMousePosition).x * mouseSensitivity;
             
         }
