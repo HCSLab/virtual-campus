@@ -4,9 +4,9 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Bag : MonoBehaviour
+public class Badges : MonoBehaviour
 {
-    public static Bag Instance;
+    public static Badges Instance;
 
     public GameObject displayPrefab;
 
@@ -27,7 +27,7 @@ public class Bag : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i< 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             foreach (var item in testItems)
             {
