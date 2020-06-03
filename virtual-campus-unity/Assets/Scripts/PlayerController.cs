@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject model;
     public GameObject playerCamera;
+    public GameObject minimapCamera;
     public float cameraRotationSpeed;
     public float cameraScalingSpeed;
     public float mouseSensitivity;
