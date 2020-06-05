@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
+using System.Security.Cryptography;
+using TMPro;
+using System;
 
 public class InkTalk : MonoBehaviour
 {
     public TextAsset inkFile;
     public string executeFunction;
 
-    private Story inkStroy;
+    public Story inkStroy;
     private bool nextStep;
     private bool firstStep;
+    public bool notFinished;
 
     public GameObject talk;
+
+    public StoryManager storyManager;
 
     private Text text;
     private Transform buttons;
     private GameObject button;
-
-    public EventOperator afterStoryOperator;
 
     private void Start()
     {
@@ -31,12 +35,13 @@ public class InkTalk : MonoBehaviour
 
         nextStep = true;
         firstStep = true;
+        notFinished = false;
 
         inkStroy = new Story(inkFile.text);
 
         if (inkStroy.HasFunction(executeFunction))
         {
-            inkStroy.EvaluateFunction(executeFunction, text,text);
+            inkStroy.CheckInFunction(executeFunction);
         }
     }
 
@@ -56,15 +61,19 @@ public class InkTalk : MonoBehaviour
         while (inkStroy.canContinue)
         {
             text.text += inkStroy.Continue();
+            var tags = inkStroy.currentTags;
+            foreach (var tag in tags)
+            {
+                storyManager.InProcessTag(tag, this);
+            }
         }
 
-        for (var i = 0; i < inkStroy.currentChoices.Count; i++)
+        foreach (var choice in inkStroy.currentChoices)
         {
             var btn = Instantiate(button).GetComponent<Button>();
             btn.gameObject.SetActive(true);
             btn.transform.parent = buttons;
 
-            var choice = inkStroy.currentChoices[i];
             var btnText = btn.transform.Find("Text").GetComponent<Text>();
             btnText.text = choice.text;
 
@@ -90,12 +99,11 @@ public class InkTalk : MonoBehaviour
 
     private void EndOfStroy()
     {
-        var eventOp = GetComponent<EventOperator>();
-        if (eventOp)
-        {
-            eventOp.ExecuteOnConditions();
-        }
-
         UIManager.Instance.CloseTalk();
+
+        if (!notFinished)
+        {
+            storyManager.AddFlag(executeFunction + "_done");
+        }
     }
 }
