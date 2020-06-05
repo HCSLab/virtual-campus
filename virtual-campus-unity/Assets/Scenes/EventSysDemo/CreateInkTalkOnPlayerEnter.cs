@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 {
+    public List<string> require = new List<string>();
+    public List<string> without = new List<string>();
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            Create();
+            if (FlagBag.Instance.HasFlags(require) &&
+                FlagBag.Instance.WithoutFlags(without))
+            {
+                Create();
+            }
         }
     }
 

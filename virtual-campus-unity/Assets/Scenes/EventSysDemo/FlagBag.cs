@@ -23,6 +23,30 @@ public class FlagBag : MonoBehaviour
         return bag.Contains(name);
     }
 
+    public bool HasFlags(List<string> list)
+    {
+        foreach (var flag in list)
+        {
+            if (!HasFlag(flag))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool WithoutFlags(List<string> list)
+    {
+        foreach (var flag in list)
+        {
+            if (HasFlag(flag))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void DelFlag(string name)
     {
         bag.Remove(name);
