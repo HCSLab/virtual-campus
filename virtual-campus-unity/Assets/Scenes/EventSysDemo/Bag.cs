@@ -20,6 +20,8 @@ public class Bag : MonoBehaviour
 
     public List<GameObject> testItems = new List<GameObject>();
 
+    protected Item currentItem;
+
     private void Awake()
     {
         Instance = this;
@@ -63,6 +65,7 @@ public class Bag : MonoBehaviour
         detailImage.sprite = item.image;
         detailName.text = item.itemName;
         detailDescription.text = item.description;
+        currentItem = item;
     }
 
     public void Remove(Item item, bool destroyItem = true)

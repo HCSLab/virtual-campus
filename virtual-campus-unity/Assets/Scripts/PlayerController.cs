@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float cameraScalingSpeed;
     public float mouseSensitivity;
     public float jumpSpeed;
+    public GameObject bodySprite;
     Animator animator;
     Rigidbody rigidbody;
     Vector3 cameraPositionOffset;
