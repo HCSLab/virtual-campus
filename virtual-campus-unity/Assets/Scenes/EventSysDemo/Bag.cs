@@ -10,7 +10,7 @@ public class Bag : MonoBehaviour
 
     public GameObject displayPrefab;
 
-    public Transform layout;
+    public RectTransform layout;
 
     private List<ItemBox> itemBoxs = new List<ItemBox>();
 
