@@ -7,8 +7,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [HideInInspector] public GameObject currentTalk;
-
-    public GameObject pressE;
+    public GameObject pressT;
     public GameObject itemBag;
     public GameObject badgeBag;
 
@@ -17,27 +16,46 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    public void OpenTalk(GameObject talk)
+    public void CloseAllOpenedPanel()
     {
         CloseTalk();
-        currentTalk = talk;
+        HideItemBag();
+        HideBadgeBag();
+        HidePressT();
     }
 
-    public void CloseTalk()
+    public void OpenTalk(GameObject talk)
     {
-        if (currentTalk)
+        CloseAllOpenedPanel();
+        currentTalk = talk;
+    }
+    public void CloseTalk(GameObject talk = null)
+    {
+        if (talk == null)
         {
-            Destroy(currentTalk);
+            if (currentTalk)
+            {
+                Destroy(currentTalk);
+                currentTalk = null;
+            }
+        }
+        else
+        {
+            if (currentTalk == talk)
+            {
+                Destroy(currentTalk);
+                currentTalk = null;
+            }
         }
     }
 
-    public void ShowPressE()
+    public void ShowPressT()
     {
-        pressE.SetActive(true);
+        pressT.SetActive(true);
     }
-    public void HidePressE()
+    public void HidePressT()
     {
-        pressE.SetActive(false);
+        pressT.SetActive(false);
     }
 
     public void ShowItemBag()
