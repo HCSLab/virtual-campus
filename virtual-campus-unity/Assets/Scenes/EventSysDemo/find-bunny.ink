@@ -5,16 +5,23 @@
     **   那太糟糕了
         我最近公务繁忙，没时间去找它。你能帮我找找它吗？
         ***  好的，没问题
-        ->DONE
+            #enable:bunny
+            ->DONE
         
 ===func_part2===
+#collide_trigger:bunny
 你发现了兔子，快去向校长汇报吧！
 *   好的
+    #disable:bunny
     ->DONE
     
 ===func_part3===
-哇，太好了！你在哪找到的？
-*   志仁楼西边的树丛里
-    太感谢你了，这枚兔子徽章送你！
-    **  谢谢校长
-        ->DONE
+#attach:headmaster
+#require:func_part2_done
+*   我找到兔子啦！
+    哇，太好了！你在哪找到的？
+    **   志仁楼西边的树丛里
+        太感谢你了，这枚兔子徽章送你！
+        ***  谢谢校长
+            #end_story
+            ->DONE

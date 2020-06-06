@@ -33,18 +33,17 @@ public class StoryManager : MonoBehaviour
                 continue;
             }
 
-            List<Ink.Runtime.Object> oldStream = null;
-            inkStroy.CheckInFunction(func, out oldStream);
+            //List<Ink.Runtime.Object> oldStream = null;
+            inkStroy.CheckInFunction(func);
+            List<string> tags = new List<string>();
             while (inkStroy.canContinue)
             {
                 inkStroy.Continue();
-                var tags = inkStroy.currentTags;
-                foreach (var tag in tags)
-                {
-                    PreprocessdTag(tag, func);
-                }
+                tags.AddRange(inkStroy.currentTags);
             }
-            inkStroy.CheckOutFunction(oldStream);
+            PreprocessdTags(tags, func);
+            inkStroy.ResetCallstack();
+            // inkStroy.CheckOutFunction(oldStream);
         }
     }
 
@@ -72,8 +71,18 @@ public class StoryManager : MonoBehaviour
     {
         tag = tag.Replace(" ", "");
         var sep = tag.IndexOf(':');
-        var op = tag.Substring(0, sep);
-        var data = tag.Substring(sep + 1);
+        string op, data;
+        if (sep != -1)
+        {
+            op = tag.Substring(0, sep);
+            data = tag.Substring(sep + 1);
+        }
+        else
+        {
+            op = tag;
+            data = "";
+        }
+        
 
         if (op == "addflag")
         {
@@ -103,39 +112,46 @@ public class StoryManager : MonoBehaviour
         {
             talk.notFinished = true;
         }
+        else if (op == "end_story")
+        {
+            EndStory();
+        }
     }
 
-    private void PreprocessdTag(string tag, string funcName)
+    private void PreprocessdTags(List<string> tags, string funcName)
     {
-        tag = tag.Replace(" ", "");
-        var sep = tag.IndexOf(':');
-        var op = tag.Substring(0, sep);
-        var data = tag.Substring(sep + 1);
-
         List<string> attachTags = new List<string>();
         List<string> collideTriggerTags = new List<string>();
         List<string> requireTags = new List<string>();
         List<string> withoutTags = new List<string>();
 
-        if (op == "attach")
+        foreach (var t in tags)
         {
-            attachTags.Add(data);
-        }
-        else if (op == "collide_triger")
-        {
-            collideTriggerTags.Add(data);
-        }
-        else if (op == "require")
-        {
-            requireTags.Add(data);
-        }
-        else if (op == "after")
-        {
-            requireTags.Add(data + "_done");
-        }
-        else if (op == "without")
-        {
-            withoutTags.Add(data);
+            var tag = t.Replace(" ", "");
+            var sep = tag.IndexOf(':');
+            var op = tag.Substring(0, sep);
+            var data = tag.Substring(sep + 1);
+
+            if (op == "attach")
+            {
+                attachTags.Add(data);
+            }
+            else if (op == "collide_trigger")
+            {
+                collideTriggerTags.Add(data);
+            }
+            else if (op == "require")
+            {
+                requireTags.Add(data);
+            }
+            else if (op == "after")
+            {
+                requireTags.Add(data + "_done");
+            }
+            else if (op == "without")
+            {
+                withoutTags.Add(data);
+            }
         }
 
         withoutTags.Add(funcName + "_done");
@@ -169,6 +185,7 @@ public class StoryManager : MonoBehaviour
             creater.inkFile = inkFile;
             creater.executeFunction = funcName;
             creater.talkPrefab = talkPrefab;
+            creater.storyManager = this;
             button.onClick.AddListener(creater.Create);
 
             var text = button.transform.Find("Text").GetComponent<Text>();
@@ -192,6 +209,7 @@ public class StoryManager : MonoBehaviour
         creater.inkFile = inkFile;
         creater.executeFunction = funcName;
         creater.talkPrefab = talkPrefab;
+        creater.storyManager = this;
         creater.require.AddRange(require);
         creater.without.AddRange(without);
     }
@@ -206,6 +224,11 @@ public class StoryManager : MonoBehaviour
     {
         localFlags.Remove(flag);
         FlagBag.Instance.DelFlag(flag);
+    }
+
+    public void EndStory()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

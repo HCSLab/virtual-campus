@@ -84,6 +84,11 @@ public class InkTalk : MonoBehaviour
         nextStep = false;
         firstStep = false;
 
+        if (text.text == "" && inkStroy.currentChoices.Count == 1)
+        {
+            ChoicePathSelected(inkStroy.currentChoices[0].pathStringOnChoice);
+        }
+
         if (!inkStroy.canContinue && inkStroy.currentChoices.Count == 0)
         {
             EndOfStroy();

@@ -11,6 +11,8 @@ public class CreateInkTalk : MonoBehaviour
 
     protected GameObject talk;
 
+    public StoryManager storyManager;
+
     public void Create()
     {
         talk = Instantiate(talkPrefab);
@@ -19,6 +21,7 @@ public class CreateInkTalk : MonoBehaviour
         ink.inkFile = inkFile;
         ink.talk = talk;
         ink.executeFunction = executeFunction;
+        ink.storyManager = storyManager;
 
         EventCenter.Broadcast("create_" + gameObject.name + "_talk", talk);
 
