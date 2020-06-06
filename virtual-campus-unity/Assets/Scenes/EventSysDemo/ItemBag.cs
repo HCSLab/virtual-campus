@@ -4,9 +4,9 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Badges : MonoBehaviour
+public class ItemBag : MonoBehaviour
 {
-    public static Badges Instance;
+    public static ItemBag Instance;
 
     public GameObject displayPrefab;
 
@@ -20,14 +20,16 @@ public class Badges : MonoBehaviour
 
     public List<GameObject> testItems = new List<GameObject>();
 
-    private void Awake()
+    protected Item currentItem;
+
+    protected virtual void Awake()
     {
         Instance = this;
     }
 
-    private void Start()
+    protected virtual void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i< 10; i++)
         {
             foreach (var item in testItems)
             {
@@ -63,6 +65,7 @@ public class Badges : MonoBehaviour
         detailImage.sprite = item.image;
         detailName.text = item.itemName;
         detailDescription.text = item.description;
+        currentItem = item;
     }
 
     public void Remove(Item item, bool destroyItem = true)
@@ -79,7 +82,8 @@ public class Badges : MonoBehaviour
             Destroy(item.gameObject);
         }
     }
-
+    
+    //old methord
     public void BagButtonPressed()
     {
         gameObject.SetActive(!gameObject.activeSelf);

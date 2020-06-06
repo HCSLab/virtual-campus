@@ -18,6 +18,6 @@ public class ItemBox : MonoBehaviour
 
     public void OnClick()
     {
-        Bag.Instance.Select(item);
+        ItemBag.Instance.Select(item);
     }
 }

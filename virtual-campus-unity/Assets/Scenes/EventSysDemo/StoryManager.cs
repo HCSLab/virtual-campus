@@ -108,11 +108,11 @@ public class StoryManager : MonoBehaviour
                 obj.gameObject.SetActive(false);
             }
         }
-        else if (op == "not_finished")
+        else if (op == "notfinished")
         {
             talk.notFinished = true;
         }
-        else if (op == "end_story")
+        else if (op == "endstory")
         {
             EndStory();
         }
@@ -136,7 +136,7 @@ public class StoryManager : MonoBehaviour
             {
                 attachTags.Add(data);
             }
-            else if (op == "collide_trigger")
+            else if (op == "collidetrigger")
             {
                 collideTriggerTags.Add(data);
             }

@@ -4,26 +4,11 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkinBag : Bag
+public class SkinBag : ItemBag
 {
+    new public static SkinBag Instance;
+
     public int index;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
-    private void Start()
-    {
-
-        for (int i = 0; i < 10; i++)
-        {
-            foreach (var item in testItems)
-            {
-                Add(item);
-            }
-        }
-    }
 
     public void OnSaveClicked()
     {

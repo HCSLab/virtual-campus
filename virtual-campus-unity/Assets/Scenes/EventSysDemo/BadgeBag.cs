@@ -4,9 +4,9 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Bag : MonoBehaviour
+public class BadgeBag : MonoBehaviour
 {
-    public static Bag Instance;
+    public static BadgeBag Instance;
 
     public GameObject displayPrefab;
 
@@ -14,13 +14,7 @@ public class Bag : MonoBehaviour
 
     private List<ItemBox> itemBoxs = new List<ItemBox>();
 
-    public Image detailImage;
-    public Text detailName;
-    public Text detailDescription;
-
     public List<GameObject> testItems = new List<GameObject>();
-
-    protected Item currentItem;
 
     private void Awake()
     {
@@ -29,7 +23,7 @@ public class Bag : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i< 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             foreach (var item in testItems)
             {
@@ -62,10 +56,6 @@ public class Bag : MonoBehaviour
 
     public void Select(Item item)
     {
-        detailImage.sprite = item.image;
-        detailName.text = item.itemName;
-        detailDescription.text = item.description;
-        currentItem = item;
     }
 
     public void Remove(Item item, bool destroyItem = true)
@@ -81,10 +71,5 @@ public class Bag : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
-    }
-
-    public void BagButtonPressed()
-    {
-        gameObject.SetActive(!gameObject.activeSelf);
     }
 }
