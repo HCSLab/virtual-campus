@@ -5,6 +5,7 @@ using Ink.Runtime;
 using UnityEngine.UI;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using System;
 
 public class StoryManager : MonoBehaviour
 {
@@ -28,11 +29,6 @@ public class StoryManager : MonoBehaviour
 
         foreach (var func in inkFunctions)
         {
-            if (!inkStroy.HasFunction(func))
-            {
-                continue;
-            }
-
             //List<Ink.Runtime.Object> oldStream = null;
             inkStroy.CheckInFunction(func);
             List<string> tags = new List<string>();
@@ -52,6 +48,7 @@ public class StoryManager : MonoBehaviour
         var text = inkFile.text;
 
         int pos = 0;
+        List<string> tp = new List<string>();
         while (true)
         {
             pos = text.IndexOf("func_", pos);
@@ -62,8 +59,17 @@ public class StoryManager : MonoBehaviour
 
             var epos = text.IndexOf('"', pos);
             var fname = text.Substring(pos, epos - pos);
-            inkFunctions.Add(fname);
+            tp.Add(fname);
             pos = epos;
+        }
+
+        inkFunctions.Clear();
+        foreach (var func in tp)
+        {
+            if (inkStroy.HasFunction(func) && !inkFunctions.Contains(func))
+            {
+                inkFunctions.Add(func);
+            }
         }
     }
 
