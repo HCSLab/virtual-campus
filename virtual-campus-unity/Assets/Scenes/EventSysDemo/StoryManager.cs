@@ -19,6 +19,8 @@ public class StoryManager : MonoBehaviour
 
     private List<string> inkFunctions = new List<string>();
 
+    public List<GameObject> nextStories = new List<GameObject>();
+
     private void Start()
     {
         buttonPrefab = talkPrefab.transform.Find("Panel/Buttons/Button").gameObject;
@@ -234,6 +236,10 @@ public class StoryManager : MonoBehaviour
 
     public void EndStory()
     {
+        foreach (var story in nextStories)
+        {
+            Instantiate(story);
+        }
         Destroy(gameObject);
     }
 
