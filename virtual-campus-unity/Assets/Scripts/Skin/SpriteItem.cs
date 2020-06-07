@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpriteItem : Item
 {
-    public SpriteItem (Item item)
+    public SpriteItem(Item item)
     {
         itemName = item.itemName;
         description = item.description;

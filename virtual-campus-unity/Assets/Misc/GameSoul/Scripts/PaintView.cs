@@ -232,6 +232,7 @@ public class PaintView : MonoBehaviour
         int minX = (int)re.rect.left;
         int maxX = (int)re.rect.right;
 
+
         point = point - ((Vector2)re.transform.position + new Vector2(minX, minY));
         //Debug.Log(0.5*Screen.width);
         //Debug.Log(re.transform.position.x);
@@ -268,4 +269,35 @@ public class PaintView : MonoBehaviour
         gameObject.SetActive(!gameObject.activeSelf);
     }
 
+    public void Save()
+    {
+        string name = "name";
+        string description = "description";
+        Texture tex = GameObject.FindGameObjectWithTag("Painter").GetComponent<RawImage>().texture;
+        Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, 0, 0), Vector2.zero);
+        //SpriteItem spriteItem = new SpriteItem(new Item(name, description, sprite));
+        GameObject newSprite = new GameObject();
+        newSprite.AddComponent<SpriteItem>();
+        newSprite.GetComponent<SpriteItem>().itemName = name;
+        newSprite.GetComponent<SpriteItem>().description = description;
+        newSprite.GetComponent<SpriteItem>().image = sprite;
+        GameObject.FindGameObjectWithTag("SkinBag").GetComponent<SkinBag>().testItems.Add(newSprite);
+    }
+
+    private Texture2D TextureToTexture2D(Texture texture)
+    {
+        Texture2D texture2D = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);
+        RenderTexture currentRT = RenderTexture.active;
+        RenderTexture renderTexture = RenderTexture.GetTemporary(texture.width, texture.height, 32);
+        Graphics.Blit(texture, renderTexture);
+
+        RenderTexture.active = renderTexture;
+        texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        texture2D.Apply();
+
+        RenderTexture.active = currentRT;
+        RenderTexture.ReleaseTemporary(renderTexture);
+
+        return texture2D;
+    }
 }
