@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-using System;
 
-public class StoryManager : MonoBehaviour
+public class StoryScript : MonoBehaviour
 {
     public TextAsset inkFile;
     public Story inkStroy;
@@ -99,6 +96,14 @@ public class StoryManager : MonoBehaviour
         else if (op == "delfalg")
         {
             DelFlag(data);
+        }
+        else if (op == "addglobalflag")
+        {
+            FlagBag.Instance.AddFlag(data);
+        }
+        else if (op == "delglobalflag")
+        {
+            FlagBag.Instance.DelFlag(data);
         }
         else if (op == "enable")
         {
@@ -240,6 +245,7 @@ public class StoryManager : MonoBehaviour
         {
             Instantiate(story);
         }
+        FlagBag.Instance.AddFlag(inkFile.name + "_story_done");
         Destroy(gameObject);
     }
 
