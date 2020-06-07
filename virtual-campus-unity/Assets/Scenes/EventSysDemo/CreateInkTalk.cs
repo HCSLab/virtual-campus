@@ -11,7 +11,7 @@ public class CreateInkTalk : MonoBehaviour
 
     protected GameObject talk;
 
-    public StoryManager storyManager;
+    public StoryScript storyManager;
 
     public void Create()
     {

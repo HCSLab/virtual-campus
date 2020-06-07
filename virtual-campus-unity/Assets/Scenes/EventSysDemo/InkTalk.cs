@@ -19,7 +19,7 @@ public class InkTalk : MonoBehaviour
 
     public GameObject talk;
 
-    public StoryManager storyManager;
+    public StoryScript storyManager;
 
     private Text text;
     private Transform buttons;
@@ -91,7 +91,7 @@ public class InkTalk : MonoBehaviour
 
         if (!inkStroy.canContinue && inkStroy.currentChoices.Count == 0)
         {
-            EndOfStroy();
+            EndOfTalk();
         }
     }
 
@@ -102,7 +102,7 @@ public class InkTalk : MonoBehaviour
         nextStep = true;
     }
 
-    private void EndOfStroy()
+    private void EndOfTalk()
     {
         UIManager.Instance.CloseTalk();
 
