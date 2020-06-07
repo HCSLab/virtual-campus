@@ -6,24 +6,97 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [HideInInspector] public GameObject currentTalk; 
+    [HideInInspector] public GameObject currentTalk;
+    public GameObject pressT;
+    public GameObject itemBag;
+    public GameObject badgeBag;
 
     private void Awake()
     {
         Instance = this;
     }
 
-    public void OpenTalk(GameObject talk)
+    public void CloseAllOpenedPanel()
     {
         CloseTalk();
-        currentTalk = talk;
+        HideItemBag();
+        HideBadgeBag();
+        HidePressT();
     }
 
-    public void CloseTalk()
+    public void OpenTalk(GameObject talk)
     {
-        if (currentTalk)
+        CloseAllOpenedPanel();
+        currentTalk = talk;
+    }
+    public void CloseTalk(GameObject talk = null)
+    {
+        if (talk == null)
         {
-            Destroy(currentTalk);
+            if (currentTalk)
+            {
+                Destroy(currentTalk);
+                currentTalk = null;
+            }
+        }
+        else
+        {
+            if (currentTalk == talk)
+            {
+                Destroy(currentTalk);
+                currentTalk = null;
+            }
+        }
+    }
+
+    public void ShowPressT()
+    {
+        pressT.SetActive(true);
+    }
+    public void HidePressT()
+    {
+        pressT.SetActive(false);
+    }
+
+    public void ShowItemBag()
+    {
+        badgeBag.SetActive(false);
+        itemBag.SetActive(true);
+    }
+    public void HideItemBag()
+    {
+        itemBag.SetActive(false);
+    }
+    public void ItemBagButtonPressed()
+    {
+        if (itemBag.activeSelf)
+        {
+            HideItemBag();
+        }
+        else
+        {
+            ShowItemBag();
+        }
+    }
+
+    public void ShowBadgeBag()
+    {
+        itemBag.SetActive(false);
+        badgeBag.SetActive(true);
+    }
+    public void HideBadgeBag()
+    {
+        badgeBag.SetActive(false);
+    }
+    public void BadgeBagButtonPressed()
+    {
+        if (badgeBag.activeSelf)
+        {
+            HideBadgeBag();
+        }
+        else
+        {
+            ShowBadgeBag();
         }
     }
 }

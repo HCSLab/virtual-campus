@@ -1623,6 +1623,52 @@ namespace Ink.Runtime
             return result;
         }
 
+        public void CheckInFunction(string functionName, params object[] arguments)
+        {
+            List<Object> oldStream = null;
+            CheckInFunction(functionName, out oldStream, arguments);
+        }
+
+        public void CheckInFunction(string functionName, out List<Object> outputStreamBefore, params object[] arguments)
+        {
+            IfAsyncWeCant("evaluate a function");
+
+            if (functionName == null)
+            {
+                throw new System.Exception("Function is null");
+            }
+            else if (functionName == string.Empty || functionName.Trim() == string.Empty)
+            {
+                throw new System.Exception("Function is empty or white space.");
+            }
+
+            // Get the content that we need to run
+            var funcContainer = KnotContainerWithName(functionName);
+            if (funcContainer == null)
+                throw new System.Exception("Function doesn't exist: '" + functionName + "'");
+
+            // Snapshot the output stream
+            outputStreamBefore = new List<Runtime.Object>(state.outputStream);
+            _state.ResetOutput();
+
+            // State will temporarily replace the callstack in order to evaluate
+            state.StartFunctionEvaluationFromGame(funcContainer, arguments);
+        }
+
+        public object CheckOutFunction(List<Object> outputStreamBefore = null) 
+        {
+            // Restore the output stream in case this was called
+            // during main story evaluation.
+            if (outputStreamBefore != null)
+            {
+                _state.ResetOutput(outputStreamBefore);
+            }
+
+            // Finish evaluation, and see whether anything was produced
+            var result = state.CompleteFunctionEvaluationFromGame();
+            return result;
+        }
+
         // Evaluate a "hot compiled" piece of ink content, as used by the REPL-like
         // CommandLinePlayer.
         internal Runtime.Object EvaluateExpression(Runtime.Container exprContainer)

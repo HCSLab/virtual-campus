@@ -167,7 +167,7 @@ namespace Ink.Runtime
 				// should always come at the end.
 				if( canContinue ) return new List<Choice>();
 				return _currentChoices;
-			} 
+			}
 		}
 		internal List<Choice> generatedChoices {
 			get {
