@@ -62,9 +62,12 @@ public class InkTalk : MonoBehaviour
         {
             text.text += inkStroy.Continue();
             var tags = inkStroy.currentTags;
-            foreach (var tag in tags)
+            if (storyScript)
             {
-                storyScript.InProcessTag(tag, this);
+                foreach (var tag in tags)
+                {
+                    storyScript.InProcessTag(tag, this);
+                }
             }
         }
 
@@ -108,7 +111,10 @@ public class InkTalk : MonoBehaviour
 
         if (!notFinished)
         {
-            storyScript.AddFlag(executeFunction + "_done");
+            if (storyScript)
+            {
+                storyScript.AddFlag(executeFunction + "_done");
+            }
         }
     }
 }
