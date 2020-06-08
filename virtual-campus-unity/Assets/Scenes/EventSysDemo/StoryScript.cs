@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
+using System.Runtime.CompilerServices;
 
 public class StoryScript : MonoBehaviour
 {
@@ -16,7 +17,76 @@ public class StoryScript : MonoBehaviour
 
     private List<string> inkFunctions = new List<string>();
 
-    public List<GameObject> nextStories = new List<GameObject>();
+    private List<string> require = new List<string>();
+    private List<string> without = new List<string>();
+    private bool gotStartConditions = false;
+
+    private void GetStartConditions()
+    {
+        if (gotStartConditions)
+        {
+            return;
+        }
+
+        if (inkStroy == null)
+        {
+            inkStroy = new Story(inkFile.text);
+        }
+        var tags = new List<string>();
+        while (inkStroy.canContinue)
+        {
+            inkStroy.Continue();
+            tags.AddRange(inkStroy.currentTags);
+        }
+        
+        bool allowMultiTry = false;
+        foreach (var tag in tags)
+        {
+            string op, data;
+            StandardizationTag(tag, out op, out data);
+
+            if (op == "after")
+            {
+                require.Add(data + "_story_done");
+            }
+            else if (op == "require")
+            {
+                require.Add(data);
+            }
+            else if (op == "without")
+            {
+                without.Add(data);
+            }
+            else if (op == "allow_multi_try")
+            {
+                allowMultiTry = true;
+            }
+        }
+
+        if (!allowMultiTry)
+        {
+            without.Add(inkFile.name + "_story_done");
+        }
+
+        gotStartConditions = true;
+    }
+
+    public bool CheckStartConditions()
+    {
+        if (!gotStartConditions)
+        {
+            GetStartConditions();
+        }
+        if (!FlagBag.Instance.HasFlags(require))
+        {
+            return false;
+        }
+        if (!FlagBag.Instance.WithoutFlags(without))
+        {
+            return false;
+        }
+        return true;
+    }
 
     private void Start()
     {
@@ -25,7 +95,6 @@ public class StoryScript : MonoBehaviour
         inkStroy = new Story(inkFile.text);
 
         GetAllInkFunctions();
-
         foreach (var func in inkFunctions)
         {
             //List<Ink.Runtime.Object> oldStream = null;
@@ -72,11 +141,10 @@ public class StoryScript : MonoBehaviour
         }
     }
 
-    public void InProcessTag(string tag, InkTalk talk)
+    private void StandardizationTag(string tag, out string op, out string data)
     {
         tag = tag.Replace(" ", "");
         var sep = tag.IndexOf(':');
-        string op, data;
         if (sep != -1)
         {
             op = tag.Substring(0, sep);
@@ -87,7 +155,12 @@ public class StoryScript : MonoBehaviour
             op = tag;
             data = "";
         }
-        
+    }
+
+    public void InProcessTag(string tag, InkTalk talk)
+    {
+        string op, data;
+        StandardizationTag(tag, out op, out data);
 
         if (op == "addflag")
         {
@@ -97,11 +170,11 @@ public class StoryScript : MonoBehaviour
         {
             DelFlag(data);
         }
-        else if (op == "addglobalflag")
+        else if (op == "add_global_flag")
         {
             FlagBag.Instance.AddFlag(data);
         }
-        else if (op == "delglobalflag")
+        else if (op == "del_global_flag")
         {
             FlagBag.Instance.DelFlag(data);
         }
@@ -138,12 +211,10 @@ public class StoryScript : MonoBehaviour
         List<string> requireTags = new List<string>();
         List<string> withoutTags = new List<string>();
 
-        foreach (var t in tags)
+        foreach (var tag in tags)
         {
-            var tag = t.Replace(" ", "");
-            var sep = tag.IndexOf(':');
-            var op = tag.Substring(0, sep);
-            var data = tag.Substring(sep + 1);
+            string op, data;
+            StandardizationTag(tag, out op, out data);
 
             if (op == "attach")
             {
@@ -187,18 +258,16 @@ public class StoryScript : MonoBehaviour
             var button = Instantiate(buttonPrefab).GetComponent<Button>();
             button.transform.parent = transform;
 
-            button.gameObject.AddComponent<AttachToTalk>();
-            var attach = button.GetComponent<AttachToTalk>();
+            var attach = button.gameObject.AddComponent<AttachToTalk>();
             attach.speakerName = who;
             attach.require.AddRange(require);
             attach.without.AddRange(without);
 
-            button.gameObject.AddComponent<CreateInkTalk>();
-            var creater = button.GetComponent<CreateInkTalk>();
+            var creater = button.gameObject.AddComponent<CreateInkTalk>();
             creater.inkFile = inkFile;
             creater.executeFunction = funcName;
             creater.talkPrefab = talkPrefab;
-            creater.storyManager = this;
+            creater.storyScript = this;
             button.onClick.AddListener(creater.Create);
 
             var text = button.transform.Find("Text").GetComponent<Text>();
@@ -217,12 +286,11 @@ public class StoryScript : MonoBehaviour
             return;
         }
         
-        obj.gameObject.AddComponent<CreateInkTalkOnPlayerEnter>();
-        var creater = obj.GetComponent<CreateInkTalkOnPlayerEnter>();
+        var creater = obj.gameObject.AddComponent<CreateInkTalkOnPlayerEnter>();
         creater.inkFile = inkFile;
         creater.executeFunction = funcName;
         creater.talkPrefab = talkPrefab;
-        creater.storyManager = this;
+        creater.storyScript = this;
         creater.require.AddRange(require);
         creater.without.AddRange(without);
     }
@@ -241,12 +309,8 @@ public class StoryScript : MonoBehaviour
 
     public void EndStory()
     {
-        foreach (var story in nextStories)
-        {
-            Instantiate(story);
-        }
         FlagBag.Instance.AddFlag(inkFile.name + "_story_done");
-        Destroy(gameObject);
+        StoryManager.Instance.EndStory(this);
     }
 
     private void OnDestroy()

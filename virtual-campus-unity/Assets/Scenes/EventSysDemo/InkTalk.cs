@@ -19,7 +19,7 @@ public class InkTalk : MonoBehaviour
 
     public GameObject talk;
 
-    public StoryScript storyManager;
+    public StoryScript storyScript;
 
     private Text text;
     private Transform buttons;
@@ -64,7 +64,7 @@ public class InkTalk : MonoBehaviour
             var tags = inkStroy.currentTags;
             foreach (var tag in tags)
             {
-                storyManager.InProcessTag(tag, this);
+                storyScript.InProcessTag(tag, this);
             }
         }
 
@@ -91,7 +91,7 @@ public class InkTalk : MonoBehaviour
 
         if (!inkStroy.canContinue && inkStroy.currentChoices.Count == 0)
         {
-            EndOfTalk();
+            EndTalk();
         }
     }
 
@@ -102,13 +102,13 @@ public class InkTalk : MonoBehaviour
         nextStep = true;
     }
 
-    private void EndOfTalk()
+    private void EndTalk()
     {
         UIManager.Instance.CloseTalk();
 
         if (!notFinished)
         {
-            storyManager.AddFlag(executeFunction + "_done");
+            storyScript.AddFlag(executeFunction + "_done");
         }
     }
 }
