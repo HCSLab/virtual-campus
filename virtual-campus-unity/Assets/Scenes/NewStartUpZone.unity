@@ -4443,7 +4443,7 @@ PrefabInstance:
     - target: {fileID: 1242777451821750527, guid: e8378f8963362114091d81b644086078,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 331.50003
+      value: 331.5
       objectReference: {fileID: 0}
     - target: {fileID: 1730618042925211410, guid: e8378f8963362114091d81b644086078,
         type: 3}
@@ -5976,7 +5976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2068359192
 Transform:
   m_ObjectHideFlags: 0
@@ -10030,32 +10030,17 @@ MonoBehaviour:
   jumpSound: {fileID: 0}
   landSound: {fileID: 0}
   footStepSounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  fsmode: 1
+  - {fileID: 8300000, guid: c4c8cffc7150eaf479d89fa2bd92d7b8, type: 3}
+  fsmode: 0
   dynamicFootstep:
     materialMode: 0
-    woodPhysMat:
-    - {fileID: 0}
-    metalAndGlassPhysMat:
-    - {fileID: 0}
-    grassPhysMat:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    dirtAndGravelPhysMat:
-    - {fileID: 0}
-    rockAndConcretePhysMat:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    mudPhysMat:
-    - {fileID: 0}
-    customPhysMat:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    woodPhysMat: []
+    metalAndGlassPhysMat: []
+    grassPhysMat: []
+    dirtAndGravelPhysMat: []
+    rockAndConcretePhysMat: []
+    mudPhysMat: []
+    customPhysMat: []
     woodMat: []
     metalAndGlassMat: []
     grassMat: []
@@ -10080,17 +10065,17 @@ MonoBehaviour:
     - {fileID: 0}
     dirtAndGravelClipSet: []
     rockAndConcreteClipSet:
-    - {fileID: 8300000, guid: a9e804a8165699a49bceb84d083a34a6, type: 3}
-    - {fileID: 8300000, guid: fead5cfe6593ab64dac60ff7b677fb86, type: 3}
-    - {fileID: 8300000, guid: b129e694a0fa16f498b497481befe169, type: 3}
-    - {fileID: 8300000, guid: a3eb761c67da86e4d95a714d5040e215, type: 3}
-    - {fileID: 8300000, guid: 49a4a47af61a25b4fb37c589359ef09c, type: 3}
-    - {fileID: 8300000, guid: ffeb60b812fdc464499d8bd1c46cd055, type: 3}
-    - {fileID: 8300000, guid: 7b10d52be5966cc49b99c126a03640e5, type: 3}
-    - {fileID: 8300000, guid: fbe1939915c91b74f9eded7665492ef6, type: 3}
-    - {fileID: 8300000, guid: e2f81d653f70254468486696deb5e2d7, type: 3}
-    - {fileID: 8300000, guid: e38fa940edefdd9479e226e6a3d4787e, type: 3}
-    - {fileID: 8300000, guid: 965861ab37dcd9549912eca505055b63, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     mudClipSet: []
     customClipSet:
     - {fileID: 0}
@@ -10118,7 +10103,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
