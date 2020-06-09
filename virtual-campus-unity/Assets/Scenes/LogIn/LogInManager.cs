@@ -21,7 +21,7 @@ public class LogInManager : MonoBehaviour
 
 		LogInNotificationCenter.instance.Post(LogInNotificationCenter.NotificationType.LoggingIn);
 
-		var result = LogInResult.InternetError;
+		var result = LogInResult.Success;
 
 		switch (result)
 		{
@@ -29,7 +29,7 @@ public class LogInManager : MonoBehaviour
 				LeanTween.delayedCall(2f, () =>
 				{
 					LogInNotificationCenter.instance.Remove(LogInNotificationCenter.NotificationType.LoggingIn);
-					//SceneManager.LoadScene("NewStartUpZone");
+					SceneLoadingManager.instance.LoadGame();
 				});
 				break;
 			case LogInResult.WrongPasswordOrUsername:
