@@ -37,6 +37,8 @@ public class Mapping : MonoBehaviour
         if (model != null)
         {
             model.GetComponent<SpriteRenderer>().sprite = item.image;
+            model.transform.localScale = new Vector3(150/item.image.rect.width, 250/item.image.rect.height, 1);
+            //Debug.Log(item.image.rect.width);
         }
     }
 }
