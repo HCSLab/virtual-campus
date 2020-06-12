@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,6 +85,34 @@ public class ItemBag : MonoBehaviour
     //old methord
     public void BagButtonPressed()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        float alpha = GetComponent<CanvasGroup>().alpha;
+        if (alpha == 1)
+        {
+            GetComponent<CanvasGroup>().alpha = 0;
+            GetComponent<CanvasGroup>().interactable = false;
+            GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
+        else
+        {
+            GetComponent<CanvasGroup>().alpha = 1;
+            GetComponent<CanvasGroup>().interactable = true;
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+        }
+        //gameObject.SetActive(!gameObject.activeSelf);
+    }
+
+    public void Reload()
+    {
+        foreach (var box in itemBoxs)
+        {
+            Destroy(box.gameObject);
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            foreach (var item in testItems)
+            {
+                Add(item);
+            }
+        }
     }
 }
