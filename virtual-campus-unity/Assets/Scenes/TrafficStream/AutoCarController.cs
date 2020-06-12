@@ -30,6 +30,10 @@ public class AutoCarController: MonoBehaviour
 		[HideInInspector] public float wheelPower;
 	}
 
+	[Header("Route")]
+	public Transform[] checkPoints;
+	public float offsetThreshold, steerThreshold;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -39,62 +43,22 @@ public class AutoCarController: MonoBehaviour
 		// rb.centerOfMass = COM.localPosition;
 
 		StartEngine();
+		InitializePositionAndRotation();
+	}
+
+	void InitializePositionAndRotation()
+	{
+		var initialPosition = checkPoints[0].position;
+		initialPosition.y = transform.position.y;
+		transform.position = initialPosition;
+
+		transform.LookAt(checkPoints[1]);
 	}
 
 	void FixedUpdate()
 	{
-		Vector3 position;
-		Quaternion rotation;
-		float currentSpeed = rb.velocity.magnitude;
-
-		for (int i = 0; i < wheels.Length; i++)
-		{
-			if (wheels[i].wheelCollider == null) continue;
-			if (currentSpeed > maxSpeed)
-			{
-				wheels[i].wheelPower = 0;
-			}
-			else
-			{
-				wheels[i].wheelPower = powerEngine * (wheels[i].percentMotorPower * 0.1f);
-			}
-
-			if (engineWorking)
-			{
-				float inputVertical = (Input.GetKey(KeyCode.UpArrow)?1:0) - (Input.GetKey(KeyCode.DownArrow)?1:0);
-				if (wheels[i].wheelCollider.rpm < 0.01f && inputVertical < 0f || wheels[i].wheelCollider.rpm >= -0.01f && inputVertical >= 0f)
-				{
-					wheels[i].wheelCollider.brakeTorque = 0;
-					wheels[i].wheelCollider.motorTorque = inputVertical * wheels[i].wheelPower;
-				}
-				else
-				{
-					wheels[i].wheelCollider.motorTorque = 0;
-					WheelBrake(wheels[i].wheelCollider);
-				}
-			}
-			else
-			{
-				wheels[i].wheelCollider.motorTorque = 0;
-			}
-
-			wheels[i].wheelCollider.steerAngle = ((Input.GetKey(KeyCode.RightArrow) ? 1 : 0) - (Input.GetKey(KeyCode.LeftArrow) ? 1 : 0)) * wheels[i].angleTurningWheel;
-			if (Input.GetAxis("Jump") != 0)
-			{
-				WheelBrake(wheels[i].wheelCollider);
-			}
-
-			wheels[i].wheelCollider.GetWorldPose(out position, out rotation);
-			wheels[i].wheelObject.transform.position = position;
-			wheels[i].wheelObject.transform.localPosition -= wheels[i].wheelCollider.center;
-			wheels[i].wheelObject.transform.rotation = rotation;
-
-			if (audioSource != null)
-			{
-				var speed = rb.velocity.magnitude;
-				audioSource.pitch = 1 + (speed * 0.03f);
-			}
-		}
+		CalculateInput();
+		UpdateWheels();
 	}
 
 	public void StartEngine()
@@ -125,6 +89,101 @@ public class AutoCarController: MonoBehaviour
 		engineWorking = true;
 	}
 
+	// Inputs to the car from the controller.
+	float inputPower;
+	float inputSteerAngle;
+	float currentMaxSpeed;
+
+	int nextCheckPointIndex = 0;
+
+	void CalculateInput()
+	{
+		if ((transform.position - checkPoints[nextCheckPointIndex].position).magnitude < offsetThreshold)
+			nextCheckPointIndex++;
+
+		if (nextCheckPointIndex == checkPoints.Length - 1)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		var nextCheckPoint = checkPoints[nextCheckPointIndex];
+		var carDir = transform.forward;
+		var targetDir = nextCheckPoint.position - transform.position;
+		var angle = Vector3.SignedAngle(carDir, targetDir, Vector3.up);
+
+		Debug.Log("Angle: " + angle + "; nextCheckPointIndex: " + nextCheckPointIndex);
+		
+		if (Mathf.Abs(angle) < steerThreshold)
+		{
+			inputPower = 1;
+			inputSteerAngle = angle;
+			currentMaxSpeed = maxSpeed;
+		}
+		else
+		{
+			inputPower = 1;
+			inputSteerAngle = angle;
+			currentMaxSpeed = 0.5f * maxSpeed;
+		}
+	}
+
+	void UpdateWheels()
+	{
+		Vector3 position;
+		Quaternion rotation;
+		float currentSpeed = rb.velocity.magnitude;
+
+		for (int i = 0; i < wheels.Length; i++)
+		{
+			if (wheels[i].wheelCollider == null) continue;
+
+			// Check speed limit.
+			if (currentSpeed > currentMaxSpeed)
+			{
+				wheels[i].wheelPower = 0;
+				WheelBrake(wheels[i].wheelCollider);
+			}
+			else
+				wheels[i].wheelPower = powerEngine * (wheels[i].percentMotorPower * 0.1f);
+
+			// Update motor.
+			if (engineWorking)
+			{
+				float inputVertical = inputPower;
+				if (wheels[i].wheelCollider.rpm < 0.01f && inputVertical < 0f || wheels[i].wheelCollider.rpm >= -0.01f && inputVertical >= 0f)
+				{
+					wheels[i].wheelCollider.brakeTorque = 0;
+					wheels[i].wheelCollider.motorTorque = inputVertical * wheels[i].wheelPower;
+				}
+				else
+				{
+					wheels[i].wheelCollider.motorTorque = 0;
+					WheelBrake(wheels[i].wheelCollider);
+				}
+			}
+			else
+			{
+				wheels[i].wheelCollider.motorTorque = 0;
+			}
+
+			// Update steering.
+			if (inputSteerAngle > 0f)
+				wheels[i].wheelCollider.steerAngle = Mathf.Min(wheels[i].angleTurningWheel, inputSteerAngle);
+			else
+				wheels[i].wheelCollider.steerAngle = Mathf.Max(-wheels[i].angleTurningWheel, inputSteerAngle);
+
+			// Update the mesh of the wheel.
+			wheels[i].wheelCollider.GetWorldPose(out position, out rotation);
+			wheels[i].wheelObject.transform.position = position;
+			wheels[i].wheelObject.transform.localPosition -= wheels[i].wheelCollider.center;
+			wheels[i].wheelObject.transform.rotation = rotation;
+		}
+
+		// Update the engine sound.
+		if (audioSource != null)
+			audioSource.pitch = 1 + (currentSpeed * 0.03f);
+	}
 
 	void WheelBrake(WheelCollider wheelCollider)
 	{
