@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
+	public Color gizmoColor;
+
 	void OnDrawGizmos()
 	{
-		Gizmos.color = Color.yellow;
+		Gizmos.color = gizmoColor;
 		Gizmos.DrawSphere(transform.position, 0.1f);
 	}
 }
