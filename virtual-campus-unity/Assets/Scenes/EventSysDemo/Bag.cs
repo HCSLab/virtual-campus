@@ -119,6 +119,7 @@ public class Bag : MonoBehaviour
         {
             Destroy(box.gameObject);
         }
+        itemBoxs.Clear();
         for (int i = 0; i < 10; i++)
         {
             foreach (var item in testItems)
