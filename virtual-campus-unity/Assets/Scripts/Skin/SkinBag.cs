@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkinBag : ItemBag
+public class SkinBag : Bag
 {
-    new public static SkinBag Instance;
+    public static SkinBag Instance;
 
     public int index;
+
+    protected virtual void Awake()
+    {
+        Instance = this;
+    }
 
     public void OnSaveClicked()
     {
@@ -19,8 +24,39 @@ public class SkinBag : ItemBag
         BagButtonPressed();
     }
 
+
+    public override void Add(GameObject obj, bool copy = true)
+    {
+        var display = Instantiate(displayPrefab);
+        var itemBox = display.GetComponent<SkinBox>();
+
+        Item item;
+        if (copy)
+        {
+            item = Instantiate(obj).GetComponent<Item>();
+        }
+        else
+        {
+            item = obj.GetComponent<Item>();
+        }
+        item.transform.parent = transform;
+
+        itemBox.Init(item);
+
+        itemBoxs.Add(itemBox);
+        display.transform.parent = layout;
+    }
+
     public void OnCancelClicked()
     {
         BagButtonPressed();
+    }
+
+    public override void Select(Item item) 
+    {
+        detailImage.sprite = item.image;
+        detailName.text = item.itemName;
+        detailDescription.text = item.description;
+        currentItem = item;
     }
 }

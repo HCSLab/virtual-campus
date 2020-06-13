@@ -55,6 +55,7 @@ public class PaintView : MonoBehaviour
     //默认上一次点的位置
     private Vector2 _lastPoint;
     public Slider slider;
+    public GameObject skinBagObject;
 	#endregion
 
 	void Start()
@@ -172,8 +173,8 @@ public class PaintView : MonoBehaviour
         }
         if (_renderTex == null)
         {
-            _screenWidth = (int) GameObject.FindGameObjectWithTag("Painter").GetComponent<RectTransform>().rect.size.x;
-            _screenHeight = (int) GameObject.FindGameObjectWithTag("Painter").GetComponent<RectTransform>().rect.size.y;
+            _screenWidth = (int) transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.x;
+            _screenHeight = (int) transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.y;
             /*
             _screenWidth = Screen.width;
             _screenHeight = Screen.height;
@@ -198,7 +199,7 @@ public class PaintView : MonoBehaviour
     //插点
     private void LerpPaint(Vector2 point)
     {
-        RectTransform re = GameObject.FindGameObjectWithTag("Painter").GetComponent<RectTransform>();
+        RectTransform re = transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>();
         //Debug.Log(point - ((Vector2)re.transform.position + new Vector2(-180, -300)));
         Paint(point);
 
@@ -329,7 +330,7 @@ public class PaintView : MonoBehaviour
         //Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, 150, 250), Vector2.zero);
         sprite.name = "sprite";
         //SpriteItem spriteItem = new SpriteItem(new Item(name, description, sprite));
-        var skinBag = GameObject.FindGameObjectWithTag("SkinBag").GetComponent<SkinBag>();
+        var skinBag = skinBagObject.GetComponent<SkinBag>();
         GameObject newSprite = new GameObject();
         newSprite.name = "Customized Sprite";
         newSprite.transform.SetParent(skinBag.transform);

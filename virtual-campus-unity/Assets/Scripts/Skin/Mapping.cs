@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mapping : MonoBehaviour
 {
     private GameObject model;
+    public GameObject skinBag;
 
     /*
     private List<Sprite> sprites;
@@ -21,8 +22,8 @@ public class Mapping : MonoBehaviour
             sprites.Add(g.GetComponent<Item>().image);
         }
         */
-        int index = GameObject.FindGameObjectWithTag("SkinBag").GetComponent<SkinBag>().index;
-        GameObject temp = GameObject.FindGameObjectWithTag("SkinBag").GetComponent<SkinBag>().testItems[index];
+        int index = skinBag.GetComponent<SkinBag>().index;
+        GameObject temp = skinBag.GetComponent<SkinBag>().testItems[index];
         model = gameObject;
         if (model != null)
         {
