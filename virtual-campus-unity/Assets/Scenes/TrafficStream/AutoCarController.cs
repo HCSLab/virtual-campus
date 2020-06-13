@@ -112,7 +112,7 @@ public class AutoCarController: MonoBehaviour
 		var targetDir = nextCheckPoint.position - transform.position;
 		var angle = Vector3.SignedAngle(carDir, targetDir, Vector3.up);
 
-		Debug.Log("Angle: " + angle + "; nextCheckPointIndex: " + nextCheckPointIndex);
+		// Debug.Log("Angle: " + angle + "; nextCheckPointIndex: " + nextCheckPointIndex);
 		
 		if (Mathf.Abs(angle) < steerThreshold)
 		{
