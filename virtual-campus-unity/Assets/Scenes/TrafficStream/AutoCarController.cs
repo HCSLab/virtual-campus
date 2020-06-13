@@ -98,7 +98,9 @@ public class AutoCarController: MonoBehaviour
 
 	void CalculateInput()
 	{
-		if ((transform.position - checkPoints[nextCheckPointIndex].position).magnitude < offsetThreshold)
+		var offset = transform.position - checkPoints[nextCheckPointIndex].position;
+		offset.Scale(new Vector3(1f, 0f, 1f));
+		if (offset.magnitude < offsetThreshold)
 			nextCheckPointIndex++;
 
 		if (nextCheckPointIndex == checkPoints.Length - 1)
