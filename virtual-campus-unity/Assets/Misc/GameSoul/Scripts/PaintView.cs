@@ -303,7 +303,19 @@ public class PaintView : MonoBehaviour
 
     public void OnPainterButtonClicked()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        float alpha = GetComponent<CanvasGroup>().alpha;
+        if (alpha == 1)
+        {
+            GetComponent<CanvasGroup>().alpha = 0;
+            GetComponent<CanvasGroup>().interactable = false;
+            GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
+        else
+        {
+            GetComponent<CanvasGroup>().alpha = 1;
+            GetComponent<CanvasGroup>().interactable = true;
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+        }
     }
 
     public void Save()
