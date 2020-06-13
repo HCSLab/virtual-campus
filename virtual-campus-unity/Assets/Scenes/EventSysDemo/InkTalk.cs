@@ -24,6 +24,7 @@ public class InkTalk : MonoBehaviour
     private Text text;
     private Transform buttons;
     private GameObject button;
+    private Button panelSizedButton;
 
     private void Start()
     {
@@ -32,6 +33,8 @@ public class InkTalk : MonoBehaviour
         button = buttons.Find("Button").gameObject;
         button.SetActive(false);
         button.transform.parent = talk.transform;
+        panelSizedButton = talk.transform.Find("Panel/BigButton").GetComponent<Button>();
+        panelSizedButton.gameObject.SetActive(false);
 
         nextStep = true;
         firstStep = true;
@@ -55,6 +58,7 @@ public class InkTalk : MonoBehaviour
             {
                 Destroy(buttons.GetChild(i).gameObject);
             }
+            panelSizedButton.gameObject.SetActive(false);
         }
 
         text.text = "";
@@ -73,15 +77,25 @@ public class InkTalk : MonoBehaviour
 
         foreach (var choice in inkStroy.currentChoices)
         {
-            var btn = Instantiate(button).GetComponent<Button>();
-            btn.gameObject.SetActive(true);
-            btn.transform.parent = buttons;
+            if (choice.text == "n")
+            {
+                panelSizedButton.gameObject.SetActive(true);
+                var path = choice.pathStringOnChoice;
+                panelSizedButton.onClick.RemoveAllListeners();
+                panelSizedButton.onClick.AddListener(delegate { ChoicePathSelected(path); });
+            }
+            else
+            {
+                var btn = Instantiate(button).GetComponent<Button>();
+                btn.gameObject.SetActive(true);
+                btn.transform.parent = buttons;
 
-            var btnText = btn.transform.Find("Text").GetComponent<Text>();
-            btnText.text = choice.text;
+                var btnText = btn.transform.Find("Text").GetComponent<Text>();
+                btnText.text = choice.text;
 
-            var path = choice.pathStringOnChoice;
-            btn.onClick.AddListener(delegate { ChoicePathSelected(path); });
+                var path = choice.pathStringOnChoice;
+                btn.onClick.AddListener(delegate { ChoicePathSelected(path); });
+            }
         }
 
         nextStep = false;

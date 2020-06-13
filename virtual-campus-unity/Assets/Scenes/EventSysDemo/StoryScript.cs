@@ -143,7 +143,6 @@ public class StoryScript : MonoBehaviour
 
     private void StandardizationTag(string tag, out string op, out string data)
     {
-        tag = tag.Replace(" ", "");
         var sep = tag.IndexOf(':');
         if (sep != -1)
         {
@@ -155,6 +154,8 @@ public class StoryScript : MonoBehaviour
             op = tag;
             data = "";
         }
+        op = op.Trim();
+        data = data.Trim();
     }
 
     public void InProcessTag(string tag, InkTalk talk)
