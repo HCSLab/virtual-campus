@@ -13,18 +13,18 @@ ScriptedImporter:
   meshMode: 1
   legacyVoxImport: 0
   importMode: 1
-  importScale: {x: 0.2, y: 0.2, z: 0.2}
+  importScale: {x: 1, y: 1, z: 1}
   importOffset: {x: 0, y: 0, z: 0}
   combineFaces: 1
   ignoreCavity: 1
   shareSameFace: 1
   removeUnusedPalettes: 1
   outputStructure: 0
-  generateLightmapUVs: 1
+  generateLightmapUVs: 0
   generateLightmapUVsAngleError: 8
   generateLightmapUVsAreaError: 15
   generateLightmapUVsHardAngle: 88
-  generateLightmapUVsPackMargin: 8
+  generateLightmapUVsPackMargin: 4
   generateTangents: 0
   meshFaceVertexOffset: 0
   loadFromVoxelFile: 1
@@ -33,10 +33,18 @@ ScriptedImporter:
   createContactChunkFaces: 0
   materialMode: 0
   materials:
-  - {instanceID: 0}
+  - {fileID: -156486658544998735, guid: ff5db250b216e6340ab2cdd48c7f9b6a, type: 3}
+  - {fileID: 5865586234719623449, guid: ff5db250b216e6340ab2cdd48c7f9b6a, type: 3}
+  - {fileID: 3473123015285894068, guid: ff5db250b216e6340ab2cdd48c7f9b6a, type: 3}
+  - {fileID: 8801679490653950251, guid: ff5db250b216e6340ab2cdd48c7f9b6a, type: 3}
+  - {fileID: 4913426069162526988, guid: ff5db250b216e6340ab2cdd48c7f9b6a, type: 3}
+  - {fileID: 8588245910270914291, guid: ff5db250b216e6340ab2cdd48c7f9b6a, type: 3}
   materialNames:
   - mat0
-  remappedMaterials:
-  - name: mat0
-    material: {fileID: 2100000, guid: 85782f68bf17ed74090ff9c88a781d3d, type: 2}
+  - mat1
+  - mat2
+  - mat3
+  - mat4
+  - mat5
+  remappedMaterials: []
   export: 0
