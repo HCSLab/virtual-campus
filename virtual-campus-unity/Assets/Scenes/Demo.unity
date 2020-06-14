@@ -2979,6 +2979,7 @@ GameObject:
   - component: {fileID: 362465346}
   - component: {fileID: 362465348}
   - component: {fileID: 362465345}
+  - component: {fileID: 362465349}
   m_Layer: 0
   m_Name: Timeline
   m_TagString: Untagged
@@ -3018,10 +3019,6 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 3179277778776371281, guid: 527af348266ea404893f9c88452d9cc4, type: 2}
     value: {fileID: 623113272}
-  - key: {fileID: 2029426428111063414, guid: 527af348266ea404893f9c88452d9cc4, type: 2}
-    value: {fileID: 813347708}
-  - key: {fileID: 3840300494129597054, guid: 527af348266ea404893f9c88452d9cc4, type: 2}
-    value: {fileID: 0}
   - key: {fileID: -6961790609643441027, guid: 527af348266ea404893f9c88452d9cc4, type: 2}
     value: {fileID: 1341262402}
   - key: {fileID: -4976991492243083512, guid: 527af348266ea404893f9c88452d9cc4, type: 2}
@@ -3070,6 +3067,7 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: 2cdd61a86e6dd36439f264fec0744291, type: 2}
+    - {fileID: 11400000, guid: cdaa1a52e4549ec40984156c33467f6e, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -3084,6 +3082,32 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 362465349}
+          m_MethodName: OnLightMapChange
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &362465349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362465344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d861b5266c0143247b22a717c8768415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayWorld: {fileID: 813347708}
 --- !u!1 &366982190 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1204073486896698994, guid: 9dacb81ea8cb33141b77c0f9040e344a,
@@ -4480,8 +4504,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623113271}
-  m_LocalRotation: {x: 0, y: 0.9689561, z: -0.24723302, w: 0}
-  m_LocalPosition: {x: -2.99, y: 12.17, z: 7.51}
+  m_LocalRotation: {x: 0.00035455264, y: 0.99964464, z: -0.019485563, w: 0.018189197}
+  m_LocalPosition: {x: 6.02, y: 3.99, z: -10.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 102269852}
@@ -9442,7 +9466,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697254356}
-  m_LocalRotation: {x: 0.0003581629, y: 0.99964124, z: -0.019485492, w: 0.018374415}
+  m_LocalRotation: {x: 0.00035455264, y: 0.99964464, z: -0.019485563, w: 0.018189197}
   m_LocalPosition: {x: 6.02, y: 3.99, z: -10.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
