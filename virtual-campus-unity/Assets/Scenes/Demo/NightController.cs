@@ -9,6 +9,7 @@ public class NightController : MonoBehaviour
     public void OnLightMapChange()
 	{
 		dayWorld.SetActive(false);
-		GameObject.FindGameObjectWithTag("NightTimeline").GetComponent<PlayableDirector>().Play();
+		var night = GameObject.FindGameObjectWithTag("NightTimeline");
+		night.transform.position = Vector3.zero;
 	}
 }
