@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public enum SceneIndexes
 {
+	PersistentScene,
 	LogIn,
-	MainGame
+	MainGame,
+	Demo,
+	DemoNight
 }
 
 public class SceneLoadingManager : MonoBehaviour
@@ -24,7 +27,9 @@ public class SceneLoadingManager : MonoBehaviour
 		loadingScreen.SetActive(true);
 
 		scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.LogIn));
-		scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MainGame, LoadSceneMode.Additive));
+		//scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MainGame, LoadSceneMode.Additive));
+		scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.Demo, LoadSceneMode.Additive));
+		scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.DemoNight, LoadSceneMode.Additive));
 
 		StartCoroutine(GetSceneLoadProgress());
 	}
@@ -46,7 +51,7 @@ public class SceneLoadingManager : MonoBehaviour
 		}
 
 		loadingScreen.SetActive(false);
-		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.MainGame));
+		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.Demo));
 	}
 
 	void Start()
@@ -57,5 +62,8 @@ public class SceneLoadingManager : MonoBehaviour
 			return;
 		}
 		instance = this;
+
+		SceneManager.LoadScene((int)SceneIndexes.LogIn, LoadSceneMode.Additive);
+		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.LogIn));
 	}
 }
