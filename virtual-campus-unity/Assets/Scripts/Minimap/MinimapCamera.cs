@@ -3,14 +3,14 @@ using System.Collections;
 
 public class MinimapCamera : MonoBehaviour
 {
-    private Camera minimapCamera;
+    protected Camera minimapCamera;
     //private Transform minimapQuad;
-    private Transform player;
+    protected Transform player;
     private Vector3 offsetPosition;
     // Use this for initialization
     void Start()
     {
-        minimapCamera = GameObject.FindGameObjectWithTag("MinimapCamera").GetComponent<Camera>();
+        minimapCamera = GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         offsetPosition = minimapCamera.transform.position - player.position;
         //minimapQuad = GameObject.FindGameObjectWithTag("Player").GetComponent<MinimapQuad>().transform;

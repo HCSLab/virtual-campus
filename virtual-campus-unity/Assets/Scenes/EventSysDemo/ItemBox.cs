@@ -12,11 +12,12 @@ public class ItemBox : MonoBehaviour
     public void Init(Item i)
     {
         item = i;
+
         image.sprite = item.image;
         text.text = item.itemName;
     }
 
-    public void OnClick()
+    public virtual void OnClick()
     {
         ItemBag.Instance.Select(item);
     }
