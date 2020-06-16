@@ -3,13 +3,19 @@
 	Properties {
 		_Color ("Color Tint", Color) = (1, 1, 1, 1)
 		_MainTex ("Main Tex", 2D) = "white" {}
-        _PropTex ("Prop Tex", 2D) = "white" {}
+        _Specular ("Specular Intensity", Float) = 0.1
+        _Gloss ("Gloss", Float) = 256
+        [HDR]_Emission ("Emission", Color) = (0, 0, 0, 0)
+        _NoiseTex ("Noise Tex", 2D) = "white" {}
+        _Lightmap ("Lightmap Intensity", Float) = 1
+        _Ambient ("Ambient Intensity", Float) = 1
+        _NoiseColorIntensity ("Noise Normal Intensity", Float) = 0.1
+        _NoiseColorScale ("Noise Normal Scale", Float) = 100
 	}
 
 
 	SubShader {
 		Tags { "RenderType"="Opaque" "Queue"="Geometry" "CustomType"="Voxel" }
-
 
 		Pass { 
 			Tags { "LightMode"="ForwardBase" }
@@ -29,12 +35,14 @@
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            sampler2D _PropTex;
-
-            static const fixed propUV_y0 = 0.125;
-            static const fixed propUV_y1 = 0.375;
-            static const fixed propUV_y2 = 0.625;
-            static const fixed propUV_y3 = 0.875;
+            fixed _Specular;
+            fixed _Gloss;
+            fixed3 _Emission;
+            fixed _Lightmap;
+            fixed _Ambient;
+            float _NoiseColorIntensity;
+            float _NoiseColorScale;
+            sampler2D _NoiseTex;
             
             struct a2v {
                 float4 vertex : POSITION;
@@ -57,6 +65,10 @@
 					float2 uv_lm : TEXCOORD5;
 				#endif
             };
+
+            float noise(float seed) {
+                return frac(sin(seed * 2001.0403) * 2333.2333);
+            }
             
             v2f vert(a2v v) {
                 v2f o;
@@ -76,36 +88,31 @@
             }
 
 			fixed4 frag(v2f i) : SV_Target {
-                fixed3 specularCol = tex2D(_PropTex, fixed2(i.uv.x, propUV_y0)).rgb;
-                fixed3 tmp = tex2D(_PropTex, fixed2(i.uv.x, propUV_y1));
-                fixed gloss = tmp.g * 1024;
-                gloss = max(gloss, 8);
-
 				fixed3 lightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 				fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
 
 				fixed3 albedo = tex2D(_MainTex, i.uv).rgb * _Color.rgb;
 				
-				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
-
-                fixed3 emission = albedo * tmp.r * 10;
+				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo * _Ambient;
 				
 			 	fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(i.worldNormal, lightDir));
 			 	
 			 	fixed3 halfDir = normalize(lightDir + viewDir);
-			 	fixed3 specular = _LightColor0.rgb * specularCol * pow(max(0, dot(i.worldNormal, halfDir)), gloss);
+			 	fixed3 specular = _LightColor0.rgb * _Specular * pow(max(0, dot(i.worldNormal, halfDir)), _Gloss);
 
 				#ifndef LIGHTMAP_OFF
-					fixed3 backed = DecodeLightmap(UNITY_SAMPLE_TEX2D(unity_Lightmap, i.uv_lm)) * albedo;
+					fixed3 backed = DecodeLightmap(UNITY_SAMPLE_TEX2D(unity_Lightmap, i.uv_lm)) * albedo * _Lightmap;
 				#endif
 			
 				UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);
 
+                fixed3 noiseCol = tex2D(_NoiseTex, i.worldPos * _NoiseColorScale + albedo).rgb * albedo * _NoiseColorIntensity;
+
 				#ifndef LIGHTMAP_OFF
 					// return fixed4(col_lm / 4, 1);
-					return fixed4(ambient + backed + emission + (diffuse + specular) * atten, 1.0);
+					return fixed4(ambient + _Emission + backed + (diffuse + specular + noiseCol) * atten, 1.0);
 				#else
-					return fixed4(ambient + emission + (diffuse + specular) * atten, 1.0);
+					return fixed4(ambient + _Emission + (diffuse + specular + noiseCol) * atten, 1.0);
 				#endif
 			}
 			
@@ -132,12 +139,8 @@
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            sampler2D _PropTex;
-
-            static const fixed propUV_y0 = 0.125;
-            static const fixed propUV_y1 = 0.375;
-            static const fixed propUV_y2 = 0.625;
-            static const fixed propUV_y3 = 0.875;
+            fixed _Specular;
+            fixed _Gloss;
             
             struct a2v {
                 float4 vertex : POSITION;
@@ -170,11 +173,6 @@
             }
 			
 			fixed4 frag(v2f i) : SV_Target {
-                fixed3 specularCol = tex2D(_PropTex, fixed2(i.uv.x, propUV_y0)).rgb;
-                fixed3 tmp = tex2D(_PropTex, fixed2(i.uv.x, propUV_y1));
-                fixed gloss = tmp.g * 1024;
-                gloss = max(gloss, 8);
-
 				fixed3 lightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 				fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
 				
@@ -183,7 +181,7 @@
 			 	fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(i.worldNormal, lightDir));
 			 	
 			 	fixed3 halfDir = normalize(lightDir + viewDir);
-			 	fixed3 specular = _LightColor0.rgb * specularCol * pow(max(0, dot(i.worldNormal, halfDir)), gloss);
+			 	fixed3 specular = _LightColor0.rgb * _Specular * pow(max(0, dot(i.worldNormal, halfDir)), _Gloss);
 			
 				UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);
 
