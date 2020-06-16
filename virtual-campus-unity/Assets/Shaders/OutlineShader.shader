@@ -9,6 +9,7 @@
         _BlurSize ("Blur Size", Float) = 1
         _Threshold ("Outline Threshold", Float) = 0
         _HardEdge ("Is Hard Edge", Float) = 0
+        _Intensity ("Intensity Scaler", Float) = 1
     }
 
     SubShader
@@ -73,6 +74,7 @@
             fixed3 _Color;
             fixed _Threshold;
             fixed _HardEdge;
+            fixed _Intensity;
             sampler2D _MainTex;
             sampler2D _OutlineTex;
             sampler2D _CullTex;
@@ -95,7 +97,7 @@
                     return fixed4(color, 1);
                 }
 
-                fixed a = outline > _Threshold ? (_HardEdge > 0 ? 1 : outline) : 0;
+                fixed a = outline > _Threshold ? (_HardEdge > 0 ? 1 : outline * _Intensity) : 0;
                 return fixed4(color * (1 - a) + _Color * a, 1);
             }
             ENDCG
