@@ -59,8 +59,12 @@ public class DrawOutline : MonoBehaviour
             commandBuffer.Clear();
             commandBuffer.SetRenderTarget(cullTex);
             commandBuffer.ClearRenderTarget(true, true, Color.black);
-            commandBuffer.DrawRenderer(target, outlineMat, 0, 0);
-
+            var mf = target.GetComponent<MeshFilter>();
+            for (int i = 0; i < mf.sharedMesh.subMeshCount; i++)
+            {
+                commandBuffer.DrawRenderer(target, outlineMat, i, 0);
+            }
+            
             commandBuffer.CopyTexture(cullTex, outlineTex);
             commandBuffer.Blit(outlineTex, tempTex, outlineMat, 1);
             commandBuffer.Blit(tempTex, outlineTex, outlineMat, 2);
