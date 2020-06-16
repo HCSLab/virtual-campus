@@ -9,8 +9,8 @@
         _NoiseTex ("Noise Tex", 2D) = "white" {}
         _Lightmap ("Lightmap Intensity", Float) = 1
         _Ambient ("Ambient Intensity", Float) = 1
-        _NoiseColorIntensity ("Noise Normal Intensity", Float) = 0.1
-        _NoiseColorScale ("Noise Normal Scale", Float) = 100
+        _NoiseIntensity ("Noise Intensity", Float) = 0.1
+        _NoiseScale ("Noise Scale", Float) = 100
 	}
 
 
@@ -40,8 +40,8 @@
             fixed3 _Emission;
             fixed _Lightmap;
             fixed _Ambient;
-            float _NoiseColorIntensity;
-            float _NoiseColorScale;
+            float _NoiseIntensity;
+            float _NoiseScale;
             sampler2D _NoiseTex;
             
             struct a2v {
@@ -106,13 +106,16 @@
 			
 				UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);
 
-                fixed3 noiseCol = tex2D(_NoiseTex, i.worldPos * _NoiseColorScale + albedo).rgb * albedo * _NoiseColorIntensity;
+                // fixed3 noiseCol = tex2D(_NoiseTex, i.worldPos.xy * _NoiseScale + albedo.rg).rgb + 
+                //                   tex2D(_NoiseTex, i.worldPos.yz * _NoiseScale + albedo.rg).rgb + 
+                //                   tex2D(_NoiseTex, i.worldPos.zx * _NoiseScale + albedo.rg).rgb;
+                // noiseCol = (noiseCol - fixed3(1, 1, 1)) * (0.333 * _NoiseIntensity) * albedo;
 
 				#ifndef LIGHTMAP_OFF
 					// return fixed4(col_lm / 4, 1);
-					return fixed4(ambient + _Emission + backed + (diffuse + specular + noiseCol) * atten, 1.0);
+					return fixed4(ambient + _Emission + backed + (diffuse + specular /*+ noiseCol*/) * atten, 1.0);
 				#else
-					return fixed4(ambient + _Emission + (diffuse + specular + noiseCol) * atten, 1.0);
+					return fixed4(ambient + _Emission + (diffuse + specular /*+ noiseCol*/) * atten, 1.0);
 				#endif
 			}
 			
