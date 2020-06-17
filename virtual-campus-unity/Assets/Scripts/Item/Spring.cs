@@ -5,15 +5,16 @@ using UnityEngine;
 public class Spring : Consumable
 {
     public float jumpSpeedIncrement;
-    public override void Use()
+
+    public override void Apply()
     {
-        base.Use();
+        base.Apply();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().jumpSpeed += jumpSpeedIncrement;
     }
 
     public override void End()
     {
         base.End();
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().jumpSpeed -= jumpSpeedIncrement;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().jumpSpeed -= jumpSpeedIncrement * level;
     }
 }

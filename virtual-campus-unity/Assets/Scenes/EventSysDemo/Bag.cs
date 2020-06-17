@@ -48,9 +48,6 @@ public class Bag : MonoBehaviour
         }
         item.transform.parent = transform;
 
-        Debug.Log(itemBox);
-        Debug.Log(item);
-
         itemBox.Init(item);
 
         itemBoxs.Add(itemBox);
@@ -127,5 +124,25 @@ public class Bag : MonoBehaviour
                 Add(item);
             }
         }
+    }
+
+    public virtual void Select()
+    {
+        if (itemBoxs.Count > 0)
+        {
+            Select(itemBoxs[0].item);
+        }
+        else
+        {
+            ClearSelection();
+        }
+    }
+
+    protected virtual void ClearSelection()
+    {
+        detailImage.sprite = null;
+        detailName.text = null;
+        detailDescription.text = null;
+        currentItem = null;
     }
 }

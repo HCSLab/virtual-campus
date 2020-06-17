@@ -2,35 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Consumable : Item
+public class Consumable : Usable
 {
-    public int number;
-    public int maxPerStack;
-    public float duration;
-    public float cooldown;
-    public bool available;
-    protected float remainingTime;
+    public int number;                  //物品数量
+    public int maxPerStack;             //堆叠数量
+    public float duration;              //持续时间
+    public bool superposable;           //可叠加性
+    public int maxLevel;                //最高层数
+    protected float remainingTime = 0;  //剩余时间
+    protected int level = 0;            //叠加层数
 
-    public virtual void Use()
+    public override void Use()
     {
         number--;
+        level++;
+        //remainingCooldown = cooldown + 1;
         remainingTime += duration;
+        //available = false;
+        if (superposable && level > maxLevel)
+        {
+            level = maxLevel;
+            return;
+        }
+        Apply();
+    }
+
+    public virtual void Apply()
+    {
+
     }
 
     public virtual void End()
     {
-
     }
 
-    void Update()
+    protected override void Update()
     {
-        if (remainingTime <= 0)
-            return;
-        remainingTime -= Time.deltaTime * 1000;
-        //Debug.Log(remainingTime);
-        if (remainingTime <= 0)
+        base.Update();
+
+        if (remainingTime > 0)
         {
-            End();
+            remainingTime -= Time.deltaTime * 1000;
+            if (remainingTime <= 0)
+            {
+                remainingTime = 0;
+                End();
+                level = 0;
+                if (number == 0)
+                {
+                    Destroy(gameObject);
+                    //Debug.Log("DESTORY");
+                }
+            }
         }
+
     }
 }
