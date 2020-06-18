@@ -20,6 +20,7 @@ public class MinimapCamera : MonoBehaviour
     {
         minimapCamera.transform.position = offsetPosition + player.position;
     }
+
     public void ZoomInButtonClick()
     {
         Debug.Log("ZoomIn");
