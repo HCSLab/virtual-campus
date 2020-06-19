@@ -39,10 +39,6 @@ public class AutoNPCController : MonoBehaviour
 		var dir = checkPoints[1].position - model.transform.position;
 		dir.Scale(new Vector3(1f, 0f, 1f));
 		model.transform.forward = dir;
-
-		// By default, the forward of the model is not the
-		// direction that it is facing.
-		model.transform.RotateAround(transform.position, Vector3.up, -90f);
 	}
 
 	Vector3 nextMovement;
@@ -68,7 +64,7 @@ public class AutoNPCController : MonoBehaviour
 
 		// By default, the forward of the model is not the
 		// direction that it is facing.
-		angle = Vector3.SignedAngle(bodyDir, targetDir, Vector3.up) - 90;
+		angle = Vector3.SignedAngle(bodyDir, targetDir, Vector3.up);
 
 		targetDir.Scale(new Vector3(1f, 0f, 1f));
 		nextMovement = targetDir.normalized;
