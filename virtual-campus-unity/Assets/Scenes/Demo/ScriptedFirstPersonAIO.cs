@@ -320,9 +320,11 @@ public class BETA_SETTINGS{
                 StaminaMeter.color = new Color(0, 0, 0, 0);
             }
         }
-        cameraStartingPosition = playerCamera.transform.localPosition;
+        if(playerCamera)
+            cameraStartingPosition = playerCamera.transform.localPosition;
         if (lockAndHideCursor) { Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; }
-        baseCamFOV = playerCamera.fieldOfView;
+        if(playerCamera)
+            baseCamFOV = playerCamera.fieldOfView;
         #endregion
 
         #region Movement Settings - Start  
@@ -338,18 +340,19 @@ public class BETA_SETTINGS{
         advanced.highFrictionMaterial.frictionCombine = PhysicMaterialCombine.Maximum;
         advanced.highFrictionMaterial.bounceCombine = PhysicMaterialCombine.Average;
         #endregion
-
         #region Headbobbing Settings - Start
 
-        originalLocalPosition = snapHeadjointToCapsul ? new Vector3(head.localPosition.x, (capsule.height / 2) * head.localScale.y, head.localPosition.z) : head.localPosition;
-        if (GetComponent<AudioSource>() == null) { gameObject.AddComponent<AudioSource>(); }
+        if(head)
+            originalLocalPosition = snapHeadjointToCapsul ? new Vector3(head.localPosition.x, (capsule.height / 2) * head.localScale.y, head.localPosition.z) : head.localPosition;
 
+        if (GetComponent<AudioSource>() == null) { gameObject.AddComponent<AudioSource>(); }
         previousPosition = fps_Rigidbody.position;
         audioSource = GetComponent<AudioSource>();
         #endregion
 
         #region BETA_SETTINGS - Start
-        fOVKick.fovStart = playerCamera.fieldOfView;
+        if(playerCamera)
+            fOVKick.fovStart = playerCamera.fieldOfView;
         #endregion
     }
 

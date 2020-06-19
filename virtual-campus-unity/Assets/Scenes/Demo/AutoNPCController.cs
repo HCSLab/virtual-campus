@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AutoNPCController : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class AutoNPCController : MonoBehaviour
 	[Header("Route")]
 	public Transform[] checkPoints;
 	public float offsetThreshold, smoothSteerThreshold;
+	public bool reverseRoute;
 	[Header("Model")]
 	public GameObject model;
 
@@ -26,6 +29,9 @@ public class AutoNPCController : MonoBehaviour
 	{
 		animator = model.GetComponent<Animator>();
 		rb = GetComponent<Rigidbody>();
+
+		if(reverseRoute)
+			Array.Reverse(checkPoints);
 
 		InitializePositionAndRotation();
 	}

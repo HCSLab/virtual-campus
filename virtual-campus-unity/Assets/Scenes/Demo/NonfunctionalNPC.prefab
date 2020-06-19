@@ -95,6 +95,7 @@ MonoBehaviour:
   - {fileID: 0}
   offsetThreshold: 0.1
   smoothSteerThreshold: 5
+  reverseRoute: 0
   model: {fileID: 2419983155208280884}
   randomizedWalkSpeedFactor: 0
 --- !u!114 &4997512819371737574
@@ -162,8 +163,8 @@ MonoBehaviour:
     lastKnownSlopeAngle: 0
   isCrouching: 0
   fps_Rigidbody: {fileID: 0}
-  useHeadbob: 1
-  head: {fileID: 2419983155207980844}
+  useHeadbob: 0
+  head: {fileID: 0}
   snapHeadjointToCapsul: 0
   headbobFrequency: 1.5
   headbobSwayAngle: 5
@@ -285,12 +286,6 @@ GameObject:
 --- !u!4 &2419983155207980820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 98c3c377b338ed24ab2d9ee1cb19b41a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2419983155208379796}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2419983155207980844 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400056, guid: 98c3c377b338ed24ab2d9ee1cb19b41a,
     type: 3}
   m_PrefabInstance: {fileID: 2419983155208379796}
   m_PrefabAsset: {fileID: 0}
