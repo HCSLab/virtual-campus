@@ -177,8 +177,8 @@ public class AutoCarController: MonoBehaviour
 
 			// Update the mesh of the wheel.
 			wheels[i].wheelCollider.GetWorldPose(out position, out rotation);
-			wheels[i].wheelObject.transform.position = position;
-			wheels[i].wheelObject.transform.localPosition -= wheels[i].wheelCollider.center;
+			//wheels[i].wheelObject.transform.position = position;
+			//wheels[i].wheelObject.transform.localPosition -= wheels[i].wheelCollider.center;
 			wheels[i].wheelObject.transform.rotation = rotation;
 		}
 
