@@ -39,8 +39,9 @@ public class AutoCarController: MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 		audioSource = GetComponent<AudioSource>();
 		
-		// Resetting the COM causes a weird bug.
-		// rb.centerOfMass = COM.localPosition;
+		// Resetting the COM causes a weird bug
+		// in the bus model of PainterCars
+		rb.centerOfMass = COM.localPosition;
 
 		StartEngine();
 		InitializePositionAndRotation();
