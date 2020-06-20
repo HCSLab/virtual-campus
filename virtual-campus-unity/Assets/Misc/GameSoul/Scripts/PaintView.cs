@@ -177,11 +177,11 @@ public class PaintView : MonoBehaviour
         {
 
             float scale = Screen.width / GetComponent<CanvasScaler>().referenceResolution.x;
-            Debug.Log(Screen.width);
-            Debug.Log(scale);
+            //Debug.Log(Screen.width);
+            //Debug.Log(scale);
             _screenWidth = (int) (transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.x * scale);
             _screenHeight = (int) (transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.y * scale);
-            Debug.Log(_screenWidth);
+            //Debug.Log(_screenWidth);
 
             /*
             _screenWidth = Screen.width;
