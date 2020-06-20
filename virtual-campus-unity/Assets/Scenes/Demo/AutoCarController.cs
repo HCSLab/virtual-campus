@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< HEAD
 public class AutoCarController : MonoBehaviour
+=======
+public class AutoCarController: MonoBehaviour
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 {
 	[Header("Car Parameters")]
 	[SerializeField] private float maxSpeed;
@@ -38,7 +42,11 @@ public class AutoCarController : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		audioSource = GetComponent<AudioSource>();
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 		// Resetting the COM causes a weird bug
 		// in the bus model of PainterCars
 		rb.centerOfMass = COM.localPosition;
@@ -47,6 +55,7 @@ public class AutoCarController : MonoBehaviour
 		InitializePositionAndRotation();
 	}
 
+<<<<<<< HEAD
 	void FixedUpdate()
 	{
 		CalculateInput();
@@ -68,6 +77,8 @@ public class AutoCarController : MonoBehaviour
 		LeanTween.delayedCall(1f, () => { pedestrianCounter--; });
 	}
 
+=======
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 	void InitializePositionAndRotation()
 	{
 		var initialPosition = checkPoints[0].position;
@@ -77,6 +88,15 @@ public class AutoCarController : MonoBehaviour
 		transform.LookAt(checkPoints[1]);
 	}
 
+<<<<<<< HEAD
+=======
+	void FixedUpdate()
+	{
+		CalculateInput();
+		UpdateWheels();
+	}
+
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 	public void StartEngine()
 	{
 		StartCoroutine(StartEngineCor());
@@ -131,7 +151,11 @@ public class AutoCarController : MonoBehaviour
 		var angle = Vector3.SignedAngle(carDir, targetDir, Vector3.up);
 
 		// Debug.Log("Angle: " + angle + "; nextCheckPointIndex: " + nextCheckPointIndex);
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 		if (Mathf.Abs(angle) < steerThreshold)
 		{
 			inputPower = 1;
@@ -144,12 +168,15 @@ public class AutoCarController : MonoBehaviour
 			inputSteerAngle = angle;
 			currentMaxSpeed = 0.5f * maxSpeed;
 		}
+<<<<<<< HEAD
 
 		if (pedestrianCounter > 0)
 		{
 			inputPower = 0;
 			currentMaxSpeed = 0f;
 		}
+=======
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 	}
 
 	void UpdateWheels()
@@ -167,6 +194,7 @@ public class AutoCarController : MonoBehaviour
 			{
 				wheels[i].wheelPower = 0;
 				WheelBrake(wheels[i].wheelCollider);
+<<<<<<< HEAD
 				wheels[i].wheelCollider.motorTorque = 0f;
 			}
 			else
@@ -187,12 +215,36 @@ public class AutoCarController : MonoBehaviour
 						wheels[i].wheelCollider.motorTorque = 0;
 						WheelBrake(wheels[i].wheelCollider);
 					}
+=======
+			}
+			else
+				wheels[i].wheelPower = powerEngine * (wheels[i].percentMotorPower * 0.1f);
+
+			// Update motor.
+			if (engineWorking)
+			{
+				float inputVertical = inputPower;
+				if (wheels[i].wheelCollider.rpm < 0.01f && inputVertical < 0f || wheels[i].wheelCollider.rpm >= -0.01f && inputVertical >= 0f)
+				{
+					wheels[i].wheelCollider.brakeTorque = 0;
+					wheels[i].wheelCollider.motorTorque = inputVertical * wheels[i].wheelPower;
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 				}
 				else
 				{
 					wheels[i].wheelCollider.motorTorque = 0;
+<<<<<<< HEAD
 				}
 			}
+=======
+					WheelBrake(wheels[i].wheelCollider);
+				}
+			}
+			else
+			{
+				wheels[i].wheelCollider.motorTorque = 0;
+			}
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 
 			// Update steering.
 			if (inputSteerAngle > 0f)
@@ -202,8 +254,13 @@ public class AutoCarController : MonoBehaviour
 
 			// Update the mesh of the wheel.
 			wheels[i].wheelCollider.GetWorldPose(out position, out rotation);
+<<<<<<< HEAD
 			wheels[i].wheelObject.transform.position = position;
 			wheels[i].wheelObject.transform.localPosition -= wheels[i].wheelCollider.center;
+=======
+			//wheels[i].wheelObject.transform.position = position;
+			//wheels[i].wheelObject.transform.localPosition -= wheels[i].wheelCollider.center;
+>>>>>>> Revert "Revert "Merge branch 'demo' into skin&item""
 			wheels[i].wheelObject.transform.rotation = rotation;
 		}
 
