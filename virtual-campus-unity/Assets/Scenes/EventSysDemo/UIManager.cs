@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     {
         closePanel(itemBag);
         closePanel(skinBag);
-        //closeBag(badgeBag);
+        closePanel(badgeBag);
         closePanel(painter);
     }
 
