@@ -12,6 +12,9 @@ public class AutoNPCController : MonoBehaviour
 	public Transform[] checkPoints;
 	public float offsetThreshold, smoothSteerThreshold;
 	public bool reverseRoute;
+	public bool enableChatting;
+	[Range(0f, 1f)] public float chatProbility;
+	public float maxChatTime, minChatTime;
 	[Header("Model")]
 	public GameObject model;
 
@@ -30,10 +33,46 @@ public class AutoNPCController : MonoBehaviour
 		animator = model.GetComponent<Animator>();
 		rb = GetComponent<Rigidbody>();
 
-		if(reverseRoute)
+		if (reverseRoute)
 			Array.Reverse(checkPoints);
 
 		InitializePositionAndRotation();
+	}
+
+	// Variables about chatting.
+	bool chatTriggerChecked = false;
+	bool isChatting = false;
+	float chatCountdown;
+	GameObject chatTarget;
+	private void OnTriggerEnter(Collider other)
+	{
+		// Check whether this NPC can chat.
+		if (!enableChatting || isChatting) return;
+
+		// Check whether the collider can chat.
+		if (other.tag != "NPC") return;
+		var otherController = other.gameObject.GetComponent<AutoNPCController>();
+		if (!otherController.enableChatting || otherController.isChatting) return;
+		if (otherController.chatTriggerChecked) return;
+
+		chatTriggerChecked = true;
+		LeanTween.delayedCall(0.5f, () => { chatTriggerChecked = false; });
+
+		// Consider the probility.
+		if (Random.value > chatProbility) return;
+
+		isChatting = true;
+		chatCountdown = Random.Range(minChatTime, maxChatTime);
+		chatTarget = other.gameObject;
+
+		otherController.isChatting = true;
+		otherController.chatCountdown = chatCountdown;
+		otherController.chatTarget = gameObject;
+
+		LeanTween.value(gameObject, chatCountdown, 0f, chatCountdown)
+			.setOnUpdate((float val) => { chatCountdown = val; otherController.chatCountdown = val; })
+			.setOnComplete(() => { isChatting = false; otherController.isChatting = false; })
+			;
 	}
 
 	void InitializePositionAndRotation()
@@ -47,12 +86,20 @@ public class AutoNPCController : MonoBehaviour
 		model.transform.forward = dir;
 	}
 
+	// Variables about movement.
 	Vector3 nextMovement;
 	float angle;
 	int nextCheckPointIndex = 0;
 
 	public Vector3 GetInput()
 	{
+		if (isChatting)
+		{
+			nextMovement = Vector3.zero;
+			UpdateAnimationAndRotation();
+			return Vector3.zero;
+		}
+
 		var offset = transform.position - checkPoints[nextCheckPointIndex].position;
 		offset.Scale(new Vector3(1f, 0f, 1f));
 		if (offset.magnitude < offsetThreshold)
@@ -76,12 +123,19 @@ public class AutoNPCController : MonoBehaviour
 		nextMovement = targetDir.normalized;
 
 		UpdateAnimationAndRotation();
-		
+
 		return nextMovement;
 	}
 
 	void UpdateAnimationAndRotation()
 	{
+		if (isChatting)
+		{
+			animator.SetBool("Walk", false);
+			model.transform.LookAt(chatTarget.transform);
+			return;
+		}
+
 		// Update animation.
 		if (nextMovement.magnitude < 0.5f)
 		{
