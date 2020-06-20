@@ -108,6 +108,7 @@ public class Bag : MonoBehaviour
             GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
         //gameObject.SetActive(!gameObject.activeSelf);
+        GetComponent<CanvasScaler>().enabled = true;
     }
 
     public void Reload()

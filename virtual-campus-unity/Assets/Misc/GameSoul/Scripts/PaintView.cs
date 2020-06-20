@@ -163,6 +163,8 @@ public class PaintView : MonoBehaviour
 
         _lastPoint = Vector2.zero;
 
+        Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture;
+
         if (_paintBrushMat == null)
         {
             UpdateBrushMaterial();
@@ -173,17 +175,28 @@ public class PaintView : MonoBehaviour
         }
         if (_renderTex == null)
         {
-            _screenWidth = (int) transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.x;
-            _screenHeight = (int) transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.y;
+
+            float scale = Screen.width / GetComponent<CanvasScaler>().referenceResolution.x;
+            Debug.Log(Screen.width);
+            Debug.Log(scale);
+            _screenWidth = (int) (transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.x * scale);
+            _screenHeight = (int) (transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.y * scale);
+            Debug.Log(_screenWidth);
+
             /*
             _screenWidth = Screen.width;
             _screenHeight = Screen.height;
             */
+            /*
+            _screenWidth = (int)(transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.x);
+            _screenHeight = (int)(transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.y);
+            */
 
-            _renderTex = RenderTexture.GetTemporary(_screenWidth, _screenHeight, 24);
+            _renderTex = RenderTexture.GetTemporary(512, 512, 24);
             _paintCanvas.texture = _renderTex;
         }
-        Graphics.Blit(null, _renderTex, _clearBrushMat);
+        //Graphics.Blit(null, _renderTex, _clearBrushMat);
+        Graphics.Blit(playerTexture, _renderTex);
         BrushSizeChanged(slider);
     }
 
@@ -199,6 +212,7 @@ public class PaintView : MonoBehaviour
     //插点
     private void LerpPaint(Vector2 point)
     {
+
         RectTransform re = transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>();
         //Debug.Log(point - ((Vector2)re.transform.position + new Vector2(-180, -300)));
         Paint(point);
@@ -235,10 +249,9 @@ public class PaintView : MonoBehaviour
         */
         RectTransform re = _paintCanvas.GetComponent<RectTransform>();
 
-        int minY = (int)re.rect.top;
-        int maxY = (int)re.rect.bottom;
-        int minX = (int)re.rect.left;
-        int maxX = (int)re.rect.right;
+        float scale = Screen.width / GetComponent<CanvasScaler>().referenceResolution.x;
+        int minY = (int)(re.rect.top*scale);
+        int minX = (int)(re.rect.left*scale);
 
 
         point = point - ((Vector2)re.transform.position + new Vector2(minX, minY));
@@ -264,10 +277,9 @@ public class PaintView : MonoBehaviour
 
         RectTransform re = _paintCanvas.GetComponent<RectTransform>();
 
-        int minY = (int)re.rect.top;
-        int maxY = (int)re.rect.bottom;
-        int minX = (int)re.rect.left;
-        int maxX = (int)re.rect.right;
+        float scale = Screen.width / GetComponent<CanvasScaler>().referenceResolution.x;
+        int minY = (int)(re.rect.top * scale);
+        int minX = (int)(re.rect.left * scale);
 
 
         point = point - ((Vector2)re.transform.position + new Vector2(minX, minY));
@@ -338,15 +350,18 @@ public class PaintView : MonoBehaviour
         spriteItem.itemName = name;
         spriteItem.description = description;
         spriteItem.image = sprite;
+        spriteItem.texture = TextureToTexture2D(tex);
         skinBag.testItems.Add(newSprite);
         skinBag.Reload();
     }
 
     public void Clear()
     {
+        Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture;
         RenderTexture old = (RenderTexture) _paintCanvas.texture;
-        _renderTex = RenderTexture.GetTemporary(_screenWidth, _screenHeight, 24);
+        _renderTex = RenderTexture.GetTemporary(512, 512, 24);
         _paintCanvas.texture = _renderTex;
+        Graphics.Blit(playerTexture, _renderTex);
         old.Release();
     }
 

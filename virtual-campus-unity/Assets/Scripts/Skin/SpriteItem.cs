@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpriteItem : Item
 {
+    public Texture2D texture;
     public SpriteItem(Item item)
     {
         itemName = item.itemName;

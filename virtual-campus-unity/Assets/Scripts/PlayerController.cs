@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public float cameraScalingSpeed;
     public float mouseSensitivity;
     public float jumpSpeed;
-    public GameObject bodySprite;
     Animator animator;
     Rigidbody rigidbody;
     Vector3 cameraPositionOffset;
@@ -38,7 +37,7 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(-Input.GetAxis("Vertical"), 0f, Input.GetAxis("Horizontal"));
         if (Input.GetKey(KeyCode.Space))
         {
-            bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f);
+            bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.2f);
             if (isGrounded)
             {
                 GetComponent<Rigidbody>().velocity = new Vector3(0, jumpSpeed, 0);
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 animator.SetBool("Run", true);
-                animator.SetBool("Walk", false);
+                animator.SetBool("Walk", true);
             }
             else {
                 animator.SetBool("Walk", true);

@@ -18,8 +18,9 @@ public class SkinBag : Bag
     {
         if (currentItem != null)
         {
-            SpriteItem spriteItem = new SpriteItem(currentItem);
-            GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Mapping>().ChangeMapping(spriteItem);
+            SpriteItem spriteItem = (SpriteItem) currentItem;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture = spriteItem.texture;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerMaterial.mainTexture = spriteItem.texture;
         }
         BagButtonPressed();
     }
