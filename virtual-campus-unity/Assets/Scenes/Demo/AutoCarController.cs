@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoCarController: MonoBehaviour
+public class AutoCarController : MonoBehaviour
 {
 	[Header("Car Parameters")]
 	[SerializeField] private float maxSpeed;
@@ -38,13 +38,34 @@ public class AutoCarController: MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		audioSource = GetComponent<AudioSource>();
-		
+
 		// Resetting the COM causes a weird bug
 		// in the bus model of PainterCars
 		rb.centerOfMass = COM.localPosition;
 
 		StartEngine();
 		InitializePositionAndRotation();
+	}
+
+	void FixedUpdate()
+	{
+		CalculateInput();
+		UpdateWheels();
+	}
+
+	// Pedestrian detection
+	int pedestrianCounter = 0;
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.tag != "NPC") return;
+		pedestrianCounter++;
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.tag != "NPC") return;
+		LeanTween.delayedCall(1f, () => { pedestrianCounter--; });
 	}
 
 	void InitializePositionAndRotation()
@@ -54,12 +75,6 @@ public class AutoCarController: MonoBehaviour
 		transform.position = initialPosition;
 
 		transform.LookAt(checkPoints[1]);
-	}
-
-	void FixedUpdate()
-	{
-		CalculateInput();
-		UpdateWheels();
 	}
 
 	public void StartEngine()
@@ -116,7 +131,7 @@ public class AutoCarController: MonoBehaviour
 		var angle = Vector3.SignedAngle(carDir, targetDir, Vector3.up);
 
 		// Debug.Log("Angle: " + angle + "; nextCheckPointIndex: " + nextCheckPointIndex);
-		
+
 		if (Mathf.Abs(angle) < steerThreshold)
 		{
 			inputPower = 1;
@@ -128,6 +143,12 @@ public class AutoCarController: MonoBehaviour
 			inputPower = 1;
 			inputSteerAngle = angle;
 			currentMaxSpeed = 0.5f * maxSpeed;
+		}
+
+		if (pedestrianCounter > 0)
+		{
+			inputPower = 0;
+			currentMaxSpeed = 0f;
 		}
 	}
 
@@ -146,28 +167,31 @@ public class AutoCarController: MonoBehaviour
 			{
 				wheels[i].wheelPower = 0;
 				WheelBrake(wheels[i].wheelCollider);
+				wheels[i].wheelCollider.motorTorque = 0f;
 			}
 			else
-				wheels[i].wheelPower = powerEngine * (wheels[i].percentMotorPower * 0.1f);
-
-			// Update motor.
-			if (engineWorking)
 			{
-				float inputVertical = inputPower;
-				if (wheels[i].wheelCollider.rpm < 0.01f && inputVertical < 0f || wheels[i].wheelCollider.rpm >= -0.01f && inputVertical >= 0f)
+				wheels[i].wheelPower = powerEngine * (wheels[i].percentMotorPower * 0.1f);
+				
+				// Update motor.
+				if (engineWorking)
 				{
-					wheels[i].wheelCollider.brakeTorque = 0;
-					wheels[i].wheelCollider.motorTorque = inputVertical * wheels[i].wheelPower;
+					float inputVertical = inputPower;
+					if (wheels[i].wheelCollider.rpm < 0.01f && inputVertical < 0f || wheels[i].wheelCollider.rpm >= -0.01f && inputVertical >= 0f)
+					{
+						wheels[i].wheelCollider.brakeTorque = 0;
+						wheels[i].wheelCollider.motorTorque = inputVertical * wheels[i].wheelPower;
+					}
+					else
+					{
+						wheels[i].wheelCollider.motorTorque = 0;
+						WheelBrake(wheels[i].wheelCollider);
+					}
 				}
 				else
 				{
 					wheels[i].wheelCollider.motorTorque = 0;
-					WheelBrake(wheels[i].wheelCollider);
 				}
-			}
-			else
-			{
-				wheels[i].wheelCollider.motorTorque = 0;
 			}
 
 			// Update steering.
@@ -178,8 +202,8 @@ public class AutoCarController: MonoBehaviour
 
 			// Update the mesh of the wheel.
 			wheels[i].wheelCollider.GetWorldPose(out position, out rotation);
-			//wheels[i].wheelObject.transform.position = position;
-			//wheels[i].wheelObject.transform.localPosition -= wheels[i].wheelCollider.center;
+			wheels[i].wheelObject.transform.position = position;
+			wheels[i].wheelObject.transform.localPosition -= wheels[i].wheelCollider.center;
 			wheels[i].wheelObject.transform.rotation = rotation;
 		}
 
