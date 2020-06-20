@@ -3,7 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BadgeBag : ItemBag
+public class BadgeBag : Bag
 {
+    public static BadgeBag Instance;
 
+    protected virtual void Awake()
+    {
+        Instance = this;
+    }
+
+    public override void Select(Item item)
+    {
+
+    }
 }
