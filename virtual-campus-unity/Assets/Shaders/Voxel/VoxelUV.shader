@@ -34,7 +34,7 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                return fixed4(i.uv.x, i.uv.x, i.uv.x, 1);
+                return fixed4(i.uv.x, i.uv.y, 0, 1);
             }
             ENDCG
         }
