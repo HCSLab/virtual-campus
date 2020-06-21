@@ -58,8 +58,8 @@ using UnityEditor;
 
 public class ScriptedFirstPersonAIO : MonoBehaviour
 {
-	#region Modification
-	AutoNPCController autoNPCController;
+    #region Modification
+    PlayerController playerController;
 	#endregion
 
     #region Variables
@@ -100,7 +100,7 @@ public class ScriptedFirstPersonAIO : MonoBehaviour
     public bool playerCanMove = true;
     public bool walkByDefault = true;
     public float walkSpeed = 4f;
-    public KeyCode sprintKey = KeyCode.LeftShift;
+    // public KeyCode sprintKey = KeyCode.LeftShift;
     public float sprintSpeed = 8f;
     public float jumpPower = 5f;
     public bool canJump = true;
@@ -280,12 +280,12 @@ public class BETA_SETTINGS{
     private void Start()
     {
         #region Modification
-        autoNPCController = GetComponent<AutoNPCController>();
+        playerController = GetComponent<PlayerController>();
 		#endregion
 
 		#region Look Settings - Start
 
-		if (autoCrosshair || drawStaminaMeter)
+		if ((enableCameraMovement && autoCrosshair) || (useStamina && drawStaminaMeter))
         {
             Canvas canvas = new GameObject("AutoCrosshair").AddComponent<Canvas>();
             canvas.gameObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -380,9 +380,10 @@ public class BETA_SETTINGS{
         #endregion
 
         #region  Input Settings - Update
-        didJump = canHoldJump ? Input.GetButton("Jump") : Input.GetButtonDown("Jump");
+        didJump = canHoldJump ? playerController.GetJumpInput() : playerController.GetJumpInput();
         if (!canJump) { didJump = false; }
         yVelocity = fps_Rigidbody.velocity.y;
+        
         if (IsGrounded && didJump && jumpPowerInternal > 0)
         {
             yVelocity += jumpPowerInternal;
@@ -391,7 +392,6 @@ public class BETA_SETTINGS{
             if (playerCanMove) { fps_Rigidbody.velocity = (Vector3.up * yVelocity); }
         }
         if (advanced._maxSlopeAngle > 0 && IsGrounded && SlopeCheck() <= 0.25f) { yVelocity *= SlopeCheck(); }
-        //if(){didJump = false;}
 
         if (_crouchModifiers.useCrouch)
         {
@@ -424,7 +424,7 @@ public class BETA_SETTINGS{
         bool wasWalking = !isSprinting;
         if (useStamina)
         {
-            isSprinting = Input.GetKey(sprintKey) && !isCrouching && staminaInternal > 0 && (Mathf.Abs(fps_Rigidbody.velocity.x) > 0.01f || Mathf.Abs(fps_Rigidbody.velocity.x) > 0.01f);
+            isSprinting = playerController.GetSprintInput() && !isCrouching && staminaInternal > 0 && (Mathf.Abs(fps_Rigidbody.velocity.x) > 0.01f || Mathf.Abs(fps_Rigidbody.velocity.x) > 0.01f);
             if (isSprinting)
             {
                 staminaInternal -= (staminaDepletionSpeed * 2) * Time.deltaTime;
@@ -434,7 +434,7 @@ public class BETA_SETTINGS{
                     StaminaMeter.color = Vector4.MoveTowards(StaminaMeter.color, new Vector4(1, 1, 1, 1), 0.15f);
                 }
             }
-            else if ((!Input.GetKey(sprintKey) || Mathf.Abs(fps_Rigidbody.velocity.x) < 0.01f || Mathf.Abs(fps_Rigidbody.velocity.x) < 0.01f || isCrouching) && staminaInternal < staminaLevel)
+            else if ((!playerController.GetSprintInput() || Mathf.Abs(fps_Rigidbody.velocity.x) < 0.01f || Mathf.Abs(fps_Rigidbody.velocity.x) < 0.01f || isCrouching) && staminaInternal < staminaLevel)
             {
                 staminaInternal += staminaDepletionSpeed * Time.deltaTime;
             }
@@ -450,11 +450,10 @@ public class BETA_SETTINGS{
             }
             staminaInternal = Mathf.Clamp(staminaInternal, 0, staminaLevel);
         }
-        else { isSprinting = Input.GetKey(sprintKey); }
+        else { isSprinting = playerController.GetSprintInput(); }
 
         Vector3 dMove = Vector3.zero;
         speed = walkByDefault ? isCrouching ? walkSpeedInternal : (isSprinting ? sprintSpeedInternal : walkSpeedInternal) : (isSprinting ? walkSpeedInternal : sprintSpeedInternal);
-
 
         if (advanced._maxSlopeAngle > 0 && Physics.Raycast(transform.position - new Vector3(0, ((capsule.height / 2) * transform.localScale.y) - capsule.radius, 0), new Vector3(dMove.x, -1.5f, dMove.z), out advanced.surfaceAngleCheck, capsule.radius * 4))
         {
@@ -476,9 +475,9 @@ public class BETA_SETTINGS{
             }
         }
 
-        var input = autoNPCController.GetInput();
+        var input = playerController.GetMovementInput();
         float horizontalInput = input.x;
-        float verticalInput = input.z;
+        float verticalInput = input.y;
         inputXY = new Vector2(horizontalInput, verticalInput);
         if (inputXY.magnitude > 1) { inputXY.Normalize(); }
 
@@ -772,7 +771,7 @@ public class BETA_SETTINGS{
             IsGrounded = false;
             for (int i = 0; i < CollisionData.contactCount; i++)
             {
-                if (CollisionData.GetContact(i).point.y < (transform.position.y - (capsule.radius + 0.199f)))
+                if (CollisionData.GetContact(i).point.y < (transform.position.y + capsule.center.y - (capsule.height * 0.45f)))
                 {
                     IsGrounded = true;
                     advanced.stairMiniHop = false;
@@ -906,7 +905,7 @@ public class SFPAIO_Editor : Editor
         GUI.enabled = t.playerCanMove;
         t.walkByDefault = EditorGUILayout.ToggleLeft(new GUIContent("Walk By Default", "Determines if the default mode of movement is 'Walk' or 'Srpint'."), t.walkByDefault);
         t.walkSpeed = EditorGUILayout.Slider(new GUIContent("Walk Speed", "Determines how fast the player walks."), t.walkSpeed, 0.1f, 10);
-        t.sprintKey = (KeyCode)EditorGUILayout.EnumPopup(new GUIContent("Sprint Key", "Determines what key needs to be pressed to enter a sprint"), t.sprintKey);
+        // t.sprintKey = (KeyCode)EditorGUILayout.EnumPopup(new GUIContent("Sprint Key", "Determines what key needs to be pressed to enter a sprint"), t.sprintKey);
         t.sprintSpeed = EditorGUILayout.Slider(new GUIContent("Sprint Speed", "Determines how fast the player sprints."), t.sprintSpeed, 0.1f, 20);
         t.canJump = EditorGUILayout.ToggleLeft(new GUIContent("Can Player Jump?", "Determines if the player is allowed to jump."), t.canJump);
         GUI.enabled = t.playerCanMove && t.canJump; EditorGUI.indentLevel++;

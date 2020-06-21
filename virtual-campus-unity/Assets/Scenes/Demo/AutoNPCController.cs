@@ -150,9 +150,4 @@ public class AutoNPCController : MonoBehaviour
 		else
 			animator.SetBool("Walk", true);
 	}
-
-	public Vector3 GetInput()
-	{
-		return Vector3.zero;
-	}
 }

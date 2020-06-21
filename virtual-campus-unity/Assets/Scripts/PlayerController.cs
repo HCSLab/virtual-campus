@@ -35,18 +35,13 @@ public class PlayerController : MonoBehaviour
 
     void UpdatePlayerRotationAndAnimation()
     {
-        Vector3 movement = new Vector3(-Input.GetAxis("Vertical"), 0f, Input.GetAxis("Horizontal"));
-        if (Input.GetKey(KeyCode.Space))
-        {
-            bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f);
-            if (isGrounded)
-            {
-                GetComponent<Rigidbody>().velocity = new Vector3(0, jumpSpeed, 0);
-            }
-        }
+        var movement2D = GetMovementInput();
+        Vector3 movement = Vector3.zero;
+        movement.x = -movement2D.y;
+        movement.z = movement2D.x;
         if (movement.magnitude > 0.1f)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (GetSprintInput())
             {
                 animator.SetBool("Run", true);
                 animator.SetBool("Walk", false);
@@ -76,10 +71,9 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKey(KeyCode.Q)) cameraRotation -= 1f;
         if(Input.GetKey(KeyCode.E)) cameraRotation += 1f;
         //if (Input.GetMouseButton(0)) minimapCamera.GetComponent<MinimapCamera>().ZoomInButtonClick();
-        if (Input.GetMouseButton(1)){
+        if (Input.GetMouseButton(1))
             cameraRotation = (Input.mousePosition - lastMousePosition).x * mouseSensitivity;
-            
-        }
+       
         playerCamera.transform.RotateAround(transform.position, Vector3.up, cameraRotation * cameraRotationSpeed);
 
         cameraPositionOffset = playerCamera.transform.position - transform.position;
@@ -92,4 +86,19 @@ public class PlayerController : MonoBehaviour
 
         model.transform.eulerAngles = modelEulerAngles;
     }
+
+    public Vector2 GetMovementInput()
+	{
+        return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+    }
+
+    public bool GetJumpInput()
+	{
+        return Input.GetKeyDown(KeyCode.Space);
+	}
+
+    public bool GetSprintInput()
+	{
+        return Input.GetKey(KeyCode.LeftShift);
+	}
 }
