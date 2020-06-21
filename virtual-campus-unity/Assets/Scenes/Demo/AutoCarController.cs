@@ -34,6 +34,9 @@ public class AutoCarController : MonoBehaviour
 	public Transform[] checkPoints;
 	public float offsetThreshold, steerThreshold;
 
+	[Header("Auto Brake")]
+	public Transform pedestrianDetector;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -150,6 +153,16 @@ public class AutoCarController : MonoBehaviour
 			inputPower = 0;
 			currentMaxSpeed = 0f;
 		}
+
+		// Update Pedestrian Detector.
+		var toLookAt = nextCheckPoint.position;
+		if (nextCheckPointIndex + 1 < checkPoints.Length)
+		{
+			toLookAt += checkPoints[nextCheckPointIndex + 1].position;
+			toLookAt *= 0.5f;
+		}
+		toLookAt.y = pedestrianDetector.transform.position.y;
+		pedestrianDetector.LookAt(toLookAt);
 	}
 
 	void UpdateWheels()
