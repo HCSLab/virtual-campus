@@ -39,10 +39,36 @@ public class AutoNPCController : MonoBehaviour
 	}
 
 	// Variables about chatting.
-	bool chatTriggerChecked = false;
-	bool isChatting = false;
-	float chatCountdown;
-	GameObject chatTarget;
+	private bool chatTriggerChecked = false;
+	private bool isChatting = false;
+	[HideInInspector]
+	public float chatCountdown;
+	[HideInInspector]
+	public GameObject chatTargetModel;
+	
+	// This property must be updated after other
+	// attributes are updated.
+	public bool IsChatting
+	{
+		get
+		{
+			return isChatting;
+		}
+		set
+		{
+			if (value == isChatting)
+				return;
+			
+			// Update the rotation of the model.
+			if (value)
+				model.transform.LookAt(chatTargetModel.transform);
+			else
+				LeanTween.rotateLocal(model, Vector3.zero, 0.8f);
+			
+			isChatting = value;
+		}
+	}
+	
 	private void OnTriggerEnter(Collider other)
 	{
 		// Check whether this NPC can chat.
@@ -60,19 +86,23 @@ public class AutoNPCController : MonoBehaviour
 		// Consider the probility.
 		if (Random.value > chatProbility) return;
 
-		isChatting = true;
+		chatTargetModel = otherController.model;
 		chatCountdown = Random.Range(minChatTime, maxChatTime);
-		chatTarget = other.gameObject;
+		IsChatting = true; // Remember IsChatting should be updated at last.
 
-		otherController.isChatting = true;
+		otherController.chatTargetModel = gameObject;
 		otherController.chatCountdown = chatCountdown;
-		otherController.chatTarget = gameObject;
+		otherController.IsChatting = true;
 
 		LeanTween.value(gameObject, chatCountdown, 0f, chatCountdown)
 			.setOnUpdate((float val) => { chatCountdown = val; otherController.chatCountdown = val; })
 			.setOnComplete(() => {
-				isChatting = false;
-				otherController.isChatting = false;
+				IsChatting = false;
+				otherController.IsChatting = false;
+
+				// Disable chatting for 1 seconds
+				// to avoid consecutive chats between
+				// the same NPCs.
 				enableChatting = false;
 				otherController.enableChatting = false;
 				LeanTween.delayedCall(1f, () => { enableChatting = true; otherController.enableChatting = true; });
@@ -115,10 +145,6 @@ public class AutoNPCController : MonoBehaviour
 
 	void UpdateAnimationAndRotation()
 	{
-		if (isChatting)
-			model.transform.LookAt(chatTarget.transform);
-		else
-			model.transform.localRotation = Quaternion.identity;
 		if (navMeshAgent.velocity.magnitude < 0.01f)
 			animator.SetBool("Walk", false);
 		else
