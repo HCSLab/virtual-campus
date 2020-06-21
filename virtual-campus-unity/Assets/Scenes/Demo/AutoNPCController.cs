@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class AutoNPCController : MonoBehaviour
 {
-	[Header("Movement")]
-	public float rotateSpeed;
 	[Header("Route")]
 	public Transform[] checkPoints;
-	public float offsetThreshold, smoothSteerThreshold;
+	public float offsetThreshold;
 	public bool reverseRoute;
 	public bool enableChatting;
 	[Range(0f, 1f)] public float chatProbility;
@@ -18,25 +15,27 @@ public class AutoNPCController : MonoBehaviour
 	[Header("Model")]
 	public GameObject model;
 
-	[HideInInspector]
-	public float randomizedWalkSpeedFactor;
 	Animator animator;
-	Rigidbody rb;
-
-	private void Awake()
-	{
-		randomizedWalkSpeedFactor = Random.Range(0.8f, 1.2f);
-	}
+	NavMeshAgent navMeshAgent;
 
 	private void Start()
 	{
 		animator = model.GetComponent<Animator>();
-		rb = GetComponent<Rigidbody>();
+		navMeshAgent = GetComponent<NavMeshAgent>();
+
+		var randomizedWalkSpeedFactor = Random.Range(0.8f, 1.2f);
+		navMeshAgent.speed *= randomizedWalkSpeedFactor;
 
 		if (reverseRoute)
 			Array.Reverse(checkPoints);
 
-		InitializePositionAndRotation();
+		InitializePosition();
+	}
+
+	private void Update()
+	{
+		UpdateNavMeshAgent();
+		UpdateAnimationAndRotation();
 	}
 
 	// Variables about chatting.
@@ -71,19 +70,20 @@ public class AutoNPCController : MonoBehaviour
 
 		LeanTween.value(gameObject, chatCountdown, 0f, chatCountdown)
 			.setOnUpdate((float val) => { chatCountdown = val; otherController.chatCountdown = val; })
-			.setOnComplete(() => { isChatting = false; otherController.isChatting = false; })
-			;
+			.setOnComplete(() => {
+				isChatting = false;
+				otherController.isChatting = false;
+				enableChatting = false;
+				otherController.enableChatting = false;
+				LeanTween.delayedCall(1f, () => { enableChatting = true; otherController.enableChatting = true; });
+			});
 	}
 
-	void InitializePositionAndRotation()
+	void InitializePosition()
 	{
 		var initialPosition = checkPoints[0].position;
 		initialPosition.y = transform.position.y;
 		transform.position = initialPosition;
-
-		var dir = checkPoints[1].position - model.transform.position;
-		dir.Scale(new Vector3(1f, 0f, 1f));
-		model.transform.forward = dir;
 	}
 
 	// Variables about movement.
@@ -91,13 +91,12 @@ public class AutoNPCController : MonoBehaviour
 	float angle;
 	int nextCheckPointIndex = 0;
 
-	public Vector3 GetInput()
+	void UpdateNavMeshAgent()
 	{
 		if (isChatting)
 		{
-			nextMovement = Vector3.zero;
-			UpdateAnimationAndRotation();
-			return Vector3.zero;
+			navMeshAgent.SetDestination(transform.position);
+			return;
 		}
 
 		var offset = transform.position - checkPoints[nextCheckPointIndex].position;
@@ -108,50 +107,26 @@ public class AutoNPCController : MonoBehaviour
 		if (nextCheckPointIndex == checkPoints.Length - 1)
 		{
 			Destroy(gameObject);
-			return Vector2.zero;
+			return;
 		}
 
-		var nextCheckPoint = checkPoints[nextCheckPointIndex];
-		var bodyDir = model.transform.forward;
-		var targetDir = nextCheckPoint.position - transform.position;
-
-		// By default, the forward of the model is not the
-		// direction that it is facing.
-		angle = Vector3.SignedAngle(bodyDir, targetDir, Vector3.up);
-
-		targetDir.Scale(new Vector3(1f, 0f, 1f));
-		nextMovement = targetDir.normalized;
-
-		UpdateAnimationAndRotation();
-
-		return nextMovement;
+		navMeshAgent.SetDestination(checkPoints[nextCheckPointIndex].position);
 	}
 
 	void UpdateAnimationAndRotation()
 	{
 		if (isChatting)
-		{
-			animator.SetBool("Walk", false);
 			model.transform.LookAt(chatTarget.transform);
-			return;
-		}
-
-		// Update animation.
-		if (nextMovement.magnitude < 0.5f)
-		{
-			animator.SetBool("Walk", false);
-			return;
-		}
-		animator.SetBool("Walk", true);
-
-		// Update rotation.
-		if (Mathf.Abs(angle) > smoothSteerThreshold)
-		{
-			model.transform.Rotate(Vector3.up, angle < 0 ? -rotateSpeed : rotateSpeed);
-		}
 		else
-		{
-			model.transform.Rotate(Vector3.up, angle);
-		}
+			model.transform.localRotation = Quaternion.identity;
+		if (navMeshAgent.velocity.magnitude < 0.01f)
+			animator.SetBool("Walk", false);
+		else
+			animator.SetBool("Walk", true);
+	}
+
+	public Vector3 GetInput()
+	{
+		return Vector3.zero;
 	}
 }

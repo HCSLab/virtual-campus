@@ -281,7 +281,6 @@ public class BETA_SETTINGS{
     {
         #region Modification
         autoNPCController = GetComponent<AutoNPCController>();
-        walkSpeed *= autoNPCController.randomizedWalkSpeedFactor;
 		#endregion
 
 		#region Look Settings - Start

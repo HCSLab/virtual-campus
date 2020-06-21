@@ -54,9 +54,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2109148026554632727}
   - component: {fileID: 2112347466935435668}
-  - component: {fileID: 2112347466935435669}
+  - component: {fileID: 4731968351083448097}
   - component: {fileID: 2112347466935435658}
-  - component: {fileID: 4997512819371737574}
+  - component: {fileID: 2419983156179377652}
   m_Layer: 0
   m_Name: NonfunctionalNPC
   m_TagString: NPC
@@ -90,11 +90,11 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.15662377
-  m_Height: 0.66353536
+  m_Radius: 0.2
+  m_Height: 0.9174043
   m_Direction: 1
-  m_Center: {x: 0, y: 0.326325, z: 0}
---- !u!54 &2112347466935435669
+  m_Center: {x: 0, y: 0.44637543, z: 0}
+--- !u!54 &4731968351083448097
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,10 +105,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &2112347466935435658
 MonoBehaviour:
@@ -122,7 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4c30ef15331ad4685fc9607b04aa2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 3
   checkPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -139,116 +138,34 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   offsetThreshold: 0.1
-  smoothSteerThreshold: 5
   reverseRoute: 0
   enableChatting: 0
   chatProbility: 0
   maxChatTime: 0
   minChatTime: 0
   model: {fileID: 2419983155208280884}
-  randomizedWalkSpeedFactor: 0
---- !u!114 &4997512819371737574
-MonoBehaviour:
+--- !u!195 &2419983156179377652
+NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112347466935435671}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e24fc66ff8077cf4baa9ba3bcce3d46a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableCameraMovement: 0
-  mouseInputInversion: 0
-  verticalRotationRange: 170
-  mouseSensitivity: 10
-  fOVToMouseSensitivity: 1
-  cameraSmoothing: 5
-  lockAndHideCursor: 0
-  playerCamera: {fileID: 0}
-  enableCameraShake: 0
-  autoCrosshair: 0
-  drawStaminaMeter: 0
-  Crosshair: {fileID: 0}
-  targetAngles: {x: 0, y: 0, z: 0}
-  playerCanMove: 1
-  walkByDefault: 1
-  walkSpeed: 1
-  sprintKey: 304
-  sprintSpeed: 8
-  jumpPower: 5
-  canJump: 0
-  canHoldJump: 0
-  useStamina: 0
-  staminaDepletionSpeed: 5
-  staminaLevel: 50
-  speed: 0
-  staminaInternal: 0
-  _crouchModifiers:
-    useCrouch: 0
-    toggleCrouch: 0
-    crouchKey: 306
-    crouchWalkSpeedMultiplier: 0.5
-    crouchJumpPowerMultiplier: 0
-    crouchOverride: 0
-  fOVKick:
-    useFOVKick: 0
-    FOVKickAmount: 4
-    changeTime: 0.1
-    KickCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    fovStart: 0
-  advanced:
-    gravityMultiplier: 1
-    zeroFrictionMaterial: {fileID: 0}
-    highFrictionMaterial: {fileID: 0}
-    _maxSlopeAngle: 70
-    maxStepHeight: 0.2
-    lastKnownSlopeAngle: 0
-  isCrouching: 0
-  fps_Rigidbody: {fileID: 0}
-  useHeadbob: 0
-  head: {fileID: 0}
-  snapHeadjointToCapsul: 0
-  headbobFrequency: 1.5
-  headbobSwayAngle: 5
-  headbobHeight: 3
-  headbobSideMovement: 5
-  jumpLandIntensity: 3
-  Volume: 5
-  jumpSound: {fileID: 0}
-  landSound: {fileID: 0}
-  footStepSounds: []
-  fsmode: 0
-  dynamicFootstep:
-    materialMode: 0
-    woodPhysMat: []
-    metalAndGlassPhysMat: []
-    grassPhysMat: []
-    dirtAndGravelPhysMat: []
-    rockAndConcretePhysMat: []
-    mudPhysMat: []
-    customPhysMat: []
-    woodMat: []
-    metalAndGlassMat: []
-    grassMat: []
-    dirtAndGravelMat: []
-    rockAndConcreteMat: []
-    mudMat: []
-    customMat: []
-    currentClipSet: []
-    woodClipSet: []
-    metalAndGlassClipSet: []
-    grassClipSet: []
-    dirtAndGravelClipSet: []
-    rockAndConcreteClipSet: []
-    mudClipSet: []
-    customClipSet: []
+  m_AgentTypeID: 0
+  m_Radius: 0.3
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: -0.05
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &2419983155208379796
 PrefabInstance:
   m_ObjectHideFlags: 0
