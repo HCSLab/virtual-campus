@@ -51,7 +51,7 @@ public class Bag : MonoBehaviour
         itemBox.Init(item);
 
         itemBoxs.Add(itemBox);
-        display.transform.parent = layout;
+        display.transform.SetParent(layout);
     }
 
     public virtual void Select(Item item)
@@ -113,6 +113,7 @@ public class Bag : MonoBehaviour
 
     public void Reload()
     {
+        GetComponent<CanvasScaler>().enabled = false;
         foreach (var box in itemBoxs)
         {
             Destroy(box.gameObject);
@@ -125,6 +126,7 @@ public class Bag : MonoBehaviour
                 Add(item);
             }
         }
+        GetComponent<CanvasScaler>().enabled = true;
     }
 
     public virtual void Select()

@@ -45,7 +45,7 @@ public class SkinBag : Bag
         itemBox.Init(item);
 
         itemBoxs.Add(itemBox);
-        display.transform.parent = layout;
+        display.transform.SetParent(layout);
     }
 
     public void OnCancelClicked()
