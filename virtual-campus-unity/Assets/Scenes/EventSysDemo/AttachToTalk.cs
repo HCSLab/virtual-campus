@@ -24,7 +24,8 @@ public class AttachToTalk : MonoBehaviour
 
         var buttons = talk.transform.Find("Panel/Buttons");
         var btn = Instantiate(gameObject).GetComponent<Button>();
-        btn.transform.parent = buttons;
+        btn.transform.SetParent(buttons);
+        btn.transform.localScale = Vector3.one;
         Destroy(btn.GetComponent<AttachToTalk>());
         var bb = GetComponent<Button>();
         Debug.Log(btn.onClick == bb.onClick);

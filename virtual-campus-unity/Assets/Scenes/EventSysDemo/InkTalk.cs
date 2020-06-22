@@ -9,112 +9,113 @@ using System;
 
 public class InkTalk : MonoBehaviour
 {
-    public TextAsset inkFile;
-    public string executeFunction;
+	public TextAsset inkFile;
+	public string executeFunction;
 
-    public Story inkStroy;
-    private bool nextStep;
-    private bool firstStep;
-    public bool notFinished;
+	public Story inkStroy;
+	private bool nextStep;
+	private bool firstStep;
+	public bool notFinished;
 
-    public GameObject talk;
+	public GameObject talk;
 
-    public StoryScript storyScript;
+	public StoryScript storyScript;
 
-    private Text text;
-    private Transform buttons;
-    private GameObject button;
+	public GameObject button;
 
-    private void Start()
-    {
-        text = talk.transform.Find("Panel/Text").GetComponent<Text>();
-        buttons = talk.transform.Find("Panel/Buttons");
-        button = buttons.Find("Button").gameObject;
-        button.SetActive(false);
-        button.transform.parent = talk.transform;
+	private TextMeshProUGUI text;
+	private Transform buttons;
 
-        nextStep = true;
-        firstStep = true;
-        notFinished = false;
+	private void Start()
+	{
+		text = talk.transform.Find("Panel/Text").GetComponent<TextMeshProUGUI>();
+		buttons = talk.transform.Find("Panel/Buttons");
 
-        inkStroy = new Story(inkFile.text);
+		nextStep = true;
+		firstStep = true;
+		notFinished = false;
 
-        if (inkStroy.HasFunction(executeFunction))
-        {
-            inkStroy.CheckInFunction(executeFunction);
-        }
-    }
+		inkStroy = new Story(inkFile.text);
 
-    private void Update()
-    {
-        if (!nextStep) return;
+		if (inkStroy.HasFunction(executeFunction))
+		{
+			inkStroy.CheckInFunction(executeFunction);
+		}
+	}
 
-        if (!firstStep)
-        {
-            for (int i = 0; i < buttons.childCount; i++)
-            {
-                Destroy(buttons.GetChild(i).gameObject);
-            }
-        }
+	private void Update()
+	{
+		if (!nextStep) return;
 
-        text.text = "";
-        while (inkStroy.canContinue)
-        {
-            text.text += inkStroy.Continue();
-            var tags = inkStroy.currentTags;
-            if (storyScript)
-            {
-                foreach (var tag in tags)
-                {
-                    storyScript.InProcessTag(tag, this);
-                }
-            }
-        }
+		if (!firstStep)
+		{
+			for (int i = 0; i < buttons.childCount; i++)
+			{
+				Destroy(buttons.GetChild(i).gameObject);
+			}
+		}
 
-        foreach (var choice in inkStroy.currentChoices)
-        {
-            var btn = Instantiate(button).GetComponent<Button>();
-            btn.gameObject.SetActive(true);
-            btn.transform.parent = buttons;
+		text.text = "";
+		while (inkStroy.canContinue)
+		{
+			text.text += inkStroy.Continue();
+			var tags = inkStroy.currentTags;
+			if (storyScript)
+			{
+				foreach (var tag in tags)
+				{
+					storyScript.InProcessTag(tag, this);
+				}
+			}
+		}
 
-            var btnText = btn.transform.Find("Text").GetComponent<Text>();
-            btnText.text = choice.text;
+		foreach (var choice in inkStroy.currentChoices)
+		{
+			var btn = Instantiate(button).GetComponent<Button>();
+			btn.gameObject.SetActive(true);
 
-            var path = choice.pathStringOnChoice;
-            btn.onClick.AddListener(delegate { ChoicePathSelected(path); });
-        }
+			var btnText = btn.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+			btnText.text = choice.text;
 
-        nextStep = false;
-        firstStep = false;
+			btn.transform.SetParent(buttons);
+			btn.transform.localScale = Vector3.one;
+			//LayoutRebuilder.MarkLayoutForRebuild(buttons.GetComponent<RectTransform>());
 
-        if (text.text == "" && inkStroy.currentChoices.Count == 1)
-        {
-            ChoicePathSelected(inkStroy.currentChoices[0].pathStringOnChoice);
-        }
+			var path = choice.pathStringOnChoice;
+			btn.onClick.AddListener(delegate { ChoicePathSelected(path); });
+		}
 
-        if (!inkStroy.canContinue && inkStroy.currentChoices.Count == 0)
-        {
-            EndTalk();
-        }
-    }
+		nextStep = false;
+		firstStep = false;
 
-    private void ChoicePathSelected(string path)
-    {
-        inkStroy.ChoosePathString(path);
-        inkStroy.Continue();
-        nextStep = true;
-    }
+		if (text.text == "" && inkStroy.currentChoices.Count == 1)
+		{
+			ChoicePathSelected(inkStroy.currentChoices[0].pathStringOnChoice);
+		}
 
-    private void EndTalk()
-    {
-        UIManager.Instance.CloseTalk();
+		if (!inkStroy.canContinue && inkStroy.currentChoices.Count == 0)
+		{
+			EndTalk();
+		}
+	}
 
-        if (!notFinished)
-        {
-            if (storyScript)
-            {
-                storyScript.AddFlag(executeFunction + "_done");
-            }
-        }
-    }
+	private void ChoicePathSelected(string path)
+	{
+		inkStroy.ChoosePathString(path);
+		inkStroy.Continue();
+		nextStep = true;
+	}
+
+	private void EndTalk()
+	{
+		UIManager.Instance.CloseTalk();
+
+		if (!notFinished)
+		{
+			if (storyScript)
+			{
+				storyScript.AddFlag(executeFunction + "_done");
+			}
+		}
+	}
 }

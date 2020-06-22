@@ -4,6 +4,7 @@ using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
 using System.Runtime.CompilerServices;
+using TMPro;
 
 public class StoryScript : MonoBehaviour
 {
@@ -90,7 +91,7 @@ public class StoryScript : MonoBehaviour
 
     private void Start()
     {
-        buttonPrefab = talkPrefab.transform.Find("Panel/Buttons/Button").gameObject;
+        buttonPrefab = talkPrefab.GetComponent<InkTalk>().button;
 
         inkStroy = new Story(inkFile.text);
 
@@ -256,7 +257,8 @@ public class StoryScript : MonoBehaviour
         foreach (var choice in inkStroy.currentChoices)
         {
             var button = Instantiate(buttonPrefab).GetComponent<Button>();
-            button.transform.parent = transform;
+            button.transform.SetParent(transform);
+            button.transform.localScale = Vector3.one;
 
             var attach = button.gameObject.AddComponent<AttachToTalk>();
             attach.speakerName = who;
@@ -270,7 +272,7 @@ public class StoryScript : MonoBehaviour
             creater.storyScript = this;
             button.onClick.AddListener(creater.Create);
 
-            var text = button.transform.Find("Text").GetComponent<Text>();
+            var text = button.transform.Find("Text").GetComponent<TextMeshProUGUI>();
             text.text = choice.text;
 
             button.name = choice.text;
