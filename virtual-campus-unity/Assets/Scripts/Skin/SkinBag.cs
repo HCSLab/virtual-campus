@@ -7,8 +7,6 @@ public class SkinBag : Bag
 {
     public static SkinBag Instance;
 
-    public int index;
-
     protected virtual void Awake()
     {
         Instance = this;
