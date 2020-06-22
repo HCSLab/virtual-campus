@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4c30ef15331ad4685fc9607b04aa2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minSpeedFactor: 0.8
+  maxSpeedFactor: 1.2
   checkPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -144,6 +146,8 @@ MonoBehaviour:
   maxChatTime: 0
   minChatTime: 0
   model: {fileID: 2419983155208280884}
+  chatCountdown: 0
+  chatTargetModel: {fileID: 0}
 --- !u!195 &2419983156179377652
 NavMeshAgent:
   m_ObjectHideFlags: 0

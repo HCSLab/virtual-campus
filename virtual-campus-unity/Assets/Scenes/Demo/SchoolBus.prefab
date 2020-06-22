@@ -42,8 +42,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5324006, z: 3.006671}
-  m_Center: {x: -8.526513e-14, y: 0.37108445, z: 2.0033355}
+  m_Size: {x: 1, y: 0.8044064, z: 1.6903162}
+  m_Center: {x: 1.9895197e-13, y: 0.23508155, z: 1.3451581}
 --- !u!1 &254852213490959955
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d5a46ee45cffd42b57879bc0101469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3
+  maxSpeed: 2
   powerEngine: 150
   brakePower: 30000
   COM: {fileID: 6920776599948528446}
@@ -517,6 +517,7 @@ MonoBehaviour:
   - {fileID: 0}
   offsetThreshold: 0.5
   steerThreshold: 10
+  pedestrianDetector: {fileID: 197253388}
 --- !u!82 &6920776598755607585
 AudioSource:
   m_ObjectHideFlags: 0

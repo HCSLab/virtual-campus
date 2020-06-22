@@ -1,10 +1,14 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SocialPlatforms;
 using Random = UnityEngine.Random;
 
 public class AutoNPCController : MonoBehaviour
 {
+	[Header("Movement")]
+	public float minSpeedFactor;
+	public float maxSpeedFactor;
 	[Header("Route")]
 	public Transform[] checkPoints;
 	public float offsetThreshold;
@@ -23,7 +27,7 @@ public class AutoNPCController : MonoBehaviour
 		animator = model.GetComponent<Animator>();
 		navMeshAgent = GetComponent<NavMeshAgent>();
 
-		var randomizedWalkSpeedFactor = Random.Range(0.8f, 1.2f);
+		var randomizedWalkSpeedFactor = Random.Range(maxSpeedFactor, minSpeedFactor);
 		navMeshAgent.speed *= randomizedWalkSpeedFactor;
 
 		if (reverseRoute)
