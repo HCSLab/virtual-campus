@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Run", false);
             }
             model.transform.LookAt(model.transform.position + movement);
-            model.transform.Rotate(0f, playerCamera.transform.eulerAngles.y, 0f);
+            model.transform.Rotate(0f, playerCamera.transform.eulerAngles.y + 90f, 0f);
         }
         else {
             animator.SetBool("Walk", false);
@@ -63,8 +63,6 @@ public class PlayerController : MonoBehaviour
     Vector3 lastMousePosition;
     void UpdateCamera()
     {
-        Vector3 modelEulerAngles = model.transform.eulerAngles;
-
         playerCamera.transform.position = transform.position + cameraPositionOffset;
 
         float cameraRotation = 0f;
@@ -83,8 +81,6 @@ public class PlayerController : MonoBehaviour
         transform.forward = newForward;
 
         playerCamera.GetComponent<Camera>().orthographicSize += -Input.mouseScrollDelta.y * cameraScalingSpeed;
-
-        model.transform.eulerAngles = modelEulerAngles;
     }
 
     public Vector2 GetMovementInput()
