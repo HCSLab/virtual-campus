@@ -535,7 +535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 421.5, y: 336.49948}
+  m_AnchoredPosition: {x: 421.49997, y: 331.50003}
   m_SizeDelta: {x: 840, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &3734115456400152396
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3734115457265281814}
   m_HandleRect: {fileID: 3734115457265281815}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3734115456307220504}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9925706
+  m_Size: 0.99257064
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1689,7 +1689,6 @@ GameObject:
   - component: {fileID: 3734115457588487997}
   - component: {fileID: 3734115457588487998}
   - component: {fileID: 3734115457588487999}
-  - component: {fileID: 3734115457588487968}
   - component: {fileID: 3734115457588487969}
   - component: {fileID: 8880254446813109517}
   m_Layer: 0
@@ -1769,32 +1768,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &3734115457588487968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3734115457588487970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29370bf96ca76dd4ca905d3ffe16fe7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
-  width: 1260
-  height: 720
-  fill: 0.75
 --- !u!114 &3734115457588487969
 MonoBehaviour:
   m_ObjectHideFlags: 0

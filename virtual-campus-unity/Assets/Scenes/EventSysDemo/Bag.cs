@@ -55,6 +55,7 @@ public class Bag : MonoBehaviour
 
         itemBoxs.Add(itemBox);
         display.transform.parent = layout;
+        display.transform.localScale = Vector3.one;
     }
 
     public virtual void Select(Item item)
