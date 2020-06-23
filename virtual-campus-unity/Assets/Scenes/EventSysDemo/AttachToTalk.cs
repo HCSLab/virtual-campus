@@ -27,14 +27,11 @@ public class AttachToTalk : MonoBehaviour
         btn.transform.SetParent(buttons);
         btn.transform.localScale = Vector3.one;
         Destroy(btn.GetComponent<AttachToTalk>());
-        var bb = GetComponent<Button>();
-        Debug.Log(btn.onClick == bb.onClick);
-        btn.onClick = bb.onClick;
-        Debug.Log(btn.onClick == bb.onClick);
+        btn.onClick = GetComponent<Button>().onClick;
 
-        bool b = FlagBag.Instance.HasFlags(require) && 
-                 FlagBag.Instance.WithoutFlags(without);
-        btn.gameObject.SetActive(b);
+        bool active = FlagBag.Instance.HasFlags(require) && 
+                      FlagBag.Instance.WithoutFlags(without);
+        btn.gameObject.SetActive(active);
     }
 
     private void OnDestroy()

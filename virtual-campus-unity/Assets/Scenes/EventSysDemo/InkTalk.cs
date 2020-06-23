@@ -9,31 +9,23 @@ using System;
 
 public class InkTalk : MonoBehaviour
 {
-    public TextAsset inkFile;
-    public string executeFunction;
+    [HideInInspector] public TextAsset inkFile;
+    [HideInInspector] public string executeFunction;
 
-    public Story inkStroy;
+    [HideInInspector] public Story inkStroy;
     private bool nextStep;
     private bool firstStep;
-    public bool notFinished;
+    [HideInInspector] public bool notFinished;
 
-    public GameObject talk;
+    [HideInInspector] public StoryScript storyScript;
 
-    public StoryScript storyScript;
-
-    private Text text;
-    private Transform buttons;
-    private GameObject button;
-    private Button panelSizedButton;
+    public TextMeshProUGUI text;
+    public Transform buttons;
+    public GameObject button;
+    public Button panelSizedButton;
 
     private void Start()
     {
-        text = talk.transform.Find("Panel/Text").GetComponent<Text>();
-        buttons = talk.transform.Find("Panel/Buttons");
-        button = buttons.Find("Button").gameObject;
-        button.SetActive(false);
-        button.transform.parent = talk.transform;
-        panelSizedButton = talk.transform.Find("Panel/BigButton").GetComponent<Button>();
         panelSizedButton.gameObject.SetActive(false);
 
         nextStep = true;
@@ -87,10 +79,11 @@ public class InkTalk : MonoBehaviour
             else
             {
                 var btn = Instantiate(button).GetComponent<Button>();
-                btn.gameObject.SetActive(true);
-                btn.transform.parent = buttons;
+                btn.transform.SetParent(buttons);
+                btn.transform.localScale = Vector3.one;
 
-                var btnText = btn.transform.Find("Text").GetComponent<Text>();
+
+                var btnText = btn.transform.Find("Text").GetComponent<TextMeshProUGUI>();
                 btnText.text = choice.text;
 
                 var path = choice.pathStringOnChoice;
