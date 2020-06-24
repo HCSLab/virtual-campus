@@ -35,7 +35,7 @@ public class Mapping : MonoBehaviour
         */
     }
 
-    public void ChangeMapping(SpriteItem item)
+    public void ChangeMapping(SkinItem item)
     {
         if (model != null)
         {

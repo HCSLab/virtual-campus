@@ -346,7 +346,7 @@ public class PaintView : MonoBehaviour
         GameObject newSprite = new GameObject();
         newSprite.name = "Customized Sprite";
         newSprite.transform.SetParent(skinBag.transform);
-        var spriteItem = newSprite.AddComponent<SpriteItem>();
+        var spriteItem = newSprite.AddComponent<SkinItem>();
         spriteItem.itemName = name;
         spriteItem.description = description;
         spriteItem.image = sprite;
@@ -365,7 +365,7 @@ public class PaintView : MonoBehaviour
         old.Release();
     }
 
-    private Texture2D TextureToTexture2D(Texture texture)
+    public Texture2D TextureToTexture2D(Texture texture)
     {
         Texture2D texture2D = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);
         RenderTexture currentRT = RenderTexture.active;
