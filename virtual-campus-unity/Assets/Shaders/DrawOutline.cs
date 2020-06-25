@@ -78,9 +78,22 @@ public class DrawOutline : MonoBehaviour
         //Graphics.Blit(outlineTex, destination);
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    var ray = cam.ScreenPointToRay(Input.mousePosition);
+    //    if (Physics.Raycast(ray, out RaycastHit hit, 10000, LayerMask.GetMask("Building")))
+    //    {
+    //        target = hit.transform.GetComponent<Renderer>();
+    //    }
+    //    else
+    //    {
+    //        target = oldTarget = null;
+    //    }
+    //}
+
+    public void SetTargetByScreenPos(Vector2 screenPos)
     {
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
+        var ray = cam.ScreenPointToRay(screenPos);
         if (Physics.Raycast(ray, out RaycastHit hit, 10000, LayerMask.GetMask("Building")))
         {
             target = hit.transform.GetComponent<Renderer>();
