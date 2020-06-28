@@ -19,7 +19,7 @@ public class Bag : MonoBehaviour
 
     public List<GameObject> testItems = new List<GameObject>();
 
-    protected Item currentItem;
+    public Item currentItem;
 
     protected virtual void Start()
     {

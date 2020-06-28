@@ -13,6 +13,9 @@ public class SkinBag : Bag
 
     public Space m_RotateSpace;
     public float m_RotateSpeed = 20f;
+
+    public GameObject painterHub;
+    public GameObject uiManager;
     protected virtual void Awake()
     {
         Instance = this;
@@ -21,6 +24,8 @@ public class SkinBag : Bag
             Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 1000);
             obj.GetComponent<SkinItem>().image = sprite;
         }
+        //painterHub = transform.Find("PainterHub").gameObject;
+        //Debug.Log(painterHub);
     }
 
     public Texture2D TextureToTexture2D(Texture texture)
@@ -45,6 +50,7 @@ public class SkinBag : Bag
         {
             SkinItem spriteItem = (SkinItem) currentItem;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture = spriteItem.texture;
+            //Debug.Log(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerMaterial);
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerMaterial.mainTexture = spriteItem.texture;
         }
         BagButtonPressed();
@@ -106,6 +112,18 @@ public class SkinBag : Bag
     public void RotateRightUp()
     {
         rotateRight = false;
+    }
+    public void OnPainterHubButtonClicked()
+    {
+        if (painterHub.GetComponent<CanvasGroup>().alpha == 1)
+        {
+            uiManager.GetComponent<UIManager>().closePanel(painterHub);
+        }
+        else
+        {
+            uiManager.GetComponent<UIManager>().openPanel(painterHub);
+            uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        }
     }
 
     private void Update()

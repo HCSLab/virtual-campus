@@ -56,6 +56,7 @@ public class PaintView : MonoBehaviour
     private Vector2 _lastPoint;
     public Slider slider;
     public GameObject skinBagObject;
+    public GameObject uiManager;
 	#endregion
 
 	void Start()
@@ -154,7 +155,7 @@ public class PaintView : MonoBehaviour
     #region 内部函数
 	
     //初始化数据
-    void InitData()
+    public void InitData()
     {
         _brushSizeText = slider.transform.Find("Background/Text").GetComponent<Text>();
         _brushSizeText.text = 50.ToString("f2"); 
@@ -164,6 +165,8 @@ public class PaintView : MonoBehaviour
         _lastPoint = Vector2.zero;
 
         Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture;
+        //SkinItem skinItem = (SkinItem)skinBagObject.GetComponent<SkinBag>().currentItem;
+        //Texture playerTexture = skinItem.texture;
 
         if (_paintBrushMat == null)
         {
@@ -179,8 +182,8 @@ public class PaintView : MonoBehaviour
             float scale = Screen.width / GetComponent<CanvasScaler>().referenceResolution.x;
             //Debug.Log(Screen.width);
             //Debug.Log(scale);
-            _screenWidth = (int) (transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.x * scale);
-            _screenHeight = (int) (transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>().rect.size.y * scale);
+            _screenWidth = (int) (transform.Find("Panel/Mask/RawImage_canvas").GetComponent<RectTransform>().rect.size.x * scale);
+            _screenHeight = (int) (transform.Find("Panel/Mask/RawImage_canvas").GetComponent<RectTransform>().rect.size.y * scale);
             //Debug.Log(_screenWidth);
 
             /*
@@ -213,7 +216,7 @@ public class PaintView : MonoBehaviour
     private void LerpPaint(Vector2 point)
     {
 
-        RectTransform re = transform.Find("Panel/RawImage_canvas").GetComponent<RectTransform>();
+        RectTransform re = transform.Find("Panel/Mask/RawImage_canvas").gameObject.GetComponent<RectTransform>();
         //Debug.Log(point - ((Vector2)re.transform.position + new Vector2(-180, -300)));
         Paint(point);
 
@@ -247,20 +250,24 @@ public class PaintView : MonoBehaviour
             return;
         }
         */
-        RectTransform re = _paintCanvas.GetComponent<RectTransform>();
+        RectTransform re = transform.Find("Panel/Mask/RawImage_canvas").gameObject.GetComponent<RectTransform>();
+        RectTransform mask = transform.Find("Panel/Mask").gameObject.GetComponent<RectTransform>();
 
         float scale = Screen.width / GetComponent<CanvasScaler>().referenceResolution.x;
-        int minY = (int)(re.rect.top*scale);
-        int minX = (int)(re.rect.left*scale);
+        int minY = (int)(mask.rect.top*scale);
+        int minX = (int)(mask.rect.left*scale);
+        Vector2 point_mask = point - ((Vector2)mask.transform.position + new Vector2(minX, minY));
 
-
+        minY = (int)(re.rect.top * scale);
+        minX = (int)(re.rect.left * scale);
         point = point - ((Vector2)re.transform.position + new Vector2(minX, minY));
         //Debug.Log(0.5*Screen.width);
         //Debug.Log(re.transform.position.x);
         //Debug.Log(point);
 
-        if (point.x < 0 || point.x > re.rect.width || point.y < 0 || point.y > re.rect.height)
+        if (point_mask.x < 0 || point_mask.x > mask.rect.width || point_mask.y < 0 || point_mask.y > mask.rect.height)
         {
+            Debug.Log("OUT");
             return;
         }
 
@@ -353,11 +360,19 @@ public class PaintView : MonoBehaviour
         spriteItem.texture = TextureToTexture2D(tex);
         skinBag.testItems.Add(newSprite);
         skinBag.Reload();
+        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+    }
+
+    public void Close()
+    {
+        uiManager.GetComponent<UIManager>().closePanel(gameObject);
     }
 
     public void Clear()
     {
-        Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture;
+        //Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture;
+        SkinItem skinItem = (SkinItem)skinBagObject.GetComponent<SkinBag>().currentItem;
+        Texture playerTexture = skinItem.texture;
         RenderTexture old = (RenderTexture) _paintCanvas.texture;
         _renderTex = RenderTexture.GetTemporary(512, 512, 24);
         _paintCanvas.texture = _renderTex;
@@ -380,5 +395,12 @@ public class PaintView : MonoBehaviour
         RenderTexture.ReleaseTemporary(renderTexture);
 
         return texture2D;
+    }
+
+    public void Reload()
+    {
+        SkinItem skinItem = (SkinItem)skinBagObject.GetComponent<SkinBag>().currentItem;
+        Texture playerTexture = skinItem.texture;
+        Graphics.Blit(playerTexture, _renderTex);
     }
 }

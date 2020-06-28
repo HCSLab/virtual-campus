@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject itemBag;
     public GameObject badgeBag;
     public GameObject skinBag;
-    public GameObject painter;
+    public List<GameObject> painters;
 
     private void Awake()
     {
@@ -24,7 +24,10 @@ public class UIManager : MonoBehaviour
         closePanel(itemBag);
         closePanel(skinBag);
         closePanel(badgeBag);
-        closePanel(painter);
+        foreach(GameObject painter in painters)
+        {
+            closePanel(painter);
+        }
     }
 
     public void OpenTalk(GameObject talk)
@@ -113,7 +116,7 @@ public class UIManager : MonoBehaviour
             openPanel(skinBag);
         }
     }
-
+/*
     public void painterButtonClicked()
     {
         if (painter.GetComponent<CanvasGroup>().alpha == 1)
@@ -126,4 +129,5 @@ public class UIManager : MonoBehaviour
             openPanel(painter);
         }
     }
+    */
 }
