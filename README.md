@@ -1,5 +1,3 @@
-# Virtual CUHK(SZ) Campus
+### Virtual CUHK(SZ) Campus
 
-Use Magicavoxel *0.99.5* for `world.vox` only.
-
-Use Magicavoxel *0.99.4.2* for the rest `.vox` files.
+# Must use Magicavoxel *0.99.5.1* for the all `.vox` files.
