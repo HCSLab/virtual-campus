@@ -34,6 +34,7 @@ public class Bag : MonoBehaviour
 
     public virtual void Add(GameObject obj, bool copy = true)
     {
+        GetComponent<CanvasScaler>().enabled = false;
         var display = Instantiate(displayPrefab);
         var itemBox = display.GetComponent<ItemBox>();
 
@@ -52,6 +53,7 @@ public class Bag : MonoBehaviour
 
         itemBoxs.Add(itemBox);
         display.transform.SetParent(layout);
+        GetComponent<CanvasScaler>().enabled = true;
     }
 
     public virtual void Select(Item item)
@@ -111,7 +113,7 @@ public class Bag : MonoBehaviour
         GetComponent<CanvasScaler>().enabled = true;
     }
 
-    public void Reload()
+    public virtual void Reload()
     {
         GetComponent<CanvasScaler>().enabled = false;
         foreach (var box in itemBoxs)

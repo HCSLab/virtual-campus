@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PainterHub : MonoBehaviour
 {
-    public GameObject skinBag;
+    public GameObject skinBagObject;
     public GameObject entirePainter;
     public GameObject headPainter;
     public GameObject upperPainter;
@@ -12,45 +12,89 @@ public class PainterHub : MonoBehaviour
     public GameObject hatPainter;
     public GameObject armPainter;
     public GameObject uiManager;
-    
+    public GameObject saveAs;
+    public InputField nameInput;
+    public InputField descriptionInput;
+
+    private GameObject currentPainter;
+    private Texture2D currentTex;
+    private Sprite currentSprite;
+
 
     public void OnEntireSkinButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().openPanel(entirePainter);
-        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        uiManager.GetComponent<UIManager>().ActivatePanel(entirePainter);
+        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
         entirePainter.GetComponent<PaintView>().Reload();
+        currentPainter = entirePainter;
     }
     public void OnHeadButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().openPanel(headPainter);
-        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        uiManager.GetComponent<UIManager>().ActivatePanel(headPainter);
+        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
         headPainter.GetComponent<PaintView>().Reload();
+        currentPainter = headPainter;
     }
 
     public void OnUpperButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().openPanel(upperPainter);
-        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        uiManager.GetComponent<UIManager>().ActivatePanel(upperPainter);
+        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
         upperPainter.GetComponent<PaintView>().Reload();
+        currentPainter = upperPainter;
     }
     public void OnLowerButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().openPanel(lowerPainter);
-        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        uiManager.GetComponent<UIManager>().ActivatePanel(lowerPainter);
+        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
         lowerPainter.GetComponent<PaintView>().Reload();
+        currentPainter = lowerPainter;
     }
 
     public void OnHatButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().openPanel(hatPainter);
-        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        uiManager.GetComponent<UIManager>().ActivatePanel(hatPainter);
+        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
         hatPainter.GetComponent<PaintView>().Reload();
+        currentPainter = hatPainter;
     }
 
     public void OnArmButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().openPanel(armPainter);
-        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        uiManager.GetComponent<UIManager>().ActivatePanel(armPainter);
+        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
         armPainter.GetComponent<PaintView>().Reload();
+        currentPainter = armPainter;
+    }
+
+    public void SaveAs(Texture2D tex, Sprite sprite)
+    {
+        saveAs.SetActive(true);
+        currentTex = tex;
+        currentSprite = sprite;
+    }
+
+    public void OnSaveButtonClicked()
+    {
+        string name = nameInput.text;
+        string description = descriptionInput.text;
+        var skinBag = skinBagObject.GetComponent<SkinBag>();
+        GameObject newSkin = new GameObject();
+        newSkin.name = "Customized Sprite";
+        newSkin.transform.SetParent(skinBag.transform);
+        var spriteItem = newSkin.AddComponent<SkinItem>();
+        spriteItem.itemName = name;
+        spriteItem.description = description;
+        spriteItem.image = currentSprite;
+        spriteItem.texture = currentTex;
+        spriteItem.customized = true;
+        skinBag.Add(newSkin);
+        //skinBag.Reload();
+        uiManager.GetComponent<UIManager>().DeactivatePanel(currentPainter);
+        saveAs.SetActive(false);
+    }
+    public void OnCancelButtonClicked()
+    {
+        saveAs.SetActive(false);
     }
 }

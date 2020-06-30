@@ -28,6 +28,17 @@ public class SkinBag : Bag
         //Debug.Log(painterHub);
     }
 
+    protected override void Start()
+    {
+        for (int i = 0; i < 1; i++)
+        {
+            foreach (var item in testItems)
+            {
+                Add(item);
+            }
+        }
+    }
+
     public Texture2D TextureToTexture2D(Texture texture)
     {
         Texture2D texture2D = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);
@@ -59,6 +70,7 @@ public class SkinBag : Bag
 
     public override void Add(GameObject obj, bool copy = true)
     {
+        GetComponent<CanvasScaler>().enabled = false;
         var display = Instantiate(displayPrefab);
         var itemBox = display.GetComponent<SkinBox>();
 
@@ -77,6 +89,7 @@ public class SkinBag : Bag
 
         itemBoxs.Add(itemBox);
         display.transform.SetParent(layout);
+        GetComponent<CanvasScaler>().enabled = true;
     }
 
     public void OnCancelClicked()
@@ -117,12 +130,12 @@ public class SkinBag : Bag
     {
         if (painterHub.GetComponent<CanvasGroup>().alpha == 1)
         {
-            uiManager.GetComponent<UIManager>().closePanel(painterHub);
+            uiManager.GetComponent<UIManager>().ClosePanel(painterHub);
         }
         else
         {
-            uiManager.GetComponent<UIManager>().openPanel(painterHub);
-            uiManager.GetComponent<UIManager>().closePanel(gameObject);
+            uiManager.GetComponent<UIManager>().OpenPanel(painterHub);
+            uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
         }
     }
 
@@ -136,5 +149,31 @@ public class SkinBag : Bag
         {
             skinPreviewPlayer.transform.Rotate(Vector3.down * m_RotateSpeed * Time.deltaTime, m_RotateSpace);
         }
+    }
+
+    public void ReloadSprites()
+    {
+        foreach (ItemBox itemBox in itemBoxs)
+        {
+            itemBox.image.sprite = itemBox.item.image;
+        }
+    }
+
+    public override void Reload()
+    {
+        GetComponent<CanvasScaler>().enabled = false;
+        foreach (var box in itemBoxs)
+        {
+            Destroy(box.gameObject);
+        }
+        itemBoxs.Clear();
+        for (int i = 0; i < 1; i++)
+        {
+            foreach (var item in testItems)
+            {
+                Add(item);
+            }
+        }
+        GetComponent<CanvasScaler>().enabled = true;
     }
 }

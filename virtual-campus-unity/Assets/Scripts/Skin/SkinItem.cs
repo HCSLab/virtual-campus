@@ -5,6 +5,8 @@ using UnityEngine;
 public class SkinItem : Item
 {
     public Texture2D texture;
+    public bool customized;
+    public int level;
     public SkinItem(Item item)
     {
         itemName = item.itemName;

@@ -21,12 +21,12 @@ public class UIManager : MonoBehaviour
 
     public void CloseAllOpenedPanel()
     {
-        closePanel(itemBag);
-        closePanel(skinBag);
-        closePanel(badgeBag);
+        ClosePanel(itemBag);
+        ClosePanel(skinBag);
+        ClosePanel(badgeBag);
         foreach(GameObject painter in painters)
         {
-            closePanel(painter);
+            DeactivatePanel(painter);
         }
     }
 
@@ -64,14 +64,14 @@ public class UIManager : MonoBehaviour
         pressT.SetActive(false);
     }
 
-    public void closePanel(GameObject panel)
+    public void ClosePanel(GameObject panel)
     {
         panel.GetComponent<CanvasGroup>().alpha = 0;
         panel.GetComponent<CanvasGroup>().interactable = false;
         panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
-    public void openPanel(GameObject panel)
+    public void OpenPanel(GameObject panel)
     {
         panel.GetComponent<CanvasScaler>().enabled = true; 
         panel.GetComponent<CanvasGroup>().alpha = 1;
@@ -79,41 +79,52 @@ public class UIManager : MonoBehaviour
         panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
-    public void itemBagButtonClicked()
+    public void ActivatePanel(GameObject panel)
+    {
+        panel.SetActive(true);
+    }
+
+    public void DeactivatePanel(GameObject panel)
+    {
+        panel.SetActive(false);
+        panel.GetComponent<CanvasScaler>().enabled = true;
+    }
+
+    public void ItemBagButtonClicked()
     {
         if (itemBag.GetComponent<CanvasGroup>().alpha == 1)
         {
-            closePanel(itemBag);
+            ClosePanel(itemBag);
         }
         else
         {
             CloseAllOpenedPanel();
-            openPanel(itemBag);
+            OpenPanel(itemBag);
         }
     }
-    public void badgeBagButtonClicked()
+    public void BadgeBagButtonClicked()
     {
         if (badgeBag.GetComponent<CanvasGroup>().alpha == 1)
         {
-            closePanel(badgeBag);
+            ClosePanel(badgeBag);
         }
         else
         {
             CloseAllOpenedPanel();
-            openPanel(badgeBag);
+            OpenPanel(badgeBag);
         }
     }
 
-    public void skinBagButtonClicked()
+    public void SkinBagButtonClicked()
     {
         if (skinBag.GetComponent<CanvasGroup>().alpha == 1)
         {
-            closePanel(skinBag);
+            ClosePanel(skinBag);
         }
         else
         {
             CloseAllOpenedPanel();
-            openPanel(skinBag);
+            OpenPanel(skinBag);
         }
     }
 /*

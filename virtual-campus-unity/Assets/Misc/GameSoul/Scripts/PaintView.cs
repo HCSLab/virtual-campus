@@ -55,13 +55,19 @@ public class PaintView : MonoBehaviour
     //默认上一次点的位置
     private Vector2 _lastPoint;
     public Slider slider;
-    public GameObject skinBagObject;
-    public GameObject uiManager;
+    private GameObject skinBagObject;
+    public GameObject painterHub;
+    private GameObject uiManager;
+    private SkinItem currentSkinItem;
+    private Texture2D currentTex;
 	#endregion
 
 	void Start()
 	{
+        uiManager = painterHub.GetComponent<PainterHub>().uiManager;
+        skinBagObject = painterHub.GetComponent<PainterHub>().skinBagObject;
         InitData();
+        Reload();
 	}
 
 	private void Update()
@@ -267,7 +273,6 @@ public class PaintView : MonoBehaviour
 
         if (point_mask.x < 0 || point_mask.x > mask.rect.width || point_mask.y < 0 || point_mask.y > mask.rect.height)
         {
-            Debug.Log("OUT");
             return;
         }
 
@@ -340,43 +345,75 @@ public class PaintView : MonoBehaviour
 
     public void Save()
     {
+        if (currentSkinItem == null)
+        {
+            SaveAs();
+            return;
+        }
+        if (!currentSkinItem.customized)
+        {
+            
+            SaveAs();
+            return;
+        }
+        else
+        {
+            Texture tex = _paintCanvas.GetComponent<RawImage>().texture;
+            Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 1000);
+            sprite.name = "sprite";
+            currentSkinItem.texture = TextureToTexture2D(tex);
+            currentSkinItem.image = sprite;
+            var skinBag = skinBagObject.GetComponent<SkinBag>();
+            //skinBag.Reload();
+            skinBag.ReloadSprites();
+            uiManager.GetComponent<UIManager>().DeactivatePanel(gameObject);
+        }
+    }
+
+    public void SaveAs()
+    {
+        Texture tex = _paintCanvas.GetComponent<RawImage>().texture;
+        Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 1000);
+        sprite.name = "Customized Sprite";
+        painterHub.GetComponent<PainterHub>().SaveAs(TextureToTexture2D(tex), sprite);
+        return;
+        /*
         string name = "name";
         string description = "description";
-        Texture tex = _paintCanvas.GetComponent<RawImage>().texture;
         //TextureToPNG toPNG = new TextureToPNG();
         //toPNG.SaveRenderTextureToPNG(TextureToTexture2D(tex), outputShader, "Assets/Sprites/Skins", "1");
-        Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f,0.5f), 1000);
+        Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 1000);
         //Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, 150, 250), Vector2.zero);
         sprite.name = "sprite";
         //SpriteItem spriteItem = new SpriteItem(new Item(name, description, sprite));
         var skinBag = skinBagObject.GetComponent<SkinBag>();
-        GameObject newSprite = new GameObject();
-        newSprite.name = "Customized Sprite";
-        newSprite.transform.SetParent(skinBag.transform);
-        var spriteItem = newSprite.AddComponent<SkinItem>();
+        GameObject newSkin = new GameObject();
+        newSkin.name = "Customized Sprite";
+        newSkin.transform.SetParent(skinBag.transform);
+        var spriteItem = newSkin.AddComponent<SkinItem>();
         spriteItem.itemName = name;
         spriteItem.description = description;
         spriteItem.image = sprite;
         spriteItem.texture = TextureToTexture2D(tex);
-        skinBag.testItems.Add(newSprite);
+        skinBag.testItems.Add(newSkin);
         skinBag.Reload();
-        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        uiManager.GetComponent<UIManager>().DeactivatePanel(gameObject);
+        */
     }
 
     public void Close()
     {
-        uiManager.GetComponent<UIManager>().closePanel(gameObject);
+        uiManager.GetComponent<UIManager>().DeactivatePanel(gameObject);
     }
 
     public void Clear()
     {
-        //Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture;
-        SkinItem skinItem = (SkinItem)skinBagObject.GetComponent<SkinBag>().currentItem;
-        Texture playerTexture = skinItem.texture;
+        //Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture;;
+        Texture tex = currentTex;
         RenderTexture old = (RenderTexture) _paintCanvas.texture;
         _renderTex = RenderTexture.GetTemporary(512, 512, 24);
         _paintCanvas.texture = _renderTex;
-        Graphics.Blit(playerTexture, _renderTex);
+        Graphics.Blit(tex, _renderTex);
         old.Release();
     }
 
@@ -399,8 +436,13 @@ public class PaintView : MonoBehaviour
 
     public void Reload()
     {
+        if (skinBagObject == null)
+        {
+            return;
+        }
         SkinItem skinItem = (SkinItem)skinBagObject.GetComponent<SkinBag>().currentItem;
-        Texture playerTexture = skinItem.texture;
-        Graphics.Blit(playerTexture, _renderTex);
+        Graphics.Blit(skinItem.texture, _renderTex);
+        currentSkinItem = skinItem;
+        currentTex = skinItem.texture;
     }
 }

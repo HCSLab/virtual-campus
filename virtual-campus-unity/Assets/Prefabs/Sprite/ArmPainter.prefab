@@ -3407,8 +3407,7 @@ MonoBehaviour:
   _paintCanvas: {fileID: 2858424516988998261}
   _defaultColor: {r: 0.83823526, g: 0.46825552, b: 0, a: 1}
   slider: {fileID: 2858424516988966273}
-  skinBagObject: {fileID: 0}
-  uiManager: {fileID: 0}
+  painterHub: {fileID: 0}
 --- !u!225 &8495865977139060709
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3771,7 +3770,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2858424516989026251}
-        m_MethodName: Save
+        m_MethodName: SaveAs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
