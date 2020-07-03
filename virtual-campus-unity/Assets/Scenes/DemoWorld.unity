@@ -73,7 +73,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 0
-    m_BakeBackend: 2
+    m_BakeBackend: 1
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 512
@@ -392,6 +392,87 @@ Transform:
   m_Father: {fileID: 2062507746}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &28823125
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656021, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462749637946656022, guid: 54af612e561b55a44b4eb6839e50ffbb,
+        type: 3}
+      propertyPath: m_Name
+      value: Gaze Controller
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54af612e561b55a44b4eb6839e50ffbb, type: 3}
+--- !u!114 &28823126 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6462749637946656020, guid: 54af612e561b55a44b4eb6839e50ffbb,
+    type: 3}
+  m_PrefabInstance: {fileID: 28823125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60db4ffc77c0a7e42b97cddd25973472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &49518352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5088,7 +5169,8 @@ MonoBehaviour:
   loadingCursor: {fileID: 767416056}
   buildingName: {fileID: 1467443437}
   buildingDescription: {fileID: 1456288023}
-  enableTime: 2
+  enableTime: 0.5
+  gaze: {fileID: 28823126}
 --- !u!1 &979502758
 GameObject:
   m_ObjectHideFlags: 3

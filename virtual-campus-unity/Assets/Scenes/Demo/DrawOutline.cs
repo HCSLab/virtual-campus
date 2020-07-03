@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -33,6 +33,7 @@ public class DrawOutline : MonoBehaviour
 	private Renderer target;
 	private Renderer oldTarget;
 
+	public GazeController gaze;
 	private void Awake()
 	{
 		cam = GetComponent<Camera>();
@@ -98,7 +99,8 @@ public class DrawOutline : MonoBehaviour
 
 	private void Update()
 	{
-		SetTargetByScreenPos(Input.mousePosition);
+		var gazepoint = gaze.GetGazePoint();
+		SetTargetByScreenPos(gazepoint);
 	}
 
 	delegate bool Check();
