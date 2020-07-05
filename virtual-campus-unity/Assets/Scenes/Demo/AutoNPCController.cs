@@ -81,6 +81,7 @@ public class AutoNPCController : MonoBehaviour
 		// Check whether the collider can chat.
 		if (other.tag != "NPC") return;
 		var otherController = other.gameObject.GetComponent<AutoNPCController>();
+		if (!otherController) return;
 		if (!otherController.enableChatting || otherController.isChatting) return;
 		if (otherController.chatTriggerChecked) return;
 
