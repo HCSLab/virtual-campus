@@ -6,14 +6,22 @@ using Random = UnityEngine.Random;
 
 public class AutoNPCController : MonoBehaviour
 {
+	public enum LoopType
+	{
+		Loop,
+		RestartOnFinish,
+		None
+	};
+
 	[Header("Movement")]
 	public float minSpeedFactor;
 	public float maxSpeedFactor;
 	[Header("Route")]
-	public Transform[] checkPoints;
+	public LoopType loopType;
 	public float offsetThreshold;
 	public bool reverseRoute;
 	public bool enableChatting;
+	public Transform[] checkPoints;
 	[Range(0f, 1f)] public float chatProbility;
 	public float maxChatTime, minChatTime;
 	[Header("Model")]

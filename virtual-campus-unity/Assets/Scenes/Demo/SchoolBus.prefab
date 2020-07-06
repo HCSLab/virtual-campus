@@ -499,6 +499,10 @@ MonoBehaviour:
     wheelPower: 0
   StartEngineClip: {fileID: 8300000, guid: 4a49457ede2f1e245984fef941542e26, type: 3}
   WorkingEngineClip: {fileID: 8300000, guid: e1b5d485f2f6dfc48ae2879ca5ff63b6, type: 3}
+  startingPointIndex: 0
+  offsetThreshold: 0.5
+  steerThreshold: 10
+  loopType: 1
   checkPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -530,8 +534,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  offsetThreshold: 0.5
-  steerThreshold: 10
   pedestrianDetector: {fileID: 197253388}
 --- !u!82 &6920776598755607585
 AudioSource:

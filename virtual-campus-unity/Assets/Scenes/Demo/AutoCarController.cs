@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AutoCarController : MonoBehaviour
 {
+	public enum LoopType
+	{
+		Loop,
+		RestartOnFinish,
+		None
+	};
+
 	[Header("Car Parameters")]
 	[SerializeField] private float maxSpeed;
 	[SerializeField] private float powerEngine;
@@ -31,11 +38,17 @@ public class AutoCarController : MonoBehaviour
 	}
 
 	[Header("Route")]
-	public Transform[] checkPoints;
+	public int startingPointIndex;
 	public float offsetThreshold, steerThreshold;
+	public LoopType loopType;
+	public Transform[] checkPoints;
+
 
 	[Header("Auto Brake")]
 	public Transform pedestrianDetector;
+
+	float initialY;
+	int nextCheckPointIndex;
 
 	void Start()
 	{
@@ -45,6 +58,9 @@ public class AutoCarController : MonoBehaviour
 		// Resetting the COM causes a weird bug
 		// in the bus model of PainterCars
 		rb.centerOfMass = COM.localPosition;
+
+		initialY = transform.position.y;
+		nextCheckPointIndex = (startingPointIndex + 1) % checkPoints.Length;
 
 		StartEngine();
 		InitializePositionAndRotation();
@@ -57,27 +73,31 @@ public class AutoCarController : MonoBehaviour
 	}
 
 	// Pedestrian detection
-	int pedestrianCounter = 0;
+	[HideInInspector]
+	public int carAheadCounter = 0;
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag != "NPC") return;
-		pedestrianCounter++;
+		if (other.tag != "Car") return;
+		if (other.gameObject.GetInstanceID() < GetInstanceID())
+		{
+			carAheadCounter++;
+		}
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.tag != "NPC") return;
-		LeanTween.delayedCall(1f, () => { pedestrianCounter--; });
+		if (other.tag != "Car") return;
+		LeanTween.delayedCall(1f, () => { carAheadCounter = Mathf.Max(0, carAheadCounter - 1); });
 	}
 
 	void InitializePositionAndRotation()
 	{
-		var initialPosition = checkPoints[0].position;
-		initialPosition.y = transform.position.y;
+		var initialPosition = checkPoints[startingPointIndex].position;
+		initialPosition.y = initialY;
 		transform.position = initialPosition;
 
-		transform.LookAt(checkPoints[1]);
+		transform.LookAt(checkPoints[nextCheckPointIndex]);
 	}
 
 	public void StartEngine()
@@ -113,19 +133,30 @@ public class AutoCarController : MonoBehaviour
 	float inputSteerAngle;
 	float currentMaxSpeed;
 
-	int nextCheckPointIndex = 0;
-
 	void CalculateInput()
 	{
 		var offset = transform.position - checkPoints[nextCheckPointIndex].position;
 		offset.Scale(new Vector3(1f, 0f, 1f));
 		if (offset.magnitude < offsetThreshold)
-			nextCheckPointIndex++;
+			nextCheckPointIndex = (nextCheckPointIndex + 1) % checkPoints.Length;
 
 		if (nextCheckPointIndex == checkPoints.Length - 1)
 		{
-			Destroy(gameObject);
-			return;
+			if (loopType == LoopType.None)
+			{
+				Destroy(gameObject);
+				return;
+			}
+			else if (loopType == LoopType.RestartOnFinish)
+			{
+				startingPointIndex = 0;
+				nextCheckPointIndex = 1;
+				InitializePositionAndRotation();
+			}
+			else
+			{
+				// Do nothing, because the car is looping by default.
+			}
 		}
 
 		var nextCheckPoint = checkPoints[nextCheckPointIndex];
@@ -148,7 +179,7 @@ public class AutoCarController : MonoBehaviour
 			currentMaxSpeed = 0.5f * maxSpeed;
 		}
 
-		if (pedestrianCounter > 0)
+		if (carAheadCounter > 0)
 		{
 			inputPower = 0;
 			currentMaxSpeed = 0f;

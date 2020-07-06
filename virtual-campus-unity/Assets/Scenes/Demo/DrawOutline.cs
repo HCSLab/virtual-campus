@@ -8,6 +8,8 @@ using System.Collections.Generic;
 
 public class DrawOutline : MonoBehaviour
 {
+	[Range(0.5f, 10f)] public float timeScale;
+
 	private Camera cam;
 	private RenderTexture outlineTex;
 	private RenderTexture cullTex;
@@ -92,6 +94,7 @@ public class DrawOutline : MonoBehaviour
 
 	private void Start()
 	{
+		Time.timeScale = timeScale;
 		descriptionPanel.SetActive(false);
 		loadingCursor.gameObject.SetActive(false);
 	}
