@@ -94,13 +94,13 @@ public class DrawOutline : MonoBehaviour
 
 	private void Start()
 	{
-		Time.timeScale = timeScale;
 		descriptionPanel.SetActive(false);
 		loadingCursor.gameObject.SetActive(false);
 	}
 
 	private void Update()
 	{
+		Time.timeScale = timeScale;
 		SetTargetByScreenPos(Input.mousePosition);
 	}
 

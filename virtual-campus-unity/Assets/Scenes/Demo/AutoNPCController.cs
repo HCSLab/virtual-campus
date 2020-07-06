@@ -10,6 +10,7 @@ public class AutoNPCController : MonoBehaviour
 	{
 		Loop,
 		RestartOnFinish,
+		ReverseOnFinish,
 		None
 	};
 
@@ -17,19 +18,20 @@ public class AutoNPCController : MonoBehaviour
 	public float minSpeedFactor;
 	public float maxSpeedFactor;
 	[Header("Route")]
+	public int startingPoint;
 	public LoopType loopType;
 	public float offsetThreshold;
 	public bool reverseRoute;
 	public bool enableChatting;
-	public Transform[] checkPoints;
 	[Range(0f, 1f)] public float chatProbility;
 	public float maxChatTime, minChatTime;
+	public Transform[] checkPoints;
 	[Header("Model")]
 	public GameObject model;
 
 	Animator animator;
 	NavMeshAgent navMeshAgent;
-
+	float initialY;
 	private void Start()
 	{
 		animator = model.GetComponent<Animator>();
@@ -38,10 +40,12 @@ public class AutoNPCController : MonoBehaviour
 		var randomizedWalkSpeedFactor = Random.Range(maxSpeedFactor, minSpeedFactor);
 		navMeshAgent.speed *= randomizedWalkSpeedFactor;
 
+		nextCheckPointIndex = (startingPoint + 1) % checkPoints.Length;
+		initialY = transform.position.y;
+		InitializePosition();
+
 		if (reverseRoute)
 			Array.Reverse(checkPoints);
-
-		InitializePosition();
 	}
 
 	private void Update()
@@ -124,8 +128,8 @@ public class AutoNPCController : MonoBehaviour
 
 	void InitializePosition()
 	{
-		var initialPosition = checkPoints[0].position;
-		initialPosition.y = transform.position.y;
+		var initialPosition = checkPoints[startingPoint].position;
+		initialPosition.y = initialY;
 		transform.position = initialPosition;
 	}
 
@@ -138,6 +142,7 @@ public class AutoNPCController : MonoBehaviour
 	{
 		if (isChatting)
 		{
+			model.transform.LookAt(chatTargetModel.transform);
 			navMeshAgent.SetDestination(transform.position);
 			return;
 		}
@@ -145,12 +150,32 @@ public class AutoNPCController : MonoBehaviour
 		var offset = transform.position - checkPoints[nextCheckPointIndex].position;
 		offset.Scale(new Vector3(1f, 0f, 1f));
 		if (offset.magnitude < offsetThreshold)
-			nextCheckPointIndex++;
+			nextCheckPointIndex = (nextCheckPointIndex + 1) % checkPoints.Length;
 
 		if (nextCheckPointIndex == checkPoints.Length - 1)
 		{
-			Destroy(gameObject);
-			return;
+			if (loopType == LoopType.None)
+			{
+				Destroy(gameObject);
+				return;
+			}
+			else if (loopType == LoopType.RestartOnFinish)
+			{
+				startingPoint = 0;
+				nextCheckPointIndex = 1;
+				InitializePosition();
+			}
+			else if (loopType == LoopType.ReverseOnFinish)
+			{
+				Array.Reverse(checkPoints);
+				startingPoint = 1;
+				nextCheckPointIndex = 2;
+				InitializePosition();
+			}
+			else
+			{
+				// Do nothing, because the car is looping by default.
+			}
 		}
 
 		navMeshAgent.SetDestination(checkPoints[nextCheckPointIndex].position);
