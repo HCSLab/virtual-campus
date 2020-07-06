@@ -11,6 +11,7 @@ public class AutoNPCController : MonoBehaviour
 		Loop,
 		RestartOnFinish,
 		ReverseOnFinish,
+		EndlessRandomWalking,
 		None
 	};
 
@@ -40,6 +41,8 @@ public class AutoNPCController : MonoBehaviour
 		var randomizedWalkSpeedFactor = Random.Range(maxSpeedFactor, minSpeedFactor);
 		navMeshAgent.speed *= randomizedWalkSpeedFactor;
 
+		if (loopType == LoopType.EndlessRandomWalking)
+			startingPoint = Random.Range(0, checkPoints.Length);
 		nextCheckPointIndex = (startingPoint + 1) % checkPoints.Length;
 		initialY = transform.position.y;
 		InitializePosition();
@@ -76,9 +79,7 @@ public class AutoNPCController : MonoBehaviour
 				return;
 			
 			// Update the rotation of the model.
-			if (value)
-				model.transform.LookAt(chatTargetModel.transform);
-			else
+			if (!value)
 				LeanTween.rotateLocal(model, Vector3.zero, 0.8f);
 			
 			isChatting = value;
@@ -150,9 +151,14 @@ public class AutoNPCController : MonoBehaviour
 		var offset = transform.position - checkPoints[nextCheckPointIndex].position;
 		offset.Scale(new Vector3(1f, 0f, 1f));
 		if (offset.magnitude < offsetThreshold)
-			nextCheckPointIndex = (nextCheckPointIndex + 1) % checkPoints.Length;
+		{
+			if (loopType == LoopType.EndlessRandomWalking)
+				nextCheckPointIndex = Random.Range(0, checkPoints.Length);
+			else nextCheckPointIndex = (nextCheckPointIndex + 1) % checkPoints.Length;
+		}
 
-		if (nextCheckPointIndex == checkPoints.Length - 1)
+		if (loopType != LoopType.EndlessRandomWalking &&
+			nextCheckPointIndex == checkPoints.Length - 1)
 		{
 			if (loopType == LoopType.None)
 			{
@@ -183,7 +189,7 @@ public class AutoNPCController : MonoBehaviour
 
 	void UpdateAnimationAndRotation()
 	{
-		if (navMeshAgent.velocity.magnitude < 0.01f)
+		if (isChatting)
 			animator.SetBool("Walk", false);
 		else
 			animator.SetBool("Walk", true);
