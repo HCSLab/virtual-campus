@@ -82,19 +82,23 @@ public class PainterHub : MonoBehaviour
         GameObject newSkin = new GameObject();
         newSkin.name = "Customized Sprite";
         newSkin.transform.SetParent(skinBag.transform);
-        var spriteItem = newSkin.AddComponent<SkinItem>();
-        spriteItem.itemName = name;
-        spriteItem.description = description;
-        spriteItem.image = currentSprite;
-        spriteItem.texture = currentTex;
-        spriteItem.customized = true;
+        var skinItem = newSkin.AddComponent<SkinItem>();
+        skinItem.itemName = name;
+        skinItem.description = description;
+        skinItem.image = currentSprite;
+        skinItem.texture = currentTex;
+        skinItem.customized = true;
         skinBag.Add(newSkin);
         //skinBag.Reload();
         uiManager.GetComponent<UIManager>().DeactivatePanel(currentPainter);
+        nameInput.text = "";
+        descriptionInput.text = "";
         saveAs.SetActive(false);
     }
     public void OnCancelButtonClicked()
     {
+        nameInput.text = "";
+        descriptionInput.text = "";
         saveAs.SetActive(false);
     }
 }

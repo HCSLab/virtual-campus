@@ -57,14 +57,16 @@ public class PaintView : MonoBehaviour
     public Slider slider;
     private GameObject skinBagObject;
     public GameObject painterHub;
-    private GameObject uiManager;
+    protected GameObject uiManager;
     private SkinItem currentSkinItem;
     private Texture2D currentTex;
 	#endregion
 
-	void Start()
+	void Awake()
 	{
         uiManager = painterHub.GetComponent<PainterHub>().uiManager;
+        //Debug.Log(gameObject);
+        //Debug.Log(uiManager);
         skinBagObject = painterHub.GetComponent<PainterHub>().skinBagObject;
         InitData();
         Reload();
@@ -72,7 +74,8 @@ public class PaintView : MonoBehaviour
 
 	private void Update()
 	{
-		Color clearColor = new Color(0, 0, 0, 0);
+        //Debug.Log(uiManager);
+        Color clearColor = new Color(0, 0, 0, 0);
 		if (Input.GetKeyDown(KeyCode.Space))
 			_paintBrushMat.SetColor("_Color", clearColor);
     }
@@ -403,6 +406,8 @@ public class PaintView : MonoBehaviour
 
     public void Close()
     {
+        //Debug.Log(gameObject);
+        //Debug.Log(uiManager);
         uiManager.GetComponent<UIManager>().DeactivatePanel(gameObject);
     }
 
@@ -445,4 +450,5 @@ public class PaintView : MonoBehaviour
         currentSkinItem = skinItem;
         currentTex = skinItem.texture;
     }
+
 }

@@ -12,7 +12,7 @@ public class BadgeBag : Bag
         Instance = this;
     }
 
-    public override void Select(Item item)
+    public override void Select(Item item, ItemBox itemBox)
     {
 
     }

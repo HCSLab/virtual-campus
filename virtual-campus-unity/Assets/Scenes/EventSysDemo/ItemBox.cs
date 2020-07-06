@@ -19,6 +19,6 @@ public class ItemBox : MonoBehaviour
 
     public virtual void OnClick()
     {
-        ItemBag.Instance.Select(item);
+        ItemBag.Instance.Select(item, this);
     }
 }

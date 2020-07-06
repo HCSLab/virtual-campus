@@ -32,7 +32,7 @@ public class ItemBag : Bag
         }
     }
 
-    public override void Select(Item item)
+    public override void Select(Item item, ItemBox itemBox)
     {
         detailImage.sprite = item.image;
         detailName.text = item.itemName;

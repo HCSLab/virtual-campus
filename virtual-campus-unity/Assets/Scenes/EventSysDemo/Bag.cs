@@ -20,6 +20,7 @@ public class Bag : MonoBehaviour
     public List<GameObject> testItems = new List<GameObject>();
 
     public Item currentItem;
+    protected ItemBox currentItemBox;
 
     protected virtual void Start()
     {
@@ -56,7 +57,7 @@ public class Bag : MonoBehaviour
         GetComponent<CanvasScaler>().enabled = true;
     }
 
-    public virtual void Select(Item item)
+    public virtual void Select(Item item, ItemBox itemBox)
     {
         detailImage.sprite = item.image;
         detailName.text = item.itemName;
@@ -81,12 +82,18 @@ public class Bag : MonoBehaviour
 
     public void Remove(Item item, bool destroyItem = true)
     {
+        ItemBox boxToRemove = null;
         foreach (var box in itemBoxs)
         {
             if (box.item == item)
             {
                 Destroy(box.gameObject);
+                boxToRemove = box;
             }
+        }
+        if (boxToRemove)
+        {
+            itemBoxs.Remove(boxToRemove);
         }
         if (destroyItem)
         {
@@ -135,7 +142,7 @@ public class Bag : MonoBehaviour
     {
         if (itemBoxs.Count > 0)
         {
-            Select(itemBoxs[0].item);
+            Select(itemBoxs[0].item, itemBoxs[0]);
         }
         else
         {

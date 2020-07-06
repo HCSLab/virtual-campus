@@ -16,6 +16,14 @@ public class SkinBag : Bag
 
     public GameObject painterHub;
     public GameObject uiManager;
+    public GameObject skinBagRenameCanvas;
+
+    private GameObject renamePanel;
+    private InputField nameInput;
+    private InputField descriptionInput;
+    private Button deleteButton;
+
+
     protected virtual void Awake()
     {
         Instance = this;
@@ -24,6 +32,10 @@ public class SkinBag : Bag
             Sprite sprite = Sprite.Create(TextureToTexture2D(tex), new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 1000);
             obj.GetComponent<SkinItem>().image = sprite;
         }
+        renamePanel = skinBagRenameCanvas.transform.Find("RenamePanel").gameObject;
+        nameInput = skinBagRenameCanvas.transform.Find("RenamePanel/NameInputField").gameObject.GetComponent<InputField>();
+        descriptionInput = skinBagRenameCanvas.transform.Find("RenamePanel/DescriptionInputField").gameObject.GetComponent<InputField>();
+        deleteButton = transform.Find("Panel/Delete").GetComponent<Button>();
         //painterHub = transform.Find("PainterHub").gameObject;
         //Debug.Log(painterHub);
     }
@@ -55,14 +67,14 @@ public class SkinBag : Bag
 
         return texture2D;
     }
-    public void OnSaveClicked()
+    public void Save()
     {
         if (currentItem != null)
         {
-            SkinItem spriteItem = (SkinItem) currentItem;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture = spriteItem.texture;
+            SkinItem skinItem = (SkinItem) currentItem;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture = skinItem.texture;
             //Debug.Log(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerMaterial);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerMaterial.mainTexture = spriteItem.texture;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerMaterial.mainTexture = skinItem.texture;
         }
         BagButtonPressed();
     }
@@ -92,19 +104,30 @@ public class SkinBag : Bag
         GetComponent<CanvasScaler>().enabled = true;
     }
 
-    public void OnCancelClicked()
+    public void Cancel()
     {
         BagButtonPressed();
     }
 
-    public override void Select(Item item) 
+    public override void Select(Item item, ItemBox itemBox) 
     {
         detailName.text = item.itemName;
         detailDescription.text = item.description;
         currentItem = item;
-        SkinItem spriteItem = (SkinItem)currentItem;
-        skinPreviewPlayer.GetComponent<PlayerSkin>().playerTexture = spriteItem.texture;
-        skinPreviewPlayer.GetComponent<PlayerSkin>().playerMaterial.mainTexture = spriteItem.texture;
+        currentItemBox = itemBox;
+        SkinItem skinItem = (SkinItem)currentItem;
+        skinPreviewPlayer.GetComponent<PlayerSkin>().playerTexture = skinItem.texture;
+        skinPreviewPlayer.GetComponent<PlayerSkin>().playerMaterial.mainTexture = skinItem.texture;
+        if (!skinItem.customized)
+        {
+            deleteButton.enabled = false;
+            deleteButton.interactable = false;
+        }
+        else
+        {
+            deleteButton.enabled = true;
+            deleteButton.interactable = true;
+        }
     }
 
     public void RotateLeftDown()
@@ -126,7 +149,7 @@ public class SkinBag : Bag
     {
         rotateRight = false;
     }
-    public void OnPainterHubButtonClicked()
+    public void PainterHub()
     {
         if (painterHub.GetComponent<CanvasGroup>().alpha == 1)
         {
@@ -175,5 +198,45 @@ public class SkinBag : Bag
             }
         }
         GetComponent<CanvasScaler>().enabled = true;
+    }
+
+    public void Delete()
+    {
+        GetComponent<CanvasScaler>().enabled = false;
+        if (currentItemBox != null)
+        {
+            int index = itemBoxs.IndexOf(currentItemBox);
+            Remove(currentItem);
+            if (itemBoxs.Count > 0)
+            {
+                Select(itemBoxs[index - 1].item, itemBoxs[index - 1]);
+            }
+        }
+        GetComponent<CanvasScaler>().enabled = true;
+    }
+
+    public void Rename()
+    {
+        renamePanel.gameObject.SetActive(true);
+    }
+
+    public void RenameSave()
+    {
+        string name = nameInput.text;
+        string description = descriptionInput.text;
+        currentItem.itemName = name;
+        currentItem.description = description;
+        currentItemBox.text.text = name;
+        nameInput.text = "";
+        descriptionInput.text = "";
+        renamePanel.SetActive(false);
+        Select(currentItem, currentItemBox);
+    }
+
+    public void RenameCancel()
+    {
+        nameInput.text = "";
+        descriptionInput.text = "";
+        renamePanel.gameObject.SetActive(false);
     }
 }
