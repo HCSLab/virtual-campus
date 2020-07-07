@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 
 public class DrawOutline : MonoBehaviour
 {
@@ -32,8 +33,13 @@ public class DrawOutline : MonoBehaviour
 	public TextMeshProUGUI buildingName, buildingDescription;
 	public float enableTime;
 
-	private Renderer target;
-	private Renderer oldTarget;
+	[Header("Camera Following")]
+	public CinemachineVirtualCamera followingCamera;
+	public GameObject stopFollowingPanel;
+
+	Renderer target;
+	Renderer oldTarget;
+	GameObject followingNPC;
 
 	private void Awake()
 	{
@@ -96,6 +102,7 @@ public class DrawOutline : MonoBehaviour
 	{
 		descriptionPanel.SetActive(false);
 		loadingCursor.gameObject.SetActive(false);
+		stopFollowingPanel.SetActive(false);
 	}
 
 	private void Update()
@@ -108,26 +115,52 @@ public class DrawOutline : MonoBehaviour
 	bool isHit, isUIHit;
 	RaycastHit hit;
 	bool hasDisableCoroutine = false, hasEnableCoroutine = false;
+	bool hasStopFollowingCoroutine = false;
+	List<RaycastResult> results = new List<RaycastResult>();
 	public void SetTargetByScreenPos(Vector2 screenPos)
 	{
 		loadingCursor.gameObject.GetComponent<RectTransform>().position = screenPos;
 
 		var ray = cam.ScreenPointToRay(screenPos);
-		isHit = Physics.Raycast(ray, out hit, 10000, LayerMask.GetMask("Building"));
+		isHit = Physics.Raycast(ray, out hit, 10000, LayerMask.GetMask("Building") | LayerMask.GetMask("NPC"));
 
 		var pointerEventData = new PointerEventData(EventSystem.current);
 		pointerEventData.position = screenPos;
-		List<RaycastResult> results = new List<RaycastResult>();
+		results.Clear();
 		canvasGraphicRaycaster.Raycast(pointerEventData, results);
-		foreach(RaycastResult result in results)
+		foreach (RaycastResult result in results)
 		{
-			if(result.gameObject == loadingCursor.gameObject)
+			if (result.gameObject == loadingCursor.gameObject)
 			{
 				results.Remove(result);
 				break;
 			}
+			else if (result.gameObject == stopFollowingPanel && !hasStopFollowingCoroutine)
+			{
+				hasStopFollowingCoroutine = true;
+				loadingCursor.gameObject.SetActive(true);
+				loadingCursor.fillAmount = 0f;
+				StartCoroutine(
+					TryDelayedInvoke(
+						enableTime,
+						() =>
+						{
+							var flag = false;
+							foreach (RaycastResult r in results)
+								if (r.gameObject == stopFollowingPanel)
+									flag = true;
+							return flag;
+						},
+						() => { stopFollowingPanel.SetActive(false); followingCamera.Priority -= 5; followingNPC = null; },
+						() => { hasStopFollowingCoroutine = false; loadingCursor.gameObject.SetActive(false); }
+						)
+				);
+			}
 		}
 		isUIHit = results.Count > 0;
+
+		if (hasStopFollowingCoroutine)
+			return;
 
 		if (descriptionPanel.activeSelf)
 		{
@@ -156,13 +189,16 @@ public class DrawOutline : MonoBehaviour
 			if (isHit)
 			{
 				// Try to enable the panel.
-				if(!hasEnableCoroutine)
+				if (!hasEnableCoroutine)
 				{
 					hasEnableCoroutine = true;
 					loadingCursor.gameObject.SetActive(true);
 					loadingCursor.fillAmount = 0f;
 					var tentiveTarget = hit.transform.GetComponent<Renderer>();
-					StartCoroutine(
+					if (tentiveTarget)
+					{
+						// Pointing at a building
+						StartCoroutine(
 						TryDelayedInvoke(
 							enableTime,
 							() => { return isHit && hit.collider.gameObject == tentiveTarget.gameObject; },
@@ -177,6 +213,35 @@ public class DrawOutline : MonoBehaviour
 							() => { hasEnableCoroutine = false; loadingCursor.gameObject.SetActive(false); }
 							)
 						);
+					}
+					else
+					{
+						// Pointing at a NPC
+						var targetNPC = hit.collider.gameObject;
+						if (followingNPC != targetNPC)
+						{
+							StartCoroutine(
+							TryDelayedInvoke(
+								enableTime,
+								() => { return isHit && hit.collider.gameObject == targetNPC; },
+								() =>
+								{
+									if (!followingNPC)
+										followingCamera.Priority += 5;
+									followingCamera.Follow = targetNPC.transform;
+									followingCamera.LookAt = targetNPC.transform;
+									followingNPC = targetNPC;
+									stopFollowingPanel.SetActive(true);
+								},
+								() => { hasEnableCoroutine = false; loadingCursor.gameObject.SetActive(false); }
+								)
+							);
+						}
+						else
+						{
+							hasEnableCoroutine = false;
+						}
+					}
 				}
 			}
 		}

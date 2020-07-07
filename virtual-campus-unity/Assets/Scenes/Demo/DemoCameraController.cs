@@ -50,6 +50,7 @@ public class DemoCameraController : MonoBehaviour
 	[Header("Cinemachine")]
 	public float cutTime;
 	public CinemachineVirtualCamera[] virtualCameras;
+	public GameObject descriptionPanel;
 
 	[Header("Movement Settings")]
 	[Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
@@ -120,7 +121,24 @@ public class DemoCameraController : MonoBehaviour
 			virtualCameras[currentVirtualCameraIndex].Priority++;
 			
 			yield return new WaitForSeconds(cutTime);
-			
+
+			while (true)
+			{
+				while(GetCameraRotation().magnitude > 0.1 || descriptionPanel.activeInHierarchy)
+					yield return null;
+
+				var timer = 0f;
+				while(!(GetCameraRotation().magnitude > 0.1 || descriptionPanel.activeInHierarchy))
+				{
+					timer += Time.deltaTime;
+					if (timer > 1f)
+						break;
+					yield return null;
+				}
+				if (timer > 1f)
+					break;
+			}
+
 			virtualCameras[currentVirtualCameraIndex].Priority--;
 			var lastTransform = virtualCameras[currentVirtualCameraIndex].gameObject.transform;
 			var lastInitialRotation = initialRotationOfCurrentVirtualCamera;
