@@ -51,6 +51,7 @@ public class DemoCameraController : MonoBehaviour
 	public float cutTime;
 	public CinemachineVirtualCamera[] virtualCameras;
 	public GameObject descriptionPanel;
+	public float maxFOV, minFOV, zoomSpeed;
 
 	[Header("Movement Settings")]
 	[Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
@@ -97,6 +98,11 @@ public class DemoCameraController : MonoBehaviour
 		m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
 
 		m_InterpolatingCameraState.UpdateTransform(currentVirtualCamera.transform);
+
+		var cam = currentVirtualCamera.GetComponent<CinemachineVirtualCamera>();
+		cam.m_Lens.FieldOfView += GetZoomInput() * zoomSpeed * Time.deltaTime;
+		cam.m_Lens.FieldOfView = Mathf.Max(minFOV, cam.m_Lens.FieldOfView);
+		cam.m_Lens.FieldOfView = Mathf.Min(maxFOV, cam.m_Lens.FieldOfView);
 	}
 
 	public void UpdateVirtualCameraState()
@@ -114,9 +120,11 @@ public class DemoCameraController : MonoBehaviour
 	IEnumerator ChangeVirtualCamera()
 	{
 		int currentVirtualCameraIndex = 0;
+		float initialFOVOfCurrentVirtualCamera;
 		Quaternion initialRotationOfCurrentVirtualCamera;
 		while (true)
 		{
+			initialFOVOfCurrentVirtualCamera = virtualCameras[currentVirtualCameraIndex].m_Lens.FieldOfView;
 			initialRotationOfCurrentVirtualCamera = virtualCameras[currentVirtualCameraIndex].gameObject.transform.rotation;
 			virtualCameras[currentVirtualCameraIndex].Priority++;
 			
@@ -141,15 +149,30 @@ public class DemoCameraController : MonoBehaviour
 
 			virtualCameras[currentVirtualCameraIndex].Priority--;
 			var lastTransform = virtualCameras[currentVirtualCameraIndex].gameObject.transform;
+			var lastCamera = virtualCameras[currentVirtualCameraIndex];
+			var lastFOV = initialFOVOfCurrentVirtualCamera;
 			var lastInitialRotation = initialRotationOfCurrentVirtualCamera;
 			currentVirtualCameraIndex = (currentVirtualCameraIndex + 1) % virtualCameras.Length;
 
-			LeanTween.delayedCall(2f, () => { lastTransform.rotation = lastInitialRotation; });
+			LeanTween.delayedCall(2f, () => { lastCamera.m_Lens.FieldOfView = lastFOV; lastTransform.rotation = lastInitialRotation; });
 		}
 	}
 
 	public Vector2 GetCameraRotation()
 	{
 		return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * -1f);
+	}
+
+	// 1 -> zoom out
+	// 0 -> no change
+	// -1 -> zoom in
+	public int GetZoomInput()
+	{
+		int ret = 0;
+		if (Input.GetKey(KeyCode.N))
+			ret++;
+		if (Input.GetKey(KeyCode.M))
+			ret--;
+		return ret;
 	}
 }
