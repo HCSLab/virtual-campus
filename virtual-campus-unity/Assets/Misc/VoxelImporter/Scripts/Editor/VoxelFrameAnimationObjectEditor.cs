@@ -136,24 +136,27 @@ namespace VoxelImporter
                                     if (GUILayout.Button("Save", GUILayout.Width(48), GUILayout.Height(16)))
                                     {
                                         #region Create Texture
-                                        string path = EditorUtility.SaveFilePanel("Save atlas texture", baseCore.GetDefaultPath(), string.Format("{0}_tex.png", baseTarget.gameObject.name), "png");
-                                        if (!string.IsNullOrEmpty(path))
+                                        EditorApplication.delayCall += () =>
                                         {
-                                            if (path.IndexOf(Application.dataPath) < 0)
+                                            string path = EditorUtility.SaveFilePanel("Save atlas texture", baseCore.GetDefaultPath(), string.Format("{0}_tex.png", baseTarget.gameObject.name), "png");
+                                            if (!string.IsNullOrEmpty(path))
                                             {
-                                                EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                if (path.IndexOf(Application.dataPath) < 0)
+                                                {
+                                                    EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                }
+                                                else
+                                                {
+                                                    UndoRecordObject("Save Atlas Texture");
+                                                    File.WriteAllBytes(path, objectTarget.atlasTexture.EncodeToPNG());
+                                                    path = FileUtil.GetProjectRelativePath(path);
+                                                    AssetDatabase.ImportAsset(path);
+                                                    objectCore.SetTextureImporterSetting(path, objectTarget.atlasTexture);
+                                                    objectTarget.atlasTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+                                                    Refresh();
+                                                }
                                             }
-                                            else
-                                            {
-                                                UndoRecordObject("Save Atlas Texture");
-                                                File.WriteAllBytes(path, objectTarget.atlasTexture.EncodeToPNG());
-                                                path = FileUtil.GetProjectRelativePath(path);
-                                                AssetDatabase.ImportAsset(path);
-                                                objectCore.SetTextureImporterSetting(path, objectTarget.atlasTexture);
-                                                objectTarget.atlasTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-                                                Refresh();
-                                            }
-                                        }
+                                        };
                                         #endregion
                                     }
                                 }
@@ -481,6 +484,7 @@ namespace VoxelImporter
                                 if (GUILayout.Button("Save All Unsaved Assets"))
                                 {
                                     SaveAllUnsavedAssets(new MenuCommand(baseTarget));
+                                    return;
                                 }
                                 EditorGUILayout.Space();
                                 EditorGUILayout.EndHorizontal();
@@ -782,28 +786,32 @@ namespace VoxelImporter
                                 if (GUI.Button(rs, "Save"))
                                 {
                                     #region Create Mesh
-                                    var name = objectTarget.frames[index].voxelFileObject != null ? objectTarget.frames[index].voxelFileObject.name : Path.GetFileNameWithoutExtension(objectTarget.frames[index].voxelFilePath);
-                                    var path = EditorUtility.SaveFilePanel("Save mesh", objectCore.GetDefaultPath(), string.Format("{0}_mesh_{1}_{2}.asset", baseTarget.gameObject.name, name, objectTarget.frames[index].voxelFileSubIndex), "asset");
-                                    if (!string.IsNullOrEmpty(path))
+                                    var id = index;
+                                    EditorApplication.delayCall += () =>
                                     {
-                                        if (path.IndexOf(Application.dataPath) < 0)
+                                        var name = objectTarget.frames[id].voxelFileObject != null ? objectTarget.frames[id].voxelFileObject.name : Path.GetFileNameWithoutExtension(objectTarget.frames[id].voxelFilePath);
+                                        var path = EditorUtility.SaveFilePanel("Save mesh", objectCore.GetDefaultPath(), string.Format("{0}_mesh_{1}_{2}.asset", baseTarget.gameObject.name, name, objectTarget.frames[id].voxelFileSubIndex), "asset");
+                                        if (!string.IsNullOrEmpty(path))
                                         {
-                                            EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                            if (path.IndexOf(Application.dataPath) < 0)
+                                            {
+                                                EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                            }
+                                            else
+                                            {
+                                                UndoRecordObject("Save Mesh");
+                                                path = FileUtil.GetProjectRelativePath(path);
+                                                var oldObj = objectTarget.frames[id].mesh;
+                                                AssetDatabase.CreateAsset(Mesh.Instantiate(objectTarget.frames[id].mesh), path);
+                                                objectTarget.frames[id].mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
+                                                if (objectTarget.mesh == oldObj)
+                                                    objectTarget.mesh = objectTarget.frames[id].mesh;
+                                                Refresh();
+                                                objectCore.SwapAnimationObjectReference(oldObj, objectTarget.frames[id].mesh);
+                                                InternalEditorUtility.RepaintAllViews();
+                                            }
                                         }
-                                        else
-                                        {
-                                            UndoRecordObject("Save Mesh");
-                                            path = FileUtil.GetProjectRelativePath(path);
-                                            var oldObj = objectTarget.frames[index].mesh;
-                                            AssetDatabase.CreateAsset(Mesh.Instantiate(objectTarget.frames[index].mesh), path);
-                                            objectTarget.frames[index].mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
-                                            if (objectTarget.mesh == oldObj)
-                                                objectTarget.mesh = objectTarget.frames[index].mesh;
-                                            Refresh();
-                                            objectCore.SwapAnimationObjectReference(oldObj, objectTarget.frames[index].mesh);
-                                            InternalEditorUtility.RepaintAllViews();
-                                        }
-                                    }
+                                    };
                                     #endregion
                                 }
                             }

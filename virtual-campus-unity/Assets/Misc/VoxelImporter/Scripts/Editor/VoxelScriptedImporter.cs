@@ -17,6 +17,7 @@ namespace VoxelImporter
         public const int EditorDataVersion = 5;
         public int dataVersion;
         public VoxelBase.FileType fileType;
+        public string gameObjectName;
 
         public enum MeshMode
         {
@@ -129,6 +130,10 @@ namespace VoxelImporter
             };
 
             var gameObject = new GameObject(Path.GetFileNameWithoutExtension(ctx.assetPath));
+            if (string.IsNullOrEmpty(gameObjectName))
+            {
+                gameObjectName = gameObject.name;
+            }
             if (meshMode == MeshMode.Combine)
             {
                 #region Combine
@@ -203,7 +208,7 @@ namespace VoxelImporter
                 Export(objectCore);
 
 #if UNITY_2017_3_OR_NEWER
-                ctx.AddObjectToAsset(gameObject.name, gameObject);
+                ctx.AddObjectToAsset(gameObjectName, gameObject);
                 ctx.AddObjectToAsset(voxelObject.mesh.name = "mesh", voxelObject.mesh);
                 {
                     var list = new List<Material>();
@@ -234,7 +239,7 @@ namespace VoxelImporter
 
                 ctx.SetMainObject(gameObject);
 #else
-                ctx.SetMainAsset(gameObject.name, gameObject);
+                ctx.SetMainAsset(gameObjectName, gameObject);
                 ctx.AddSubAsset(voxelObject.mesh.name = "mesh", voxelObject.mesh);
                 for (int i = 0; i < voxelObject.materialIndexes.Count; i++)
                 {
@@ -375,7 +380,7 @@ namespace VoxelImporter
                 Export(objectCore);
 
 #if UNITY_2017_3_OR_NEWER
-                ctx.AddObjectToAsset(gameObject.name, gameObject);
+                ctx.AddObjectToAsset(gameObjectName, gameObject);
                 foreach (var chunk in voxelObject.chunks)
                 {
                     ctx.AddObjectToAsset(chunk.mesh.name = chunk.gameObject.name + "_mesh", chunk.mesh);
@@ -443,7 +448,7 @@ namespace VoxelImporter
 
                 ctx.SetMainObject(gameObject);
 #else
-                ctx.SetMainAsset(gameObject.name, gameObject);
+                ctx.SetMainAsset(gameObjectName, gameObject);
                 foreach (var chunk in voxelObject.chunks)
                 {
                     ctx.AddSubAsset(chunk.mesh.name = chunk.gameObject.name + "_mesh", chunk.mesh);

@@ -147,20 +147,24 @@ namespace VoxelImporter
 
         protected Shader GetStandardShader(bool transparent)
         {
+            Shader shader = null;
 #if UNITY_2018_1_OR_NEWER
-            if (EditorCommon.IsLightweightRenderPipeline())
+            if (EditorCommon.IsUniversalRenderPipeline() || EditorCommon.IsHighDefinitionRenderPipeline())
             {
-				//ToDo
-            }
-            else if (EditorCommon.IsHighDefinitionRenderPipeline())
-            {
-				//ToDo
+                if (!transparent)
+                    shader = Shader.Find("Shader Graphs/VoxelExplosion-Opaque");
+                else
+                    shader = Shader.Find("Shader Graphs/VoxelExplosion-Transparent");
             }
 #endif
-            if (!transparent)
-                return Shader.Find("Voxel Importer/Explosion/VoxelExplosion-Opaque");
-            else
-                return Shader.Find("Voxel Importer/Explosion/VoxelExplosion-Transparent");
+            if (shader == null)
+            {
+                if (!transparent)
+                    shader = Shader.Find("Voxel Importer/Explosion/VoxelExplosion-Opaque");
+                else
+                    shader = Shader.Find("Voxel Importer/Explosion/VoxelExplosion-Transparent");
+            }
+            return shader;
         }
 
         public abstract void SetExplosionCenter();

@@ -66,7 +66,6 @@ namespace VoxelImporter
         {
             if (explosionBase == null) return;
 
-            ForceRepaint();
             explosionBase.edit_explosionDraw = false;
 
 #if UNITY_2019_1_OR_NEWER
@@ -349,9 +348,9 @@ namespace VoxelImporter
 
             #region Preview
 #if UNITY_2018_3_OR_NEWER
-            EditorGUI.BeginDisabledGroup(isPrefabEditMode);     //Is Graphics.DrawMesh not displayed in Prefab Mode? (at Unity2018.2.0b7)
+            EditorGUI.BeginDisabledGroup(!explosionBase.gameObject.scene.IsValid() || isPrefabEditMode);     //Is Graphics.DrawMesh not displayed in Prefab Mode? (at Unity2018.2.0b7)
 #else
-            EditorGUI.BeginDisabledGroup(isPrefab);
+            EditorGUI.BeginDisabledGroup(!explosionBase.gameObject.scene.IsValid() || isPrefab);
 #endif
             {
                 explosionBase.edit_previewFoldout = EditorGUILayout.Foldout(explosionBase.edit_previewFoldout, "Preview", guiStyleFoldoutBold);

@@ -428,6 +428,8 @@ namespace VoxelImporter
                 voxelBone.weightData.AllAction((pos, weights) =>
                 {
                     var newPos = GetMirrorVoxelPosition(pos);
+                    if (voxelBone.voxelObject.voxelData.VoxelTableContains(newPos) < 0)
+                        return;
                     var newWeights = new WeightData.VoxelWeight();
                     newWeights.weightXYZ = weights.weight_XYZ;
                     newWeights.weight_XYZ = weights.weightXYZ;

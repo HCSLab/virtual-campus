@@ -212,12 +212,6 @@ namespace VoxelImporter
         protected bool isFrameDataCreateVoxelTable { get; set; }
         public void ReadyIndividualVoxelData()
         {
-            if (voxelObject.frames.Count > 0 &&
-                voxelObject.frames[0].voxelData != null && 
-                voxelObject.frames[0].voxelData.vertexList != null)
-            {
-                return;
-            }
             isFrameDataCreateVoxelTable = true;
             ReadyVoxelData(true);
             isFrameDataCreateVoxelTable = false;
@@ -687,8 +681,6 @@ namespace VoxelImporter
 
             SetRendererCompornent();
             
-            RefreshCheckerSave();
-
             EditorUtility.ClearProgressBar();
 
             voxelObject.Edit_SetFrameCurrentVoxelOtherData();
@@ -796,7 +788,7 @@ namespace VoxelImporter
                 {
                     if (voxelObject.materials[i] == null)
                         continue;
-                    voxelObject.materials[i] = EditorCommon.Instantiate(voxelObject.materials[i]);
+                    voxelObject.materials[i] = EditorCommon.ResetMaterial(voxelObject.materials[i]);
                 }
             }
             #endregion

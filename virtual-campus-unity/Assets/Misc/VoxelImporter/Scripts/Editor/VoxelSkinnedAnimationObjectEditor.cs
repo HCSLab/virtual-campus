@@ -69,26 +69,29 @@ namespace VoxelImporter
                             if (GUILayout.Button("Save as template", GUILayout.Width(128)))
                             {
                                 #region Save as template
-                                string BoneTemplatesPath = Application.dataPath + "/VoxelImporter/Scripts/Editor/BoneTemplates";
-                                if (!Directory.Exists(BoneTemplatesPath))
+                                EditorApplication.delayCall += () =>
                                 {
-                                    BoneTemplatesPath = Application.dataPath;
-                                }
-                                string path = EditorUtility.SaveFilePanel("Save as template", BoneTemplatesPath, string.Format("{0}.asset", baseTarget.gameObject.name), "asset");
-                                if (!string.IsNullOrEmpty(path))
-                                {
-                                    if (path.IndexOf(Application.dataPath) < 0)
+                                    string BoneTemplatesPath = Application.dataPath + "/VoxelImporter/Scripts/Editor/BoneTemplates";
+                                    if (!Directory.Exists(BoneTemplatesPath))
                                     {
-                                        EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                        BoneTemplatesPath = Application.dataPath;
                                     }
-                                    else
+                                    string path = EditorUtility.SaveFilePanel("Save as template", BoneTemplatesPath, string.Format("{0}.asset", baseTarget.gameObject.name), "asset");
+                                    if (!string.IsNullOrEmpty(path))
                                     {
-                                        path = FileUtil.GetProjectRelativePath(path);
-                                        var boneTemplate = ScriptableObject.CreateInstance<BoneTemplate>();
-                                        boneTemplate.Set(animationTarget.rootBone);
-                                        AssetDatabase.CreateAsset(boneTemplate, path);
+                                        if (path.IndexOf(Application.dataPath) < 0)
+                                        {
+                                            EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                        }
+                                        else
+                                        {
+                                            path = FileUtil.GetProjectRelativePath(path);
+                                            var boneTemplate = ScriptableObject.CreateInstance<BoneTemplate>();
+                                            boneTemplate.Set(animationTarget.rootBone);
+                                            AssetDatabase.CreateAsset(boneTemplate, path);
+                                        }
                                     }
-                                }
+                                };
                                 #endregion
                             }
                             EditorGUI.EndDisabledGroup();
@@ -488,22 +491,25 @@ namespace VoxelImporter
                                             if (GUILayout.Button("Save", GUILayout.Width(48), GUILayout.Height(16)))
                                             {
                                                 #region Create Avatar
-                                                string path = EditorUtility.SaveFilePanel("Save avatar", objectCore.GetDefaultPath(), string.Format("{0}_avatar.asset", baseTarget.gameObject.name), "asset");
-                                                if (!string.IsNullOrEmpty(path))
+                                                EditorApplication.delayCall += () =>
                                                 {
-                                                    if (path.IndexOf(Application.dataPath) < 0)
+                                                    string path = EditorUtility.SaveFilePanel("Save avatar", objectCore.GetDefaultPath(), string.Format("{0}_avatar.asset", baseTarget.gameObject.name), "asset");
+                                                    if (!string.IsNullOrEmpty(path))
                                                     {
-                                                        EditorUtility.DisplayDialog("Error!", "Please save a lower than \"Assets\"", "ok");
+                                                        if (path.IndexOf(Application.dataPath) < 0)
+                                                        {
+                                                            EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                        }
+                                                        else
+                                                        {
+                                                            UndoRecordObject("Save Avatar");
+                                                            path = FileUtil.GetProjectRelativePath(path);
+                                                            AssetDatabase.CreateAsset(Avatar.Instantiate(animationTarget.avatar), path);
+                                                            animationTarget.avatar = AssetDatabase.LoadAssetAtPath<Avatar>(path);
+                                                            Refresh();
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        UndoRecordObject("Save Avatar");
-                                                        path = FileUtil.GetProjectRelativePath(path);
-                                                        AssetDatabase.CreateAsset(Avatar.Instantiate(animationTarget.avatar), path);
-                                                        animationTarget.avatar = AssetDatabase.LoadAssetAtPath<Avatar>(path);
-                                                        Refresh();
-                                                    }
-                                                }
+                                                };
                                                 #endregion
                                             }
                                         }

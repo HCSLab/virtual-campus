@@ -37,6 +37,26 @@ twitter: @AlSoSupport
 
 
 【更新履歴】
+Version 1.1.13p1
+- FIX : 最低動作バージョンをUnity2018.4に変更
+- FIX : Undo : Unity 2018 LTS以降でUndoが動作しない事がある問題の修正
+- FIX : VoxelSkinnedAnimationObject : Edit Bone Weight : Mirror側にボクセルが存在しない場合のエラー修正
+- FIX : Save処理でコンソールにエラーが表示される問題の修正
+
+Version 1.1.13
+- ADD : Voxel Explosion : URPとHDRPに対応 (Unity2019.3以降、Shader Graph 7.3.1以降)
+- FIX : URP : マテリアルのインポートミス修正
+- FIX : VoxelSkinnedAnimationObjectExplosion : BakeでMeshが初期ポーズになることがある問題の修正
+- FIX : Voxel Explosion : ProjectWindowで選択したPrefabが更新を繰り返す問題の修正
+- FIX : Voxel Explosion : ProjectWindowで選択したPrefabのPreviewを選択できないように修正
+- FIX : VoxelFrameAnimationObject : マテリアルや無効の面が設定されているvoxへのフレーム追加のエラー修正
+- FIX : VoxelSkinnedAnimationObject : 既にあるAvatarの参照が失われる問題とPrefabModeで更新時にエラーが発生する問題の修正
+- FIX : Material : Resetの処理修正
+
+Version 1.1.12p1
+- FIX : ScriptedImporter : Remapped Materialsを複数選択して行えるように修正
+- FIX : ScriptedImporter : 名前の変更で参照が失われる問題の修正 (既にmetaデータが存在する場合、何らかの設定を変更してmetaデータが更新される必要があります)
+
 Version 1.1.12
 - ADD : Unity2020.1 : 対応
 - ADD : Optimize : 'Remove unused palettes'フラグ追加

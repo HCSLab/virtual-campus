@@ -42,9 +42,6 @@ namespace VoxelImporter
                 voxelBase.edit_configureMode = VoxelBase.Edit_ConfigureMode.None;
 
             AutoSetSelectedWireframeHidden();
-
-            RefreshCheckerClear();
-            RefreshCheckerSave();
         }
 
         #region AtlasRects
@@ -129,6 +126,8 @@ namespace VoxelImporter
             voxelBase.fileRefreshLastTimeTicks = DateTime.Now.Ticks;
 
             voxelBase.edit_afterRefresh = false;
+
+            RefreshCheckerSave();
 
             Undo.CollapseUndoOperations(undoGroupID);
 
@@ -2560,9 +2559,9 @@ namespace VoxelImporter
                 #endregion
             }
 #if UNITY_2018_1_OR_NEWER
-            else if (EditorCommon.IsLightweightRenderPipeline())
+            else if (EditorCommon.IsUniversalRenderPipeline())
             {
-                #region LWRP
+                #region URP
                 switch (data.material.renderingMode)
                 {
                 case MaterialData.Material.StandardShaderRenderingMode.Opaque:
@@ -2570,12 +2569,18 @@ namespace VoxelImporter
                     if (data.material.metallic != 0f)
                     {
                         material.SetFloat("_Metallic", data.material.metallic);
-                        material.SetFloat("_Glossiness", data.material.smoothness);
+                        if (material.HasProperty("_Glossiness"))
+                            material.SetFloat("_Glossiness", data.material.smoothness);
+                        if (material.HasProperty("_Smoothness"))
+                            material.SetFloat("_Smoothness", data.material.smoothness);
                     }
                     else
                     {
                         material.SetFloat("_Metallic", 0f);
-                        material.SetFloat("_Glossiness", 0.5f);
+                        if (material.HasProperty("_Glossiness"))
+                            material.SetFloat("_Glossiness", 0.5f);
+                        if (material.HasProperty("_Smoothness"))
+                            material.SetFloat("_Smoothness", 0.5f);
                     }
                     if (data.material.emission != Color.black && data.material.emissionPower != 0f)
                     {

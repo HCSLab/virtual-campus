@@ -357,6 +357,10 @@ namespace VoxelImporter
             public Vector3 importOffset;
             public Face enableFaceFlags;
             public DisableData disableData;
+            public bool combineFaces;
+            public bool ignoreCavity;
+            public bool shareSameFace;
+            public bool removeUnusedPalettes;
             public bool generateLightmapUVs;
             public float generateLightmapUVsAngleError;
             public float generateLightmapUVsAreaError;
@@ -380,6 +384,10 @@ namespace VoxelImporter
                 importScale = controller.importScale;
                 importOffset = controller.importOffset;
                 enableFaceFlags = controller.enableFaceFlags;
+                combineFaces = controller.combineFaces;
+                ignoreCavity = controller.ignoreCavity;
+                shareSameFace = controller.shareSameFace;
+                removeUnusedPalettes = controller.removeUnusedPalettes;
                 generateLightmapUVs = controller.generateLightmapUVs;
                 generateLightmapUVsAngleError = controller.generateLightmapUVsAngleError;
                 generateLightmapUVsAreaError = controller.generateLightmapUVsAreaError;
@@ -418,6 +426,10 @@ namespace VoxelImporter
                     importScale != controller.importScale ||
                     importOffset != controller.importOffset ||
                     enableFaceFlags != controller.enableFaceFlags ||
+                    combineFaces != controller.combineFaces ||
+                    ignoreCavity != controller.ignoreCavity ||
+                    shareSameFace != controller.shareSameFace ||
+                    removeUnusedPalettes != controller.removeUnusedPalettes ||
                     generateLightmapUVs != controller.generateLightmapUVs ||
                     generateLightmapUVsAngleError != controller.generateLightmapUVsAngleError ||
                     generateLightmapUVsAreaError != controller.generateLightmapUVsAreaError ||

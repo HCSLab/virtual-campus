@@ -90,7 +90,7 @@ namespace VoxelImporter
             return inst;
         }
 
-        public static bool IsLightweightRenderPipeline()
+        public static bool IsUniversalRenderPipeline()
         {
 #if UNITY_2018_1_OR_NEWER
             if (GraphicsSettings.renderPipelineAsset == null)
@@ -101,7 +101,8 @@ namespace VoxelImporter
             var shader = GraphicsSettings.renderPipelineAsset.GetDefaultShader();
 #endif
             if (shader == Shader.Find("LightweightPipeline/Standard (Physically Based)") ||
-                shader == Shader.Find("Lightweight Render Pipeline/Lit"))
+                shader == Shader.Find("Lightweight Render Pipeline/Lit") ||
+                shader == Shader.Find("Universal Render Pipeline/Lit"))
                 return true;
 #endif
             return false;
@@ -145,6 +146,25 @@ namespace VoxelImporter
             if (material.HasProperty("_BaseColor"))  //LWRP
                 material.SetColor("_BaseColor", Color.white);
             return material;
+        }
+        public static Material ResetMaterial(Material mat)
+        {
+            if (IsMainAsset(mat))
+            {
+                return Instantiate(mat);
+            }
+            else
+            {
+                var newMat = CreateStandardMaterial();
+                {
+                    var name = mat.name;
+                    EditorUtility.CopySerialized(newMat, mat);
+                    Material.DestroyImmediate(newMat);
+                    newMat = null;
+                    mat.name = name;
+                }
+                return mat;
+            }
         }
         public static void SetMainTexture(Material material, Texture2D texture)
         {

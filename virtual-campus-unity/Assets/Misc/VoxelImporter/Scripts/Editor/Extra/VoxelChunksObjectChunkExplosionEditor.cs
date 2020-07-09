@@ -152,22 +152,26 @@ namespace VoxelImporter
                                         if (GUILayout.Button("Save", GUILayout.Width(48), GUILayout.Height(16)))
                                         {
                                             #region Create Mesh
-                                            string path = EditorUtility.SaveFilePanel("Save mesh", chunkCore.GetDefaultPath(), string.Format("{0}_{1}_explosion_mesh{2}.asset", voxelObject.gameObject.name, chunkObject.chunkName, i), "asset");
-                                            if (!string.IsNullOrEmpty(path))
+                                            var index = i;
+                                            EditorApplication.delayCall += () =>
                                             {
-                                                if (path.IndexOf(Application.dataPath) < 0)
+                                                string path = EditorUtility.SaveFilePanel("Save mesh", chunkCore.GetDefaultPath(), string.Format("{0}_{1}_explosion_mesh{2}.asset", voxelObject.gameObject.name, chunkObject.chunkName, index), "asset");
+                                                if (!string.IsNullOrEmpty(path))
                                                 {
-                                                    EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                    if (path.IndexOf(Application.dataPath) < 0)
+                                                    {
+                                                        EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                    }
+                                                    else
+                                                    {
+                                                        Undo.RecordObject(explosionObject, "Save Mesh");
+                                                        path = FileUtil.GetProjectRelativePath(path);
+                                                        AssetDatabase.CreateAsset(Mesh.Instantiate(explosionObject.meshes[index].mesh), path);
+                                                        explosionObject.meshes[index].mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
+                                                        voxelExplosionCore.Generate();
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    Undo.RecordObject(explosionObject, "Save Mesh");
-                                                    path = FileUtil.GetProjectRelativePath(path);
-                                                    AssetDatabase.CreateAsset(Mesh.Instantiate(explosionObject.meshes[i].mesh), path);
-                                                    explosionObject.meshes[i].mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
-                                                    voxelExplosionCore.Generate();
-                                                }
-                                            }
+                                            };
                                             #endregion
                                         }
                                     }
@@ -211,24 +215,27 @@ namespace VoxelImporter
                                     if (GUILayout.Button("Save", GUILayout.Width(48), GUILayout.Height(16)))
                                     {
                                         #region Create Material
-                                        string defaultName = string.Format("{0}_{1}_explosion_mat{2}.mat", voxelObject.gameObject.name, chunkObject.chunkName, i);
-                                        string path = EditorUtility.SaveFilePanel("Save material", chunkCore.GetDefaultPath(), defaultName, "mat");
-                                        if (!string.IsNullOrEmpty(path))
+                                        var index = i;
+                                        EditorApplication.delayCall += () =>
                                         {
-                                            if (path.IndexOf(Application.dataPath) < 0)
+                                            string defaultName = string.Format("{0}_{1}_explosion_mat{2}.mat", voxelObject.gameObject.name, chunkObject.chunkName, index);
+                                            string path = EditorUtility.SaveFilePanel("Save material", chunkCore.GetDefaultPath(), defaultName, "mat");
+                                            if (!string.IsNullOrEmpty(path))
                                             {
-                                                EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                if (path.IndexOf(Application.dataPath) < 0)
+                                                {
+                                                    EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                }
+                                                else
+                                                {
+                                                    Undo.RecordObject(explosionObject, "Save Material");
+                                                    path = FileUtil.GetProjectRelativePath(path);
+                                                    AssetDatabase.CreateAsset(Material.Instantiate(explosionObject.materials[index]), path);
+                                                    explosionObject.materials[index] = AssetDatabase.LoadAssetAtPath<Material>(path);
+                                                    voxelExplosionCore.Generate();
+                                                }
                                             }
-                                            else
-                                            {
-                                                Undo.RecordObject(explosionObject, "Save Material");
-                                                path = FileUtil.GetProjectRelativePath(path);
-                                                AssetDatabase.CreateAsset(Material.Instantiate(explosionObject.materials[i]), path);
-                                                explosionObject.materials[i] = AssetDatabase.LoadAssetAtPath<Material>(path);
-                                                voxelExplosionCore.Generate();
-                                            }
-                                        }
-
+                                        };
                                         #endregion
                                     }
                                 }
@@ -238,7 +245,7 @@ namespace VoxelImporter
                                         #region Reset Material
                                         Undo.RecordObject(voxelExplosionObject, "Reset Material");
                                         Undo.RecordObjects(voxelExplosionObject.chunksExplosion, "Reset Material");
-                                        explosionObject.materials[i] = EditorCommon.Instantiate(explosionObject.materials[i]);
+                                        explosionObject.materials[i] = EditorCommon.ResetMaterial(explosionObject.materials[i]);
                                         voxelExplosionCore.Generate();
                                         #endregion
                                     }

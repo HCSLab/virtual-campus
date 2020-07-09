@@ -141,7 +141,14 @@ namespace VoxelImporter
                     }
 #endif
 
+                    var velocity = UnityEngine.Random.Range(explosionBase.edit_velocityMin, explosionBase.edit_velocityMax);
                     var color = voxelData.palettes[voxelData.voxels[index].palette];
+#if UNITY_2018_1_OR_NEWER
+                    if (EditorCommon.IsUniversalRenderPipeline() || EditorCommon.IsHighDefinitionRenderPipeline())
+                    {
+                        color.a = velocity;
+                    }
+#endif
                     var vOffset = vertices.Count;
                     for (int i = 0; i < cubeVertices.Count; i++)
                     {
@@ -165,7 +172,6 @@ namespace VoxelImporter
                             center.y = cubeCenter.y + voxelData.voxels[index].position.y * voxelBase.importScale.y,
                             center.z = cubeCenter.z + voxelData.voxels[index].position.z * voxelBase.importScale.z
                         );
-                        var velocity = UnityEngine.Random.Range(explosionBase.edit_velocityMin, explosionBase.edit_velocityMax);
                         for (int j = 0; j < cubeVertices.Count; j++)
                         {
                             tangents.Add(new Vector4(center.x - vertices[vOffset + j].x, center.y - vertices[vOffset + j].y, center.z - vertices[vOffset + j].z, velocity));
@@ -252,6 +258,7 @@ namespace VoxelImporter
 
         public void Bake()
         {
+            voxelObjectCore.ReCreate();
             Generate();
             explosionObject.BakeMesh();
             for (int i = 0; i < explosionObject.meshes.Count; i++)
@@ -297,10 +304,14 @@ namespace VoxelImporter
                     {
                         if (voxelObject.materials[i].HasProperty("_Color"))
                             explosionObject.materials[i].color = voxelObject.materials[i].color;
-                        if (voxelObject.materials[i].HasProperty("_Glossiness"))
+                        if (explosionObject.materials[i].HasProperty("_Glossiness") && voxelObject.materials[i].HasProperty("_Glossiness"))
                             explosionObject.materials[i].SetFloat("_Glossiness", voxelObject.materials[i].GetFloat("_Glossiness"));
+                        if (explosionObject.materials[i].HasProperty("_Smoothness") && voxelObject.materials[i].HasProperty("_Smoothness"))
+                            explosionObject.materials[i].SetFloat("_Smoothness", voxelObject.materials[i].GetFloat("_Smoothness"));
                         if (voxelObject.materials[i].HasProperty("_Metallic"))
                             explosionObject.materials[i].SetFloat("_Metallic", voxelObject.materials[i].GetFloat("_Metallic"));
+                        if (explosionObject.materials[i].HasProperty("_EmissionColor") && voxelObject.materials[i].HasProperty("_EmissionColor"))
+                            explosionObject.materials[i].SetColor("_EmissionColor", voxelObject.materials[i].GetColor("_EmissionColor"));
                     }
                 }
             }
@@ -319,7 +330,7 @@ namespace VoxelImporter
                 {
                     if (explosionObject.materials[i] == null)
                         continue;
-                    explosionObject.materials[i] = EditorCommon.Instantiate(explosionObject.materials[i]);
+                    explosionObject.materials[i] = EditorCommon.ResetMaterial(explosionObject.materials[i]);
                 }
             }
             #endregion

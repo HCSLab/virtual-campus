@@ -766,18 +766,6 @@ namespace VoxelImporter
         {
             Undo.RecordObject(animationObject, "Update Avatar");
 
-            string assetPath = "";
-            if (EditorCommon.IsMainAsset(animationObject.avatar))
-            {
-                assetPath = AssetDatabase.GetAssetPath(animationObject.avatar);
-            }
-            if (EditorCommon.IsSubAsset(animationObject.avatar))
-            {
-                animationObject.avatar.name = animationObject.avatar.name + "_Destroyed";
-                //Destroyed by "DestroyUnusedObjectInPrefabObject" to be called later
-            }
-            animationObject.avatar = null;
-
             var parent = animationObject.transform.parent;
             var localPosition = animationObject.transform.localPosition;
             var localRotation = animationObject.transform.localRotation;
@@ -786,6 +774,7 @@ namespace VoxelImporter
             animationObject.transform.localPosition = Vector3.zero;
             animationObject.transform.localRotation = Quaternion.identity;
             animationObject.transform.localScale = Vector3.one;
+            Avatar avatar = null;
             switch (animationObject.rigAnimationType)
             {
             case VoxelSkinnedAnimationObject.RigAnimationType.Generic:
@@ -809,7 +798,7 @@ namespace VoxelImporter
                             findList[i].SetParent(null);
                         }
                     }
-                    animationObject.avatar = AvatarBuilder.BuildGenericAvatar(animationObject.gameObject, animationObject.rootBone.gameObject.name);
+                    avatar = AvatarBuilder.BuildGenericAvatar(animationObject.gameObject, animationObject.rootBone.gameObject.name);
                     {
                         var enu = saveList.GetEnumerator();
                         while (enu.MoveNext())
@@ -891,9 +880,21 @@ namespace VoxelImporter
                         humanDescription.skeleton = skeletonBones.ToArray();
                     }
                     #endregion
-                    animationObject.avatar = AvatarBuilder.BuildHumanAvatar(animationObject.gameObject, humanDescription);
+                    avatar = AvatarBuilder.BuildHumanAvatar(animationObject.gameObject, humanDescription);
                 }
                 break;
+            }
+            if (animationObject.avatar != null && avatar != null)
+            {
+                var name = animationObject.avatar.name;
+                EditorUtility.CopySerialized(avatar, animationObject.avatar);
+                Avatar.DestroyImmediate(avatar);
+                avatar = null;
+                animationObject.avatar.name = name;
+            }
+            else
+            {
+                animationObject.avatar = avatar;
             }
             animationObject.transform.SetParent(parent);
             animationObject.transform.localPosition = localPosition;
@@ -901,14 +902,6 @@ namespace VoxelImporter
             animationObject.transform.localScale = localScale;
             if (animationObject.avatar != null)
             {
-                if (!string.IsNullOrEmpty(assetPath))
-                {
-                    var tmpPath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
-                    AssetDatabase.CreateAsset(animationObject.avatar, tmpPath);
-                    File.Copy(tmpPath, assetPath, true);
-                    AssetDatabase.DeleteAsset(tmpPath);
-                    animationObject.avatar = AssetDatabase.LoadAssetAtPath<Avatar>(assetPath);
-                }
                 if (!AssetDatabase.Contains(animationObject.avatar))
                 {
                     AddObjectToPrefabAsset(animationObject.avatar, "avatar");
@@ -1124,7 +1117,7 @@ namespace VoxelImporter
                 {
                     if (animationObject.materials[i] == null)
                         continue;
-                    animationObject.materials[i] = EditorCommon.Instantiate(animationObject.materials[i]);
+                    animationObject.materials[i] = EditorCommon.ResetMaterial(animationObject.materials[i]);
                 }
             }
             #endregion

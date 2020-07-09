@@ -715,8 +715,6 @@ namespace VoxelImporter
 
             SetRendererCompornent();
             
-            RefreshCheckerSave();
-
             EditorUtility.ClearProgressBar();
             
             return true;
@@ -898,7 +896,7 @@ namespace VoxelImporter
                 {
                     if (voxelObject.materials[i] == null)
                         continue;
-                    voxelObject.materials[i] = EditorCommon.Instantiate(voxelObject.materials[i]);
+                    voxelObject.materials[i] = EditorCommon.ResetMaterial(voxelObject.materials[i]);
                 }
             }
             #endregion
@@ -920,7 +918,7 @@ namespace VoxelImporter
                         {
                             if (voxelObject.chunks[i].materials[j] == null)
                                 continue;
-                            voxelObject.chunks[i].materials[j] = EditorCommon.Instantiate(voxelObject.chunks[i].materials[j]);
+                            voxelObject.chunks[i].materials[j] = EditorCommon.ResetMaterial(voxelObject.chunks[i].materials[j]);
                         }
                     }
                     #endregion

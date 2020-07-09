@@ -170,24 +170,27 @@ namespace VoxelImporter
                                     if (GUILayout.Button("Save", GUILayout.Width(48), GUILayout.Height(16)))
                                     {
                                         #region Create Texture
-                                        string path = EditorUtility.SaveFilePanel("Save atlas texture", baseCore.GetDefaultPath(), string.Format("{0}_tex.png", baseTarget.gameObject.name), "png");
-                                        if (!string.IsNullOrEmpty(path))
+                                        EditorApplication.delayCall += () =>
                                         {
-                                            if (path.IndexOf(Application.dataPath) < 0)
+                                            string path = EditorUtility.SaveFilePanel("Save atlas texture", baseCore.GetDefaultPath(), string.Format("{0}_tex.png", baseTarget.gameObject.name), "png");
+                                            if (!string.IsNullOrEmpty(path))
                                             {
-                                                EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                if (path.IndexOf(Application.dataPath) < 0)
+                                                {
+                                                    EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                }
+                                                else
+                                                {
+                                                    UndoRecordObject("Save Atlas Texture");
+                                                    File.WriteAllBytes(path, objectTarget.atlasTexture.EncodeToPNG());
+                                                    path = FileUtil.GetProjectRelativePath(path);
+                                                    AssetDatabase.ImportAsset(path);
+                                                    objectCore.SetTextureImporterSetting(path, objectTarget.atlasTexture);
+                                                    objectTarget.atlasTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+                                                    Refresh();
+                                                }
                                             }
-                                            else
-                                            {
-                                                UndoRecordObject("Save Atlas Texture");
-                                                File.WriteAllBytes(path, objectTarget.atlasTexture.EncodeToPNG());
-                                                path = FileUtil.GetProjectRelativePath(path);
-                                                AssetDatabase.ImportAsset(path);
-                                                objectCore.SetTextureImporterSetting(path, objectTarget.atlasTexture);
-                                                objectTarget.atlasTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-                                                Refresh();
-                                            }
-                                        }
+                                        };
                                         #endregion
                                     }
                                 }

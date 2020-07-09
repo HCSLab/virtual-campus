@@ -63,23 +63,26 @@ namespace VoxelImporter
                                         if (GUILayout.Button("Save", GUILayout.Width(48), GUILayout.Height(16)))
                                         {
                                             #region Create Material
-                                            string path = EditorUtility.SaveFilePanel("Save material", explosionCore.voxelBaseCore.GetDefaultPath(), string.Format("{0}_explosion_mat{1}.mat", explosionObject.gameObject.name, i), "mat");
-                                            if (!string.IsNullOrEmpty(path))
+                                            var index = i;
+                                            EditorApplication.delayCall += () =>
                                             {
-                                                if (path.IndexOf(Application.dataPath) < 0)
+                                                string path = EditorUtility.SaveFilePanel("Save material", explosionCore.voxelBaseCore.GetDefaultPath(), string.Format("{0}_explosion_mat{1}.mat", explosionObject.gameObject.name, index), "mat");
+                                                if (!string.IsNullOrEmpty(path))
                                                 {
-                                                    EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                    if (path.IndexOf(Application.dataPath) < 0)
+                                                    {
+                                                        EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                                    }
+                                                    else
+                                                    {
+                                                        Undo.RecordObject(explosionObject, "Save Material");
+                                                        path = FileUtil.GetProjectRelativePath(path);
+                                                        AssetDatabase.CreateAsset(Material.Instantiate(explosionObject.materials[index]), path);
+                                                        explosionObject.materials[index] = AssetDatabase.LoadAssetAtPath<Material>(path);
+                                                        explosionCore.Generate();
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    Undo.RecordObject(explosionObject, "Save Material");
-                                                    path = FileUtil.GetProjectRelativePath(path);
-                                                    AssetDatabase.CreateAsset(Material.Instantiate(explosionObject.materials[i]), path);
-                                                    explosionObject.materials[i] = AssetDatabase.LoadAssetAtPath<Material>(path);
-                                                    explosionCore.Generate();
-                                                }
-                                            }
-
+                                            };
                                             #endregion
                                         }
                                     }
@@ -88,7 +91,7 @@ namespace VoxelImporter
                                         {
                                             #region Reset Material
                                             Undo.RecordObject(explosionObject, "Reset Material");
-                                            explosionObject.materials[i] = EditorCommon.Instantiate(explosionObject.materials[i]);
+                                            explosionObject.materials[i] = EditorCommon.ResetMaterial(explosionObject.materials[i]);
                                             explosionCore.Generate();
                                             #endregion
                                         }

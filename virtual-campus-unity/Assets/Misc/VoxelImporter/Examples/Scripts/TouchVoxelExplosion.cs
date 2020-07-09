@@ -7,6 +7,7 @@ namespace VoxelImporter
 	public class TouchVoxelExplosion : MonoBehaviour
 	{
         public float lifeTime = 1f;
+        public float rotation = 10f;
         public bool realTimeBake = true;
         public bool rebirth = true;
 
@@ -49,6 +50,7 @@ namespace VoxelImporter
                                 collider.enabled = false;
 
                                 skinnedVoxelExplosion.SetExplosionCenter(skinnedVoxelExplosion.transform.worldToLocalMatrix.MultiplyPoint3x4(hit.point));
+                                skinnedVoxelExplosion.SetExplosionRotate(rotation);
 
                                 var animator = collider.GetComponent<Animator>();
                                 var animatorEnabled = false;

@@ -436,7 +436,6 @@ namespace VoxelImporter
                         EditorGUI.EndDisabledGroup();
                         EditorGUILayout.EndHorizontal();
                     }
-                    if (targets.Length == 1)    //single selection only
                     {
                         EditorGUILayout.LabelField(new GUIContent("Remapped Materials", "External materials to use for each embedded material."), EditorStyles.boldLabel);
 
@@ -448,18 +447,24 @@ namespace VoxelImporter
                             int propertyIdx = 0;
                             for (int i = 0, count = remappedMaterialsProp.arraySize; i < count; i++)
                             {
-                                var remap = remappedMaterialsProp.GetArrayElementAtIndex(i);
-                                var name = remap.FindPropertyRelative("name").stringValue;
-                                var prop = remap.FindPropertyRelative("material");
-                                if (vtarget.materialNames[index] == name)
+                                try
                                 {
-                                    materialProp = prop;
-                                    material = prop.objectReferenceValue as Material;
-                                    propertyIdx = i;
-                                    break;
+                                    var remap = remappedMaterialsProp.GetArrayElementAtIndex(i);
+                                    var name = remap.FindPropertyRelative("name").stringValue;
+                                    var prop = remap.FindPropertyRelative("material");
+                                    if (vtarget.materialNames[index] == name)
+                                    {
+                                        materialProp = prop;
+                                        material = prop.objectReferenceValue as Material;
+                                        propertyIdx = i;
+                                        break;
+                                    }
+                                }
+                                catch
+                                {
+                                    continue;
                                 }
                             }
-
                             if (materialProp != null)
                             {
                                 EditorGUI.BeginChangeCheck();

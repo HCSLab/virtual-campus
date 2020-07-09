@@ -603,22 +603,25 @@ namespace VoxelImporter
                             if (GUILayout.Button("Save", GUILayout.Width(48), GUILayout.Height(16)))
                             {
                                 #region Save
-                                UndoRecordObject("Inspector");
-                                string path = EditorUtility.SaveFilePanel("Save as", baseCore.GetDefaultPath(), string.Format("{0}.asset", Path.GetFileNameWithoutExtension(baseTarget.voxelFilePath)), "asset");
-                                if (!string.IsNullOrEmpty(path))
+                                EditorApplication.delayCall += () =>
                                 {
-                                    if (path.IndexOf(Application.dataPath) < 0)
+                                    string path = EditorUtility.SaveFilePanel("Save as", baseCore.GetDefaultPath(), string.Format("{0}.asset", Path.GetFileNameWithoutExtension(baseTarget.voxelFilePath)), "asset");
+                                    if (!string.IsNullOrEmpty(path))
                                     {
-                                        EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                        if (path.IndexOf(Application.dataPath) < 0)
+                                        {
+                                            EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                        }
+                                        else
+                                        {
+                                            UndoRecordObject("Inspector");
+                                            path = FileUtil.GetProjectRelativePath(path);
+                                            baseTarget.voxelStructure = ScriptableObject.CreateInstance<VoxelStructure>();
+                                            baseTarget.voxelStructure.Set(baseCore.voxelData);
+                                            AssetDatabase.CreateAsset(baseTarget.voxelStructure, path);
+                                        }
                                     }
-                                    else
-                                    {
-                                        path = FileUtil.GetProjectRelativePath(path);
-                                        baseTarget.voxelStructure = ScriptableObject.CreateInstance<VoxelStructure>();
-                                        baseTarget.voxelStructure.Set(baseCore.voxelData);
-                                        AssetDatabase.CreateAsset(baseTarget.voxelStructure, path);
-                                    }
-                                }
+                                };
                                 #endregion
                             }
                         }
@@ -1877,7 +1880,7 @@ namespace VoxelImporter
                                     EditorApplication.delayCall += () =>
                                     {
                                         UndoRecordObject("Reset Material");
-                                        materials[index] = EditorCommon.Instantiate(materials[index]);
+                                        materials[index] = EditorCommon.ResetMaterial(materials[index]);
                                         Refresh();
                                     };
                                     #endregion
@@ -1890,25 +1893,26 @@ namespace VoxelImporter
                                 if (GUI.Button(r, "Save"))
                                 {
                                     #region Create Material
-                                    string path = EditorUtility.SaveFilePanel("Save material", baseCore.GetDefaultPath(), string.Format("{0}_mat{1}.mat", baseTarget.gameObject.name, index), "mat");
-                                    if (!string.IsNullOrEmpty(path))
+                                    var id = index;
+                                    EditorApplication.delayCall += () =>
                                     {
-                                        if (path.IndexOf(Application.dataPath) < 0)
+                                        string path = EditorUtility.SaveFilePanel("Save material", baseCore.GetDefaultPath(), string.Format("{0}_mat{1}.mat", baseTarget.gameObject.name, id), "mat");
+                                        if (!string.IsNullOrEmpty(path))
                                         {
-                                            EditorCommon.SaveInsideAssetsFolderDisplayDialog();
-                                        }
-                                        else
-                                        {
-                                            EditorApplication.delayCall += () =>
+                                            if (path.IndexOf(Application.dataPath) < 0)
+                                            {
+                                                EditorCommon.SaveInsideAssetsFolderDisplayDialog();
+                                            }
+                                            else
                                             {
                                                 UndoRecordObject("Save Material");
                                                 path = FileUtil.GetProjectRelativePath(path);
-                                                AssetDatabase.CreateAsset(Material.Instantiate(materials[index]), path);
-                                                materials[index] = AssetDatabase.LoadAssetAtPath<Material>(path);
+                                                AssetDatabase.CreateAsset(Material.Instantiate(materials[id]), path);
+                                                materials[id] = AssetDatabase.LoadAssetAtPath<Material>(path);
                                                 Refresh();
-                                            };
+                                            }
                                         }
-                                    }
+                                    };
                                     #endregion
                                 }
                             }
@@ -2244,8 +2248,16 @@ namespace VoxelImporter
             {
                 if (baseCore.RefreshCheckerCheck())
                 {
-                    if (baseTarget.importFlags != baseTarget.refreshChecker.importFlags)
+                    //Need reload voxel data.
+                    if (baseTarget.voxelFilePath != baseTarget.refreshChecker.voxelFilePath ||
+                        baseTarget.voxelFileObject != baseTarget.refreshChecker.voxelFileObject ||
+                        baseTarget.voxelFileSubIndex != baseTarget.refreshChecker.voxelFileSubIndex ||
+                        baseTarget.legacyVoxImport != baseTarget.refreshChecker.legacyVoxImport ||
+                        baseTarget.importFlags != baseTarget.refreshChecker.importFlags ||
+                        baseTarget.removeUnusedPalettes != baseTarget.refreshChecker.removeUnusedPalettes)
+                    {
                         baseCore.ReadyVoxelData(true);
+                    }
                     Refresh();
                 }
                 else
