@@ -22,6 +22,7 @@ public class Mapping : MonoBehaviour
             sprites.Add(g.GetComponent<Item>().image);
         }
         */
+        /*
         int index = skinBag.GetComponent<SkinBag>().index;
         GameObject temp = skinBag.GetComponent<SkinBag>().testItems[index];
         model = gameObject;
@@ -31,9 +32,10 @@ public class Mapping : MonoBehaviour
             //model.GetComponent<SkinnedMeshRenderer>().material.SetTextureScale("_MainTex", new Vector2(5, 5));
 
         }
+        */
     }
 
-    public void ChangeMapping(SpriteItem item)
+    public void ChangeMapping(SkinItem item)
     {
         if (model != null)
         {

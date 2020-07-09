@@ -23,7 +23,6 @@ public class MinimapCamera : MonoBehaviour
 
     public void ZoomInButtonClick()
     {
-        Debug.Log("ZoomIn");
         if (minimapCamera.orthographicSize > 6)
         {
             minimapCamera.orthographicSize -= 3;

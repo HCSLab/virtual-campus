@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public float cameraScalingSpeed;
     public float mouseSensitivity;
     public float jumpSpeed;
-    public GameObject bodySprite;
     Animator animator;
     Rigidbody rigidbody;
     Vector3 cameraPositionOffset;
@@ -44,7 +43,7 @@ public class PlayerController : MonoBehaviour
             if (GetSprintInput())
             {
                 animator.SetBool("Run", true);
-                animator.SetBool("Walk", false);
+                animator.SetBool("Walk", true);
             }
             else {
                 animator.SetBool("Walk", true);

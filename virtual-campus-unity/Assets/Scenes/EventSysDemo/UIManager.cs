@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UIManager : MonoBehaviour
     public GameObject pressT;
     public GameObject itemBag;
     public GameObject badgeBag;
+    public GameObject skinBag;
+    public List<GameObject> painters;
 
     private void Awake()
     {
@@ -18,10 +21,13 @@ public class UIManager : MonoBehaviour
 
     public void CloseAllOpenedPanel()
     {
-        CloseTalk();
-        HideItemBag();
-        HideBadgeBag();
-        HidePressT();
+        ClosePanel(itemBag);
+        ClosePanel(skinBag);
+        ClosePanel(badgeBag);
+        foreach(GameObject painter in painters)
+        {
+            DeactivatePanel(painter);
+        }
     }
 
     public void OpenTalk(GameObject talk)
@@ -58,45 +64,81 @@ public class UIManager : MonoBehaviour
         pressT.SetActive(false);
     }
 
-    public void ShowItemBag()
+    public void ClosePanel(GameObject panel)
     {
-        badgeBag.SetActive(false);
-        itemBag.SetActive(true);
+        panel.GetComponent<CanvasGroup>().alpha = 0;
+        panel.GetComponent<CanvasGroup>().interactable = false;
+        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
-    public void HideItemBag()
+
+    public void OpenPanel(GameObject panel)
     {
-        itemBag.SetActive(false);
+        panel.GetComponent<CanvasScaler>().enabled = true; 
+        panel.GetComponent<CanvasGroup>().alpha = 1;
+        panel.GetComponent<CanvasGroup>().interactable = true;
+        panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
-    public void ItemBagButtonPressed()
+
+    public void ActivatePanel(GameObject panel)
     {
-        if (itemBag.activeSelf)
+        panel.SetActive(true);
+    }
+
+    public void DeactivatePanel(GameObject panel)
+    {
+        panel.SetActive(false);
+        panel.GetComponent<CanvasScaler>().enabled = true;
+    }
+
+    public void ItemBagButtonClicked()
+    {
+        if (itemBag.GetComponent<CanvasGroup>().alpha == 1)
         {
-            HideItemBag();
+            ClosePanel(itemBag);
         }
         else
         {
-            ShowItemBag();
+            CloseAllOpenedPanel();
+            OpenPanel(itemBag);
+        }
+    }
+    public void BadgeBagButtonClicked()
+    {
+        if (badgeBag.GetComponent<CanvasGroup>().alpha == 1)
+        {
+            ClosePanel(badgeBag);
+        }
+        else
+        {
+            CloseAllOpenedPanel();
+            OpenPanel(badgeBag);
         }
     }
 
-    public void ShowBadgeBag()
+    public void SkinBagButtonClicked()
     {
-        itemBag.SetActive(false);
-        badgeBag.SetActive(true);
-    }
-    public void HideBadgeBag()
-    {
-        badgeBag.SetActive(false);
-    }
-    public void BadgeBagButtonPressed()
-    {
-        if (badgeBag.activeSelf)
+        if (skinBag.GetComponent<CanvasGroup>().alpha == 1)
         {
-            HideBadgeBag();
+            ClosePanel(skinBag);
         }
         else
         {
-            ShowBadgeBag();
+            CloseAllOpenedPanel();
+            OpenPanel(skinBag);
         }
     }
+/*
+    public void painterButtonClicked()
+    {
+        if (painter.GetComponent<CanvasGroup>().alpha == 1)
+        {
+            closePanel(painter);
+        }
+        else
+        {
+            CloseAllOpenedPanel();
+            openPanel(painter);
+        }
+    }
+    */
 }

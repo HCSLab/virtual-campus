@@ -9,6 +9,6 @@ public class SkinBox : ItemBox
 
     public override void OnClick()
     {
-        SkinBag.Instance.Select(item);
+        SkinBag.Instance.Select(item, this);
     }
 }

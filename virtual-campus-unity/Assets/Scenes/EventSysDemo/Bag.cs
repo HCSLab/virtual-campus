@@ -19,7 +19,8 @@ public class Bag : MonoBehaviour
 
     public List<GameObject> testItems = new List<GameObject>();
 
-    protected Item currentItem;
+    public Item currentItem;
+    protected ItemBox currentItemBox;
 
     protected virtual void Start()
     {
@@ -34,6 +35,7 @@ public class Bag : MonoBehaviour
 
     public virtual void Add(GameObject obj, bool copy = true)
     {
+        GetComponent<CanvasScaler>().enabled = false;
         var display = Instantiate(displayPrefab);
         var itemBox = display.GetComponent<ItemBox>();
 
@@ -48,17 +50,14 @@ public class Bag : MonoBehaviour
         }
         item.transform.parent = transform;
 
-        Debug.Log(itemBox);
-        Debug.Log(item);
-
         itemBox.Init(item);
 
         itemBoxs.Add(itemBox);
-        display.transform.parent = layout;
-        display.transform.localScale = Vector3.one;
+        display.transform.SetParent(layout);
+        GetComponent<CanvasScaler>().enabled = true;
     }
 
-    public virtual void Select(Item item)
+    public virtual void Select(Item item, ItemBox itemBox)
     {
         detailImage.sprite = item.image;
         detailName.text = item.itemName;
@@ -83,12 +82,18 @@ public class Bag : MonoBehaviour
 
     public void Remove(Item item, bool destroyItem = true)
     {
+        ItemBox boxToRemove = null;
         foreach (var box in itemBoxs)
         {
             if (box.item == item)
             {
                 Destroy(box.gameObject);
+                boxToRemove = box;
             }
+        }
+        if (boxToRemove)
+        {
+            itemBoxs.Remove(boxToRemove);
         }
         if (destroyItem)
         {
@@ -112,10 +117,12 @@ public class Bag : MonoBehaviour
             GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
         //gameObject.SetActive(!gameObject.activeSelf);
+        GetComponent<CanvasScaler>().enabled = true;
     }
 
-    public void Reload()
+    public virtual void Reload()
     {
+        GetComponent<CanvasScaler>().enabled = false;
         foreach (var box in itemBoxs)
         {
             Destroy(box.gameObject);
@@ -128,5 +135,26 @@ public class Bag : MonoBehaviour
                 Add(item);
             }
         }
+        GetComponent<CanvasScaler>().enabled = true;
+    }
+
+    public virtual void Select()
+    {
+        if (itemBoxs.Count > 0)
+        {
+            Select(itemBoxs[0].item, itemBoxs[0]);
+        }
+        else
+        {
+            ClearSelection();
+        }
+    }
+
+    protected virtual void ClearSelection()
+    {
+        detailImage.sprite = null;
+        detailName.text = null;
+        detailDescription.text = null;
+        currentItem = null;
     }
 }

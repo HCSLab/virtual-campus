@@ -6,9 +6,9 @@ public class Cola : Consumable
 {
     public float walkSpeedIncrement;
     public float SprintSpeedIncrement;
-    public override void Use()
+    public override void Apply()
     {
-        base.Use();
+        base.Apply();
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonAIO>().walkSpeed += walkSpeedIncrement;
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonAIO>().sprintSpeed += SprintSpeedIncrement;
     }
@@ -16,7 +16,7 @@ public class Cola : Consumable
     public override void End()
     {
         base.End();
-        GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonAIO>().walkSpeed -= walkSpeedIncrement;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonAIO>().sprintSpeed -= SprintSpeedIncrement;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonAIO>().walkSpeed -= walkSpeedIncrement * level;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonAIO>().sprintSpeed -= SprintSpeedIncrement * level;
     }
 }
