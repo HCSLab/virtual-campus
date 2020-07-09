@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.5
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 617d9be015db68348a623b01ea51a8c5, type: 2}
   m_HaloStrength: 0.5
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1341262400}
-  m_IndirectSpecularColor: {r: 0.19198903, g: 0.59465885, b: 0.7773138, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -389,7 +389,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: d91508b8ce8ae1245adba42578d3e547, type: 2}
+  sharedProfile: {fileID: 11400000, guid: dfcaeeeb15d37ac49a5e9434ac6bb0d0, type: 2}
 --- !u!4 &94281726
 Transform:
   m_ObjectHideFlags: 0
@@ -5208,7 +5208,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8781,7 +8781,6 @@ MonoBehaviour:
   cameraScalingSpeed: 0.2
   mouseSensitivity: 0.3
   jumpSpeed: 8
-  bodySprite: {fileID: 0}
 --- !u!114 &8426127834510434688
 MonoBehaviour:
   m_ObjectHideFlags: 0
