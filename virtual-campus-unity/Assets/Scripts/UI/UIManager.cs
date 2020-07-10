@@ -49,6 +49,10 @@ public class UIManager : MonoBehaviour
     public void OpenTalk(GameObject talk)
     {
         DisableAllOpenedPanel();
+        if (currentTalk != null)
+        {
+            Destroy(currentTalk);
+        }
         currentTalk = talk;
     }
 
