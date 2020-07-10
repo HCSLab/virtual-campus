@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Consumable : Usable
 {
-    public int number;                  //物品数量
+    public int amount;                  //物品数量
     public int maxPerStack;             //堆叠数量
     public float duration;              //持续时间
     public bool superposable;           //可叠加性
@@ -14,7 +14,7 @@ public class Consumable : Usable
 
     public override void Use()
     {
-        number--;
+        amount--;
         level++;
         //remainingCooldown = cooldown + 1;
         remainingTime += duration;
@@ -48,7 +48,7 @@ public class Consumable : Usable
                 remainingTime = 0;
                 End();
                 level = 0;
-                if (number == 0)
+                if (amount == 0)
                 {
                     Destroy(gameObject);
                     //Debug.Log("DESTORY");

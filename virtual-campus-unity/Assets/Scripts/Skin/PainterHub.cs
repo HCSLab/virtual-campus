@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +12,8 @@ public class PainterHub : MonoBehaviour
     public GameObject lowerPainter;
     public GameObject hatPainter;
     public GameObject armPainter;
-    public GameObject uiManager;
     public GameObject saveAs;
-    public InputField nameInput;
-    public InputField descriptionInput;
+    public TMP_InputField nameInput;
 
     private GameObject currentPainter;
     private Texture2D currentTex;
@@ -23,46 +22,46 @@ public class PainterHub : MonoBehaviour
 
     public void OnEntireSkinButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().ActivatePanel(entirePainter);
-        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
+        entirePainter.SetActive(true);
+        gameObject.SetActive(false);
         entirePainter.GetComponent<PaintView>().Reload();
         currentPainter = entirePainter;
     }
     public void OnHeadButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().ActivatePanel(headPainter);
-        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
+        headPainter.SetActive(true);
+        gameObject.SetActive(false);
         headPainter.GetComponent<PaintView>().Reload();
         currentPainter = headPainter;
     }
 
     public void OnUpperButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().ActivatePanel(upperPainter);
-        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
+        upperPainter.SetActive(true);
+        gameObject.SetActive(false);
         upperPainter.GetComponent<PaintView>().Reload();
         currentPainter = upperPainter;
     }
     public void OnLowerButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().ActivatePanel(lowerPainter);
-        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
+        lowerPainter.SetActive(true);
+        gameObject.SetActive(false);
         lowerPainter.GetComponent<PaintView>().Reload();
         currentPainter = lowerPainter;
     }
 
     public void OnHatButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().ActivatePanel(hatPainter);
-        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
+        hatPainter.SetActive(true);
+        gameObject.SetActive(false);
         hatPainter.GetComponent<PaintView>().Reload();
         currentPainter = hatPainter;
     }
 
     public void OnArmButtonClicked()
     {
-        uiManager.GetComponent<UIManager>().ActivatePanel(armPainter);
-        uiManager.GetComponent<UIManager>().ClosePanel(gameObject);
+        armPainter.SetActive(true);
+        gameObject.SetActive(false);
         armPainter.GetComponent<PaintView>().Reload();
         currentPainter = armPainter;
     }
@@ -77,7 +76,7 @@ public class PainterHub : MonoBehaviour
     public void OnSaveButtonClicked()
     {
         string name = nameInput.text;
-        string description = descriptionInput.text;
+        string description = string.Empty;
         var skinBag = skinBagObject.GetComponent<SkinBag>();
         GameObject newSkin = new GameObject();
         newSkin.name = "Customized Sprite";
@@ -89,16 +88,14 @@ public class PainterHub : MonoBehaviour
         skinItem.texture = currentTex;
         skinItem.customized = true;
         skinBag.Add(newSkin);
-        //skinBag.Reload();
-        uiManager.GetComponent<UIManager>().DeactivatePanel(currentPainter);
-        nameInput.text = "";
-        descriptionInput.text = "";
+
+        currentPainter.SetActive(false);
+        nameInput.text = string.Empty;
         saveAs.SetActive(false);
     }
     public void OnCancelButtonClicked()
     {
-        nameInput.text = "";
-        descriptionInput.text = "";
+        nameInput.text = string.Empty;
         saveAs.SetActive(false);
     }
 }

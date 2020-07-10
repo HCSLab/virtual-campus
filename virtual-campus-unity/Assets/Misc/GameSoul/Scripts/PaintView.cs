@@ -57,16 +57,14 @@ public class PaintView : MonoBehaviour
     public Slider slider;
     private GameObject skinBagObject;
     public GameObject painterHub;
-    protected GameObject uiManager;
     private SkinItem currentSkinItem;
     private Texture2D currentTex;
 	#endregion
 
 	void Awake()
 	{
-        uiManager = painterHub.GetComponent<PainterHub>().uiManager;
         //Debug.Log(gameObject);
-        //Debug.Log(uiManager);
+        //Debug.Log(UIManager.Instance);
         skinBagObject = painterHub.GetComponent<PainterHub>().skinBagObject;
         InitData();
         Reload();
@@ -74,7 +72,7 @@ public class PaintView : MonoBehaviour
 
 	private void Update()
 	{
-        //Debug.Log(uiManager);
+        //Debug.Log(UIManager.Instance);
         Color clearColor = new Color(0, 0, 0, 0);
 		if (Input.GetKeyDown(KeyCode.Space))
 			_paintBrushMat.SetColor("_Color", clearColor);
@@ -173,9 +171,7 @@ public class PaintView : MonoBehaviour
 
         _lastPoint = Vector2.zero;
 
-        Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().playerTexture;
-        //SkinItem skinItem = (SkinItem)skinBagObject.GetComponent<SkinBag>().currentItem;
-        //Texture playerTexture = skinItem.texture;
+        Texture playerTexture = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkin>().GetCurrentSkinTexture();
 
         if (_paintBrushMat == null)
         {
@@ -369,7 +365,7 @@ public class PaintView : MonoBehaviour
             var skinBag = skinBagObject.GetComponent<SkinBag>();
             //skinBag.Reload();
             skinBag.ReloadSprites();
-            uiManager.GetComponent<UIManager>().DeactivatePanel(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -400,15 +396,13 @@ public class PaintView : MonoBehaviour
         spriteItem.texture = TextureToTexture2D(tex);
         skinBag.testItems.Add(newSkin);
         skinBag.Reload();
-        uiManager.GetComponent<UIManager>().DeactivatePanel(gameObject);
+        UIManager.Instance.GetComponent<UIManager>().DeactivatePanel(gameObject);
         */
     }
 
     public void Close()
     {
-        //Debug.Log(gameObject);
-        //Debug.Log(uiManager);
-        uiManager.GetComponent<UIManager>().DeactivatePanel(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void Clear()
