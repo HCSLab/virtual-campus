@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
 
+    public GameObject mainCanvas;
+
     public GameObject pressToTalk;
     public GameObject badgeBagPanel;
     public GameObject itemBagPanel;

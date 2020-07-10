@@ -74,7 +74,7 @@ public class InkTalk : MonoBehaviour
                 panelSizedButton.gameObject.SetActive(true);
                 var path = choice.pathStringOnChoice;
                 panelSizedButton.onClick.RemoveAllListeners();
-                panelSizedButton.onClick.AddListener(delegate { ChoicePathSelected(path); });
+                panelSizedButton.onClick.AddListener(() => { ChoicePathSelected(path); });
             }
             else
             {
@@ -82,12 +82,11 @@ public class InkTalk : MonoBehaviour
                 btn.transform.SetParent(buttons);
                 btn.transform.localScale = Vector3.one;
 
-
-                var btnText = btn.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+                var btnText = btn.GetComponentInChildren<TextMeshProUGUI>();
                 btnText.text = choice.text;
 
                 var path = choice.pathStringOnChoice;
-                btn.onClick.AddListener(delegate { ChoicePathSelected(path); });
+                btn.onClick.AddListener(() => { ChoicePathSelected(path); });
             }
         }
 
