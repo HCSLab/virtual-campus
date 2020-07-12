@@ -139,13 +139,11 @@ public class Bag : MonoBehaviour
                 }
             }
         }
-        Debug.Log(itemBoxs.Count);
         List<ItemBox> newBoxList = new List<ItemBox>(itemBoxs);
         ClearLayout();
         for (int i=0; i<newBoxList.Count; i++)
         {
             Add(newBoxList[i].item);
-            Debug.Log(i);
         }
     }
 }
