@@ -43,11 +43,21 @@ public class Bag : MonoBehaviour
 		display.transform.localScale = Vector3.one;
 	}
 
-	/// <summary>
-	/// Remove both the display and the GameObject of the item.
-	/// </summary>
-	/// <param name="item">The item to remove.</param>
-	public void Remove(Item item)
+    public virtual void Add(Item item)
+    {
+        var display = Instantiate(elementDisplayPrefab);
+        var itemBox = display.GetComponent<ItemBox>();
+        itemBox.Init(item);
+        itemBoxs.Add(itemBox);
+        display.transform.SetParent(elementContainer.transform);
+        display.transform.localScale = Vector3.one;
+    }
+
+    /// <summary>
+    /// Remove both the display and the GameObject of the item.
+    /// </summary>
+    /// <param name="item">The item to remove.</param>
+    public void Remove(Item item)
 	{
 		ItemBox boxToRemove = null;
 		foreach (var box in itemBoxs)
@@ -65,15 +75,29 @@ public class Bag : MonoBehaviour
 
 	public virtual void Reload()
 	{
-		foreach (var box in itemBoxs)
-			Destroy(box.gameObject);
-		itemBoxs.Clear();
+        Clear();
 
 		foreach (var item in testItems)
 			Add(item);
 	}
 
-	public virtual void Select(Item item, ItemBox itemBox)
+    public virtual void Clear()
+    {
+        foreach (var box in itemBoxs)
+            Destroy(box.gameObject);
+        ClearLayout();
+    }
+
+    public void ClearLayout()
+    {
+        for (int i = elementContainer.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(elementContainer.transform.GetChild(i).gameObject);
+        }
+        itemBoxs.Clear();
+    }
+
+    public virtual void Select(Item item, ItemBox itemBox)
 	{
 		detailImage.sprite = item.image;
 		detailName.text = item.itemName;
@@ -100,4 +124,28 @@ public class Bag : MonoBehaviour
 		detailDescription.text = null;
 		currentItem = null;
 	}
+
+    public void SortByName()
+    {
+        for (int i=0; i<itemBoxs.Count; i++)
+        {
+            for (int j=i+1; j<itemBoxs.Count; j++)
+            {
+                if (string.Compare(itemBoxs[j].item.itemName, itemBoxs[i].item.itemName) == -1)
+                {
+                    var temp = itemBoxs[i];
+                    itemBoxs[i] = itemBoxs[j];
+                    itemBoxs[j] = temp;
+                }
+            }
+        }
+        Debug.Log(itemBoxs.Count);
+        List<ItemBox> newBoxList = new List<ItemBox>(itemBoxs);
+        ClearLayout();
+        for (int i=0; i<newBoxList.Count; i++)
+        {
+            Add(newBoxList[i].item);
+            Debug.Log(i);
+        }
+    }
 }
