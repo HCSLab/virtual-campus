@@ -13,6 +13,7 @@ public class PainterHub : MonoBehaviour
     public GameObject hatPainter;
     public GameObject armPainter;
     public GameObject saveAs;
+    public GameObject quitButton;
     public TMP_InputField nameInput;
 
     private GameObject currentPainter;
@@ -97,5 +98,10 @@ public class PainterHub : MonoBehaviour
     {
         nameInput.text = string.Empty;
         saveAs.SetActive(false);
+    }
+
+    public void OnQuitButtonClicked()
+    {
+        gameObject.SetActive(false);
     }
 }
