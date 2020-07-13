@@ -27,6 +27,8 @@ public class Bag : MonoBehaviour
 	{
 		foreach (var item in testItems)
 			Add(item);
+
+		gameObject.SetActive(false);
 	}
 
 	/// <summary>Instantiate the prefab, and add it to this bag.</summary>

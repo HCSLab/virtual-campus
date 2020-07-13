@@ -71,14 +71,6 @@ public class SkinBag : Bag
 		}
 	}
 
-	protected override void Start()
-	{
-		foreach (var item in testItems)
-		{
-			Add(item);
-		}
-	}
-
 	Texture2D TextureToTexture2D(Texture texture)
 	{
 		Texture2D texture2D = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);

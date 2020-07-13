@@ -113,7 +113,7 @@ public class InkTalk : MonoBehaviour
 
     private void EndTalk()
     {
-        UIManager.Instance.CloseTalk();
+        UIManager.Instance.CloseTalk(gameObject);
 
         if (!notFinished)
         {
