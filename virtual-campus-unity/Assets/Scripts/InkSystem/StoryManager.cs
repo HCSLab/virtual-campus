@@ -11,7 +11,7 @@ public class StoryManager : MonoBehaviour
     private Dictionary<string, StoryScript> runningStories = new Dictionary<string, StoryScript>();
     private Dictionary<string, string> storyStatus = new Dictionary<string, string>();
 
-    [HideInInspector] public bool refreshFlag = true;
+    [HideInInspector] public bool refreshFlag;
 
     private void Awake()
     {
@@ -21,7 +21,10 @@ public class StoryManager : MonoBehaviour
         foreach (var s in stories)
         {
             storyStatus.Add(s.inkFile.name, "not_started");
+            s.GetStartConditions();
         }
+
+        refreshFlag = true;
     }
 
     private void LateUpdate()

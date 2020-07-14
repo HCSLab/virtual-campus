@@ -1,7 +1,3 @@
--> dialogue_with_registry_receptionist
-
-=== dialogue_with_registry_receptionist ===
-
 {~同学你好，这里是教务处。| 我是教务处的老师，请问你有什么问题吗？|}
 
 // #after:greetings of registry

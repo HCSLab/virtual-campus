@@ -12,7 +12,7 @@ public class InkTalk : MonoBehaviour
     [HideInInspector] public TextAsset inkFile;
     [HideInInspector] public string executeFunction;
 
-    [HideInInspector] public Story inkStroy;
+    [HideInInspector] public Story inkStory;
     private bool nextStep;
     private bool firstStep;
     [HideInInspector] public bool notFinished;
@@ -32,11 +32,12 @@ public class InkTalk : MonoBehaviour
         firstStep = true;
         notFinished = false;
 
-        inkStroy = new Story(inkFile.text);
+        inkStory = new Story(inkFile.text);
+        PlayerInfo.WriteToInkStory(inkStory);
 
-        if (inkStroy.HasFunction(executeFunction))
+        if (inkStory.HasFunction(executeFunction))
         {
-            inkStroy.CheckInFunction(executeFunction);
+            inkStory.CheckInFunction(executeFunction);
         }
     }
 
@@ -54,20 +55,20 @@ public class InkTalk : MonoBehaviour
         }
 
         text.text = "";
-        while (inkStroy.canContinue)
+        while (inkStory.canContinue)
         {
-            text.text += inkStroy.Continue();
-            var tags = inkStroy.currentTags;
+            text.text += inkStory.Continue();
+            var tags = inkStory.currentTags;
             if (storyScript)
             {
                 foreach (var tag in tags)
                 {
-                    storyScript.InProcessTag(tag, this);
+                    storyScript.InProcessTag(tag, this, inkStory);
                 }
             }
         }
 
-        foreach (var choice in inkStroy.currentChoices)
+        foreach (var choice in inkStory.currentChoices)
         {
             if (choice.text == "n")
             {
@@ -93,12 +94,12 @@ public class InkTalk : MonoBehaviour
         nextStep = false;
         firstStep = false;
 
-        if (text.text == "" && inkStroy.currentChoices.Count == 1)
+        if (text.text == "" && inkStory.currentChoices.Count == 1)
         {
-            ChoicePathSelected(inkStroy.currentChoices[0].pathStringOnChoice);
+            ChoicePathSelected(inkStory.currentChoices[0].pathStringOnChoice);
         }
 
-        if (!inkStroy.canContinue && inkStroy.currentChoices.Count == 0)
+        if (!inkStory.canContinue && inkStory.currentChoices.Count == 0)
         {
             EndTalk();
         }
@@ -106,21 +107,21 @@ public class InkTalk : MonoBehaviour
 
     private void ChoicePathSelected(string path)
     {
-        inkStroy.ChoosePathString(path);
-        inkStroy.Continue();
+        inkStory.ChoosePathString(path);
+        inkStory.Continue();
         nextStep = true;
     }
 
     private void EndTalk()
     {
-        UIManager.Instance.CloseTalk(gameObject);
-
-        if (!notFinished)
+        if (storyScript)
         {
-            if (storyScript)
-            {
-                storyScript.AddFlag(executeFunction + "_done");
-            }
+            storyScript.ProcessFunctionHeaderTags();
+
+            if (!notFinished)
+                storyScript.AddFlag(executeFunction);
         }
+
+        UIManager.Instance.CloseTalk(gameObject);
     }
 }

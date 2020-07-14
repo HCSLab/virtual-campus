@@ -39,13 +39,13 @@ public class UIManager : MonoBehaviour
 
     public void GetPaintersFromHub()
     {
-        PainterHub ph = painterHub.GetComponent<PainterHub>();
-        painters.Add(ph.entirePainter);
-        painters.Add(ph.headPainter);
-        painters.Add(ph.upperPainter);
-        painters.Add(ph.lowerPainter);
-        painters.Add(ph.hatPainter);
-        painters.Add(ph.armPainter);
+        //PainterHub ph = painterHub.GetComponent<PainterHub>();
+        //painters.Add(ph.entirePainter);
+        //painters.Add(ph.headPainter);
+        //painters.Add(ph.upperPainter);
+        //painters.Add(ph.lowerPainter);
+        //painters.Add(ph.hatPainter);
+        //painters.Add(ph.armPainter);
     }
 	public void DisableAllOpenedPanel()
     {

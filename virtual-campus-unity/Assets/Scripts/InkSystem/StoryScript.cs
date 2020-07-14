@@ -5,11 +5,11 @@ using Ink.Runtime;
 using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using TMPro;
+using UnityEditorInternal;
 
 public class StoryScript : MonoBehaviour
 {
     public TextAsset inkFile;
-    public Story inkStroy;
 
     public GameObject talkPrefab;
     private GameObject buttonPrefab;
@@ -20,27 +20,24 @@ public class StoryScript : MonoBehaviour
 
     private List<string> require = new List<string>();
     private List<string> without = new List<string>();
-    private bool gotStartConditions = false;
 
-    private void GetStartConditions()
+    private List<UnityEngine.Object> dynamicallyGenerated = new List<UnityEngine.Object>();
+
+    public void GetStartConditions()
     {
-        if (gotStartConditions)
-        {
-            return;
-        }
+        var inkStory = new Story(inkFile.text);
+        PlayerInfo.WriteToInkStory(inkStory);
 
-        if (inkStroy == null)
-        {
-            inkStroy = new Story(inkFile.text);
-        }
         var tags = new List<string>();
-        while (inkStroy.canContinue)
+        while (inkStory.canContinue)
         {
-            inkStroy.Continue();
-            tags.AddRange(inkStroy.currentTags);
+            inkStory.Continue();
+            tags.AddRange(inkStory.currentTags);
         }
         
         bool allowMultiTry = false;
+        require.Clear();
+        without.Clear();
         foreach (var tag in tags)
         {
             string op, data;
@@ -48,7 +45,7 @@ public class StoryScript : MonoBehaviour
 
             if (op == "after")
             {
-                require.Add(data + "_story_done");
+                require.Add(data);
             }
             else if (op == "require")
             {
@@ -66,18 +63,12 @@ public class StoryScript : MonoBehaviour
 
         if (!allowMultiTry)
         {
-            without.Add(inkFile.name + "_story_done");
+            without.Add(inkFile.name);
         }
-
-        gotStartConditions = true;
     }
 
     public bool CheckStartConditions()
     {
-        if (!gotStartConditions)
-        {
-            GetStartConditions();
-        }
         if (!FlagBag.Instance.HasFlags(require))
         {
             return false;
@@ -93,26 +84,38 @@ public class StoryScript : MonoBehaviour
     {
         buttonPrefab = talkPrefab.GetComponent<InkTalk>().button;
 
-        inkStroy = new Story(inkFile.text);
+        ProcessFunctionHeaderTags();
+    }
 
-        GetAllInkFunctions();
+    public void ProcessFunctionHeaderTags()
+    {
+        foreach (var obj in dynamicallyGenerated)
+        {
+            Destroy(obj);
+        }
+        dynamicallyGenerated.Clear();
+
+        var inkStory = new Story(inkFile.text);
+        PlayerInfo.WriteToInkStory(inkStory);
+
+        GetAllInkFunctions(inkStory);
         foreach (var func in inkFunctions)
         {
             //List<Ink.Runtime.Object> oldStream = null;
-            inkStroy.CheckInFunction(func);
+            inkStory.CheckInFunction(func);
             List<string> tags = new List<string>();
-            while (inkStroy.canContinue)
+            while (inkStory.canContinue)
             {
-                inkStroy.Continue();
-                tags.AddRange(inkStroy.currentTags);
+                inkStory.Continue();
+                tags.AddRange(inkStory.currentTags);
             }
-            PreprocessdTags(tags, func);
-            inkStroy.ResetCallstack();
+            PreprocessdTags(tags, func, inkStory);
+            inkStory.ResetCallstack();
             // inkStroy.CheckOutFunction(oldStream);
         }
     }
 
-    private void GetAllInkFunctions()
+    private void GetAllInkFunctions(Story inkStory)
     {
         var text = inkFile.text;
 
@@ -135,7 +138,7 @@ public class StoryScript : MonoBehaviour
         inkFunctions.Clear();
         foreach (var func in tp)
         {
-            if (inkStroy.HasFunction(func) && !inkFunctions.Contains(func))
+            if (inkStory.HasFunction(func) && !inkFunctions.Contains(func))
             {
                 inkFunctions.Add(func);
             }
@@ -159,7 +162,7 @@ public class StoryScript : MonoBehaviour
         data = data.Trim();
     }
 
-    public void InProcessTag(string tag, InkTalk talk)
+    public void InProcessTag(string tag, InkTalk talk, Story inkStory)
     {
         string op, data;
         StandardizationTag(tag, out op, out data);
@@ -204,9 +207,13 @@ public class StoryScript : MonoBehaviour
         {
             EndStory();
         }
+        else if (op == "upd_info")
+        {
+            PlayerInfo.UpdateFromInkStory(inkStory);
+        }
     }
 
-    private void PreprocessdTags(List<string> tags, string funcName)
+    private void PreprocessdTags(List<string> tags, string funcName, Story inkStory)
     {
         List<string> attachTags = new List<string>();
         List<string> collideTriggerTags = new List<string>();
@@ -232,7 +239,7 @@ public class StoryScript : MonoBehaviour
             }
             else if (op == "after")
             {
-                requireTags.Add(data + "_done");
+                requireTags.Add(data);
             }
             else if (op == "without")
             {
@@ -240,11 +247,11 @@ public class StoryScript : MonoBehaviour
             }
         }
 
-        withoutTags.Add(funcName + "_done");
+        withoutTags.Add(funcName);
 
         foreach (var who in attachTags)
         {
-            AttachToSpeaker(who, funcName, requireTags, withoutTags);
+            AttachToSpeaker(who, funcName, inkStory.currentChoices, requireTags, withoutTags);
         }
 
         foreach (var who in collideTriggerTags)
@@ -253,20 +260,23 @@ public class StoryScript : MonoBehaviour
         }
     }
 
-    private void AttachToSpeaker(string who, string funcName, List<string> require, List<string> without)
+    private void AttachToSpeaker(string who, string funcName, List<Choice> choices, List<string> require, List<string> without)
     {   
-        foreach (var choice in inkStroy.currentChoices)
+        foreach (var choice in choices)
         {
             var button = Instantiate(buttonPrefab).GetComponent<Button>();
+            dynamicallyGenerated.Add(button.gameObject);
             button.transform.SetParent(transform);
             button.transform.localScale = Vector3.one;
 
             var attach = button.gameObject.AddComponent<AttachToTalk>();
+            dynamicallyGenerated.Add(attach);
             attach.speakerName = who;
             attach.require.AddRange(require);
             attach.without.AddRange(without);
 
             var creater = button.gameObject.AddComponent<CreateInkTalk>();
+            dynamicallyGenerated.Add(creater);
             creater.inkFile = inkFile;
             creater.executeFunction = funcName;
             creater.talkPrefab = talkPrefab;
@@ -290,6 +300,7 @@ public class StoryScript : MonoBehaviour
         }
         
         var creater = obj.gameObject.AddComponent<CreateInkTalkOnPlayerEnter>();
+        dynamicallyGenerated.Add(creater);
         creater.inkFile = inkFile;
         creater.executeFunction = funcName;
         creater.talkPrefab = talkPrefab;
@@ -312,7 +323,7 @@ public class StoryScript : MonoBehaviour
 
     public void EndStory()
     {
-        FlagBag.Instance.AddFlag(inkFile.name + "_story_done");
+        FlagBag.Instance.AddFlag(inkFile.name);
         StoryManager.Instance.EndStory(this);
     }
 
