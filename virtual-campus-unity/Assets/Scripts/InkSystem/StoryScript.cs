@@ -10,6 +10,7 @@ using UnityEditorInternal;
 public class StoryScript : MonoBehaviour
 {
     public TextAsset inkFile;
+    public Story inkStory;
 
     public GameObject talkPrefab;
     private GameObject buttonPrefab;
@@ -25,14 +26,14 @@ public class StoryScript : MonoBehaviour
 
     public void GetStartConditions()
     {
-        var inkStory = new Story(inkFile.text);
-        PlayerInfo.WriteToInkStory(inkStory);
+        var tempStory = new Story(inkFile.text);
+        PlayerInfo.WriteToInkStory(tempStory);
 
         var tags = new List<string>();
-        while (inkStory.canContinue)
+        while (tempStory.canContinue)
         {
-            inkStory.Continue();
-            tags.AddRange(inkStory.currentTags);
+            tempStory.Continue();
+            tags.AddRange(tempStory.currentTags);
         }
         
         bool allowMultiTry = false;
@@ -83,6 +84,7 @@ public class StoryScript : MonoBehaviour
     private void Start()
     {
         buttonPrefab = talkPrefab.GetComponent<InkTalk>().button;
+        inkStory = new Story(inkFile.text);
 
         ProcessFunctionHeaderTags();
     }
@@ -95,27 +97,27 @@ public class StoryScript : MonoBehaviour
         }
         dynamicallyGenerated.Clear();
 
-        var inkStory = new Story(inkFile.text);
-        PlayerInfo.WriteToInkStory(inkStory);
+        var tempStory = new Story(inkFile.text);
+        PlayerInfo.WriteToInkStory(tempStory);
 
-        GetAllInkFunctions(inkStory);
+        GetAllInkFunctions(tempStory);
         foreach (var func in inkFunctions)
         {
             //List<Ink.Runtime.Object> oldStream = null;
-            inkStory.CheckInFunction(func);
+            tempStory.CheckInFunction(func);
             List<string> tags = new List<string>();
-            while (inkStory.canContinue)
+            while (tempStory.canContinue)
             {
-                inkStory.Continue();
-                tags.AddRange(inkStory.currentTags);
+                tempStory.Continue();
+                tags.AddRange(tempStory.currentTags);
             }
-            PreprocessdTags(tags, func, inkStory);
-            inkStory.ResetCallstack();
+            PreprocessdTags(tags, func, tempStory);
+            tempStory.ResetCallstack();
             // inkStroy.CheckOutFunction(oldStream);
         }
     }
 
-    private void GetAllInkFunctions(Story inkStory)
+    private void GetAllInkFunctions(Story tempStory)
     {
         var text = inkFile.text;
 
@@ -138,7 +140,7 @@ public class StoryScript : MonoBehaviour
         inkFunctions.Clear();
         foreach (var func in tp)
         {
-            if (inkStory.HasFunction(func) && !inkFunctions.Contains(func))
+            if (tempStory.HasFunction(func) && !inkFunctions.Contains(func))
             {
                 inkFunctions.Add(func);
             }
@@ -162,7 +164,7 @@ public class StoryScript : MonoBehaviour
         data = data.Trim();
     }
 
-    public void InProcessTag(string tag, InkTalk talk, Story inkStory)
+    public void InProcessTag(string tag, InkTalk talk, Story tempStory)
     {
         string op, data;
         StandardizationTag(tag, out op, out data);
@@ -209,11 +211,11 @@ public class StoryScript : MonoBehaviour
         }
         else if (op == "upd_info")
         {
-            PlayerInfo.UpdateFromInkStory(inkStory);
+            PlayerInfo.UpdateFromInkStory(tempStory);
         }
     }
 
-    private void PreprocessdTags(List<string> tags, string funcName, Story inkStory)
+    private void PreprocessdTags(List<string> tags, string funcName, Story tempStory)
     {
         List<string> attachTags = new List<string>();
         List<string> collideTriggerTags = new List<string>();
@@ -251,7 +253,7 @@ public class StoryScript : MonoBehaviour
 
         foreach (var who in attachTags)
         {
-            AttachToSpeaker(who, funcName, inkStory.currentChoices, requireTags, withoutTags);
+            AttachToSpeaker(who, funcName, tempStory.currentChoices, requireTags, withoutTags);
         }
 
         foreach (var who in collideTriggerTags)

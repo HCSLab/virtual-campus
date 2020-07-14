@@ -54,12 +54,12 @@ VAR school = ""
 === func_return_to_registry ===
 #require: func_start_career
 #attach: registry_receptionist
-*我做好决定了
++我做好决定了
 你真的确定好了吗？不需要再考虑考虑了吗？
-    **算了，我再想想
+    ++算了，我再想想
         #notfinished
         ->DONE
-    **我决定好了
+    ++我决定好了
 -
 +n
 是吗，那你准备选择哪个学院呢？
@@ -163,12 +163,12 @@ VAR school = ""
         ->SSE_Hard_Questions
         }
     ++那我再准备准备吧
-    ->DONE
+        #notfinished
+        ->DONE
 
 === success ===
 *全部正确
 恭喜你！完成了第<>{!一|二|三}<>部分的题目。<>{!当你准备好之后，就可以来进行第二阶段的答题了！|当你准备好之后，就可以来进行最后的答题了！|那么恭喜你，你完成了所有的题目！->ending}
-->DONE
 
 === failure ===
 {egg != "": ->checkEgg}
@@ -371,8 +371,6 @@ Error: NOT CHOSEN SCHOOL
     +0 
         ~egg = "hard5.1"
         ->failure
-    
-->DONE
 
 /* General Questions: School Part */
 // SME //
@@ -605,8 +603,6 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
     + C. 18
         ->failure
     //（答案：16-B）
-
-->DONE
 
 /*************************************/
 //              SSE Part             //

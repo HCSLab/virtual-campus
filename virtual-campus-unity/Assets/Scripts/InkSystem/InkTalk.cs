@@ -32,7 +32,15 @@ public class InkTalk : MonoBehaviour
         firstStep = true;
         notFinished = false;
 
-        inkStory = new Story(inkFile.text);
+        if (storyScript)
+        {
+            inkStory = storyScript.inkStory;
+        }
+        else
+        {
+            inkStory = new Story(inkFile.text);
+        }
+
         PlayerInfo.WriteToInkStory(inkStory);
 
         if (inkStory.HasFunction(executeFunction))
