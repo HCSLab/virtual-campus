@@ -1,30 +1,27 @@
-+ test
-    -> dialogue_with_registry_receptionist
+-> dialogue_with_registry_receptionist
 
 === dialogue_with_registry_receptionist ===
 
 {~同学你好，这里是教务处。| 我是教务处的老师，请问你有什么问题吗？|}
 
-#after:greetings of registry
-{~同学你好，这里是教务处。|如果想找各个学院办公室的话，可以去各个教学楼前找院长们打听看看。前提是，他们在那里。|教务处负责学生们平时课程的部分事务，有什么有关课程的问题，就请给我们发邮件吧。}
+// #after:greetings of registry
+// {~同学你好，这里是教务处。|如果想找各个学院办公室的话，可以去各个教学楼前找院长们打听看看。前提是，他们在那里。|教务处负责学生们平时课程的部分事务，有什么有关课程的问题，就请给我们发邮件吧。}
 
 *我能重新听一遍介绍吗
     ->introduction
     
 === introduction ===
+你想了解哪方面的内容呢？
 +修业期限 -> introduction.duration
 +选课及学分规定 ->introduction.lectures_credits
 +加选及退课(add & drop) ->introduction.add_drop
 +评核及考试 ->introduction.test_grade
-+好了，我没什么问题了
-    ++n
++我没什么问题了
     好的，有什么其他问题随时再来找我！
-    -
-    *好的
-    ->END
+    **好的
+        ->END
 
 = duration
-+n
 这一部分官网文件上写的已经很详尽了，我会挑重点念给你听：
 -
 +n 
@@ -54,10 +51,10 @@
 +n 
 “开始前的特定申请期限内提出。于预期毕业的学期开始后才提出的申请，一般不会被接纳。”
 -
++n
 ->introduction
 
 = lectures_credits
-+n
 这一部分的话，我先把文件上有关内容给你摘抄出来，遍念遍在中间做一些其他的补充。
 -
 +n 
@@ -111,11 +108,10 @@
 +n 
 “学生不得重修已修毕并获及格成绩的科目；惟按本学则规定必须重修者除外。”
 -
-
++n
 ->introduction
 
 = add_drop
-+n 
 如何加退课或许是你们这些新生刚入学时最容易遇到的问题，尽管对于你们大一第一学年的新生来说，只用选择一门体育课就好了，但哪怕如此，也会出现很多问题。
 -
 +n 
@@ -148,10 +144,10 @@
 +n
 “凡学生退选科目而未按规定程序办理者，该科成绩作不及格计算。”
 -
++n
 ->introduction
 
 = test_grade
-+n
 有关成绩的问题应该是每个学生都很关心的事情，但也是较难说明的一条，因为不同的课程评定成绩的方式不同。学生需在学期开始时仔细浏览该课程讲师给出的评分表。而我们在这里仅仅对部分信息和术语做一些强调说明。
 -
 +n 
@@ -181,10 +177,8 @@ mGPA，即major GPA，为所有专业课的总GPA。
 +n 
 cGPA，即cumulative GPA，为目前为止所有课程的总GPA。
 -
-+n 
++n
 一般情况下，我们指的都是cGPA。
+-
++n
 ->introduction
-
-#require:
-
-->END
