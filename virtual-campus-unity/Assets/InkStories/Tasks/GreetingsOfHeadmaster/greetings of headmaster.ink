@@ -1,9 +1,8 @@
-#after: prologue
+// #after: prologue
 
 TODO: 镜头移动
-->start
 
-=== start ===
+=== func_start ===
 #attach: headmaster
 *校长好！
 同学你好，你是新来的同学吧，欢迎来到香港中文大学（深圳）！
