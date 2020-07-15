@@ -1,8 +1,7 @@
 // mission name: blackswan
-#require: greetings of library
-->start
+// #require: greetings of library
 
-=== start ===
+=== func_start ===
 #attach: lib_receptionist
 *怎么了，看起来有些心事？
 听说学校里飞进来一只黑天鹅，刚刚还在图书馆后面的水池里呢。
@@ -22,7 +21,7 @@
 *听起来有些有趣……
 ->DONE
 
-=== PM_part ===
+=== func_PM_part ===
 #attach: PM_staff
 *有听过黑天鹅的消息吗？
 黑天鹅吗，好像听过，刚刚物业处有人去找了，但是现在也没有找到它在哪里。
@@ -48,7 +47,7 @@
 *……怎么感觉又变成跑腿了
 ->DONE
 
-=== OSA_part ===
+=== func_OSA_part ===
 #attach: OSA_staff
 *老师，这是你的饭卡嘛？
 啊，是的是的！
@@ -79,7 +78,7 @@
 -
 ->DONE
 
-=== Shaw_part ===
+=== func_Shaw_part ===
 #attach: Shaw_dorm_admin
 *阿姨好，你有找到黑天鹅吗
 黑色的天鹅？

@@ -1,24 +1,20 @@
-+ test
-    -> dialogue_with_lib_receptionist
-
-=== dialogue_with_lib_receptionist ===
-
-{~同学你好，这里是图书馆。|在图书馆请不要大声喧哗。|大家都很爱学习，经常留到晚上闭馆再走。}
+同学你好，这里是图书馆。<>
+{~|在图书馆请不要大声喧哗。|大家都很爱学习，经常留到晚上闭馆再走。}
 
 *我能重新听一遍介绍吗
     ->introduction
     
 
 === introduction ===
+你想听哪方面的介绍？
 + 开馆时间 -> introduction.lib_time
 + 馆藏资源 -> introduction.lib_resource
 + 读者服务 -> introduction.lib_service
 + 教室使用规定 -> introduction.lib_room_rule
 + 没有问题了->
-    ++n
     没有其他问题了吗。那么如果对我校图书馆有其他问题的话，可以浏览图书馆官网以获取更多更详细的信息。
-    -
-    ->END
+    ++好的，再见
+        ->END
 
 = lib_time
 大学图书馆的工作时间是 8:30-23:30（周一至周五） 8:30-23:30（周末）
