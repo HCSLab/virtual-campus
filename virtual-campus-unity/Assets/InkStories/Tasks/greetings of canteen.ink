@@ -1,9 +1,9 @@
-#after: greetings of library
 // mission name: greetings of canteen
-->pandora
 
-=== pandora ===
-#attach: studentZBW
+// #after: greetings of library
+
+=== func_pandora ===
+#attach: student_ZBW
 *我来了
 你走的可真慢。我都把这个食堂逛完了。
 -
@@ -22,11 +22,11 @@
 +n 
 走吧，我先去下一个食堂了，就在这楼上，<color=red>学活二楼</color>。准备好了就来找我咯。
 -
-->second_floor
 ->DONE
 
-=== second_floor ===
-#attach: studentZBW
+=== func_second_floor ===
+#attach: student_ZBW
+#after: func_pandora
 *这个食堂怎么样？
 我觉得，看起来要比一楼那个传统一些，看起来更像食堂。
 -
@@ -47,8 +47,9 @@
 -
 ->DONE
 
-=== letian ===
-#attach: studentZBW
+=== func_letian ===
+#attach: student_ZBW
+#after: func_second_floor
 *怎么样，感觉如何？
 我觉得这个食堂似乎更加亲民一些啊，看起来很有食堂味了。而且菜品价格也明显要比上两个食堂便宜很多。
 -
@@ -78,8 +79,9 @@
 *……
 ->DONE
  
- === shaw ===
-#attach: studentZBW
+=== func_shaw ===
+#attach: student_ZBW
+#after: func_letian
 *这地方可也太难找了吧
 确实，但是酒香可不怕巷子深，根据理工学院大佬用人工智能统计的结果，每天这里的火爆程度在所有食堂里都数一数二呐。
 -
