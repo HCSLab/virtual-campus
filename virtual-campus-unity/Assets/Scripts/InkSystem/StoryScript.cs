@@ -213,6 +213,30 @@ public class StoryScript : MonoBehaviour
         {
             PlayerInfo.UpdateFromInkStory(tempStory);
         }
+        else if (op == "enableNPC")
+        {
+            if (FlagBag.Instance.HasFlag("disableNPC:" + data))
+            {
+                FlagBag.Instance.DelFlag("disableNPC:" + data);
+            }
+            if (!FlagBag.Instance.HasFlag("enableNPC:" + data))
+            {
+                FlagBag.Instance.AddFlag("enableNPC:" + data);
+            }
+            NPCManager.Instance.Refresh();
+        }
+        else if (op == "disableNPC")
+        {
+            if (FlagBag.Instance.HasFlag("enableNPC:" + data))
+            {
+                FlagBag.Instance.DelFlag("enableNPC:" + data);
+            }
+            if (!FlagBag.Instance.HasFlag("disableNPC:" + data))
+            {
+                FlagBag.Instance.AddFlag("disableNPC:" + data);
+            }
+            NPCManager.Instance.Refresh();
+        }
     }
 
     private void PreprocessdTags(List<string> tags, string funcName, Story tempStory)

@@ -1,13 +1,12 @@
 //mission name: mystery man
-#after：power cut
+// #after：power cut
 
-=== start ===
-#collidetrigger: {任务地点}
-+n
+=== func_start ===
+#collidetrigger: mystery_collider
 你突然觉得四处有些变化……
 -
-#enable: mystery
 +n
+#enableNPC: mystery
 突然，眼前出现了一个人。你被吓了一跳。
 -
 +n
@@ -16,6 +15,10 @@ ta戴着奇怪的面具，你并不认识这个人，但是总觉得ta身上有�
 +n
 这个突然出现的突兀存在，就这样静静地站在那里。似乎很想让你过去，又似乎并不在意你是否会过去。
 -
++n
+->DONE
+
+=== func_talk_to_mystery ===
 #attach: mystery
 *你是……？
 ……
@@ -56,7 +59,9 @@ ta戴着奇怪的面具，你并不认识这个人，但是总觉得ta身上有�
 *<color=grey>（或许……我该去找<color=red>安保处</color>问问？）</color>
 ->DONE
 
-=== safety_guard ===
+=== func_talk_to_guard ===
+#attach: security_guard
+#after: func_talk_to_mystery
 *保安大哥，刚刚我看见了一个怪人
 怪人！哪里？有伤着你吗？
 -
@@ -93,8 +98,9 @@ ta戴着奇怪的面具，你并不认识这个人，但是总觉得ta身上有�
 *诶，好的好的，谢谢保安大哥！
 ->DONE
 
-=== return_to_mystery ===
+=== func_return_to_mystery ===
 #attach: mystery
+#after: func_talk_to_guard
 *……
 ……
 -
@@ -180,8 +186,8 @@ ta戴着奇怪的面具，你并不认识这个人，但是总觉得ta身上有�
 ->DONE
 
 
-=== ending ===
-TODO: #require:每个徽章
+=== func_ending ===
+TODO: #require: 每个徽章
 #attach: mystery
 *我已经把徽章收集完了
 很好。
@@ -210,5 +216,6 @@ TODO: #require:每个徽章
 +n
 <color=grey>（眼前这个人，就是你。）</color>
 -
++n
 #endstory
 ->DONE

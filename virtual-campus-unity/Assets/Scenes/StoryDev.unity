@@ -3666,6 +3666,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: mystery
       objectReference: {fileID: 0}
+    - target: {fileID: 6080431462720044899, guid: 774b3b599d920894b952b891d53dcd40,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6080431462720044902, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
       propertyPath: inkFile
@@ -7154,6 +7159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 840534087}
+  - component: {fileID: 840534088}
   m_Layer: 0
   m_Name: NPCs
   m_TagString: Untagged
@@ -7194,6 +7200,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &840534088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840534086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c03e072a9c331f2468cdda671629be8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &849343034
 GameObject:
   m_ObjectHideFlags: 0
@@ -8356,6 +8374,7 @@ MonoBehaviour:
   - {fileID: 2367396035484714011, guid: 95a2a1ca2ded1e543a8947feafca7ccd, type: 3}
   - {fileID: 6274775851670483821, guid: 4a98ec3e4ae16a94bb66217b101bb5c5, type: 3}
   - {fileID: 1142194251734658385, guid: 119c121793ecbdf488917958f5d7a24a, type: 3}
+  - {fileID: 2425346379270511919, guid: ae79e102a474bca4382d257e68ce20bf, type: 3}
   refreshFlag: 1
 --- !u!4 &987845792 stripped
 Transform:
