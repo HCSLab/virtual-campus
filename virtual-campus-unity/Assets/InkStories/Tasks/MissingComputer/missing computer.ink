@@ -1,8 +1,8 @@
 //mission name: missing computer
-#require: greetings of library
+// #require: greetings of library
 
-===  start ===
-#attach: studentZBW
+=== func_start ===
+#attach: student_ZBW
 *怎么了？
 我的电脑丢了！在图书馆丢的！
 -
@@ -42,19 +42,21 @@
 +n
 你能帮我去找安保处的人问问情况怎么样了吗？我知道的一定可以拜托你的。安保处就在<color=blue>启动区广场</color>，你去帮我找那里的工作人员问问吧。
 -
+*好吧
 ->DONE
 
-=== security ===
+=== func_security ===
 #attach: security_guard
-*询问有关电脑的事
+#after: func_start
+*（询问有关电脑的事）
 这样啊……我们昨天就已经解决这件事情了。可能你们没看到。喏，这是昨天发布的公告，你可以看看。
 -
-*阅读公告
-“昨天下午，一名校外盗贼伪装成学生，偷窃了一张学生卡，然后后潜入启动区图书馆（旧图），盗走了五台电脑。”
+*（阅读公告）
+“昨天下午，一名校外盗贼伪装成学生，偷窃了一张学生卡，然后后潜入启动区图书馆（旧图），盗走了五台电脑。
 -
 +n
 “在接到同学的通知后，我校安保处第一时间调取了监控。
-昨日，嫌犯多次想闯入校园，并最终于12:07分在校南门东200米处翻越围墙进入校园。”
+昨日，嫌犯多次想闯入校园，并最终于12:07分在校南门东200米处翻越围墙进入校园。
 -
 +n
 “下午1:52分，在热心同学的帮助下，嫌犯进入新图书馆，并在三楼盗取一张校园卡。
@@ -88,8 +90,9 @@
 *谢谢，知道了
 ->DONE
 
-=== return_to_ZBW ===
-#attach: studentZBW
+=== func_return_to_ZBW ===
+#attach: student_ZBW
+#after: func_security
 *如此这般……
 这样啊……那我心里就有数了。
 -
@@ -142,4 +145,5 @@
 谢谢了。
 -
 *……好的
+#endstory
 ->DONE
