@@ -1,11 +1,11 @@
 //mission name: workout time
 //任务名：革命的本钱
-#after: greetings of school
-#after: greetings of canteen
+// #after: greetings of school
+// #after: greetings of canteen
 
-->start
-=== start ===
-#attach: gym_recep
+
+=== func_start ===
+#attach: PEA_staff
 *你好，这里就是体育馆吗
 是的，你是新来的同学吗，看来还不太了解我们学校的体育设施。
 -
@@ -19,6 +19,7 @@
 
 === endings ===
 那么，这些就是目前我们学校所有的体育设施了，如果你有其他问题，欢迎给体育部发邮件，或到室内体育馆前台咨询！
+*好的，再见
 #endstory
 ->DONE
 
@@ -59,5 +60,7 @@
 ->introduction
 
 = others
++n
 我校其他的体育设施包括：上园P栋服务中心健身房、逸夫健身房、SR3教职员健身房、乒乓球室。
+-
 ->introduction
