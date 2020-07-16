@@ -1,9 +1,9 @@
 //mission name: kitten redemption
-#after: greetings of library
-->begin
+// #after: greetings of library
 
-=== begin ===
-#attach: whitey
+
+=== func_begin ===
+#attach: cat_whitey
 *<color=grey>（啊，好可爱的猫）</color>
 喵喵喵……喵喵喵……
 -
@@ -61,8 +61,8 @@
 +n
 ->DONE
 
-=== go_to_Shaw_dorm_admin ===
-#require: begin
+=== func_go_to_Shaw_dorm_admin ===
+#after: func_begin
 #attach: Shaw_dorm_admin
 *阿姨，你见过食堂门前的那只小白猫嘛
 哦？看样子你已经见过小白了，很可爱是吧？
@@ -95,16 +95,15 @@
 -
 +n 
 只要有了它，就可以和小白正常对话了哦……
-    ++太棒了
-        #addflag: translator
-        TODO: 获取物品：猫语翻译器
-        ->DONE
-    ++我不需要
-        ->DONE
+-
++太棒了
+TODO: 获取物品：猫语翻译器
+->DONE
 
-=== return_to_whitey ===
-#require: translator
-#attach: whitey
+
+=== func_return_to_cat_whitey ===
+#after: func_go_to_Shaw_dorm_admin
+#attach: cat_whitey
 *你......好？
 啊，人类，你拿到翻译器了吗？
 -
@@ -160,8 +159,8 @@
 ->DONE
 
 
-=== go_to_HSS_dean ===
-#require: return_to_whitey
+=== func_go_to_HSS_dean ===
+#require: func_return_to_cat_whitey
 #attach: HSS_dean
 *教授好，你最近有见到小可爱吗
 小可爱？难道她不见了？嘶，这可是个大问题。
@@ -184,8 +183,9 @@
 +n
 ->DONE
 
-=== return_to_dorm_admin ===
-#require: go_to_HSS_dean
+
+=== func_return_to_dorm_admin ===
+#require: func_go_to_HSS_dean
 #attach: Shaw_dorm_admin
 *小可爱可能是怀孕了
 怀孕？小可爱还失踪了？
@@ -229,14 +229,14 @@ TODO:获取猫粮
 -
 +n
 所以我猜，它应该还是在食堂附近
+#enableNPC: cat_cutey
 -
-+n
-#enable:cutey
+*我这就去看看
 ->DONE
 
-=== ending ===
-#require: return_to_dorm_admin
-#attach: whitey
+=== func_ending ===
+#require: func_return_to_dorm_admin
+#attach: cat_whitey
 *……
 ……
 -

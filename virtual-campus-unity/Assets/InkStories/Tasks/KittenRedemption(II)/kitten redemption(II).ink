@@ -1,8 +1,9 @@
 // mission name: kitten redemption(II)
-#after: kitten redemption(I)
+// #after: kitten redemption(I)
 
-=== start ===
-#attach: cutey
+
+=== func_start ===
+#attach: cat_cutey
 *小可爱今天胃口不好？
 吃饭是为了活着，而或者才不是为了吃饭
 -
@@ -36,10 +37,11 @@
 +n
 或许图书馆有人知道这是什么情况
 -
+*...好吧
 ->DONE
 
-=== library ===
-#require: start
+=== func_library ===
+#require: func_start
 #attach: lib_receptionist
 *你知道互换身体的灵异事件吗？
 咦？你是说小白和小可爱灵魂互换了？
@@ -74,10 +76,11 @@
 +n
 这一点你还是去问问书院的宿管阿姨吧
 -
++n
 ->DONE
 
-=== dorm ===
-#require:library
+=== func_dorm ===
+#require: func_library
 #attach: Shaw_dorm_admin
 *如此这般……
 哦……你是说小可爱和小白灵魂互换？
@@ -103,9 +106,9 @@
 +n
 ->DONE
 
-=== canteen ===
-#require: dorm
-#attach: whitey
+=== func_canteen ===
+#require: func_dorm
+#attach: cat_whitey
 *小可爱快来吃点东西吧
 呜呜呜好人！你问出来什么了吗？
 -
@@ -160,8 +163,8 @@
 +n
 ->DONE
 
-=== dorm2 ===
-# require: canteen
+=== func_dorm2 ===
+# require: func_canteen
 # attach: Shaw_dorm_admin
 *您猜的果然没错
 哈！果然如此。
@@ -199,9 +202,9 @@
 +n 
 ->DONE
 
-=== ending ===
-#require: dorm2
-#attach: whitey
+=== func_ending ===
+#require: func_dorm2
+#attach: cat_whitey
 *事情就是这样，不是大问题
 原来是这样，真是非常感谢你，我的朋友。
 -
