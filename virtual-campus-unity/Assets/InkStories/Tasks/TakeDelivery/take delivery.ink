@@ -1,11 +1,11 @@
 //mission name: take delivery
-#require: greetings of library
+// #require: greetings of library
 
 VAR SW_door = false
 VAR SE_door = false
 VAR N_door = false
 
-=== start ===
+=== func_start ===
 #attach: student_ZBW
 *要一起去食堂吃饭吗？
 去食堂？我从来不去食堂吃的好吗。
@@ -28,46 +28,46 @@ VAR N_door = false
 *……别忘了鸡块鸡翅和可乐……
 ->DONE
 
-=== north_door ===
-#require: start
-#collidetrigger:{北门碰撞体}
+=== func_north_door ===
+#after: func_start
+#collidetrigger: north_gate_collider
 ~N_door = true
 {SE_door == true && SW_door == true:
-似乎哪里都没有，你决定回去找李雷问问看。
+似乎哪里都没有，你决定回去找张博文问问看。
 -else:
 似乎这里并没有任何人，去别的地方看看吧。
 }
 +n
 ->DONE
 
-=== southeast_door ===
-#require: start
-#collidetrigger:{东南门碰撞体}
+=== func_southeast_door ===
+#after: func_start
+#collidetrigger: southeast_gate_collider
 ~SE_door = true
 {N_door == true && SW_door == true:
-似乎哪里都没有，你决定回去找李雷问问看。
+似乎哪里都没有，你决定回去找张博文问问看。
 -else:
 似乎这里并没有任何人，去别的地方看看吧。
 }
 +n
 ->DONE
 
-=== southwest_door ===
-#require: start
-#collidetrigger:{西南门碰撞体}
+=== func_southwest_door ===
+#after: func_start
+#collidetrigger: southwest_gate_collider
 ~SW_door = true
 {N_door == true && SE_door == true:
-似乎哪里都没有，你决定回去找李雷问问看。
+似乎哪里都没有，你决定回去找张博文问问看。
 -else:
 似乎这里并没有任何人，去别的地方看看吧。
 }
 +n
 ->DONE
 
-=== ending === 
-#require:north_door
-#require:southeast_door
-#require:southwest_door
+=== func_ending === 
+#after: func_north_door
+#after: func_southeast_door
+#after: func_southwest_door
 #attach: student_ZBW
 *三个门怎么都没有人
 抱歉，我刚刚记错了，应该是小广场来着。
