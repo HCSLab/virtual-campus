@@ -1,7 +1,5 @@
-->prologue
-
-=== prologue ===
-+n 
+=== func_prologue ===
+#collidetrigger: birthpoint_collider
 今天是个大晴天。
 -
 +n
@@ -26,4 +24,6 @@
 +n
 现在，你应该已经很熟悉基础操作了。那么，请你沿着地图<color=red>上方</color>前往<color=red>小广场</color>吧，<color=red>校长</color>将在那里等着你。
 -
++n
+#endstory
 ->END
