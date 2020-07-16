@@ -1,8 +1,9 @@
 // mission name: mediocre story(I)
-#require: missing computer
+// #require: missing computer
 
-=== start ===
-#attach: temp_lib_recp
+=== func_start ===
+#collidetrigger: temp_lib_recp
+呼哧~呼哧~
 *（旧图前台的姐姐在搬箱子？打个招呼）
 嗨，同学你好呀。（挤出笑）
 -
@@ -160,6 +161,5 @@
 再见咯。
 -
 *再见
-#disable: temp_lib_recp
 #endstory
 ->DONE

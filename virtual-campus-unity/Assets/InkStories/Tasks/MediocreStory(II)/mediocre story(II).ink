@@ -1,8 +1,8 @@
 // mission name: mediocre story(II)
-#require: mediocre story(I)
-#夜间标记
+// #require: mediocre story(I)
+// #夜间标记
 
-=== start ===
+=== func_start ===
 #attach: Shaw_dorm_admin
 *阿姨好
 同学好啊，有什么需要帮忙的吗？我这里有各类工具，如果需要报修的话……
@@ -140,5 +140,6 @@
 +n
 好久没说这么多自己的事情了，谢谢你啊同学。你快回宿舍休息吧！
 -
+*嗯...阿姨再见
 #endstory
 ->DONE
