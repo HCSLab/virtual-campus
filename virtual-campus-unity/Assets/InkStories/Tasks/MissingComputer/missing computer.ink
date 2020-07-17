@@ -2,7 +2,9 @@
 // #require: greetings of library
 
 === func_start ===
-#attach: student_ZBW
+#override
+#collidetrigger: student_ZBW
+wuw...
 *怎么了？
 我的电脑丢了！在图书馆丢的！
 -
