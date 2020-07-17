@@ -124,11 +124,12 @@ public class InkTalk : MonoBehaviour
     {
         if (storyScript)
         {
-            storyScript.ProcessFunctionHeaderTags();
-
             if (!notFinished)
                 storyScript.AddFlag(executeFunction);
+            storyScript.ProcessFunctionHeaderTags();
         }
+
+        NPCManager.Instance.RefreshTalk();
 
         UIManager.Instance.CloseTalk(gameObject);
     }

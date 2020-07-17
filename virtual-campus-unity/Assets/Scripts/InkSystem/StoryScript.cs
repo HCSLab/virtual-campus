@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditorInternal;
+using UnityEditor;
+using VoxelImporter;
 
 public class StoryScript : MonoBehaviour
 {
@@ -86,6 +88,7 @@ public class StoryScript : MonoBehaviour
         buttonPrefab = talkPrefab.GetComponent<InkTalk>().button;
         inkStory = new Story(inkFile.text);
 
+        inkFunctions = GetAllInkFunctions(inkFile);
         ProcessFunctionHeaderTags();
     }
 
@@ -100,7 +103,6 @@ public class StoryScript : MonoBehaviour
         var tempStory = new Story(inkFile.text);
         PlayerInfo.WriteToInkStory(tempStory);
 
-        GetAllInkFunctions(tempStory);
         foreach (var func in inkFunctions)
         {
             //List<Ink.Runtime.Object> oldStream = null;
@@ -117,12 +119,14 @@ public class StoryScript : MonoBehaviour
         }
     }
 
-    private void GetAllInkFunctions(Story tempStory)
+    public static List<string> GetAllInkFunctions(TextAsset inkFile)
     {
+        var funcs = new List<string>();
         var text = inkFile.text;
+        var story = new Story(text);
 
         int pos = 0;
-        List<string> tp = new List<string>();
+        List<string> tmp = new List<string>();
         while (true)
         {
             pos = text.IndexOf("func_", pos);
@@ -133,21 +137,21 @@ public class StoryScript : MonoBehaviour
 
             var epos = text.IndexOf('"', pos);
             var fname = text.Substring(pos, epos - pos);
-            tp.Add(fname);
+            tmp.Add(fname);
             pos = epos;
         }
 
-        inkFunctions.Clear();
-        foreach (var func in tp)
+        foreach (var func in tmp)
         {
-            if (tempStory.HasFunction(func) && !inkFunctions.Contains(func))
+            if (story.HasFunction(func) && !funcs.Contains(func))
             {
-                inkFunctions.Add(func);
+                funcs.Add(func);
             }
         }
+        return funcs;
     }
 
-    private void StandardizationTag(string tag, out string op, out string data)
+    public static void StandardizationTag(string tag, out string op, out string data)
     {
         var sep = tag.IndexOf(':');
         if (sep != -1)
@@ -223,7 +227,7 @@ public class StoryScript : MonoBehaviour
             {
                 FlagBag.Instance.AddFlag("enableNPC:" + data);
             }
-            NPCManager.Instance.Refresh();
+            NPCManager.Instance.RefreshEnable();
         }
         else if (op == "disableNPC")
         {
@@ -235,7 +239,7 @@ public class StoryScript : MonoBehaviour
             {
                 FlagBag.Instance.AddFlag("disableNPC:" + data);
             }
-            NPCManager.Instance.Refresh();
+            NPCManager.Instance.RefreshEnable();
         }
     }
 
@@ -245,6 +249,7 @@ public class StoryScript : MonoBehaviour
         List<string> collideTriggerTags = new List<string>();
         List<string> requireTags = new List<string>();
         List<string> withoutTags = new List<string>();
+        bool isOverride = false;
 
         foreach (var tag in tags)
         {
@@ -271,17 +276,28 @@ public class StoryScript : MonoBehaviour
             {
                 withoutTags.Add(data);
             }
+            else if (op == "override")
+            {
+                isOverride = true;
+            }
         }
 
         withoutTags.Add(funcName);
 
-        foreach (var who in attachTags)
+        if (!isOverride)
         {
-            AttachToSpeaker(who, funcName, tempStory.currentChoices, requireTags, withoutTags);
+            foreach (var who in attachTags)
+            {
+                AttachToSpeaker(who, funcName, tempStory.currentChoices, requireTags, withoutTags);
+            }
         }
-
+        
         foreach (var who in collideTriggerTags)
         {
+            if (isOverride)
+            {
+                OverrideNPCTalk(who, requireTags, withoutTags);
+            }
             AddCollideTrigger(who, funcName, requireTags, withoutTags);
         }
     }
@@ -321,6 +337,10 @@ public class StoryScript : MonoBehaviour
         var obj = transform.Find(who);
         if (!obj)
         {
+            obj = NPCManager.Instance.transform.Find(who);
+        }
+        if (!obj)
+        {
             Debug.LogWarning("No specific GameObject found in AddCollideTrigger in " + name + ":" + funcName + ":" + who);
             return;
         }
@@ -333,6 +353,13 @@ public class StoryScript : MonoBehaviour
         creater.storyScript = this;
         creater.require.AddRange(require);
         creater.without.AddRange(without);
+    }
+
+    private void OverrideNPCTalk(string who, List<string> require, List<string> without)
+    {
+        bool state = FlagBag.Instance.HasFlags(require) && 
+                     FlagBag.Instance.WithoutFlags(without);
+        NPCManager.Instance.EnableDisableNPCOrigTalk(who, !state);
     }
 
     public void AddFlag(string flag)
