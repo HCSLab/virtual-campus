@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     [HideInInspector]
     public GameObject currentTalk;
 
+    private ScriptedFirstPersonAIO playerFPAIO;
+
     private void Awake()
     {
         Instance = this;
@@ -33,6 +35,8 @@ public class UIManager : MonoBehaviour
 
 	private void Start()
 	{
+        playerFPAIO = GameObject.FindGameObjectWithTag("Player")
+            .GetComponent<ScriptedFirstPersonAIO>();
         GetPaintersFromHub();
         DisableAllOpenedPanel();
 	}
@@ -67,6 +71,7 @@ public class UIManager : MonoBehaviour
             Destroy(currentTalk);
         }
         currentTalk = talk;
+        playerFPAIO.playerCanMove = false;
     }
 
     public void CloseTalk(GameObject talk = null)
@@ -77,6 +82,7 @@ public class UIManager : MonoBehaviour
             {
                 Destroy(currentTalk);
                 currentTalk = null;
+                playerFPAIO.playerCanMove = true;
             }
         }
         else
@@ -85,6 +91,7 @@ public class UIManager : MonoBehaviour
             {
                 Destroy(currentTalk);
                 currentTalk = null;
+                playerFPAIO.playerCanMove = true;
             }
         }
     }

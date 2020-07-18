@@ -25,6 +25,7 @@ public class StoryScript : MonoBehaviour
     private List<string> without = new List<string>();
 
     private List<UnityEngine.Object> dynamicallyGenerated = new List<UnityEngine.Object>();
+    private List<string> npcOverrided = new List<string>();
 
     public void GetStartConditions()
     {
@@ -99,12 +100,18 @@ public class StoryScript : MonoBehaviour
             Destroy(obj);
         }
         dynamicallyGenerated.Clear();
+        foreach (var npc in npcOverrided)
+        {
+            NPCManager.Instance.EnableDisableNPCOrigTalk(npc, true);
+        }
+        npcOverrided.Clear();
 
         var tempStory = new Story(inkFile.text);
         PlayerInfo.WriteToInkStory(tempStory);
 
-        foreach (var func in inkFunctions)
+        for (int i = inkFunctions.Count - 1; i >= 0; i--)
         {
+            var func = inkFunctions[i];
             //List<Ink.Runtime.Object> oldStream = null;
             tempStory.CheckInFunction(func);
             List<string> tags = new List<string>();
@@ -284,21 +291,25 @@ public class StoryScript : MonoBehaviour
 
         withoutTags.Add(funcName);
 
-        if (!isOverride)
+
+        foreach (var who in attachTags)
         {
-            foreach (var who in attachTags)
-            {
-                AttachToSpeaker(who, funcName, tempStory.currentChoices, requireTags, withoutTags);
-            }
+            AttachToSpeaker(who, funcName, tempStory.currentChoices, requireTags, withoutTags);
         }
         
         foreach (var who in collideTriggerTags)
         {
             if (isOverride)
             {
-                OverrideNPCTalk(who, requireTags, withoutTags);
+                if (OverrideNPCTalk(who, requireTags, withoutTags))
+                {
+                    AddCollideTrigger(who, funcName, requireTags, withoutTags);
+                }
             }
-            AddCollideTrigger(who, funcName, requireTags, withoutTags);
+            else
+            {
+                AddCollideTrigger(who, funcName, requireTags, withoutTags);
+            }
         }
     }
 
@@ -312,13 +323,11 @@ public class StoryScript : MonoBehaviour
             button.transform.localScale = Vector3.one;
 
             var attach = button.gameObject.AddComponent<AttachToTalk>();
-            dynamicallyGenerated.Add(attach);
             attach.speakerName = who;
             attach.require.AddRange(require);
             attach.without.AddRange(without);
 
             var creater = button.gameObject.AddComponent<CreateInkTalk>();
-            dynamicallyGenerated.Add(creater);
             creater.inkFile = inkFile;
             creater.executeFunction = funcName;
             creater.talkPrefab = talkPrefab;
@@ -355,11 +364,20 @@ public class StoryScript : MonoBehaviour
         creater.without.AddRange(without);
     }
 
-    private void OverrideNPCTalk(string who, List<string> require, List<string> without)
+    private bool OverrideNPCTalk(string who, List<string> require, List<string> without)
     {
-        bool state = FlagBag.Instance.HasFlags(require) && 
-                     FlagBag.Instance.WithoutFlags(without);
-        NPCManager.Instance.EnableDisableNPCOrigTalk(who, !state);
+        if (!npcOverrided.Contains(who) &&
+            FlagBag.Instance.HasFlags(require) &&
+            FlagBag.Instance.WithoutFlags(without))
+        {
+            npcOverrided.Add(who);
+            NPCManager.Instance.EnableDisableNPCOrigTalk(who, false);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void AddFlag(string flag)
@@ -385,6 +403,10 @@ public class StoryScript : MonoBehaviour
         foreach (var flag in localFlags)
         {
             FlagBag.Instance.DelFlag(flag);
+        }
+        foreach (var obj in dynamicallyGenerated)
+        {
+            Destroy(obj);
         }
     }
 }
