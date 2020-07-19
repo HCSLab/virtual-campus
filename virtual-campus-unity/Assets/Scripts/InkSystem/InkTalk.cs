@@ -62,10 +62,10 @@ public class InkTalk : MonoBehaviour
             panelSizedButton.gameObject.SetActive(false);
         }
 
-        text.text = "";
+        string sentences = "";
         while (inkStory.canContinue)
         {
-            text.text += inkStory.Continue();
+            sentences += inkStory.Continue();
             var tags = inkStory.currentTags;
             if (storyScript)
             {
@@ -74,6 +74,10 @@ public class InkTalk : MonoBehaviour
                     storyScript.InProcessTag(tag, this, inkStory);
                 }
             }
+        }
+        if (sentences != "")
+        {
+            text.text = sentences;
         }
 
         foreach (var choice in inkStory.currentChoices)
