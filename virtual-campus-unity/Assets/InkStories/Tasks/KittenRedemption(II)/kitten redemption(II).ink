@@ -1,6 +1,7 @@
 // mission name: kitten redemption(II)
-// #after: kitten redemption(I)
-// #after: mediocre story(II)
+
+#after: kitten redemption(I)
+#after: mediocre story(II)
 
 === func_start ===
 #override
