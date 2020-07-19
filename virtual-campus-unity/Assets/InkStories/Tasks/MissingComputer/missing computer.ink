@@ -1,11 +1,19 @@
 //mission name: missing computer
-// #require: greetings of library
+#after: parkour(I)
+#after: workout time
 
 === func_start ===
 #override
-#collidetrigger: student_ZBW
-wuw...
+#collidetrigger:student_ZBW
+<color=\#808080>（闷闷不乐的样子）</color>
+…………
+*\*离开*
+    #notfinished
+    ->END
 *怎么了？
+我的电脑丢了！
+-
++n
 我的电脑丢了！在图书馆丢的！
 -
 *啊？
@@ -15,9 +23,9 @@ wuw...
 查了，报警了，我在等学校安保处的消息呢。听说一下丢了五台电脑……
 -
 *这得有几个贼啊……
-（汗）进一个贼就能带走一筐电脑好不。
+<color=\#808080>（汗）</color>进一个贼就能带走一筐电脑好不。
 -
-+n 
++n
 我的论文还没写完了，又快要到DDL了。
 -
 +n
@@ -33,7 +41,10 @@ wuw...
 希望电脑早点找到……想想我就气……都怪……
 -
 +n
-都怪图书馆！
+希望电脑早点找到……想想我就气……都怪……都怪……
+-
++n
+希望电脑早点找到……想想我就气……都怪……都怪……都怪图书馆！
 -
 *……
 也不知道现在找到没有。
@@ -47,13 +58,23 @@ wuw...
 *好吧
 ->DONE
 
+=== func_ZBW ===
+#require: func_start
+#override
+#collidetrigger: student_ZBW
+<color=\#808080>（闷闷不乐的样子）</color>
+怎么办呢，电脑找不回来可就麻烦了……
+#notfinished
++\*离开*
+->DONE
+
 === func_security ===
 #attach: security_guard
 #after: func_start
-*（询问有关电脑的事）
+*询问有关电脑的事
 这样啊……我们昨天就已经解决这件事情了。可能你们没看到。喏，这是昨天发布的公告，你可以看看。
 -
-*（阅读公告）
+*阅读公告
 “昨天下午，一名校外盗贼伪装成学生，偷窃了一张学生卡，然后后潜入启动区图书馆（旧图），盗走了五台电脑。
 -
 +n
@@ -93,8 +114,9 @@ wuw...
 ->DONE
 
 === func_return_to_ZBW ===
-#attach: student_ZBW
-#after: func_security
+#override
+#collidetrigger:student_ZBW
+#require:func_security
 *如此这般……
 这样啊……那我心里就有数了。
 -
@@ -114,16 +136,25 @@ wuw...
 ……
 -
 +n
-<color=grey>（不好意思地挠了挠头）</color>
+<color=\#808080>（张博闻低下了头）</color>
 -
 +n
 但是总要有人去承担责任的……
 -
 +n
-……
+但是总要有人去承担责任的…………
+-
++n
+但是总要有人去承担责任的………………
 -
 *还有事吗？
 ……
+-
++n
+…………
+-
++n
+………………
 -
 +n
 没有了……
@@ -141,11 +172,11 @@ wuw...
 你能帮我去看一下她嘛……
 -
 +n
-就在<color=red>晚上</color>的<color=red>图书馆门前</color>。
+她可能就在<color=red>图书馆门前</color>吧。
 -
 +n
-谢谢了。
+谢谢了……
 -
-*……好的
+*……嗯嗯
 #endstory
-->DONE
+->END

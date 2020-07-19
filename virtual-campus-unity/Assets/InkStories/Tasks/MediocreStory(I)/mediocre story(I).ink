@@ -1,10 +1,10 @@
 // mission name: mediocre story(I)
-// #require: missing computer
+#require: missing computer
 
 === func_start ===
 #collidetrigger: temp_lib_recp
-呼哧~呼哧~
-*（旧图前台的姐姐在搬箱子？打个招呼）
+呼哧呼哧（搬箱子中）
+*（她就是那个前台了吧，打个招呼吧）
 嗨，同学你好呀。（挤出笑）
 -
 *你在收东西？
