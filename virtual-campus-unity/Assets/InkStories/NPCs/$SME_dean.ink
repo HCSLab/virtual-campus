@@ -25,14 +25,13 @@ VAR flag = true
 *会计学 ->undergraduate.ACT
 *金融工程（与理工学院联合创办）->undergraduate.FE
 *可以了，谢谢->
-    ++n
     ~ flag = !flag
     {flag == false:
     那么你目前已经听完了经管学院<color=blue>本科生</color>的简介了。你还想要听一下<color=blue>研究生</color>的吗？
-        +++是
+        ++是
             想听哪个方向的介绍？
             ->graduate
-        +++不了，谢谢
+        ++不了，谢谢
             ->END
     - else:
     以上就是全部内容了，有需要再来找我哦。
@@ -119,14 +118,13 @@ VAR flag = true
 *数据科学理学 ->graduate.DS
 *管理学理学 ->graduate.MGT
 *可以了，谢谢->
-    ++n
     ~ flag = !flag
     {flag == false:
     那么你目前已经听完了经管学院<color=blue>研究生</color>的简介了。你还想要听一下<color=blue>本科生</color>的吗？
-        +++是
+        ++是
             想听哪个方向的介绍？
             ->undergraduate
-        +++不了，谢谢
+        ++不了，谢谢
             ->END
     - else:
     以上就是全部内容了，有需要再来找我哦。

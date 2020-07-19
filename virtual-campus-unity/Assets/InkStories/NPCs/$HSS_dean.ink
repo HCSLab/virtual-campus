@@ -28,14 +28,13 @@ VAR flag = true
 *英语 ->undergraduate.ENG
 *应用心理学 ->undergraduate.PSY
 *可以了，谢谢->
-    ++n
     ~ flag = !flag
     {flag == false:
     那么以上是人文学院<color=blue>本科生</color>的专业简介。你是否还想要听一下<color=blue>研究生</color>的专业简介？
-        +++是
+        ++是
             想听哪个方向的介绍？
             ->graduate
-        +++不了，谢谢
+        ++不了，谢谢
             ->END
     - else:
     以上就是全部内容了，有需要再来找我哦。
@@ -96,14 +95,13 @@ VAR flag = true
 *同声传译 ->graduate.SI
 *翻译 ->graduate.TRA
 *可以了，谢谢->
-    ++n
     ~ flag = !flag
     {flag == false:
     那么以上是人文学院<color=blue>研究生</color>的专业简介。你是否还想要听一下<color=blue>本科生</color>的专业简介？
-        +++是
+        ++是
             想听哪个方向的介绍？
             ->undergraduate
-        +++不了，谢谢
+        ++不了，谢谢
             ->END
     - else:
     以上就是全部内容了，有需要再来找我哦。

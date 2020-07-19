@@ -21,14 +21,13 @@ VAR flag = true
 *生物信息学 ->undergraduate.BI
 *生物医学工程 ->undergraduate.BME
 *可以了，谢谢->
-    ++n
     ~ flag = !flag
     {flag == false:
     那么你目前已经听完了理工学院<color=blue>本科生</color>所有专业的简介了。你还想要听一下<color=blue>研究生</color>的吗？
-        +++是
+        ++是
             想听哪个方向的介绍？
             ->graduate
-        +++不了，谢谢
+        ++不了，谢谢
             ->END
     - else:
     以上就是全部内容了，有需要再来找我哦。
@@ -71,14 +70,13 @@ VAR flag = true
 == graduate ==
 *生物科学硕士-博士 ->graduate.BS
 *可以了，谢谢->
-    ++n
     ~ flag = !flag
     {flag == false:
     那么你目前已经听完了理工学院<color=blue>研究生</color>所有专业的简介了。你还想要听一下<color=blue>本科生</color>的吗？（一旦要听，就要把所有本科生专业全部听完）
-        +++是
+        ++是
             想听哪个方向的介绍？
             ->undergraduate
-        +++不了，谢谢
+        ++不了，谢谢
             ->END
     - else:
     以上就是全部内容了，有需要再来找我哦。
