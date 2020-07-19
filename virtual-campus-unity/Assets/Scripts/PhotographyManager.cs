@@ -8,6 +8,7 @@ public class PhotographyManager : MonoBehaviour
 {
 	[Header("Photography Settings")]
 	public Camera photographyCamera;
+	public float maxPositionError, maxEulerDegreeError;
 
 	[Header("Camera Controll Settings")]
 	[Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
@@ -158,5 +159,11 @@ public class PhotographyManager : MonoBehaviour
 		// Initialize the camera
 		photographyCamera.enabled = false;
 		photographyCamera.depth -= 20;
+	}
+
+	public bool IsTargetPhotoTaken(Transform target)
+	{
+		return ((photographyCamera.transform.position - target.position).magnitude < maxPositionError)
+			&& ((photographyCamera.transform.eulerAngles - target.eulerAngles).magnitude < maxEulerDegreeError);
 	}
 }
