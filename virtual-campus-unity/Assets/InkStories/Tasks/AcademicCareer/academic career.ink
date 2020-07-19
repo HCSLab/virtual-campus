@@ -6,6 +6,9 @@
 // #require: greetings of SDS
 
 VAR school = ""
+VAR index = 0
+VAR egg = ""
+VAR flag = 0
 
 === attach_school_dean ===
 { school:
@@ -17,11 +20,48 @@ VAR school = ""
 }
 ->->
 
+=== function chi_school(eng_school) ===
+{ eng_school:
+    - "SME": ~return "经管学院"
+    - "SSE": ~return "理工学院"
+    - "LHS": ~return "生命健康学院"
+    - "HSS": ~return "人文社科学院"
+    - "SDS": ~return "数据科学院"
+}
+
+// Also a category of this ink file. 
+// Press "ALT" and right click to SKIP to the corresponding part
+=== turn_to ===
+{flag:
+    -0: ->General_Questions
+    -1:
+    {school:
+        -"SME":->SME_Easy_Questions
+        -"SSE":->SSE_Easy_Questions
+        -"LHS":->LHS_Easy_Questions
+        -"HSS":->HSS_Easy_Questions
+        -"SDS":->SSE_Easy_Questions
+    }
+    -2:
+    {school:
+        -"SME":->SME_Hard_Questions
+        -"SSE":->SSE_Hard_Questions
+        -"LHS":->LHS_Hard_Questions
+        -"HSS":->HSS_Hard_Questions
+        -"SDS":->SSE_Hard_Questions
+    }
+
+}
+
+=== init ===
+~index = 0
+~egg = ""
+->->
 
 /*************************************/
 //              Main Body            //
 /*************************************/
-
+    
 === func_start_career ===
 #attach: registry_receptionist
 *已经把院长们全都找回来了
@@ -76,12 +116,12 @@ VAR school = ""
 -
 #upd_info
 +n
-好的，那么我会尽快为你办理好手续，让你进入该学院的。
+是{chi_school(school)}啊，好的。那么我会尽快为你办理好手续，让你进入该学院的。
 -
 +n
-现在，去找你所在学院的院长聊聊吧，或许还会有一些别的事情要告诉你呢。
+现在，去找<color=red>{chi_school(school)}的院长</color>聊聊吧，或许还会有一些别的事情要告诉你呢。
 -
-+n
+*知道了
 ->DONE
 
 === func_return_to_dean ===
@@ -95,102 +135,186 @@ VAR school = ""
 可惜，还不行哦。
 -
 +n
-因为你这个算是特殊情况，逾期进入学院，是特殊情况。因此我为你特殊安排了一场入院问答。
+因为你这个算是特殊情况，逾期进入学院，是特殊情况。因此我为你特殊安排了一场入院考试。
 -
 *入院考试？
-因为是刚刚才接到消息，因此这套题是临时收集出来的，很多人都参与了出题，可是费了不少功夫。
+对的，准确地说，更像是<color=blue>问答</color>。
 -
 +n
-图书馆的前台人员；教务处的老师；你的学长学姐；<color=grey>甚至还有食堂前的那两只小猫……</color>
+整个问答一共分为<color=blue>三个阶段</color>，每个阶段会有若干道题。全部为<color=blue>单选</color>。难度上会有递进。
+-
++n
+因为是刚刚才接到消息，因此这套题是题库里临时随机组合出来的，有的时候，<color=blue>题目会有重复</color>，你可能会在不同阶段做到同一道题，有时，你甚至会在同一阶段做到同一道题。
+-
++n
+因为情况特殊，学院的老师也在忙着接待新生，因此我们便发动了很多学院内的学生、以及学校里的工作人员给你丰富题库，可是费了不少功夫。
+-
++n
+其中有图书馆的前台人员、
+-
++n
+其中有图书馆的前台人员、教务处的老师、
+-
++n
+其中有图书馆的前台人员、教务处的老师、你的学长学姐、
+-
++n
+其中有图书馆的前台人员、教务处的老师、你的学长学姐、<color=\#808080>甚至还有食堂前的那两只小猫……</color>
 -
 *小猫？
-不要过分在意细节……总之这套题既不是硬核学术流，也不是日常轻松向。一些问题或许你目前也解决不了，一些问题或许你需要找别人打听才能得到答案。
+不要在意这些……总之，你只需要知道，每个学校的成员都有可能参与了这套题的编写。因此这套题既不硬核，也不轻松，或许应该说是一套杂七杂八什么都有的题。
 -
 +n
-整个问答一共分为三个阶段，每个阶段会有若干道题。全部为<color=blue>单选</color>。难度上会有<color=blue>递进</color>。
+有的会考你对于学校某个设施或是某项规定的了解；有的会考你一些学院的常识；有的甚至会考你一些你不知道的学院内部轶事；当然，也会有几道单纯的学术问题……
 -
 +n
-当然，作为平衡，我们也特殊允许你多次作答。
+你或许会觉得很难，但是其实除了学术类问题需要完全靠你自己回答以外，<color=blue>其他的问题，你都可以在校园里找到答案</color>。
 -
 +n
-那么，当你决定好了的话，就回到我这里来答题吧。
+当然，这就需要你认真地去搜集信息，打听情报。毕竟，逾期进入学院可不是那么容易的。
+-
++n
+而对于学术问题，有一点你必须清楚：这些题里会有一些，或许有很多，以你目前的能力也解决不了的问题。作为院长，我当然认为，你是应该在认真学习之后再回来回答这些难题的。但是呢，条条大路通罗马，解决问题的方式或许不止一种。
+-
++n
+对于你来说，最好的消息或许莫过于，我们允许你<color=blue>多次作答</color>。这样，你会有充足的时间去准备，不要心急，不要气馁，失败了就再接再厉。
+-
++n
+那么，当你准备好了的话，就回到我这里来答题吧。
 -
 +n
 ->DONE
 
+=== func_hint ===
+#require: func_return_to_dean
+->attach_school_dean->
++关于问答
+    {school:
+        -"SME":->hint.SME
+        -"SSE":->hint.SSE
+        -"LHS":->hint.LHS
+        -"HSS":->hint.HSS
+        -"SDS":->hint.SDS
+    }
+
+
 === func_career_1 ===
 #require: func_return_to_dean
 -> attach_school_dean ->
-
-*我决定好了，开始答题吧！
++我准备好了，开始第一轮的答题吧！
+    ->init->
     ->General_Questions
 
 === func_career_2 ===
 #require: func_career_1
 -> attach_school_dean ->
-
-*我准备好了，开始答题吧！
-    {school == "SME":
-    ->SME_Easy_Questions
-    }{school == "SSE":
-    ->SSE_Easy_Questions
-    }{school == "LHS":
-    ->LHS_Easy_Questions
-    }{school == "HSS":
-    ->HSS_Easy_Questions
-    }{school == "SDS":
-    ->SSE_Easy_Questions
-    }
-    
++我准备好了，开始第二轮的答题吧！
+    ->init->
+    ->turn_to
 
 === func_career_3 ===
 #require: func_career_2
 -> attach_school_dean ->
-
-*我准备好了！
+~index = 0
++我准备好最后一轮的答题了！
 真的嘛，这可是最终的答题了哦，你确定自己准备好了吗？
     ++是的
     那么，开始吧！
-        {school == "SME":
-        ->SME_Hard_Questions
-        }{school == "SSE":
-        ->SSE_Hard_Questions
-        }{school == "LHS":
-        ->LHS_Hard_Questions
-        }{school == "HSS":
-        ->HSS_Hard_Questions
-        }{school == "SDS":
-        ->SSE_Hard_Questions
-        }
+        ->init->
+        ->turn_to
     ++那我再准备准备吧
         #notfinished
         ->DONE
 
 === success ===
-*全部正确
-恭喜你！完成了第<>{!一|二|三}<>部分的题目。<>{!当你准备好之后，就可以来进行第二阶段的答题了！|当你准备好之后，就可以来进行最后的答题了！|那么恭喜你，你完成了所有的题目！->ending}
+~flag = flag+1
+{flag:
+    -1:
+    +n
+    恭喜你！完成了第一部分的题目。当你准备好之后，就可以来进行第二阶段的答题了！
+        ++n
+        ->DONE
+    -2:
+    +n
+    恭喜你！完成了第二部分的题目。当你准备好之后，就可以来进行最后的答题了！
+        ++n
+        ->DONE
+    -3:
+    +n
+    恭喜你！完成了最后的题目！
+        ++n
+        ->ending
+}
 
 === failure ===
 {egg != "": ->checkEgg}
++n
 啊呀，你这道题答错了呢，再回去多加努力吧。
-->DONE
+-
++n
+#notfinished
+->END
 
 === ending ===
 +n 
-那么，你已经完成了所有的问题，恭喜你成为了<>
-{school == "SME":经管学院}<>
-{school == "SSE":理工学院}<>
-{school == "LHS":生命健康学院}<>
-{school == "HSS":人文学院}<>
-{school == "SDS":数据科学院}<>
-的一员！
+那么，你已经完成了所有的问题，恭喜你成为了{chi_school(school)}的一员！
 -
 +n 
-这是给你的奖励。
+怎么样，这套题不容易吧。
 -
-+n 
++n
+经历这么多磨难，终于答完题目，感觉如何，有成就感吗？
+-
+*感觉挺疲倦的……
+辛苦了辛苦了。
+-
+*没事，都是为了能够顺利上学嘛……
+是的，恭喜你终于进入了{chi_school(school)}。
+-
++n
+不过我还有一些其他的事情要告诉你。
+-
++n
+其实，你之前所做的那些题，并不是像我之前告诉你的那样，由学校里杂七杂八的人一起凑出来的。
+-
++n
+这套题其实是开学后不久，一个戴着奇怪面具的人找到我，交给我的。
+-
++n
+这个奇怪的人似乎知道会有一个没有进入任何学院的新生，也就是你。并且料定了这个特殊的新生会决定来{chi_school(school)}，因此把这套题交给了我。
+-
++n
+那个人告诉了我我之前给你说的那些话，让我这么告诉你这套题的来源，并且一定要让你做完这三套题，才能告诉事实。很奇怪的要求吧……
+-
+*那院长你怎么也真的照做了啊……
+嘶……因为我当时拿到之后，也大概看了看这几套题，虽然不能说出的很好，但是对于新生来说，也算是各方面知识都尽量普及了，做做总没坏处。
+-
++n
+而且其实对于你来说，谁出的题、哪来的题也没有什么区别嘛……就算那个神秘人不给我这套题，你还是需要通过一定考验才能逾期入学的。
+-
+*好吧……
+哦对了，还有一个东西要给你。
+-
++n
+<color=\#808080>（院长在兜里摸索了一阵子）</color>
+-
++n
+就是这个徽章，也是那个神秘人给我的，说这个叫做<color=\#800080><b>学术徽章</b></color>。说在你顺利答完所有题目之后，就可以把这个徽章给你了。
+-
++n
+虽然从学院院长的角度来看，这些题的内容可能和我理解的学术有一点点区别……
+-
++n
+不过嘛，做学术更重要的不是知识或者内容，而是<color=blue>探索、收集、分析以及解决的过程</color>。
+-
++n
+相信这些，你已经在之前寻找答案的过程中体会到了。
+-
++n
+因此这枚<color=\#800080><b>学术徽章</b></color>，我认为是应该给你的。请收好它吧。
+-
+*……谢谢院长
 TODO: 获取学院徽章（、学院皮肤？）
--
 #endstory
 ->END
 
@@ -198,16 +322,38 @@ TODO: 获取学院徽章（、学院皮肤？）
 //            General Part           //
 /*************************************/
 
-VAR egg = ""
-
 === General_Questions ===
-+n
-{!准备好开始了吗？|不要轻敌哦，刚开始题目简单是很正常的，接下来就会慢慢变难咯。|看来你似乎觉得这些题都太简单了吗？那好啊，来点难题吧！|不错嘛，这道题也能答得出来。|那么下面一道题……|接下来就是最后一道题咯……}
--
-{!1. ->pickEasy|2. ->pickEasy|3. ->pickSchool|4. ->pickSchool|5. ->pickHard|6. ->pickHard|->success}
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。
+            ++n
+            {index}. ->pickEasy
+    -2: +n
+        不要轻敌哦，刚开始题目简单是很正常的，接下来就会慢慢变难咯。
+            ++n
+            {index}. ->pickEasy
+    -3: +n
+        那么下面一道题……是有关我们学院的……
+            ++n
+            {index}. <>->pickSchool
+    -4: +n
+        那么，下面一道……
+            ++n
+            {index}. <>->pickSchool
+    -5: +n
+        看来你似乎觉得这些题都太简单了吗？那好啊，来点难题吧！
+            ++n
+            {index}. ->pickHard
+    -6: +n
+        接下来就是最后一道题咯……
+            ++n
+            {index}. ->pickHard
+    -7:->success
+}
 
 = pickEasy
-{~->easy1|->easy2|->easy3|->easy4|->easy5}
+{~->easy1|->easy2|->easy3|->easy4|->easy5|->easy6|->easy7}
 
 = pickSchool
 {school == "SME":{~->SME1|->SME2}}
@@ -216,8 +362,6 @@ VAR egg = ""
 {school == "HSS":{~->HSS1|->HSS2}}
 {school == "SDS":{~->SDS1|->SDS2}}
 ->General_Questions
-Error: NOT CHOSEN SCHOOL
--> DONE
 
 = pickHard
 {~->hard1|->hard2|->hard3|->hard4|->hard5}
@@ -232,7 +376,7 @@ Error: NOT CHOSEN SCHOOL
         ~egg = "easy1.1"
         ->failure
     + C. TB
-        ->General_Questions
+        ->turn_to
     + D. TA
         ~egg = "easy1.1"
         ->failure
@@ -240,7 +384,7 @@ Error: NOT CHOSEN SCHOOL
 = easy2
 我校的官方英文简称是：
     + CUHK(SZ)
-        ->General_Questions
+        ->turn_to
     + CUHK
         ->failure
     + LGU
@@ -259,7 +403,7 @@ Error: NOT CHOSEN SCHOOL
         ~egg = "easy3.1"
         ->failure
     + 5
-        ->General_Questions
+        ->turn_to
     + 0
         ~egg = "easy3.2"
         ->failure
@@ -267,15 +411,15 @@ Error: NOT CHOSEN SCHOOL
 = easy4
 我校下园的书院有几个？
     + 天下大同，大家都在下园
-        ~egg = 4.1
+        ~egg = "easy4.1"
         ->failure
     + 全部木大，大家都不在下园
-        ~egg = 4.2
+        ~egg = "easy4.2"
         ->failure
     + 独步天下，只有逸夫独享下园
-        ->General_Questions
+        ->turn_to
     + 呆滞，我不知道
-        ~egg = 4.3
+        ~egg = "easy4.3"
         ->failure
         
 = easy5
@@ -287,31 +431,31 @@ Error: NOT CHOSEN SCHOOL
     +二至六层
         ->failure
     +一至五层
-        ->General_Questions
+        ->turn_to
         
 = easy6
-学生至少需要修够___学分才能提前毕业：
+本科生生至少需要修够___学分才能提前毕业：
     +120
-        ->General_Questions
+        ->turn_to
     +144 
         ->failure
     +180
         ->failure
     +1200
-        ~egg = 6.1
+        ~egg = "easy6.1"
         ->failure
         
 = easy7
-学生需要修够至少修够___门英语课，___门通识课：
+本科生在校期间需要修够至少修够___门英语课，___门通识课：
     + 4 10
         ->failure
     + 0 0
-        ~egg = 7.1
+        ~egg = "easy7.1"
         ->failure
     + 4 4
         ->failure
     + 4 6
-        ->General_Questions
+        ->turn_to
         
 /* General Questions: Hard Part */
 = hard1
@@ -319,14 +463,14 @@ Error: NOT CHOSEN SCHOOL
     +一楼的自习室
         ->failure
     +二楼的多人静音舱
-        ->General_Questions
+        ->turn_to
     +四楼的自习室
         ->failure
     
 = hard2
-如果你在丢了饭卡之后，想去失物招领处找回，应该去____。
+如果你在丢了饭卡之后，想去失物招领处找回，可以去____。
     +RA楼下的物业处
-        ->General_Questions
+        ->turn_to
     +TA701的失物招领处
         ~egg = "hard2.1"
         ->failure
@@ -344,14 +488,14 @@ Error: NOT CHOSEN SCHOOL
     +4 4 0
         ->failure
     +5 5 0
-        ->General_Questions
+        ->turn_to
     +4 2 2 
         ->failure
     
 = hard4
 加退课一般在开学后的多长时间内？
     +两周
-        ->General_Questions
+        ->turn_to
     +一周
         ->failure
     +一个月
@@ -363,10 +507,12 @@ Error: NOT CHOSEN SCHOOL
 = hard5
 我校下园目前一共有几个食堂？
     +4
-        ->failure
+        ->turn_to
     +5
-        ->General_Questions
+        ~egg = "hard5.2"
+        ->failure
     +6
+        ~egg = "hard5.3"
         ->failure
     +0 
         ~egg = "hard5.1"
@@ -377,7 +523,7 @@ Error: NOT CHOSEN SCHOOL
 = SME1
 我们学院的英文简称是？
     + SME
-        ->General_Questions
+        ->turn_to
     + SSE
         ->failure
     + HSS
@@ -388,16 +534,12 @@ Error: NOT CHOSEN SCHOOL
         ->failure
         
 = SME2
-我们学院的英文全称是？
-    + School of Management and Economics
-        ->General_Questions
-    + School of Science and Engineering
+我们学院成立于哪一年？
+    + 2014
+        ->turn_to
+    + 2018
         ->failure
-    + School of Humanities and Social Science
-        ->failure
-    + School of Life and Health Sciences
-        ->failure
-    + School of Data Science
+    + 2020
         ->failure
         
 // SSE //
@@ -406,7 +548,7 @@ Error: NOT CHOSEN SCHOOL
     + SME
         ->failure
     + SSE
-        ->General_Questions
+        ->turn_to
     + HSS
         ->failure
     + LHS
@@ -415,16 +557,14 @@ Error: NOT CHOSEN SCHOOL
         ->failure
         
 = SSE2
-我们学院的英文全称是？
-    + School of Management and Economics
+下列专业或方向里，哪一个不属于我们学院？
+    +新能源科学与工程
         ->failure
-    + School of Science and Engineering
-        ->General_Questions
-    + School of Humanities and Social Science
+    +计算机科学与技术
+        ->turn_to
+    +金融数学
         ->failure
-    + School of Life and Health Sciences
-        ->failure
-    + School of Data Science
+    +电子信息工程
         ->failure
 
 // LHS //
@@ -437,22 +577,19 @@ Error: NOT CHOSEN SCHOOL
     + HSS
         ->failure
     + LHS
-        ->General_Questions
+        ->turn_to
     + SDS
         ->failure
         
 = LHS2
-我们学院的英文全称是？
-    + School of Management and Economics
+我们学院成立于哪一年？
+    + 2014
         ->failure
-    + School of Science and Engineering
+    + 2018
+        ->turn_to
+    + 2020
         ->failure
-    + School of Humanities and Social Science
-        ->General_Questions
-    + School of Life and Health Sciences
-        ->failure
-    + School of Data Science
-        ->failure
+        
         
 // HSS //
 = HSS1
@@ -462,23 +599,21 @@ Error: NOT CHOSEN SCHOOL
     + SSE
         ->failure
     + HSS
-        ->General_Questions
+        ->turn_to
     + LHS
         ->failure
     + SDS
         ->failure
         
 = HSS2
-我们学院的英文全称是？
-    + School of Management and Economics
+下列专业或方向里，哪一个不属于我们学院？
+    +翻译
         ->failure
-    + School of Science and Engineering
+    +英语
         ->failure
-    + School of Humanities and Social Science
-        ->General_Questions
-    + School of Life and Health Sciences
-        ->failure
-    + School of Data Science
+    +法语
+        ->turn_to
+    +心理学
         ->failure
         
 // SDS //
@@ -493,34 +628,55 @@ Error: NOT CHOSEN SCHOOL
     + LHS
         ->failure
     + SDS
-        ->General_Questions
+        ->turn_to
 
 = SDS2
-我们学院的英文全称是？
-    + School of Management and Economics
+我们学院成立于哪一年？
+    + 2014
         ->failure
-    + School of Science and Engineering
+    + 2018
         ->failure
-    + School of Humanities and Social Science
-        ->failure
-    + School of Life and Health Sciences
-        ->failure
-    + School of Data Science
-        ->General_Questions
+    + 2020
+        ->turn_to
 
 /*************************************/
 //              SME Part             //
 /*************************************/
 
 === SME_Easy_Questions ===
-{那么，让我们开始经管学院的答题吧！|很好，你答对了第一道题。|那么，下一题……|那么，最后一题……|全部正确，漂亮的回答！}
-{!1. |2. |3. |4. |->success}<>
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。这次可基本都是真真正正的学术问题了哦。
+            ++n
+            {index}. ->pick
+    -2: +n
+        接下来可会慢慢变难咯。
+            ++n
+            {index}. ->pick
+    -3: +n
+        那么下面一道题作为放松：
+            ++n
+            {index}. ->General_Questions.pickEasy
+    -4: +n
+        那么，下面一道，依然是和校园有关的：
+            ++n
+            {index}. ->General_Questions.pickHard
+    -5: +n
+        看来你似乎觉得这些题都太简单了吗？那好啊，最后一道了，来点难题吧！
+            ++n
+            {index}. ->pick
+            
+    -6:     ->success
+}
+
+= pick
 {~->easy1|->easy2|->easy3|->easy4|->easy5}
 
 = easy1
 一个变量遵循正态分布，均值为10，标准差为10。每一回抽取100个样本，抽取100回。请问这100回的平均值样本方差是多少？
     +A.0
-        ->SME_Easy_Questions
+        ->turn_to
     +B.1
         ->failure
     +C.0.5
@@ -529,7 +685,7 @@ Error: NOT CHOSEN SCHOOL
 = easy2
 假设有一个假设检测，H0：均值参数为60。在使用计算器计算后我们得到一个双边检验的P值为0.0892。已知，Ha：均值参数小于60，z值为-1.7，alpha为0.05。是否可以拒绝原假设？
     +拒绝原假设H0
-        ->SME_Easy_Questions
+        ->turn_to
     +不拒绝原假设H0
         ->failure
 
@@ -538,7 +694,7 @@ Error: NOT CHOSEN SCHOOL
     +是    
         ->failure
     +否
-        ->SME_Easy_Questions
+        ->turn_to
 	
 
 = easy4
@@ -546,22 +702,48 @@ Error: NOT CHOSEN SCHOOL
     +提高    
         ->failure
     +降低
-        ->SME_Easy_Questions
+        ->turn_to
     +不变
         ->failure
 
 = easy5
 假设市场上有ABC三种商品，其中A、B互为替代品，B、C分别为normal good和inferior good，当A的价格下降时，B和C的消费有什么变化？
     +B消费下降，C不变    
-        ->SME_Easy_Questions
+        ->turn_to
     +B消费提高，C消费下降    
         ->failure
     +B消费下降，C消费提高
         ->failure
 
 === SME_Hard_Questions ===
-{那么，让我们开始经管学院的答题吧。那么，第一道！|答对了，不过，之后可能就不会这么简单了。|最后一道了，准备好了吗？|你完成了所有的题目！}
-{!1. |2. |3. |->success}<>
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。这次的问题可是会变难了哦。
+            ++n
+            {index}. ->pick
+    -2: +n
+        接下来的题可是会更加难咯。
+            ++n
+            {index}. ->pick
+    -3: +n
+        那么下面一道题，作为送分题……
+            ++n
+            {index}. ->General_Questions.pickSchool
+    -4: +n
+        那么，下面一道，回归一下吧……
+            ++n
+            {index}. ->SME_Easy_Questions.pick
+    -5: +n
+        最后的最后！来点难题吧！
+            ++n
+            {index}. ->pick
+    -6: +n
+        全部正确，辛苦你了，这些题对你来说可都不容易吧。
+            ->success
+}
+
+= pick
 {~->hard1|->hard2|->hard3|->hard4}
 
 = hard1 
@@ -569,7 +751,7 @@ Error: NOT CHOSEN SCHOOL
     + A. 拒绝原假设H0
         ->failure
     + B.不拒绝原假设H0
-        ->SME_Hard_Questions
+        ->turn_to
     //（答案：不拒绝原假设H0-B）
 
 = hard2 
@@ -579,7 +761,7 @@ Error: NOT CHOSEN SCHOOL
     + B. 77,780
         ->failure
     + C. 71,780
-        ->SME_Hard_Questions
+        ->turn_to
     //（答案：71,780-C）
 
 = hard3
@@ -587,11 +769,10 @@ Error: NOT CHOSEN SCHOOL
     + A. XA=(a-c)/b; XB=(a-c)/2b   
         ->failure
     + B. XA=(a-c)/2b; XB=(a-c)/4b   
-        ->SME_Hard_Questions
+        ->turn_to
     + C. XA=(a-c)/b; XB=(a-c)/3b
         ->failure
     //（答案：B）
-
 
 = hard4
 某位客户的效应方程是U(x,y,z)=x+(z^1/2)*f(y)
@@ -599,7 +780,7 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
     + A.12        
         ->failure
     + B.16        
-        ->SME_Hard_Questions
+        ->turn_to
     + C. 18
         ->failure
     //（答案：16-B）
@@ -609,20 +790,43 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
 /*************************************/
 
 === SSE_Easy_Questions ===
-+n
-{那么，让我们开始理工学院的答题吧！|很好，你答对了第一道题。|那么，下一题……|那么，最后一题……|全部正确，漂亮的回答！}
--
-{!1. |2. |3. |4. |->success}<>
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。这次可基本都是真真正正的学术问题了哦。
+            ++n
+            {index}. ->pick
+    -2: +n
+        接下来可会慢慢变难咯。
+            ++n
+            {index}. ->pick
+    -3: +n
+        那么下面一道题作为放松：
+            ++n
+            {index}. ->General_Questions.pickEasy
+    -4: +n
+        那么，下面一道，依然是和校园有关的：
+            ++n
+            {index}. ->General_Questions.pickHard
+    -5: +n
+        看来你似乎觉得这些题都太简单了吗？那好啊，最后一道了，来点难题吧！
+            ++n
+            {index}. ->pick
+            
+    -6:     ->success
+}
+
+=pick
 {~->easy1|->easy2|->easy3|->easy4}
 
 = easy1	
-“ab”+”c”*2 结果是:
+在Python语言中，“ab”+“c”*2 结果是:
 +abc2 
     ->failure
 +abcabc 
     ->failure
 +abcc
-    ->SSE_Easy_Questions
+    ->turn_to
 +ababcc 
     ->failure
 
@@ -635,14 +839,14 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
 + C.(CH3)2CHCH(CH3)2 
     ->failure
 + D.(CH3)3CCH2CH3
-    ->SSE_Easy_Questions
+    ->turn_to
 
 =easy3	
 若地球卫星绕地球做匀速圆周运动，其实际绕行速率:
 + A.一定等于7.9km/s 
     ->failure
 + B.一定小于7.9km/s 
-    ->SSE_Easy_Questions
+    ->turn_to
 + C.一定大于7.9km/s 
     ->failure
 + D.介于7.9-11.2km/s之间 
@@ -650,24 +854,48 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
 
 =easy4 
 关于地球同步通讯卫星的说法，正确的是: 
-+ A.若其质量加倍，则轨道半径也要加倍 
++ A.若质量加倍，则轨道半径也加倍 
     ->failure
-+ B.它一定在赤道上空⻜行 
++ B.在赤道上空⻜行 
     ->failure
-+ C.它以第一宇宙速度运行 
++ C.以第一宇宙速度运行 
     ->failure
-+ D.它运行的⻆速度与地球自转⻆速度相同 
-    ->SSE_Easy_Questions
++ D.⻆速度等于地球自转⻆速度
+    ->turn_to
 
 === SSE_Hard_Questions ===
-+n
-{那么，让我们开始理工学院的答题吧。那么，第一道！|答对了，不过，之后可能就不会这么简单了。|最后一道了，准备好了吗？|你完成了所有的题目！}
--
-{!1. |2. |3. |->success}<>
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。这次的问题可是会变难了哦。
+            ++n
+            {index}. ->pick
+    -2: +n
+        接下来的题可是会更加难咯。
+            ++n
+            {index}. ->pick
+    -3: +n
+        那么下面一道题，作为送分题……
+            ++n
+            {index}. ->General_Questions.pickSchool
+    -4: +n
+        那么，下面一道，回归一下难度吧……
+            ++n
+            {index}. ->SSE_Easy_Questions.pick
+    -5: +n
+        最后的最后！来点难题吧！
+            ++n
+            {index}. ->pick
+    -6: +n
+        全部正确，辛苦你了，这些题对你来说可都不容易吧。
+            ->success
+}
+
+=pick
 {~->hard1|->hard2|->hard3|->hard4}
 
 =hard1 
-导入模块的方式错误的是(D)
+在使用Python语言时，导入模块的方式错误的是：
 + A. import mo
     ->failure
 + B. from mo import *
@@ -675,10 +903,10 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
 + C. import mo as m
     ->failure
 + D. import m from mo
-    ->SSE_Hard_Questions
+    ->turn_to
     
 =hard2	
-分子式为C4H9Cl的同分异构体(不含对映异构)有( ) 
+分子式为C4H9Cl的同分异构体(不含对映异构)有：
 + A. 2种 
     ->failure
 + B. 3种 
@@ -686,14 +914,14 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
 + C. 4种 
     ->failure
 + D. 5种 
-    ->SSE_Hard_Questions
+    ->turn_to
     
 =hard3 
-下列哪个语句在Python中是非法的?( B ) 
+下列哪个语句在Python中是非法的：
 + A. x = y = z = 1 
     ->failure
 + B. x = (y = z + 1)
-    ->SSE_Hard_Questions
+    ->turn_to
 + C. x, y = y, x 
     ->failure
 + D. x += y
@@ -702,7 +930,7 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
 =hard4
 下列物质一定与丁烯互为同系物的是: 
 + A.C2H4 
-    ->SSE_Hard_Questions
+    ->turn_to
 + B.C3H6 
     ->failure
 + C.C4H8 
@@ -716,17 +944,41 @@ X是客户购买完别的生产物资剩下的钱，z是商品1，y是一种架�
 /*************************************/
 
 === LHS_Easy_Questions ===
-+n
-{那么，让我们开始理工学院的答题吧！|很好，你答对了第一道题。|那么，下一题……|那么，最后一题……|全部正确，漂亮的回答！}
--
-{!1. |2. |3. |->success}<>
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。这次可基本都是真真正正的学术问题了哦。
+            ++n
+            {index}. ->pick
+    -2: +n
+        接下来可会慢慢变难咯。
+            ++n
+            {index}. ->pick
+    -3: +n
+        那么下面一道题作为放松：
+            ++n
+            {index}. ->General_Questions.pickEasy
+    -4: +n
+        那么，下面一道，依然是和校园有关的：
+            ++n
+            {index}. ->General_Questions.pickHard
+    -5: +n
+        看来你似乎觉得这些题都太简单了吗？那好啊，最后一道了，来点难题吧！
+            ++n
+            {index}. ->pick
+            
+    -6:     ->success
+}
+
+=pick
 {~->easy1|->easy2|->easy3|->easy4}
+
 =easy1
 LHS作为小氪金学院，购置了许多新的实验室设施和装备。你猜猜下面哪个最贵？
 +a) 5000只小白鼠
     ->failure
 +b) 一台冷冻电镜
-    ->LHS_Easy_Questions
+    ->turn_to
 +c) 3台三代测序仪
     ->failure
 +d) 10台高分辨率质谱仪 
@@ -741,7 +993,7 @@ LHS（生命健康学院）有三个合作的诺奖研究院，别搜索，猜�
 +c)	切哈诺沃精准和再生医学研究院的Prof. Aaron Ciechanover
     ->failure
 +d)	虽然我们是生命健康学院，但是这奖雨我无瓜
-    ->LHS_Easy_Questions
+    ->turn_to
     
 =easy3
 从前有两个人，一个是正常人，一个是肾功能只剩下30%的人，他们吃相同的适量的食物。猜猜谁的尿液多？
@@ -750,7 +1002,7 @@ LHS（生命健康学院）有三个合作的诺奖研究院，别搜索，猜�
 +b)	肾功能受损的
     ->failure
 +c)	都一样
-    ->LHS_Easy_Questions
+    ->turn_to
 +d)	看情况，abc都对
     ->failure
     
@@ -763,19 +1015,43 @@ LHS（生命健康学院）有三个合作的诺奖研究院，别搜索，猜�
 +c)	竟然复原了，除了眼睛瞎了，没有什么事
     ->failure
 +d)	竟然恢复了，不仅眼睛瞎了，还性情大变
-     ->LHS_Easy_Questions
+     ->turn_to
      
 === LHS_Hard_Questions ===
-+n
-{那么，让我们开始最后的答题吧。那么，第一道！|答对了，不过，之后可能就不会这么简单了。|最后一道了，准备好了吗？|你完成了所有的题目！}
--
-{!1. |2. |3. |->success}<>
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。这次的问题可是会变难了哦。
+            ++n
+            {index}. ->pick
+    -2: +n
+        接下来的题可是会更加难咯。
+            ++n
+            {index}. ->pick
+    -3: +n
+        那么下面一道题，作为送分题……
+            ++n
+            {index}. ->General_Questions.pickSchool
+    -4: +n
+        那么，下面一道，回归一下吧……
+            ++n
+            {index}. ->LHS_Easy_Questions.pick
+    -5: +n
+        最后的最后！来点难题吧！
+            ++n
+            {index}. ->pick
+    -6: +n
+        全部正确，辛苦你了，这些题对你来说可都不容易吧。
+            ->success
+}
+
+=pick
 {~->hard1|->hard2|->hard3|->hard4}
 
 =hard1
 下面那个活动调节是正反馈调节？
 +a)	女性生产时的子宫收缩
-    ->LHS_Hard_Questions
+    ->turn_to
 +b)	体温调节
     ->failure
 +c)	正常情况下体内肾上腺素水平调节
@@ -786,7 +1062,7 @@ LHS（生命健康学院）有三个合作的诺奖研究院，别搜索，猜�
 =hard2
 生物信息学是LHS的一个重要专业。在LHS的第一届学生大会上，来自BIM和BME的学生们欢聚一堂，享受了一顿自助餐。那么，生物信息学主要是哪几个学科的交叉学科？
 +a)	生物+计算机+统计
-    ->LHS_Hard_Questions
+    ->turn_to
 +b)	物理+计算机+化学
     ->failure
 +c)	生物+电子+物理
@@ -797,7 +1073,7 @@ LHS（生命健康学院）有三个合作的诺奖研究院，别搜索，猜�
 =hard3
 BME的学生们最喜欢实验了。他们试过在一个学期内上三个或以上的实验课。但是下面选项里面有一个他们（第一届学生）没有做的，那个实验课是：
 +a)	解剖实验
-    ->LHS_Hard_Questions
+    ->turn_to
 +b)	电路设计实验
     ->failure
 +c)	化学实验
@@ -810,7 +1086,7 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 +a)	TC的4楼
     ->failure
 +b)	TD的5楼
-    ->LHS_Hard_Questions
+    ->turn_to
 +c)	实验楼的3楼
     ->failure
 +d)	TC的5楼
@@ -821,6 +1097,34 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 /*************************************/
 
 === HSS_Easy_Questions ===
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。这次可基本都是真真正正的学术问题了哦。
+            ++n
+            {index}. ->pick
+    -2: +n
+        接下来可会慢慢变难咯。
+            ++n
+            {index}. ->pick
+    -3: +n
+        那么下面一道题作为放松：
+            ++n
+            {index}. ->General_Questions.pickEasy
+    -4: +n
+        那么，下面一道，依然是和校园有关的：
+            ++n
+            {index}. ->General_Questions.pickHard
+    -5: +n
+        看来你似乎觉得这些题都太简单了吗？那好啊，最后一道了，来点难题吧！
+            ++n
+            {index}. ->pick
+            
+    -6:     ->success
+}
+
+=pick
+{~->easy1|->easy2|->easy3|->easy4|->easy5}
 
 =easy1
 “爷爷”是以下那种或哪些行为的代名词:
@@ -831,12 +1135,12 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 +C. “你们能辨倒我，我才很开心”
     ->failure
 +D. 以上全部
-    ->HSS_Easy_Questions
+    ->turn_to
 
 =easy2
 人文学生常常因为什么受到其它学院的羡慕嫉妒恨？
 +A. 超长假期
-    ->HSS_Easy_Questions
+    ->turn_to
 +B. 超高绩点
     ->failure
 +C. 没有作业
@@ -844,16 +1148,16 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 +D. 没有考试
     ->failure
     
-=esay3	
+=easy3	
 如果你是一名认真学习的人文学子，毕业前涉及的知识包括：
-+A. 囚徒困境（Prisoner’s Dilemma）
++A. 囚徒困境
     ->failure
-+B. 晕轮效应（Halo Effect）
++B. 晕轮效应
     ->failure
-+C. 《第二性》（The Second Sex）
++C. 《第二性》
     ->failure
 +D. 小孩子才做选择，我全都要（学）
-    ->HSS_Easy_Questions
+    ->turn_to
     
 =easy4	
 人文学院名下的老师不包括：
@@ -864,7 +1168,7 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 +C. 博古通今语文教授
     ->failure
 +D. 相貌堂堂经管教授
-    ->HSS_Easy_Questions
+    ->turn_to
     
 =easy5
 以下哪个方向是人文学子研究生不能申请的：
@@ -875,16 +1179,45 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 +C. 新闻媒体
     ->failure
 +D. 当然是只要想，各个方向都可以！
-    ->HSS_Easy_Questions
+    ->turn_to
     
 === HSS_Hard_Questions ===
+~index = index + 1
+{index:
+    -1: +n
+        准备好了吗，开始第一题咯。这次的问题可是会变难了哦。
+            ++n
+            {index}. ->pick
+    -2: +n
+        接下来的题可是会更加难咯。
+            ++n
+            {index}. ->pick
+    -3: +n
+        那么下面一道题，作为送分题……
+            ++n
+            {index}. ->General_Questions.pickEasy
+    -4: +n
+        那么，下面一道，回归一下吧……
+            ++n
+            {index}. ->HSS_Easy_Questions.pick
+    -5: +n
+        最后的最后！来点难题吧！
+            ++n
+            {index}. ->pick
+    -6: +n
+        全部正确，辛苦你了，这些题对你来说可都不容易吧。
+            ->success
+}
+
+=pick
+{~->hard1|->hard2|->hard3|->hard4}
 
 =hard1
 人文同学常常挂在嘴边的“阿鸡”指的是什么？：
 +A. 大吉大利，今晚吃鸡
     ->failure
 +B. 反思日志（reflective journal）
-    ->HSS_Hard_Questions
+    ->turn_to
 +C. 一位不愿透露姓名教授的昵称
     ->failure
 
@@ -895,7 +1228,7 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 +B. SALL CENTRE 语言学习中心
     ->failure
 +C. 口译室
-    ->HSS_Hard_Questions
+    ->turn_to
 +D. 教授办公室
     ->failure
     
@@ -906,14 +1239,14 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 +B. 玩转脑朋友
     ->failure
 +C. 可可夜总会
-    ->HSS_Hard_Questions
+    ->turn_to
 +D. 打爆互联网
     ->failure
     
 =hard4	
 人文学院的特产是：
 +A. 生日会和教学楼里学长学姐的照片墙
-    ->HSS_Hard_Questions
+    ->turn_to
 +B. 年度茶会party
     ->failure
 +C. 圣诞节专属小礼物
@@ -930,21 +1263,142 @@ LHS不时会举行聚餐，有吃的有喝的。你恰好想过去，那么LHS�
 {egg == "easy1.1": TC的楼上是什么呢？或许你可以去那里探查一下哦。}
 {egg == "easy2.1":啊哦，LGU可不是官方英文简称哦，虽然学校里是有很多学生这么叫，但是官方简称可并不是LGU。 }
 {egg == "easy2.2":你真的不是故意做错题的嘛……}
-{egg == "easy3.1":这个题还不够明显的吗……}
+{egg == "easy3.1":如果真的有这么多学院也好啊，不过大概也不会有这么多专业吧。不管怎样，这道题你没有做对呢……虽然我觉得你可能是故意的，毕竟这么明显。}
 {egg == "easy3.2":我们学校一个学院都没有的话，你在和哪个院的院长对话……}
 {egg == "easy4.1":说起来，倒是的确有不少同学想住在逸夫，不过很可惜，就这个题而言，你还是做错了呢。}
 {egg == "easy4.2":怎么会一个书院都没有呢……逸夫书院离这里也没几步远吧……}
-{egg == "easy4.3":不好意思……拖时间是不管用的，不会的话就看看新生手册吧。}
-{egg == "easy6.1":有志气！可惜这题选错了……}
+{egg == "easy4.3":不好意思……装傻是不管用的，这题还是得算你错呢。}
+{egg == "easy6.1":有志气！你真的准备修这么多学分嘛？不过可惜，起码这道题你是得不了分了……}
 {egg == "easy7.1":能不能不要选这些明显被排除掉的选项嘛……}
-
 {egg == "hard2.1":或许你可以实地考察一下，TA701有没有失物招领处……}
 {egg == "hard2.1":或许你可以实地考察一下，TD130有没有失物招领处……}
 {egg == "hard2.2":……你认真的嘛？希望你只是选着玩的，校长可是很忙的，可别随便打扰他……}
 {egg == "hard4.1":如果这样的话，或许学生们会很开心吧……可惜你不会，因为这题你选错了。}
-{egg == "hard5.1":潘多拉离这里也没多远啊！不要故意选错误选项啊！}
+{egg == "hard5.1":起码也有一个离这里也没多远的潘多拉吧！不要故意选错误选项啊！}
+{egg == "hard5.2":所以你是多算上了哪一个？全家福？信院？难不成……是会饮咖啡？可惜，它们都不是呢。}
+{egg == "hard5.3":所以你是多算上了哪两个？全家福？信院？难不成……是会饮咖啡？可惜，它们都不是呢。}
 -
 +n
 再回去多收集收集信息吧，下次再接再厉！
 -
++n
+#notfinished
+->END
+
+/*************************************/
+//              Hint Part            //
+/*************************************/
+
+=== hint ===
+
+=body
++n
+整个问答一共分为<color=blue>三个阶段</color>，每个阶段会有若干道题。全部为<color=blue>单选</color>。难度上会有递进。
+-
++n
+因为是刚刚才接到消息，因此这套题是题库里临时随机组合出来的，有的时候，<color=blue>题目会有重复</color>，你可能会在不同阶段做到同一道题，有时，你甚至会在同一阶段做到同一道题。
+-
++n
+出题组成员也是五花八门，因此各种各样的题目都会出现。
+-
++n
+有的会考你对于学校某个设施或是某项规定的了解；有的会考你一些学院的常识；有的甚至会考你一些你不知道的学院内部轶事；当然，也会有几道单纯的学术问题……
+-
++n
+你或许会觉得很难，但是其实除了学术类问题需要完全靠你自己回答以外，<color=blue>其他的问题，你都可以在校园里找到答案</color>。
+-
++n
+当然，这就需要你认真地去搜集信息，打听情报。毕竟，逾期进入学院可不是那么容易的。
+-
+->->
+
+=SME
+->body->
++n
+有关学术问题的话，其实这套题的难度对于新生来说，是有些大的。因此我不建议你直接上手去做。或许你可以尝试着预习一下大一的知识，再来尝试。
+-
++n
+或许你会觉得给一个新生出这样的题很过分，但其实在以后的大学学习中，你也会遇到很多以你那时的知识无法解决的问题。你只能<color=blue>靠自己学习</color>来一点点解决掉。
+-
++n
+<color=blue>自学</color>，对于大学生来说，是很重要的能力。尽早培养起自学习惯，对你来说没有坏处。
+-
++n 
+那么，等你准备好了，就来答题吧。
+-
+#notfinished
+->DONE
+
+=SSE
+->body->
++n
+有关学术问题的话……对于一个大一新生来说，唯一的难点，就在于编程的知识了吧。
+-
++n
+如果你要进入理工学院学习的话，可是要起码修两节编程的课程的。
+-
++n
+或许你会觉得给一个新生出这样的题很过分，但其实在以后的大学学习中，你也会遇到很多以你那时的知识无法解决的问题。你只能<color=blue>靠自己学习</color>来一点点解决掉。
+-
++n
+<color=blue>自学</color>，对于大学生来说，是很重要的能力。尽早培养起自学习惯，对你来说没有坏处。
+-
++n 
+那么，等你准备好了，就来答题吧。
+-
+#notfinished
+->DONE
+
+=HSS
+->body->
++n
+而且这套题基本没有考什么特别难的学术问题，更多的问题或许是有些让你摸不着头脑的类型。
+-
++n
+当你觉得有些困惑的时候，不妨去校园四处逛逛：去逛逛食堂、去看看风景，对了，你也可以去看看乐天一楼食堂前的那两只小猫。
+-
++n
+有的时候，答案不一定那么严肃，也可能会很诙谐，也可能会让你很意外。
+-
++n 
+总之，等你准备好了，就来答题吧。
+-
+#notfinished
+->DONE
+
+=LHS
+->body->
++n
+而且这套题基本没有考什么特别难的学术问题，更多的问题或许是有些让你摸不着头脑的类型。
+-
++n
+当你觉得有些困惑的时候，不妨去校园四处逛逛：去逛逛食堂、去看看风景，对了，你也可以去看看乐天一楼食堂前的那两只小猫。
+-
++n
+有的时候，答案不一定那么严肃，也可能会很诙谐，也可能会让你很意外。
+-
++n 
+总之，等你准备好了，就来答题吧。
+-
+#notfinished
+->DONE
+
+=SDS
+->body->
++n
+有关学术问题的话……对于一个大一新生来说，唯一的难点，就在于编程的知识了吧。
+-
++n
+如果你要进入理工学院学习的话，可是要起码修两节编程的课程的。
+-
++n
+或许你会觉得给一个新生出这样的题很过分，但其实在以后的大学学习中，你也会遇到很多以你那时的知识无法解决的问题。你只能<color=blue>靠自己学习</color>来一点点解决掉。
+-
++n
+<color=blue>自学</color>，对于大学生来说，是很重要的能力。尽早培养起自学习惯，对你来说没有坏处。
+-
++n 
+那么，等你准备好了，就来答题吧。
+-
+#notfinished
 ->DONE
