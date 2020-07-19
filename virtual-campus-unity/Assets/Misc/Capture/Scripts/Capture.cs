@@ -30,7 +30,8 @@ public static class Capture  {
     /// Takes the ScreenShot.
     /// </summary>
     /// <param name="ScreenShotNum">ScreenShot number.</param>
-    public static void TakeScreenShot(int ScreenShotNum = 0)
+    /// <returns>The file path to the screenshot.</returns>
+    public static string TakeScreenShot(int ScreenShotNum = 0)
     {
 
         _ScreenShotPath =  Application.dataPath + "/ScreenShots";
@@ -42,18 +43,20 @@ public static class Capture  {
 
         ScreenCapture.CaptureScreenshot(GetFullPath(ScreenShotNum));
 
-        Debug.Log("screenshot created at " + GetFullPath(ScreenShotNum));
+        Debug.Log("Screenshot created at " + GetFullPath(ScreenShotNum));
 
         /*
         !!! NOTE !!! 
         the below is my attempt at forcing the system to wait until the file is saved before executing any more processes.
         however this caused a small freeze in the game.
         */
-//        filePath = GetFullPath(ScreenShotNum);
-//
-//        System.Threading.Thread m_Thread = null;
-//        m_Thread = new System.Threading.Thread(FileCheck);
-//        m_Thread.Start();
+        // filePath = GetFullPath(ScreenShotNum);
+        //
+        // System.Threading.Thread m_Thread = null;
+        // m_Thread = new System.Threading.Thread(FileCheck);
+        // m_Thread.Start();
+
+        return GetFullPath(ScreenShotNum);
     }
 
 

@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour
     {
         BadgeBag,
         ItemBag,
-        SkinBag
+        SkinBag,
+        PhotoBag
     };
 
     public static UIManager Instance;
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject badgeBagPanel;
     public GameObject itemBagPanel;
     public GameObject skinBagPanel;
+    public GameObject photoBagPanel;
     public GameObject painterHub;
     public List<GameObject> painters;
 
@@ -51,11 +53,13 @@ public class UIManager : MonoBehaviour
         //painters.Add(ph.hatPainter);
         //painters.Add(ph.armPainter);
     }
+
 	public void DisableAllOpenedPanel()
     {
         itemBagPanel.SetActive(false);
         skinBagPanel.SetActive(false);
         badgeBagPanel.SetActive(false);
+        photoBagPanel.SetActive(false);
         painterHub.SetActive(false);
         foreach(GameObject painter in painters)
         {
