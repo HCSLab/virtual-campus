@@ -4,7 +4,7 @@ namespace UnityTemplateProjects
 {
     public class SimpleCameraController : MonoBehaviour
     {
-        class CameraState
+        public class CameraState
         {
             public float yaw;
             public float pitch;
