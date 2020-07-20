@@ -87,8 +87,35 @@ public class StoryScript : MonoBehaviour
         buttonPrefab = talkPrefab.GetComponent<InkTalk>().button;
         inkStory = new Story(inkFile.text);
 
+        ProcessObjectEnableDisableWhenStart();
+
         inkFunctions = GetAllInkFunctions(inkFile);
         ProcessFunctionHeaderTags();
+    }
+
+    private void ProcessObjectEnableDisableWhenStart()
+    {
+        foreach (var flag in FlagBag.Instance.bag)
+        {
+            if (flag.StartsWith(inkFile.name + "_enable:"))
+            {
+                StandardizationTag(flag, out string op, out string data);
+                var obj = transform.Find(data);
+                if (obj)
+                {
+                    obj.gameObject.SetActive(true);
+                }
+            }
+            if (flag.StartsWith(inkFile.name + "_disable:"))
+            {
+                StandardizationTag(flag, out string op, out string data);
+                var obj = transform.Find(data);
+                if (obj)
+                {
+                    obj.gameObject.SetActive(false);
+                }
+            }
+        }
     }
 
     public void ProcessFunctionHeaderTags()
@@ -199,6 +226,8 @@ public class StoryScript : MonoBehaviour
             var obj = transform.Find(data);
             if (obj)
             {
+                ProcessEnableDisableFlag(inkFile.name + "_enable:" + data, 
+                                         inkFile.name + "_disable:" + data);
                 obj.gameObject.SetActive(true);
             }
         }
@@ -207,6 +236,8 @@ public class StoryScript : MonoBehaviour
             var obj = transform.Find(data);
             if (obj)
             {
+                ProcessEnableDisableFlag(inkFile.name + "_disable:" + data, 
+                                         inkFile.name + "_enable:" + data);
                 obj.gameObject.SetActive(false);
             }
         }
@@ -224,27 +255,25 @@ public class StoryScript : MonoBehaviour
         }
         else if (op == "enableNPC")
         {
-            if (FlagBag.Instance.HasFlag("disableNPC:" + data))
-            {
-                FlagBag.Instance.DelFlag("disableNPC:" + data);
-            }
-            if (!FlagBag.Instance.HasFlag("enableNPC:" + data))
-            {
-                FlagBag.Instance.AddFlag("enableNPC:" + data);
-            }
+            ProcessEnableDisableFlag("enableNPC:" + data, "disableNPC:" + data);
             NPCManager.Instance.RefreshEnable();
         }
         else if (op == "disableNPC")
         {
-            if (FlagBag.Instance.HasFlag("enableNPC:" + data))
-            {
-                FlagBag.Instance.DelFlag("enableNPC:" + data);
-            }
-            if (!FlagBag.Instance.HasFlag("disableNPC:" + data))
-            {
-                FlagBag.Instance.AddFlag("disableNPC:" + data);
-            }
+            ProcessEnableDisableFlag("disableNPC:" + data, "enableNPC:" + data);
             NPCManager.Instance.RefreshEnable();
+        }
+    }
+
+    private void ProcessEnableDisableFlag(string toAdd, string toDel)
+    {
+        if (FlagBag.Instance.HasFlag(toDel))
+        {
+            FlagBag.Instance.DelFlag(toDel);
+        }
+        if (!FlagBag.Instance.HasFlag(toAdd))
+        {
+            FlagBag.Instance.AddFlag(toAdd);
         }
     }
 
