@@ -132,7 +132,7 @@ public class InkTalk : MonoBehaviour
         if (storyScript)
         {
             if (!notFinished)
-                storyScript.AddFlag(executeFunction);
+                storyScript.AddLocalFlag(executeFunction);
             storyScript.ProcessFunctionHeaderTags();
         }
 

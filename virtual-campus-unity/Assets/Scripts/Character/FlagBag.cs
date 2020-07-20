@@ -6,6 +6,8 @@ public class FlagBag : MonoBehaviour
 {
     static public FlagBag Instance;
 
+    public List<string> bag = new List<string>();
+
     private void Awake()
     {
         Instance = this;
@@ -18,8 +20,6 @@ public class FlagBag : MonoBehaviour
             StoryManager.Instance.refreshFlag = true;
         }
     }
-
-    public List<string> bag = new List<string>();
 
     public void AddFlag(string name)
     {
@@ -60,5 +60,23 @@ public class FlagBag : MonoBehaviour
     {
         bag.Remove(name);
         StoryManager.Instance.refreshFlag = true;
+    }
+
+    public void DelFlagsWithPrefix(string prefix)
+    {
+        //var tmp = new List<string>();
+        //foreach (var flag in bag)
+        //{
+        //    if (flag.StartsWith(prefix))
+        //    {
+        //        tmp.Add(flag);
+        //    }
+        //}
+        //foreach (var flag in tmp)
+        //{
+        //    bag.Remove(flag);
+        //}
+
+        bag.RemoveAll((string flag) => { return flag.StartsWith(prefix); });
     }
 }

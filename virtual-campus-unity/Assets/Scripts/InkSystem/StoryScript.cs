@@ -17,8 +17,6 @@ public class StoryScript : MonoBehaviour
     public GameObject talkPrefab;
     private GameObject buttonPrefab;
 
-    private List<string> localFlags = new List<string>();
-
     private List<string> inkFunctions = new List<string>();
 
     private List<string> require = new List<string>();
@@ -182,17 +180,17 @@ public class StoryScript : MonoBehaviour
 
         if (op == "addflag")
         {
-            AddFlag(data);
+            AddLocalFlag(data);
         }
         else if (op == "delfalg")
         {
-            DelFlag(data);
+            DelLocalFlag(data);
         }
-        else if (op == "add_global_flag")
+        else if (op == "addflag_global")
         {
             FlagBag.Instance.AddFlag(data);
         }
-        else if (op == "del_global_flag")
+        else if (op == "delflag_global")
         {
             FlagBag.Instance.DelFlag(data);
         }
@@ -273,13 +271,21 @@ public class StoryScript : MonoBehaviour
             }
             else if (op == "require")
             {
-                requireTags.Add(data);
+                requireTags.Add(inkFile.name + "_" + data);
             }
             else if (op == "after")
             {
-                requireTags.Add(data);
+                requireTags.Add(inkFile.name + "_" + data);
             }
             else if (op == "without")
+            {
+                withoutTags.Add(inkFile.name + "_" + data);
+            }
+            else if (op == "require_global")
+            {
+                requireTags.Add(data);
+            }
+            else if (op == "without_global")
             {
                 withoutTags.Add(data);
             }
@@ -380,16 +386,14 @@ public class StoryScript : MonoBehaviour
         }
     }
 
-    public void AddFlag(string flag)
+    public void AddLocalFlag(string flag)
     {
-        localFlags.Add(flag);
-        FlagBag.Instance.AddFlag(flag);
+        FlagBag.Instance.AddFlag(inkFile.name + "_" + flag);
     }
 
-    public void DelFlag(string flag)
+    public void DelLocalFlag(string flag)
     {
-        localFlags.Remove(flag);
-        FlagBag.Instance.DelFlag(flag);
+        FlagBag.Instance.DelFlag(inkFile.name + "_" + flag);
     }
 
     public void EndStory()
@@ -400,10 +404,8 @@ public class StoryScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        foreach (var flag in localFlags)
-        {
-            FlagBag.Instance.DelFlag(flag);
-        }
+        FlagBag.Instance.DelFlagsWithPrefix(inkFile.name + "_");
+
         foreach (var obj in dynamicallyGenerated)
         {
             Destroy(obj);
