@@ -101,20 +101,23 @@ public class InkTalk : MonoBehaviour
                 var path = choice.pathStringOnChoice;
                 btn.onClick.AddListener(() => { ChoicePathSelected(path); });
             }
-        }
-
+        }        
+        
         nextStep = false;
-        firstStep = false;
 
-        if (text.text == "" && inkStory.currentChoices.Count == 1)
+        if (firstStep && sentences == "" && inkStory.currentChoices.Count == 1)
         {
             ChoicePathSelected(inkStory.currentChoices[0].pathStringOnChoice);
         }
+
+        firstStep = false;
 
         if (!inkStory.canContinue && inkStory.currentChoices.Count == 0)
         {
             EndTalk();
         }
+
+
     }
 
     private void ChoicePathSelected(string path)
