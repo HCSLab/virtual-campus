@@ -13,6 +13,7 @@ public class ItemBag : Bag
     private void Awake()
     {
         Instance = this;
+        //currentItem = itemBoxs[0].item;
     }
 
     public void UseButtonClicked()
@@ -33,12 +34,21 @@ public class ItemBag : Bag
         }
     }
 
+    public void Reselect()
+    {
+        if (currentItem != null && currentItemBox != null)
+        {
+            Select(currentItem, currentItemBox);
+        }
+    }
     public override void Select(Item item, ItemBox itemBox)
     {
+        base.Select(item, itemBox);
         detailImage.sprite = item.image;
         detailName.text = item.itemName;
         detailDescription.text = item.description;
         currentItem = item;
+        currentItemBox = itemBox;
         if (typeof(Usable).IsInstanceOfType(currentItem))
         {
             
@@ -50,8 +60,9 @@ public class ItemBag : Bag
             if (!useButton.activeSelf)
                 useButton.SetActive(true);
             amountText.SetActive(false);
-            if (availability[u.GetType()])
+            if (availability[u.GetType()] == false)
             {
+                useButton.GetComponent<Button>().interactable = true;
                 useButton.GetComponent<Button>().enabled = false;
                 useButton.GetComponent<Button>().interactable = false;
             }
@@ -131,4 +142,5 @@ public class ItemBag : Bag
             }
         }
     }
+
 }

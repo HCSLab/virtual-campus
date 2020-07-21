@@ -277,6 +277,13 @@ public class BETA_SETTINGS{
 
     }
 
+    public void Reload()
+    {
+        walkSpeedInternal = walkSpeed;
+        sprintSpeedInternal = sprintSpeed;
+        jumpPowerInternal = jumpPower;
+    }
+
     private void Start()
     {
         #region Modification

@@ -22,4 +22,13 @@ public class ItemBox : MonoBehaviour
     {
         ItemBag.Instance.Select(item, this);
     }
+
+    public virtual void OnRightClick()
+    {
+        ItemBag.Instance.RightSelect(this);
+    }
+
+    public virtual void OnSwapped()
+    {
+    }
 }

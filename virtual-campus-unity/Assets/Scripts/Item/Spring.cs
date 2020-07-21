@@ -10,11 +10,13 @@ public class Spring : Consumable
     {
         base.Apply();
         GameObject.FindGameObjectWithTag("Player").GetComponent<ScriptedFirstPersonAIO>().jumpPower += jumpSpeedIncrement;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ScriptedFirstPersonAIO>().Reload();
     }
 
     public override void End()
     {
         base.End();
         GameObject.FindGameObjectWithTag("Player").GetComponent<ScriptedFirstPersonAIO>().jumpPower -= jumpSpeedIncrement * level;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ScriptedFirstPersonAIO>().Reload();
     }
 }

@@ -23,12 +23,15 @@ public class Bag : MonoBehaviour
 	protected ItemBox currentItemBox;
 	protected List<ItemBox> itemBoxs = new List<ItemBox>();
 
-	protected virtual void Start()
+    protected ItemBox itemBoxToSwap;
+    protected bool toSwap = false;
+
+    protected virtual void Start()
 	{
 		foreach (var item in testItems)
 			Add(item);
 
-		gameObject.SetActive(false);
+		gameObject.SetActive(true);
 	}
 
 	/// <summary>Instantiate the prefab, and add it to this bag.</summary>
@@ -72,10 +75,30 @@ public class Bag : MonoBehaviour
 		}
 		if (boxToRemove)
 			itemBoxs.Remove(boxToRemove);
-		Destroy(item.gameObject);
+        for (int i = 0; i < elementContainer.transform.childCount; i++)
+        {
+            GameObject child = elementContainer.transform.GetChild(i).gameObject;
+            if (child.GetComponent<ItemBox>().item == item)
+            {
+                Destroy(child.GetComponent<ItemBox>().gameObject);
+            }
+        }
+
+        StartCoroutine(DelayedDestroyItem(300, item));
+        //Destroy(item.gameObject);
 	}
 
-	public virtual void Reload()
+    private IEnumerator DelayedDestroyItem(int waitingTime, Item item)
+    {
+        yield return new WaitForSeconds(waitingTime);
+        DestroyItem(item);
+    }
+
+    private void DestroyItem(Item item)
+    {
+        Destroy(item.gameObject);
+    }
+    public virtual void Reload()
 	{
         Clear();
 
@@ -101,23 +124,57 @@ public class Bag : MonoBehaviour
 
     public virtual void Select(Item item, ItemBox itemBox)
 	{
-		detailImage.sprite = item.image;
-		detailName.text = item.itemName;
-		detailDescription.text = item.description;
-		currentItem = item;
-		if (typeof(Consumable).IsInstanceOfType(currentItem))
-		{
-			Consumable c = (Consumable)currentItem;
-			useButton.SetActive(true);
-			amountText.SetActive(true);
-			amountText.GetComponent<TextMeshProUGUI>().text = c.amount.ToString();
-		}
-		else
-		{
-			useButton.SetActive(false);
-			amountText.SetActive(false);
-		}
-	}
+        if (toSwap)
+        {
+            int n1 = -1;
+            int n2 = -1;
+            for (int i=0; i<itemBoxs.Count; i++)
+            {
+                if (itemBoxs[i] == itemBox)
+                {
+                    n1 = i;
+                }
+                if (itemBoxs[i] == itemBoxToSwap)
+                {
+                    n2 = i;
+                }
+                if (n1 != -1 && n2 != -1)
+                {
+                    break;
+                }
+            }
+            itemBoxs[n1] = itemBoxToSwap;
+            itemBoxs[n2] = itemBox;
+
+            /*
+            int n1 = -1;
+            int n2 = -1;
+            for (int i=0; i<elementContainer.transform.childCount; i++)
+            {
+                GameObject child = elementContainer.transform.GetChild(i).gameObject;
+                if (child.GetComponent<ItemBox>() == itemBox)
+                {
+                    n1 = i;
+                }
+                if (child.GetComponent<ItemBox>() == itemBoxToSwap)
+                {
+                    n2 = i;
+                }
+                if (n1 != -1 && n2 != -1)
+                {
+                    break;
+                }
+            }
+           */
+            List<ItemBox> newBoxList = new List<ItemBox>(itemBoxs);
+            ClearLayout();
+            for (int i = 0; i < newBoxList.Count; i++)
+            {
+                Add(newBoxList[i].item);
+            }
+            toSwap = false;
+        }
+    }
 
 	protected virtual void ClearSelection()
 	{
@@ -147,5 +204,23 @@ public class Bag : MonoBehaviour
         {
             Add(newBoxList[i].item);
         }
+    }
+
+    public void RightSelect(ItemBox itemBox)
+    {
+        for (int i = 0; i < elementContainer.transform.childCount; i++)
+        {
+            GameObject child = elementContainer.transform.GetChild(i).gameObject;
+            if (child.GetComponent<ItemBox>() == itemBoxToSwap)
+            {
+                child.GetComponent<Image>().color = new Color((255 / 255f), (255 / 255f), (255 / 255f), (255 / 255f));
+            }
+            if (child.GetComponent<ItemBox>() == itemBox)
+            {
+                child.GetComponent<Image>().color = new Color((255 / 255f), (240 / 255f), (139 / 255f), (255 / 255f));
+            }
+        }
+        itemBoxToSwap = itemBox;
+        toSwap = true;
     }
 }

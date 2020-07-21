@@ -104,6 +104,7 @@ public class SkinBag : Bag
 
 	public override void Select(Item item, ItemBox itemBox)
 	{
+        base.Select(item, itemBox);
 		detailName.text = item.itemName;
 		detailDescription.text = item.description;
 		currentItem = item;

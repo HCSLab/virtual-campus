@@ -110,6 +110,10 @@ public class UIManager : MonoBehaviour
 		{
             DisableAllOpenedPanel();
             panel.SetActive(true);
+            if (panel == itemBagPanel)
+            {
+                ItemBag.Instance.Reselect();
+            }
 		}
 	}
 

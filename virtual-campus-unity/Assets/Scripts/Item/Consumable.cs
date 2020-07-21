@@ -15,16 +15,27 @@ public class Consumable : Usable
     public override void Use()
     {
         amount--;
-        level++;
-        //remainingCooldown = cooldown + 1;
         remainingTime += duration;
-        //available = false;
-        if (superposable && level > maxLevel)
+
+        if (!superposable)
         {
-            level = maxLevel;
-            return;
+            if (level == 0)
+            {
+                level = 1;
+                Apply();
+            }
         }
-        Apply();
+
+        else if (superposable)
+        {
+            level++;
+            if (level > maxLevel)
+            {
+                level = maxLevel;
+                return;
+            }
+            Apply();
+        }
     }
 
     public virtual void Apply()

@@ -9,4 +9,9 @@ public class SkinBox : ItemBox
     {
         SkinBag.Instance.Select(item, this);
     }
+
+    public override void OnRightClick()
+    {
+        SkinBag.Instance.RightSelect(this);
+    }
 }

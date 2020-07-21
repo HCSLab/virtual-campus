@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 7074561777478549517, guid: bd6059259c95ce74cbf8a7d8745c6635,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 151.29001
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7074561777478549517, guid: bd6059259c95ce74cbf8a7d8745c6635,
         type: 3}
@@ -1480,7 +1480,7 @@ PrefabInstance:
     - target: {fileID: 7074561777478549517, guid: bd6059259c95ce74cbf8a7d8745c6635,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 154.73999
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7074561777478549517, guid: bd6059259c95ce74cbf8a7d8745c6635,
         type: 3}
@@ -3974,7 +3974,7 @@ RectTransform:
   - {fileID: 7719392487978080672}
   - {fileID: 1946938314}
   - {fileID: 7355935918838027052}
-  - {fileID: 3711110193010823550}
+  - {fileID: 1215725482}
   - {fileID: 8107590286783504860}
   - {fileID: 849343035}
   - {fileID: 942711109}
@@ -6095,8 +6095,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
+  m_MinWidth: 150
+  m_MinHeight: 150
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: 500
@@ -8146,6 +8146,65 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1181090842}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1215725481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1215725482}
+  - component: {fileID: 1215725483}
+  m_Layer: 0
+  m_Name: ItemBag
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1215725482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215725481}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 110.80893, y: 44.224102, z: 0}
+  m_LocalScale: {x: 1.629881, y: 1.629881, z: 1.629881}
+  m_Children:
+  - {fileID: 3711110193010823550}
+  m_Father: {fileID: 545619200}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1215725483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215725481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb41eb24cef00f542aa49a1897b3e5a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testItems:
+  - {fileID: 2881929840332574894, guid: 7106edcc449cae24f988b98ff54ef680, type: 3}
+  - {fileID: 2881929840332574894, guid: 28d241d08e6a6c143ab42c971c68bc04, type: 3}
+  - {fileID: 930452855164085623, guid: 99efa2cbfe9ad24429772d8a3a09a049, type: 3}
+  - {fileID: 2502879166699754820, guid: a1e933da3a332d44f8a8d0fe1c358c82, type: 3}
+  - {fileID: 7609428826362869987, guid: 904dfb12e6a6e8841aff3dec5839feaa, type: 3}
+  elementDisplayPrefab: {fileID: 7761040861512377041, guid: c8f5ebf7747e6b04f90ca967974ef5d0,
+    type: 3}
+  elementContainer: {fileID: 821965860}
+  detailImage: {fileID: 650306717}
+  detailName: {fileID: 194901486}
+  detailDescription: {fileID: 744393390}
+  useButton: {fileID: 1623257402}
+  amountText: {fileID: 1304682915}
+  currentItem: {fileID: 0}
 --- !u!1 &1223093600
 GameObject:
   m_ObjectHideFlags: 0
@@ -8851,7 +8910,7 @@ PrefabInstance:
     - target: {fileID: 7074561777478549517, guid: bd6059259c95ce74cbf8a7d8745c6635,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 204.84
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7074561777478549517, guid: bd6059259c95ce74cbf8a7d8745c6635,
         type: 3}
@@ -11519,7 +11578,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1215725483}
         m_MethodName: UseButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -25992,16 +26051,16 @@ RectTransform:
   m_GameObject: {fileID: 3711110193010823551}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6135417, y: 0.6135417, z: 0.6135417}
   m_Children:
   - {fileID: 821965865}
   - {fileID: 413708636}
-  m_Father: {fileID: 545619200}
-  m_RootOrder: 3
+  m_Father: {fileID: 1215725482}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -67.9859, y: -27.133331}
   m_SizeDelta: {x: 1260, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3711110193010823551
@@ -26015,7 +26074,6 @@ GameObject:
   - component: {fileID: 3711110193010823550}
   - component: {fileID: 3711110193010823548}
   - component: {fileID: 3711110193010823549}
-  - component: {fileID: 3711110193010823552}
   - component: {fileID: 3711110193010823553}
   m_Layer: 0
   m_Name: ItemBagPanel
@@ -26024,30 +26082,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3711110193010823552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3711110193010823551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb41eb24cef00f542aa49a1897b3e5a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testItems:
-  - {fileID: 2881929840332574894, guid: 7106edcc449cae24f988b98ff54ef680, type: 3}
-  - {fileID: 2881929840332574894, guid: 28d241d08e6a6c143ab42c971c68bc04, type: 3}
-  elementDisplayPrefab: {fileID: 7761040861512377041, guid: c8f5ebf7747e6b04f90ca967974ef5d0,
-    type: 3}
-  elementContainer: {fileID: 821965860}
-  detailImage: {fileID: 650306717}
-  detailName: {fileID: 194901486}
-  detailDescription: {fileID: 744393390}
-  useButton: {fileID: 1623257402}
-  amountText: {fileID: 1304682915}
-  currentItem: {fileID: 0}
 --- !u!114 &3711110193010823553
 MonoBehaviour:
   m_ObjectHideFlags: 0
