@@ -76,6 +76,7 @@ public class UIManager : MonoBehaviour
         }
         currentTalk = talk;
         playerFPAIO.playerCanMove = false;
+        pressToTalk.SetActive(false);
     }
 
     public void CloseTalk(GameObject talk = null)

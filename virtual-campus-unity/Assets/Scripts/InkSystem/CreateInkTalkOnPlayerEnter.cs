@@ -24,4 +24,14 @@ public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 			}
 		}
 	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (!enabled) return;
+
+		if (other.tag == "Player")
+		{
+			UIManager.Instance.pressToTalk.SetActive(false);
+		}
+	}
 }
