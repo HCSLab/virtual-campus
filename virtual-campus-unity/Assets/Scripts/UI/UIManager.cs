@@ -30,9 +30,9 @@ public class UIManager : MonoBehaviour
 	[Header("Photography")]
 	public GameObject photographyCanvas;
 
-	[Header("Painter")]
-	public GameObject painterHub;
-	public List<GameObject> painters;
+	// [Header("Painter")]
+	// public GameObject painterHub;
+	// public List<GameObject> painters;
 
 	[HideInInspector]
 	public GameObject currentTalk;
@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
 		playerSFPAIO = GameObject.FindGameObjectWithTag("Player")
 			.GetComponent<ScriptedFirstPersonAIO>();
 
-		GetPaintersFromHub();
+		// GetPaintersFromHub();
 
 		// Initialize tab buttons.
 		tabButtonCaches = new TabButton[tabs.Length];
@@ -69,32 +69,32 @@ public class UIManager : MonoBehaviour
 
 			CloseTab(i);
 		}
+
+		tabMenuCanvas.SetActive(false);
 	}
 
-	void GetPaintersFromHub()
-	{
-		//PainterHub ph = painterHub.GetComponent<PainterHub>();
-		//painters.Add(ph.entirePainter);
-		//painters.Add(ph.headPainter);
-		//painters.Add(ph.upperPainter);
-		//painters.Add(ph.lowerPainter);
-		//painters.Add(ph.hatPainter);
-		//painters.Add(ph.armPainter);
-	}
+	//void GetPaintersFromHub()
+	//{
+	//	//PainterHub ph = painterHub.GetComponent<PainterHub>();
+	//	//painters.Add(ph.entirePainter);
+	//	//painters.Add(ph.headPainter);
+	//	//painters.Add(ph.upperPainter);
+	//	//painters.Add(ph.lowerPainter);
+	//	//painters.Add(ph.hatPainter);
+	//	//painters.Add(ph.armPainter);
+	//}
 
-	void DisableAllOpenedPanel()
-	{
-
-		painterHub.SetActive(false);
-		foreach (GameObject painter in painters)
-		{
-			painter.SetActive(false);
-		}
-	}
+	//void DisableAllOpenedPanel()
+	//{
+	//	painterHub.SetActive(false);
+	//	foreach (GameObject painter in painters)
+	//	{
+	//		painter.SetActive(false);
+	//	}
+	//}
 
 	public void OpenTalk(GameObject talk)
 	{
-		DisableAllOpenedPanel();
 		if (currentTalk != null)
 		{
 			Destroy(currentTalk);
