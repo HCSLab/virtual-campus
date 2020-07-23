@@ -8,7 +8,7 @@ public class PhotographyManager : MonoBehaviour
 {
 	[Header("Photography Settings")]
 	public Camera photographyCamera;
-	public float maxPositionError, maxEulerDegreeError;
+	public float maxPositionError, maxAngleError;
 
 	[Header("Camera Controll Settings")]
 	[Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
@@ -124,6 +124,38 @@ public class PhotographyManager : MonoBehaviour
 
 		PhotoBag.Instance.Add(Capture.GetScreenShot_Texture2D(photoIndex - 1));
 
+		// Check is target photo taken in storys
+		var taskTargets = GameObject.FindGameObjectsWithTag("PhotoTarget");
+		int undoneTargetCount = 0;
+		bool isSuccess = false;
+		foreach (var tar in taskTargets)
+		{
+			if (!FlagBag.Instance.HasFlag("photo_" + tar.name))
+			{
+				undoneTargetCount++;
+				if (IsTargetPhotoTaken(tar.transform))
+				{
+					FlagBag.Instance.AddFlag("photo_" + tar.name);
+					isSuccess = true;
+				}
+			}
+		}
+		// Show hint box when success or failure
+		if (undoneTargetCount > 0)
+		{
+			var talkCreater = GetComponent<CreateInkTalk>();
+			if (isSuccess)
+			{
+				talkCreater.executeFunction = "success";
+				talkCreater.Create();
+			}
+			else
+			{
+				talkCreater.executeFunction = "failure";
+				talkCreater.Create();
+			}
+		}
+
 		isTakingPhoto = true;
 	}
 
@@ -163,7 +195,9 @@ public class PhotographyManager : MonoBehaviour
 
 	public bool IsTargetPhotoTaken(Transform target)
 	{
-		return ((photographyCamera.transform.position - target.position).magnitude < maxPositionError)
-			&& ((photographyCamera.transform.eulerAngles - target.eulerAngles).magnitude < maxEulerDegreeError);
+		bool posCheck = (photographyCamera.transform.position - target.position).magnitude < maxPositionError;
+		bool angCheck = Vector3.Dot(photographyCamera.transform.forward, target.forward) > Mathf.Cos(Mathf.Deg2Rad * maxAngleError);
+
+		return posCheck && angCheck;
 	}
 }
