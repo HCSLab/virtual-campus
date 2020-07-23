@@ -120,16 +120,7 @@ public class StoryScript : MonoBehaviour
 
     public void ProcessFunctionHeaderTags()
     {
-        foreach (var obj in dynamicallyGenerated)
-        {
-            Destroy(obj);
-        }
-        dynamicallyGenerated.Clear();
-        foreach (var npc in npcOverrided)
-        {
-            NPCManager.Instance.EnableDisableNPCOrigTalk(npc, true);
-        }
-        npcOverrided.Clear();
+        EliminateEffects();
 
         var tempStory = new Story(inkFile.text);
         PlayerInfo.WriteToInkStory(tempStory);
@@ -425,6 +416,20 @@ public class StoryScript : MonoBehaviour
         FlagBag.Instance.DelFlag(inkFile.name + "_" + flag);
     }
 
+    private void EliminateEffects()
+    {
+        foreach (var obj in dynamicallyGenerated)
+        {
+            Destroy(obj);
+        }
+        dynamicallyGenerated.Clear();
+        foreach (var npc in npcOverrided)
+        {
+            NPCManager.Instance.EnableDisableNPCOrigTalk(npc, true);
+        }
+        npcOverrided.Clear();
+    }
+
     public void EndStory()
     {
         FlagBag.Instance.AddFlag(inkFile.name);
@@ -434,10 +439,6 @@ public class StoryScript : MonoBehaviour
     private void OnDestroy()
     {
         FlagBag.Instance.DelFlagsWithPrefix(inkFile.name + "_");
-
-        foreach (var obj in dynamicallyGenerated)
-        {
-            Destroy(obj);
-        }
+        EliminateEffects();
     }
 }
