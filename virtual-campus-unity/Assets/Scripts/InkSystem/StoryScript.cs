@@ -315,7 +315,7 @@ public class StoryScript : MonoBehaviour
             }
         }
 
-        withoutTags.Add(funcName);
+        withoutTags.Add(inkFile.name + "_" + funcName);
 
 
         foreach (var who in attachTags)
