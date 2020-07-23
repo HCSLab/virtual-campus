@@ -136,7 +136,7 @@ public class PhotographyManager : MonoBehaviour
 		playerFirstPersonAIO.playerCanMove = false;
 
 		// Disable all UI
-		UIManager.Instance.mainCanvas.SetActive(false);
+		UIManager.Instance.hudCanvas.SetActive(false);
 
 		// Initialize the camera
 		photographyCamera.enabled = true;
@@ -154,7 +154,7 @@ public class PhotographyManager : MonoBehaviour
 		playerFirstPersonAIO.playerCanMove = true;
 
 		// Enable all UI
-		UIManager.Instance.mainCanvas.SetActive(true);
+		UIManager.Instance.hudCanvas.SetActive(true);
 
 		// Initialize the camera
 		photographyCamera.enabled = false;

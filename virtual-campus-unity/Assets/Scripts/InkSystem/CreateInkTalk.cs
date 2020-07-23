@@ -17,7 +17,7 @@ public class CreateInkTalk : MonoBehaviour
     public void Create()
     {
         talk = Instantiate(talkPrefab);
-        talk.transform.SetParent(UIManager.Instance.mainCanvas.transform);
+        talk.transform.SetParent(UIManager.Instance.hudCanvas.transform);
         
         // Set the proper size of the talk panel.
         talk.transform.localScale = Vector3.one;
