@@ -8,6 +8,7 @@ public class PhotoView : MonoBehaviour
 	static public PhotoView Instance;
 
     RawImage rawImage;
+	RectTransform rectTransform;
 
 	private void Awake()
 	{
@@ -17,11 +18,6 @@ public class PhotoView : MonoBehaviour
 	private void Start()
 	{
 		rawImage = GetComponent<RawImage>();
-		var rectTransform = GetComponent<RectTransform>();
-		var newSizeDelta = rectTransform.sizeDelta;
-		var asepctRatio = (float)Screen.width / Screen.height;
-		newSizeDelta.y = newSizeDelta.x / asepctRatio;
-		rectTransform.sizeDelta = newSizeDelta;
 
 		gameObject.SetActive(false);
 	}
@@ -30,5 +26,11 @@ public class PhotoView : MonoBehaviour
 	{
 		gameObject.SetActive(true);
 		rawImage.texture = photo;
+
+		rectTransform = GetComponent<RectTransform>();
+		var newSizeDelta = rectTransform.sizeDelta;
+		var asepctRatio = (float)photo.width / photo.height;
+		newSizeDelta.y = newSizeDelta.x / asepctRatio;
+		rectTransform.sizeDelta = newSizeDelta;
 	}
 }

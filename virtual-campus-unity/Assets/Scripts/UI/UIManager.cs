@@ -72,9 +72,12 @@ public class UIManager : MonoBehaviour
 
 		tabMenuCanvas.SetActive(false);
 
+		// StartCoroutine(TestTask3());
 		// StartCoroutine(TestTask1());
 	}
 
+	[Header("Test")]
+	public ItemScriptableObject testItem;
 	IEnumerator TestTask1()
 	{
 		yield return new WaitForSeconds(1f);
@@ -96,6 +99,13 @@ public class UIManager : MonoBehaviour
 		LogPanel.Instance.AddLog("你好", "世界！");
 
 		LogPanel.Instance.AddLog("测试", "这是一个非常长的句子，他真的很长，特别长，长到要换行，怎么还没换行，终于换行了！");
+	}
+
+	IEnumerator TestTask3()
+	{
+		yield return new WaitForSeconds(1f);
+
+		ItemPanel.Instance.AddItem(testItem);
 	}
 
 	//void GetPaintersFromHub()
