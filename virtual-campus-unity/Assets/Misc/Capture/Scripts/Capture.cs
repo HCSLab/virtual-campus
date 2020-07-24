@@ -23,6 +23,8 @@ public static class Capture  {
     //returns the fill path of a ScreenShot
     private static string GetFullPath(int ScreenShotNum = 0 )
     {
+        _ScreenShotPath = Application.dataPath + "/ScreenShots";
+
         return _ScreenShotPath + "/" +_Name + ScreenShotNum.ToString() + _Extention ;
     }
 
@@ -33,7 +35,6 @@ public static class Capture  {
     /// <returns>The file path to the screenshot.</returns>
     public static string TakeScreenShot(int ScreenShotNum = 0)
     {
-
         _ScreenShotPath =  Application.dataPath + "/ScreenShots";
 
         if (!Directory.Exists(_ScreenShotPath))
@@ -81,7 +82,7 @@ public static class Capture  {
     /// </summary>
     /// <returns><c>true</c>, if ScreenShot exist was does, <c>false</c> otherwise.</returns>
     /// <param name="ScreenShotNum">ScreenShot number.</param>
-    public static bool doesScreenshotExist(int ScreenShotNum = 0)
+    public static bool DoesScreenshotExist(int ScreenShotNum = 0)
     {
         return File.Exists(GetFullPath(ScreenShotNum));
     }

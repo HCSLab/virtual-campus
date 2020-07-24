@@ -33,11 +33,28 @@ public class PhotographyManager : MonoBehaviour
 	SimpleCameraController.CameraState m_InterpolatingCameraState =
 		new SimpleCameraController.CameraState();
 
+	int photoIndex = 0;
+
 	private void Start()
 	{
 		playerFirstPersonAIO = GameObject.FindGameObjectWithTag("Player").GetComponent<ScriptedFirstPersonAIO>();
 		photographyCamera.enabled = false;
 		cameraInitialY = photographyCamera.transform.localPosition.y;
+
+		StartCoroutine(AddExistingPhotos());
+	}
+
+	IEnumerator AddExistingPhotos()
+	{
+		// Wait one or two frames to ensure that
+		// the photo bag is initialized.
+		yield return null;
+		yield return null;
+		while(Capture.DoesScreenshotExist(photoIndex))
+		{
+			PhotoBag.Instance.Add(Capture.GetScreenShot_Texture2D(photoIndex));
+			photoIndex++;
+		}
 	}
 
 	private void Update()
@@ -108,7 +125,6 @@ public class PhotographyManager : MonoBehaviour
 		photographyCamera.transform.localPosition = Vector3.up * cameraInitialY;
 	}
 
-	int photoIndex = 0;
 	IEnumerator TakePhotoCoroutine()
 	{
 		// Disable camera update
