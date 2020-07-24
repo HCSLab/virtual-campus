@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PhotoBag : MonoBehaviour
+public class PhotoPanel : MonoBehaviour
 {
-    public static PhotoBag Instance;
+    public static PhotoPanel Instance;
 
 	public Transform elementContainer;
 	public GameObject elementDisplayPrefab;

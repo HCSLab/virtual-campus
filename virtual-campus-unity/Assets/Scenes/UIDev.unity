@@ -3440,8 +3440,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: -60, y: 0}
+  m_AnchoredPosition: {x: 20, y: 0}
+  m_SizeDelta: {x: -70, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &345784779
 MonoBehaviour:
@@ -3461,7 +3461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7279\u522B\u957F\u7684\u5730\u540D"
+  m_text: "\u6559\u5B66\u697CD\u680B\u4E0B\u9996\u5C42"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f33b39c7f76843f4f98e1d059b2e7985, type: 2}
   m_sharedMaterial: {fileID: 6858169700193825108, guid: f33b39c7f76843f4f98e1d059b2e7985,
@@ -3490,7 +3490,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
+  m_fontSize: 32.5
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3531,7 +3531,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 345784779}
-    characterCount: 6
+    characterCount: 8
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -8863,8 +8863,9 @@ GameObject:
   - component: {fileID: 940405308}
   - component: {fileID: 940405307}
   - component: {fileID: 940405311}
+  - component: {fileID: 940405312}
   m_Layer: 0
-  m_Name: ItemBagPanel
+  m_Name: ItemPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8945,8 +8946,8 @@ RectTransform:
   - {fileID: 1909920570}
   - {fileID: 1398598403}
   - {fileID: 819954068}
-  m_Father: {fileID: 1981704364}
-  m_RootOrder: 0
+  m_Father: {fileID: 1084157623}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8968,6 +8969,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &940405312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940405306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c8e50077fa8fa4e8754bbe8c67098c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &942526816
 GameObject:
   m_ObjectHideFlags: 0
@@ -9626,7 +9639,7 @@ MonoBehaviour:
   closedTabButtonImageColor: {r: 0.5176471, g: 0.28627452, b: 0.3529412, a: 1}
   openedTabButtonTextColor: {r: 0.5176471, g: 0.28627452, b: 0.3529412, a: 1}
   closedTabButtonTextColor: {r: 1, g: 1, b: 1, a: 1}
-  itemBagPanel: {fileID: 1981704362}
+  itemBagPanel: {fileID: 0}
   photographyCanvas: {fileID: 0}
   currentTalk: {fileID: 0}
 --- !u!4 &985459373
@@ -9783,7 +9796,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981704363}
+      - m_Target: {fileID: 0}
         m_MethodName: UseButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -10760,7 +10773,7 @@ RectTransform:
   - {fileID: 230981171}
   - {fileID: 376743743}
   - {fileID: 1069859690}
-  - {fileID: 1981704364}
+  - {fileID: 940405310}
   - {fileID: 1742802067}
   - {fileID: 625482147}
   - {fileID: 1545914890}
@@ -16948,10 +16961,10 @@ GameObject:
   - component: {fileID: 1545914890}
   - component: {fileID: 1545914889}
   - component: {fileID: 1545914888}
-  - component: {fileID: 1545914887}
   - component: {fileID: 1545914891}
+  - component: {fileID: 1545914887}
   m_Layer: 0
-  m_Name: PhotoBagPanel
+  m_Name: PhotoPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16966,7 +16979,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1545914886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2953009aaf0b844aa9c06805d29e2e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 42f676429da42464da738bc105235431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   elementContainer: {fileID: 1295876201}
@@ -21107,70 +21120,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979750326}
   m_CullTransparentMesh: 0
---- !u!1 &1981704362
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1981704364}
-  - component: {fileID: 1981704363}
-  m_Layer: 0
-  m_Name: ItemBag
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1981704363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981704362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb41eb24cef00f542aa49a1897b3e5a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testItems:
-  - {fileID: 2881929840332574894, guid: 7106edcc449cae24f988b98ff54ef680, type: 3}
-  - {fileID: 2881929840332574894, guid: 28d241d08e6a6c143ab42c971c68bc04, type: 3}
-  - {fileID: 930452855164085623, guid: 99efa2cbfe9ad24429772d8a3a09a049, type: 3}
-  - {fileID: 2502879166699754820, guid: a1e933da3a332d44f8a8d0fe1c358c82, type: 3}
-  - {fileID: 7609428826362869987, guid: 904dfb12e6a6e8841aff3dec5839feaa, type: 3}
-  elementDisplayPrefab: {fileID: 7761040861512377041, guid: c8f5ebf7747e6b04f90ca967974ef5d0,
-    type: 3}
-  elementContainer: {fileID: 1909920565}
-  detailImage: {fileID: 352098646}
-  detailName: {fileID: 1181025949}
-  detailDescription: {fileID: 14743287}
-  useButton: {fileID: 990320594}
-  amountText: {fileID: 706288484}
-  currentItem: {fileID: 0}
---- !u!224 &1981704364
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981704362}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 940405310}
-  m_Father: {fileID: 1084157623}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1984664446
 GameObject:
   m_ObjectHideFlags: 0
