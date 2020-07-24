@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     new Rigidbody rigidbody;
     Vector3 cameraPositionOffset;
+    private AntiPenetration antiPene;
+    public float Ysensitivity;
 
     void Start()
     {
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         cameraPositionOffset = playerCamera.transform.position - transform.position;
         lastMousePosition = Input.mousePosition;
+        antiPene = playerCamera.GetComponent<AntiPenetration>();
     }
 
     void Update()
@@ -59,18 +62,42 @@ public class PlayerController : MonoBehaviour
 
 
     Vector3 lastMousePosition;
+
     void UpdateCamera()
     {
-        playerCamera.transform.position = transform.position + cameraPositionOffset;
+        //playerCamera.transform.position = transform.position + cameraPositionOffset;
 
         float cameraRotation = 0f;
-        if(Input.GetKey(KeyCode.Q)) cameraRotation -= 1f;
+        float cameraRotationY = 0f;
+        
+        if (Input.GetKey(KeyCode.Q)) cameraRotation -= 1f;
         if(Input.GetKey(KeyCode.E)) cameraRotation += 1f;
-        //if (Input.GetMouseButton(0)) minimapCamera.GetComponent<MinimapCamera>().ZoomInButtonClick();
         if (Input.GetMouseButton(1))
+        {
             cameraRotation = (Input.mousePosition - lastMousePosition).x * mouseSensitivity;
-       
-        playerCamera.transform.RotateAround(transform.position, Vector3.up, cameraRotation * cameraRotationSpeed);
+            cameraRotationY = (Input.mousePosition - lastMousePosition).y * mouseSensitivity;
+        }
+
+        playerCamera.transform.RotateAround(transform.position + new Vector3(0f, 0.5f, 0f), Vector3.up, cameraRotation * cameraRotationSpeed);
+
+        if (cameraRotationY > 0.3f || cameraRotationY < -0.3f)
+        {
+            if (antiPene.m_distanceUp >= 1 && antiPene.m_distanceUp <= 4.5)
+            {
+                antiPene.m_distanceUp += cameraRotationY * Ysensitivity;
+                antiPene.m_distanceAway = Mathf.Sqrt(antiPene.sqrDist - antiPene.m_distanceUp * antiPene.m_distanceUp);
+                if (antiPene.m_distanceUp < 1)
+                {
+                    antiPene.m_distanceUp = 1;
+                    antiPene.m_distanceAway = Mathf.Sqrt(antiPene.sqrDist - antiPene.m_distanceUp * antiPene.m_distanceUp);
+                }
+                else if (antiPene.m_distanceUp > 4.5)
+                {
+                    antiPene.m_distanceUp = 4.5f;
+                    antiPene.m_distanceAway = Mathf.Sqrt(antiPene.sqrDist - antiPene.m_distanceUp * antiPene.m_distanceUp);
+                }
+             }
+        }
 
         cameraPositionOffset = playerCamera.transform.position - transform.position;
 
@@ -78,6 +105,7 @@ public class PlayerController : MonoBehaviour
         newForward.Scale(new Vector3(1f, 0f, 1f));
         transform.forward = newForward;
 
+        /*
         playerCamera.GetComponent<Camera>().orthographicSize += -Input.mouseScrollDelta.y * cameraScalingSpeed;
         if (playerCamera.GetComponent<Camera>().orthographicSize < 1)
         {
@@ -87,8 +115,10 @@ public class PlayerController : MonoBehaviour
         {
             playerCamera.GetComponent<Camera>().orthographicSize = 10;
         }
+        */
 
     }
+
 
     public Vector2 GetMovementInput()
 	{

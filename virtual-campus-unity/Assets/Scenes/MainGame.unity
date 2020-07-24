@@ -567,6 +567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u884C\u653F\u697C\uFF08\u4E1C\u7FFC\uFF09"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &57795758
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1285,6 +1287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6559\u5B66\u697CD"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &134437743
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1621,6 +1625,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5B9E\u9A8C\u697CA"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &160806881
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2589,6 +2595,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5DE5\u5730"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &183022824
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3003,6 +3011,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u884C\u653F\u697C\uFF08\u897F\u7FFC\uFF09"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &220080862
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3064,122 +3074,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220080859}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &225634060
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 225634061}
-  - component: {fileID: 225634063}
-  - component: {fileID: 225634062}
-  - component: {fileID: 225634064}
-  m_Layer: 0
-  m_Name: Camera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &225634061
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225634060}
-  m_LocalRotation: {x: 0.16042997, y: -0.37686962, z: 0.066452265, w: 0.9098438}
-  m_LocalPosition: {x: 36.72, y: 19.3, z: -50.24}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2068359192}
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 20, y: -45, z: 0}
---- !u!81 &225634062
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225634060}
-  m_Enabled: 1
---- !u!20 &225634063
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225634060}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 3
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 6967
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!114 &225634064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225634060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_CameraOutput: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 1
-  m_Antialiasing: 1
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
 --- !u!1 &265461945
 GameObject:
   m_ObjectHideFlags: 0
@@ -3300,6 +3194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5B66\u751F\u4E2D\u5FC3"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &274281914
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3408,6 +3304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u9038\u592B\u4E66\u9662\uFF08\u4E1C\u5EA7\uFF09"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &275185770
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4042,6 +3940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tm: {fileID: 345784779}
+  visitCount: 0
+  regionCount: 38
 --- !u!1 &370042000
 GameObject:
   m_ObjectHideFlags: 0
@@ -5062,6 +4962,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6559\u5B66\u697CB"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &451713119
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5676,6 +5578,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5FD7\u4EC1\u697C\u82B1\u56ED"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &511718940
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5784,6 +5688,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6210\u9053\u697C"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &519062768
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7387,6 +7293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u542F\u52A8\u533A\u5E7F\u573A"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &718926296
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8747,6 +8655,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u4E2D\u95E8"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &803903924
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9058,7 +8968,7 @@ Transform:
   - {fileID: 508538607}
   - {fileID: 1718567192}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &840534088
 MonoBehaviour:
@@ -9147,7 +9057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 858933675}
   m_Layer: 0
-  m_Name: CurrentRegion
+  m_Name: RegionQuads
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9161,8 +9071,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858933674}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1895.2548, y: -899.202, z: -66.35442}
-  m_LocalScale: {x: 1.629881, y: 1.629881, z: 1.629881}
+  m_LocalPosition: {x: -0.15631104, y: -44.036438, z: -40.711205}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1643171341}
   - {fileID: 718926294}
@@ -9205,8 +9115,8 @@ Transform:
   - {fileID: 1057182599}
   - {fileID: 952656628}
   - {fileID: 1439943202}
-  m_Father: {fileID: 7719392487978080672}
-  m_RootOrder: 2
+  m_Father: {fileID: 1223093601}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &879018616
 GameObject:
@@ -9318,6 +9228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5357\u95E8"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &879290763
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10270,6 +10182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u4E0B\u56ED\uFF08\u4E2D\uFF09"
+  tag: Ignored
+  isVisited: 0
 --- !u!64 &952656630
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10378,6 +10292,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u9038\u592B\u56FD\u9645\u4F1A\u8BAE\u4E2D\u5FC3"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &965033001
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11293,6 +11209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u793C\u6587\u697C"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &993685198
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11401,6 +11319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6D82\u8F89\u9F99\u697C"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &999213907
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11509,6 +11429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u4E0B\u56ED\uFF08\u897F\uFF09"
+  tag: Ignored
+  isVisited: 0
 --- !u!64 &1057182601
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11617,6 +11539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u884C\u653F\u697C\u540E\u5C71"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1064125351
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12483,6 +12407,7 @@ Transform:
   - {fileID: 1712580890}
   - {fileID: 267113323}
   - {fileID: 1088881946}
+  - {fileID: 858933675}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12888,6 +12813,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u535A\u6587\u4E66\u5E97"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1245693095
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12996,6 +12923,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5357\u95E8\u82B1\u56ED"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1249699671
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13275,6 +13204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u9038\u592B\u4E66\u9662\u6C60\u5858"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1258579027
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13536,6 +13467,36 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1285261606}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1294838897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1294838898}
+  m_Layer: 0
+  m_Name: CameraFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1294838898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294838897}
+  m_LocalRotation: {x: -0, y: -0.92387867, z: 0, w: 0.38268548}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1968640455}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1304682915
 GameObject:
   m_ObjectHideFlags: 0
@@ -14568,6 +14529,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u53D8\u7535\u6240"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1320423179
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14932,6 +14895,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u9038\u592B\u4E66\u9662\uFF08\u897F\u5EA7\uFF09"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1326027433
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15261,6 +15226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u77E5\u65B0\u697C"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1364558174
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15592,6 +15559,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6559\u5B66\u697CB"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1407064717
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15900,6 +15869,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u4E50\u5929\u697C"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1425164348
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16007,7 +15978,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b5e8c252acb5e49998f8bc74aef3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: "\u4E0B\u56ED\uFF08\u4E2D\uFF09"
+  name: "\u4E0B\u56ED\uFF08\u4E1C\uFF09"
+  tag: Ignored
+  isVisited: 0
 --- !u!64 &1439943204
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16621,6 +16594,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u4E1C\u95E8"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1521840167
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17281,6 +17256,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6559\u5B66\u697CD"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1628619995
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17544,6 +17521,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u4F53\u80B2\u9986"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!1 &1645860390
 GameObject:
   m_ObjectHideFlags: 0
@@ -17591,6 +17570,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5927\u5B66\u56FE\u4E66\u9986"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1645860393
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17993,6 +17974,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5FD7\u4EC1\u697C"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1681000433
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18587,6 +18570,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u9053\u8FDC\u697C"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1724892163
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19504,6 +19489,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6559\u5B66\u697CA"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1778170071
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20677,6 +20664,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6559\u5B66\u697CC"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1851108481
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21026,6 +21015,142 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1891530537}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1908217298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1908217303}
+  - component: {fileID: 1908217302}
+  - component: {fileID: 1908217301}
+  - component: {fileID: 1908217300}
+  - component: {fileID: 1908217299}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1908217299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908217298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1233472c9c3c68d429ab4233c4ba0af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_distanceAway: 4.5
+  m_distanceUp: 2
+  m_smooth: 50
+  m_player: {fileID: 1968640455}
+  offsetY: 0.75
+  cameraFollow: {fileID: 1294838898}
+  mainCamera: {fileID: 1908217302}
+  sqrDist: 0
+--- !u!114 &1908217300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908217298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_CameraOutput: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+--- !u!81 &1908217301
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908217298}
+  m_Enabled: 1
+--- !u!20 &1908217302
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908217298}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 6455
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1908217303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908217298}
+  m_LocalRotation: {x: 0.32556805, y: 0, z: 0, w: 0.9455186}
+  m_LocalPosition: {x: 5.505, y: 4.721, z: -21.437}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 38, y: 0, z: 0}
 --- !u!1 &1916659773
 GameObject:
   m_ObjectHideFlags: 0
@@ -21139,6 +21264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u767E\u4E07\u5927\u9053"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1917498052
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21597,6 +21724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u6559\u5B66\u697CC"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1955486166
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21658,6 +21787,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955486163}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1968640455 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1088077700390641612, guid: c87b1439f9dccb046bd58ce99449c001,
+    type: 3}
+  m_PrefabInstance: {fileID: 1978754647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1978754647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21674,12 +21809,22 @@ PrefabInstance:
         type: 3}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 225634060}
+      objectReference: {fileID: 1908217298}
     - target: {fileID: 1085472564530202343, guid: c87b1439f9dccb046bd58ce99449c001,
         type: 3}
       propertyPath: minimapCamera
       value: 
       objectReference: {fileID: 4106514546197934652}
+    - target: {fileID: 1085472564530202343, guid: c87b1439f9dccb046bd58ce99449c001,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085472564530202343, guid: c87b1439f9dccb046bd58ce99449c001,
+        type: 3}
+      propertyPath: Ysensitivity
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 1088077700390641612, guid: c87b1439f9dccb046bd58ce99449c001,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21718,7 +21863,7 @@ PrefabInstance:
     - target: {fileID: 1088077700390641612, guid: c87b1439f9dccb046bd58ce99449c001,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1088077700390641612, guid: c87b1439f9dccb046bd58ce99449c001,
         type: 3}
@@ -21878,6 +22023,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u5357\u95E8\u82B1\u56ED"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &1993012771
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22533,133 +22680,6 @@ Transform:
   m_Father: {fileID: 1088881946}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &2068359191
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2068359192}
-  - component: {fileID: 2068359193}
-  m_Layer: 0
-  m_Name: BGM
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2068359192
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068359191}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 225634061}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &2068359193
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068359191}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a3abecf222a9a954d9899bcaaf017c80, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &2082770959
 GameObject:
   m_ObjectHideFlags: 0
@@ -22707,6 +22727,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u884C\u653F\u697C\u540E\u5C71"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &2082770962
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22909,6 +22931,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\u4E0B\u56ED\u7BEE\u7403\u573A"
+  tag: LowerCampus
+  isVisited: 0
 --- !u!64 &2113936463
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -42445,7 +42469,6 @@ RectTransform:
   m_Children:
   - {fileID: 345784778}
   - {fileID: 1730505655}
-  - {fileID: 858933675}
   m_Father: {fileID: 545619200}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
