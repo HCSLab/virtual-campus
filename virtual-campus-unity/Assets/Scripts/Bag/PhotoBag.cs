@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PhotoBag : Bag
+public class PhotoBag : MonoBehaviour
 {
     public static PhotoBag Instance;
+
+	public Transform elementContainer;
+	public GameObject elementDisplayPrefab;
 
     private void Awake()
     {
@@ -25,9 +28,4 @@ public class PhotoBag : Bag
 		newCellSize.x = newCellSize.y * asepct;
 		gridLayoutGroup.cellSize = newCellSize;
 	}
-
-	public override void Select(Item item, ItemBox itemBox)
-    {
-
-    }
 }
