@@ -7,8 +7,9 @@ public class PhotoView : MonoBehaviour
 {
 	static public PhotoView Instance;
 
-    RawImage rawImage;
+    Image image;
 	RectTransform rectTransform;
+	Vector2 defaultSizeDelta;
 
 	private void Awake()
 	{
@@ -17,20 +18,29 @@ public class PhotoView : MonoBehaviour
 
 	private void Start()
 	{
-		rawImage = GetComponent<RawImage>();
+		image = GetComponent<Image>();
+		rectTransform = GetComponent<RectTransform>();
+		defaultSizeDelta = rectTransform.sizeDelta;
 
 		gameObject.SetActive(false);
 	}
 
-	public void ShowPhoto(Texture2D photo)
+	public void ShowPhoto(Sprite photo)
 	{
 		gameObject.SetActive(true);
-		rawImage.texture = photo;
-
-		rectTransform = GetComponent<RectTransform>();
-		var newSizeDelta = rectTransform.sizeDelta;
-		var asepctRatio = (float)photo.width / photo.height;
-		newSizeDelta.y = newSizeDelta.x / asepctRatio;
+		image.sprite = photo;
+		// Reset the aspect of the preview image container
+		// to fit the aspect ratio of the photo.
+		var newSizeDelta = defaultSizeDelta;
+		var aspect = (float)photo.rect.width / photo.rect.height;
+		if (aspect > (float)Screen.width / Screen.height)
+		{
+			newSizeDelta.y = newSizeDelta.x / aspect;
+		}
+		else
+		{
+			newSizeDelta.x = newSizeDelta.y * aspect;
+		}
 		rectTransform.sizeDelta = newSizeDelta;
 	}
 }

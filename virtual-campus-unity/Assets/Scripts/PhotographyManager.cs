@@ -52,7 +52,7 @@ public class PhotographyManager : MonoBehaviour
 		yield return null;
 		while(Capture.DoesScreenshotExist(photoIndex))
 		{
-			PhotoPanel.Instance.Add(Capture.GetScreenShot_Texture2D(photoIndex));
+			PhotoPanel.Instance.Add(Capture.GetScreenShot_Sprite(photoIndex));
 			photoIndex++;
 		}
 	}
@@ -138,7 +138,7 @@ public class PhotographyManager : MonoBehaviour
 		while (!File.Exists(filePath))
 			yield return null;
 
-		PhotoPanel.Instance.Add(Capture.GetScreenShot_Texture2D(photoIndex - 1));
+		PhotoPanel.Instance.Add(Capture.GetScreenShot_Sprite(photoIndex - 1));
 
 		isTakingPhoto = true;
 	}

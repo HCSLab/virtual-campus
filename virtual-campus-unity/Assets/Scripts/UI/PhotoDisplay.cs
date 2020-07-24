@@ -3,8 +3,15 @@ using UnityEngine.UI;
 
 public class PhotoDisplay : MonoBehaviour
 {
-    public void ShowPhoto()
+	Image image;
+
+	private void Start()
 	{
-        PhotoView.Instance.ShowPhoto((Texture2D)GetComponent<RawImage>().texture);
+		image = GetComponent<Image>();
+	}
+
+	public void ShowPhoto()
+	{
+        PhotoView.Instance.ShowPhoto(image.sprite);
 	}
 }

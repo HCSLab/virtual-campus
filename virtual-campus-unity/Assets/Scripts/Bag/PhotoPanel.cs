@@ -15,14 +15,14 @@ public class PhotoPanel : MonoBehaviour
         Instance = this;
     }
 
-	public void Add(Texture2D photo)
+	public void Add(Sprite photo)
 	{
 		var display = Instantiate(elementDisplayPrefab);
-		display.GetComponentInChildren<RawImage>().texture = photo;
+		display.GetComponentInChildren<Image>().sprite = photo;
 		display.transform.SetParent(elementContainer.transform);
 		display.transform.localScale = Vector3.one;
 
-		var asepct = ((float)photo.width) / photo.height;
+		var asepct = ((float)photo.rect.width) / photo.rect.height;
 		var gridLayoutGroup = elementContainer.GetComponent<GridLayoutGroup>();
 		var newCellSize = gridLayoutGroup.cellSize;
 		newCellSize.x = newCellSize.y * asepct;

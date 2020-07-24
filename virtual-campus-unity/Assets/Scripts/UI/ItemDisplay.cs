@@ -7,8 +7,7 @@ public class ItemDisplay : MonoBehaviour
 {
 	public Image iconImage;
 
-	[HideInInspector]
-	public ItemScriptableObject item;
+	ItemScriptableObject item;
 
 	public void Initialize(ItemScriptableObject newItem)
 	{

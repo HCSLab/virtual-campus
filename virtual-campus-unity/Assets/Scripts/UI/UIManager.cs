@@ -72,12 +72,16 @@ public class UIManager : MonoBehaviour
 
 		tabMenuCanvas.SetActive(false);
 
-		// StartCoroutine(TestTask3());
 		// StartCoroutine(TestTask1());
+		// StartCoroutine(TestTask2());
+		StartCoroutine(TestTask3());
+		StartCoroutine(TestTask4());
 	}
 
+	#region Test Tasks
 	[Header("Test")]
 	public ItemScriptableObject testItem;
+	public RealWorldPhotoScriptableObject[] testPhotos;
 	IEnumerator TestTask1()
 	{
 		yield return new WaitForSeconds(1f);
@@ -108,6 +112,14 @@ public class UIManager : MonoBehaviour
 		ItemPanel.Instance.AddItem(testItem);
 	}
 
+	IEnumerator TestTask4()
+	{
+		yield return new WaitForSeconds(1f);
+
+		foreach (var photo in testPhotos)
+			ItemPanel.Instance.AddPhoto(photo);
+	}
+	#endregion
 	//void GetPaintersFromHub()
 	//{
 	//	//PainterHub ph = painterHub.GetComponent<PainterHub>();
