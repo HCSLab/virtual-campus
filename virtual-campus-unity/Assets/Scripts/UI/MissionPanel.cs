@@ -53,10 +53,15 @@ public class MissionPanel : MonoBehaviour
 		newButton.GetComponent<Button>().onClick.AddListener(() => { SelectMission(currentIndex); });
 
 		missionButtons.Add(newButton);
+
+		if (!isFinished)
+			MissionPreviewPanel.Instance.AddMission(missionName, missionDescription, currentIndex);
 	}
 
 	public void FinishMission(string finishedMissionName)
 	{
+		MissionPreviewPanel.Instance.FinishMission(finishedMissionName);
+
 		for (int i = 0; i < missionNames.Count; i++)
 		{
 			if (missionNames[i] == finishedMissionName)

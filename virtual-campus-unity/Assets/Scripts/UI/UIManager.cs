@@ -72,19 +72,21 @@ public class UIManager : MonoBehaviour
 
 		tabMenuCanvas.SetActive(false);
 
-		StartCoroutine(TestTask2());
+		// StartCoroutine(TestTask1());
 	}
 
-	IEnumerator TestTask()
+	IEnumerator TestTask1()
 	{
 		yield return new WaitForSeconds(1f);
 
 		MissionPanel.Instance.AddMission("1", "23", true);
-		MissionPanel.Instance.AddMission("3", "21", false);
+		MissionPanel.Instance.AddMission("2", "21", false);
 		MissionPanel.Instance.AddMission("校长的问候", "刚刚入学，你还对学校不太熟悉吧，去小广场处找校长，他会给你介绍整个学校的大致分布的。", false);
+		MissionPanel.Instance.AddMission("3", "21", false);
+		MissionPanel.Instance.AddMission("4", "23", false);
 
 		yield return new WaitForSeconds(5f);
-		MissionPanel.Instance.FinishMission("1");
+		MissionPanel.Instance.FinishMission("4");
 	}
 
 	IEnumerator TestTask2()
