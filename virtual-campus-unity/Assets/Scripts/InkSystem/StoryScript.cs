@@ -9,6 +9,11 @@ public class StoryScript : MonoBehaviour
     public TextAsset inkFile;
     public Story inkStory;
 
+    [HideInInspector] public int talkCount = 0;
+
+    [HideInInspector] public string nameForDisplay;
+    [HideInInspector] public string description;
+
     public GameObject talkPrefab;
     private GameObject buttonPrefab;
 
@@ -55,6 +60,14 @@ public class StoryScript : MonoBehaviour
             else if (op == "allow_multi_try")
             {
                 allowMultiTry = true;
+            }
+            else if (op == "name")
+            {
+                nameForDisplay = data;
+            }
+            else if (op == "description")
+            {
+                description = data;
             }
         }
 
@@ -233,7 +246,7 @@ public class StoryScript : MonoBehaviour
         }
         else if (op == "endstory")
         {
-            EndStory();
+            StoryManager.Instance.EndStory(this);
         }
         else if (op == "upd_info")
         {

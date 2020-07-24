@@ -19,6 +19,8 @@ public class InkTalk : MonoBehaviour
 
     [HideInInspector] public StoryScript storyScript;
 
+    [HideInInspector] public string speakerNameForDisplay;
+
     public TextMeshProUGUI text;
     public Transform buttons;
     public GameObject button;
@@ -78,6 +80,7 @@ public class InkTalk : MonoBehaviour
         if (sentences != "")
         {
             text.text = sentences;
+            LogPanel.Instance.AddLog(speakerNameForDisplay, sentences);
         }
 
         foreach (var choice in inkStory.currentChoices)
@@ -99,7 +102,7 @@ public class InkTalk : MonoBehaviour
                 btnText.text = choice.text;
 
                 var path = choice.pathStringOnChoice;
-                btn.onClick.AddListener(() => { ChoicePathSelected(path); });
+                btn.onClick.AddListener(() => { ChoicePathSelected(path, choice.text); });
             }
         }        
         
@@ -107,7 +110,8 @@ public class InkTalk : MonoBehaviour
 
         if (firstStep && sentences == "" && inkStory.currentChoices.Count == 1)
         {
-            ChoicePathSelected(inkStory.currentChoices[0].pathStringOnChoice);
+            ChoicePathSelected(inkStory.currentChoices[0].pathStringOnChoice, 
+                inkStory.currentChoices[0].text);
         }
 
         firstStep = false;
@@ -120,11 +124,16 @@ public class InkTalk : MonoBehaviour
 
     }
 
-    private void ChoicePathSelected(string path)
+    private void ChoicePathSelected(string path, string text = "")
     {
         inkStory.ChoosePathString(path);
         inkStory.Continue();
         nextStep = true;
+
+        if (text != "")
+        {
+            LogPanel.Instance.AddLog("Me", text);
+        }
     }
 
     private void EndTalk()
@@ -133,6 +142,13 @@ public class InkTalk : MonoBehaviour
         {
             if (!notFinished)
                 storyScript.AddLocalFlag(executeFunction);
+
+            storyScript.talkCount++;
+            if (storyScript.talkCount == 1)
+            {
+                StoryManager.Instance.StartStory(storyScript);
+            }
+
             storyScript.ProcessFunctionHeaderTags();
         }
 

@@ -33,11 +33,28 @@ public class PhotographyManager : MonoBehaviour
 	SimpleCameraController.CameraState m_InterpolatingCameraState =
 		new SimpleCameraController.CameraState();
 
+	int photoIndex = 0;
+
 	private void Start()
 	{
 		playerFirstPersonAIO = GameObject.FindGameObjectWithTag("Player").GetComponent<ScriptedFirstPersonAIO>();
 		photographyCamera.enabled = false;
 		cameraInitialY = photographyCamera.transform.localPosition.y;
+
+		StartCoroutine(AddExistingPhotos());
+	}
+
+	IEnumerator AddExistingPhotos()
+	{
+		// Wait one or two frames to ensure that
+		// the photo bag is initialized.
+		yield return null;
+		yield return null;
+		while(Capture.DoesScreenshotExist(photoIndex))
+		{
+			PhotoPanel.Instance.Add(Capture.GetScreenShot_Sprite(photoIndex));
+			photoIndex++;
+		}
 	}
 
 	private void Update()
@@ -108,7 +125,6 @@ public class PhotographyManager : MonoBehaviour
 		photographyCamera.transform.localPosition = Vector3.up * cameraInitialY;
 	}
 
-	int photoIndex = 0;
 	IEnumerator TakePhotoCoroutine()
 	{
 		// Disable camera update
@@ -122,7 +138,7 @@ public class PhotographyManager : MonoBehaviour
 		while (!File.Exists(filePath))
 			yield return null;
 
-		PhotoBag.Instance.Add(Capture.GetScreenShot_Texture2D(photoIndex - 1));
+		PhotoPanel.Instance.Add(Capture.GetScreenShot_Sprite(photoIndex - 1));
 
 		// Check is target photo taken in storys
 		var taskTargets = GameObject.FindGameObjectsWithTag("PhotoTarget");
@@ -168,7 +184,7 @@ public class PhotographyManager : MonoBehaviour
 		playerFirstPersonAIO.playerCanMove = false;
 
 		// Disable all UI
-		UIManager.Instance.mainCanvas.SetActive(false);
+		UIManager.Instance.hudCanvas.SetActive(false);
 
 		// Initialize the camera
 		photographyCamera.enabled = true;
@@ -186,7 +202,7 @@ public class PhotographyManager : MonoBehaviour
 		playerFirstPersonAIO.playerCanMove = true;
 
 		// Enable all UI
-		UIManager.Instance.mainCanvas.SetActive(true);
+		UIManager.Instance.hudCanvas.SetActive(true);
 
 		// Initialize the camera
 		photographyCamera.enabled = false;

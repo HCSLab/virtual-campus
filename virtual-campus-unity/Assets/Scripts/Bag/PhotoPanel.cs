@@ -3,31 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PhotoBag : Bag
+public class PhotoPanel : MonoBehaviour
 {
-    public static PhotoBag Instance;
+    public static PhotoPanel Instance;
+
+	public Transform elementContainer;
+	public GameObject elementDisplayPrefab;
 
     private void Awake()
     {
         Instance = this;
     }
 
-	public void Add(Texture2D photo)
+	public void Add(Sprite photo)
 	{
 		var display = Instantiate(elementDisplayPrefab);
-		display.GetComponentInChildren<RawImage>().texture = photo;
+		display.GetComponentInChildren<Image>().sprite = photo;
 		display.transform.SetParent(elementContainer.transform);
 		display.transform.localScale = Vector3.one;
 
-		var asepct = ((float)photo.width) / photo.height;
+		var asepct = ((float)photo.rect.width) / photo.rect.height;
 		var gridLayoutGroup = elementContainer.GetComponent<GridLayoutGroup>();
 		var newCellSize = gridLayoutGroup.cellSize;
 		newCellSize.x = newCellSize.y * asepct;
 		gridLayoutGroup.cellSize = newCellSize;
 	}
-
-	public override void Select(Item item, ItemBox itemBox)
-    {
-
-    }
 }

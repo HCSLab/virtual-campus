@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,13 @@ public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 			if (FlagBag.Instance.HasFlags(require) &&
 				FlagBag.Instance.WithoutFlags(without))
 			{
+				if (speakerNameForDisplay == null || speakerNameForDisplay == "")
+				{
+					speakerNameForDisplay = transform.Find("Canvas/Name")
+						.GetComponent<TextMeshProUGUI>()
+						.text.Trim();
+				}
+
 				UIManager.Instance.pressToTalk.SetActive(true);
 				var btn = UIManager.Instance.pressToTalk.GetComponent<Button>();
 				btn.onClick.RemoveAllListeners();

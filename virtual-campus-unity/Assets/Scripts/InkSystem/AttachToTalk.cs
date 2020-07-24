@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class AttachToTalk : MonoBehaviour
 {
-    [HideInInspector] public GameObject talk;
-
     public string speakerName;
 
     public List<string> require = new List<string>();
@@ -20,18 +18,23 @@ public class AttachToTalk : MonoBehaviour
 
     private void OnTalkCreate(object data)
     {
-        talk = (GameObject)data;
+        if (!FlagBag.Instance.HasFlags(require) ||
+            !FlagBag.Instance.WithoutFlags(without))
+        {
+            return;
+        }
+            
+        var talkObj = (GameObject)data;
 
-        var buttons = talk.transform.Find("Panel/Buttons");
+        var talkCreater = GetComponent<CreateInkTalk>();
+        talkCreater.speakerNameForDisplay = talkObj.GetComponent<InkTalk>().speakerNameForDisplay;
+
+        var buttons = talkObj.transform.Find("Panel/Buttons");
         var btn = Instantiate(gameObject).GetComponent<Button>();
         btn.transform.SetParent(buttons);
         btn.transform.localScale = Vector3.one;
         Destroy(btn.GetComponent<AttachToTalk>());
         btn.onClick = GetComponent<Button>().onClick;
-
-        bool active = FlagBag.Instance.HasFlags(require) && 
-                      FlagBag.Instance.WithoutFlags(without);
-        btn.gameObject.SetActive(active);
     }
 
     private void OnDestroy()

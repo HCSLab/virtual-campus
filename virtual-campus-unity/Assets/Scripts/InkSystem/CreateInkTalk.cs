@@ -12,12 +12,14 @@ public class CreateInkTalk : MonoBehaviour
 
     protected GameObject talk;
 
+    [HideInInspector] public string speakerNameForDisplay;
+
     [HideInInspector] public StoryScript storyScript;
 
     public void Create()
     {
         talk = Instantiate(talkPrefab);
-        talk.transform.SetParent(UIManager.Instance.mainCanvas.transform);
+        talk.transform.SetParent(UIManager.Instance.hudCanvas.transform);
         
         // Set the proper size of the talk panel.
         talk.transform.localScale = Vector3.one;
@@ -32,6 +34,7 @@ public class CreateInkTalk : MonoBehaviour
         ink.inkFile = inkFile;
         ink.executeFunction = executeFunction;
         ink.storyScript = storyScript;
+        ink.speakerNameForDisplay = speakerNameForDisplay;
 
         EventCenter.Broadcast("create_" + gameObject.name + "_talk", talk);
 
