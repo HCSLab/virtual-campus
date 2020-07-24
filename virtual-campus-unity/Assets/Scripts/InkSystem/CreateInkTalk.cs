@@ -12,6 +12,8 @@ public class CreateInkTalk : MonoBehaviour
 
     protected GameObject talk;
 
+    [HideInInspector] public string speakerName;
+
     [HideInInspector] public StoryScript storyScript;
 
     public void Create()
@@ -32,6 +34,7 @@ public class CreateInkTalk : MonoBehaviour
         ink.inkFile = inkFile;
         ink.executeFunction = executeFunction;
         ink.storyScript = storyScript;
+        ink.speakerName = speakerName;
 
         EventCenter.Broadcast("create_" + gameObject.name + "_talk", talk);
 
