@@ -148,7 +148,7 @@ public class UIManager : MonoBehaviour
             Destroy(currentTalk);
         }
         currentTalk = talk;
-        playerFPAIO.playerCanMove = false;
+        playerSFPAIO.playerCanMove = false;
         pressToTalk.SetActive(false);
     }
 
@@ -186,11 +186,6 @@ public class UIManager : MonoBehaviour
 		tabButtonCaches[tabIndex].text.color = openedTabButtonTextColor;
 		tabButtonCaches[tabIndex].button.interactable = false;
 		tabButtonCaches[tabIndex].image.color = openedTabButtonImageColor;
-
-		if (tabs[tabIndex] == itemBagPanel)
-		{
-			ItemBag.Instance.Reselect();
-		}
 	}
 
 	public void OpenTab(GameObject panel)
