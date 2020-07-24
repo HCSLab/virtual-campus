@@ -79,6 +79,15 @@ public class PlayerController : MonoBehaviour
         transform.forward = newForward;
 
         playerCamera.GetComponent<Camera>().orthographicSize += -Input.mouseScrollDelta.y * cameraScalingSpeed;
+        if (playerCamera.GetComponent<Camera>().orthographicSize < 1)
+        {
+            playerCamera.GetComponent<Camera>().orthographicSize = 1;
+        }
+        if (playerCamera.GetComponent<Camera>().orthographicSize > 10)
+        {
+            playerCamera.GetComponent<Camera>().orthographicSize = 10;
+        }
+
     }
 
     public Vector2 GetMovementInput()
