@@ -1,6 +1,10 @@
 // photography(III)
 
-// #require: photography(II)
+#require: photography(II)
+
+#name: 摄影入门（III）
+#description: 最后的作业？似乎物业人员在这次作业完成之后，有什么想要对你说的话……？
+
 
 === func_start ===
 #attach: PM_staff

@@ -2,6 +2,10 @@
 
 #after: greetings of library
 
+#name: 食堂的问候
+#description: 张博闻已经逛过所有的食堂了，根据约定，他会带你去逛一遍学校里所有的食堂。他似乎是个急性子，记得每次看清楚他下次会去哪里，别跟丢了！
+
+
 === func_pandora ===
 #override
 #collidetrigger:student_ZBW

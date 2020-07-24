@@ -1,6 +1,9 @@
 // photography(I)
 
-// #require: greetings of canteen
+#require: greetings of canteen
+
+#name: 摄影入门（I）
+#description: 物业人员似乎很喜欢拍照！你被委派了一个特殊的作业：复现被给予的照片。照片上的地方究竟是哪里呢？似乎需要花费一段时间寻找了……
 
 === func_start ===
 #override

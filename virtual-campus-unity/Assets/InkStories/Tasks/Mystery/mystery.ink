@@ -2,6 +2,10 @@
 #after：power cut
 TODO: require:至少一个徽章
 
+#name: 神秘人
+#description: 神秘的面具人出现在了校园里，这个人的目的是什么？似乎一切都和ta有千丝万缕的关系……
+
+
 === func_start ===
 #collidetrigger: mystery_collider
 你突然觉得四处有些变化……

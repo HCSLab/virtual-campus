@@ -2,6 +2,10 @@
 
 #require: photography(I)
 
+#name: 摄影入门（II）
+#description: 继续摄影学习！这次的地点是……？别忘了，地点和角度可是照片的两大重点要素！
+
+
 === func_start ===
 #attach: PM_staff
 *我来领取下一个拍照任务啦

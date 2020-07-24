@@ -1,7 +1,10 @@
 // mission name: kitten redemption(II)
-
 #after: kitten redemption(I)
 #after: mediocre story(II)
+
+#name: 猫咪的救赎（II）
+#description: 小白和小可爱之间又发生了什么超自然的故事？似乎真相没有那么简单，但又似乎没有那么复杂……
+
 
 === func_start ===
 #override

@@ -2,6 +2,10 @@
 #after: parkour(I)
 #after: workout time
 
+
+#name: 电脑不见了
+#description: 图书馆发生了盗窃事件，五台电脑被盗；张博闻似乎也是受害人之一，他拜托你去安保处问问有没有什么消息。
+
 === func_start ===
 #override
 #collidetrigger:student_ZBW

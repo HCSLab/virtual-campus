@@ -1,6 +1,10 @@
 // mission name: mediocre story(II)
 #require: mediocre story(I)
 
+#name: 平凡的故事（II）
+#description: 图书馆前台拜托你帮她还几本杂志给逸夫阿姨；似乎这位阿姨也有属于自己的故事要讲述。
+
+
 === func_start ===
 #override
 #collidetrigger: Shaw_dorm_admin

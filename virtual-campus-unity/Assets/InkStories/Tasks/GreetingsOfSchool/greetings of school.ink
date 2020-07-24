@@ -1,5 +1,8 @@
 #after: greetings of headmaster
 
+#name: 学院的问候
+#description:  了解了学校的大致分布之后，也该了解一下各个学院了，去百万大道找副校长，他会为你简单讲解目前的五个学院。
+
 === func_start ===
 #override
 #collidetrigger:vice_headmaster

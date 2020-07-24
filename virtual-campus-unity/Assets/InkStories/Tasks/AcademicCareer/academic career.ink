@@ -1,9 +1,12 @@
 // mission name: academic career
-// #require: greetings of SSE
-// #require: greetings of SME
-// #require: greetings of HSS
-// #require: greetings of LHS
-// #require: greetings of SDS
+#require: greetings of SSE
+#require: greetings of SME
+#require: greetings of HSS
+#require: greetings of LHS
+#require: greetings of SDS
+
+#name: 学术生涯
+#description: 在和教务处老师对话之后，你才意识到你还不属于任何学院。为了能逾期进入学院，你似乎还需要找院长经历一些特殊地考验……
 
 VAR school = ""
 VAR index = 0

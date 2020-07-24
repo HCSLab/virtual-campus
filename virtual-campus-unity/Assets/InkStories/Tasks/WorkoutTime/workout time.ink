@@ -1,7 +1,10 @@
 //mission name: workout time
 //任务名：革命的本钱
-// #after: greetings of school
-// #after: greetings of canteen
+#after: greetings of school
+#after: greetings of canteen
+
+#name: 革命的本钱
+#description: 吃完饭，或许是时候该运动一下了，快去找室内体育馆的工作人员了解一下学校里的体育设施吧！
 
 
 === func_start ===

@@ -2,6 +2,10 @@
 
 #require: blackswan
 
+#name: 大停电事件
+#description: 学校有部分设施停电了！作为学校的一份子，你决定提供一些力所能及的帮助。
+
+
 === func_start ===
 #override
 #collidetrigger: Shaw_dorm_admin

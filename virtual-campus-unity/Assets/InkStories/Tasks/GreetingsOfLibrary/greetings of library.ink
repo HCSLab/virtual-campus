@@ -2,6 +2,9 @@
 
 #after: greetings of school
 
+#name: 图书馆的问候
+#description:  图书馆可是大学期间必定会拜访的地方，因此也有必要了解一下。不过似乎图书馆前站着一个和你有相似想法的新生，你决定去认识一下……
+
 === func_start_of_mission ===
 #without: func_talk_with_studentZBW
 #collidetrigger: university_library_collider

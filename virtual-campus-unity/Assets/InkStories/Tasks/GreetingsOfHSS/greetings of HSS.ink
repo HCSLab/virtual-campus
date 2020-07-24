@@ -1,6 +1,9 @@
 // mission name: greetings of HSS
 #after: greetings of registry
 
+#name: 人文学院的问候
+#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。目前教务处老师提供的可能地点有食堂、室内体育馆、东南门、小广场。
+
 === func_start ===
 #override
 #collidetrigger: HSS_dean

@@ -1,6 +1,9 @@
 // mission name: mediocre story(I)
 #require: missing computer
 
+#name: 平凡的故事（I）
+#description: 张博闻拜托你去看看那位即将被调走的旧图书馆的前台，她现在就在小广场的旧图书馆前；似乎她有属于自己的故事要讲述。 
+
 === func_start ===
 #collidetrigger: temp_lib_recp
 呼哧呼哧（搬箱子中）

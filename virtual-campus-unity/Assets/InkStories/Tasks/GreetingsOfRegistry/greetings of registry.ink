@@ -1,6 +1,9 @@
 //mission name: greetings of registry
 #after: greetings of school
 
+#name: 教务处的问候
+#description: 大学的学习可不像之前那么简单了，有很多细则都需要明确。去行政楼找教务处的老师为你讲解一下吧！
+
 === func_start ===
 #override
 #collidetrigger:registry_receptionist

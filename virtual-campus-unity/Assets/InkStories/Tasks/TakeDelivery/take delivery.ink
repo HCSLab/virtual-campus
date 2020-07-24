@@ -2,6 +2,10 @@
 #require: greetings of library
 #require: missing computer
 
+#name: 取外卖
+#description: 张博闻订了一份迈挡捞套餐，但是他似乎不清楚到底送到了哪里，为了蹭一份外卖，你需要分别去东南门、西南门、北门看看是否有外卖小哥。
+
+
 VAR SW_door = false
 VAR SE_door = false
 VAR N_door = false
