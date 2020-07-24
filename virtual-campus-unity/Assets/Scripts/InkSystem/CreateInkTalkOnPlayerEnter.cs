@@ -18,9 +18,9 @@ public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 			if (FlagBag.Instance.HasFlags(require) &&
 				FlagBag.Instance.WithoutFlags(without))
 			{
-				if (speakerName == null || speakerName == "")
+				if (speakerNameForDisplay == null || speakerNameForDisplay == "")
 				{
-					speakerName = transform.Find("Canvas/Name")
+					speakerNameForDisplay = transform.Find("Canvas/Name")
 						.GetComponent<TextMeshProUGUI>()
 						.text.Trim();
 				}

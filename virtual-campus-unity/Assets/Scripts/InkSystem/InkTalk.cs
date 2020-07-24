@@ -19,7 +19,7 @@ public class InkTalk : MonoBehaviour
 
     [HideInInspector] public StoryScript storyScript;
 
-    [HideInInspector] public string speakerName;
+    [HideInInspector] public string speakerNameForDisplay;
 
     public TextMeshProUGUI text;
     public Transform buttons;
@@ -80,7 +80,7 @@ public class InkTalk : MonoBehaviour
         if (sentences != "")
         {
             text.text = sentences;
-            LogPanel.Instance.AddLog(speakerName, sentences);
+            LogPanel.Instance.AddLog(speakerNameForDisplay, sentences);
         }
 
         foreach (var choice in inkStory.currentChoices)
@@ -142,6 +142,13 @@ public class InkTalk : MonoBehaviour
         {
             if (!notFinished)
                 storyScript.AddLocalFlag(executeFunction);
+
+            storyScript.talkCount++;
+            if (storyScript.talkCount == 1)
+            {
+                StoryManager.Instance.StartStory(storyScript);
+            }
+
             storyScript.ProcessFunctionHeaderTags();
         }
 
