@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 	[Header("HUD")]
 	public GameObject hudCanvas;
 	public GameObject pressToTalk;
+	public Transform talkContainer;
 
 	[Header("Tab Menu")]
 	public GameObject tabMenuCanvas;

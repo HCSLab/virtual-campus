@@ -28,7 +28,7 @@ public class InkTalk : MonoBehaviour
 
     private void Start()
     {
-        panelSizedButton.gameObject.SetActive(false);
+        panelSizedButton.interactable = false;
 
         nextStep = true;
         firstStep = true;
@@ -61,7 +61,7 @@ public class InkTalk : MonoBehaviour
             {
                 Destroy(buttons.GetChild(i).gameObject);
             }
-            panelSizedButton.gameObject.SetActive(false);
+            panelSizedButton.interactable = false;
         }
 
         string sentences = "";
@@ -87,7 +87,7 @@ public class InkTalk : MonoBehaviour
         {
             if (choice.text == "n")
             {
-                panelSizedButton.gameObject.SetActive(true);
+                panelSizedButton.interactable = true;
                 var path = choice.pathStringOnChoice;
                 panelSizedButton.onClick.RemoveAllListeners();
                 panelSizedButton.onClick.AddListener(() => { ChoicePathSelected(path); });

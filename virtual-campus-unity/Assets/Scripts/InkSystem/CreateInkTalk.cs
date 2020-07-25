@@ -19,16 +19,8 @@ public class CreateInkTalk : MonoBehaviour
     public void Create()
     {
         talk = Instantiate(talkPrefab);
-        talk.transform.SetParent(UIManager.Instance.hudCanvas.transform);
-        
-        // Set the proper size of the talk panel.
+        talk.transform.SetParent(UIManager.Instance.talkContainer);
         talk.transform.localScale = Vector3.one;
-        var prefabRT = talkPrefab.GetComponent<RectTransform>();
-        var RT = talk.GetComponent<RectTransform>();
-        RT.localScale = prefabRT.localScale;
-        RT.offsetMin = new Vector2(prefabRT.offsetMin.x, RT.offsetMin.y);
-        RT.offsetMax = new Vector2(prefabRT.offsetMax.x, RT.offsetMax.y);
-        RT.anchoredPosition = prefabRT.anchoredPosition;
 
         var ink = talk.GetComponent<InkTalk>();
         ink.inkFile = inkFile;
