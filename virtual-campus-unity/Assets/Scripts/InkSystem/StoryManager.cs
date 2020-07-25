@@ -83,18 +83,28 @@ public class StoryManager : MonoBehaviour
     public void StartStory(StoryScript story)
     {
         var name = story.inkFile.name;
-        storyStatus[name] = "running";
-        FlagBag.Instance.AddFlag(name + "_running");
-        MissionPanel.Instance.AddMission(story.nameForDisplay, story.description, false);
+        if (storyStatus[name] == "avaliable")
+        {
+            storyStatus[name] = "running";
+            FlagBag.Instance.AddFlag(name + "_running");
+            MissionPanel.Instance.AddMission(story.nameForDisplay, story.description, false);
+        }
     }
 
     public void EndStory(StoryScript story)
     {
         var name = story.inkFile.name;
-        storyStatus[name] = "finished";
-        FlagBag.Instance.DelFlag(name + "_running");
-        FlagBag.Instance.AddFlag(name);
-        MissionPanel.Instance.FinishMission(story.nameForDisplay);
-        Destroy(story.gameObject);
+        if (storyStatus[name] == "avaliable")
+        {
+            StartStory(story);
+        }
+        if (storyStatus[name] == "running")
+        {
+            storyStatus[name] = "finished";
+            FlagBag.Instance.DelFlag(name + "_running");
+            FlagBag.Instance.AddFlag(name);
+            MissionPanel.Instance.FinishMission(story.nameForDisplay);
+            Destroy(story.gameObject);
+        }
     }
 }
