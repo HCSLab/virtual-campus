@@ -18,7 +18,10 @@ public class StoryManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
 
+	private void Start()
+	{
         foreach (var s in stories)
         {
             s.GetStartConditions();
@@ -47,7 +50,7 @@ public class StoryManager : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+	private void LateUpdate()
     {
         if (refreshFlag)
         {
