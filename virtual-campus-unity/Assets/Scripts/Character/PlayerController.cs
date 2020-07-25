@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity;
     Animator animator;
     new Rigidbody rigidbody;
-    Vector3 cameraPositionOffset;
     private AntiPenetration antiPene;
     public float Ysensitivity;
 
@@ -21,7 +20,6 @@ public class PlayerController : MonoBehaviour
     {
         animator = model.GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
-        cameraPositionOffset = playerCamera.transform.position - transform.position;
         lastMousePosition = Input.mousePosition;
         antiPene = playerCamera.GetComponent<AntiPenetration>();
     }
@@ -65,7 +63,6 @@ public class PlayerController : MonoBehaviour
 
     void UpdateCamera()
     {
-        //playerCamera.transform.position = transform.position + cameraPositionOffset;
 
         float cameraRotation = 0f;
         float cameraRotationY = 0f;
@@ -99,23 +96,9 @@ public class PlayerController : MonoBehaviour
              }
         }
 
-        cameraPositionOffset = playerCamera.transform.position - transform.position;
-
         Vector3 newForward = playerCamera.transform.forward;
         newForward.Scale(new Vector3(1f, 0f, 1f));
         transform.forward = newForward;
-
-        /*
-        playerCamera.GetComponent<Camera>().orthographicSize += -Input.mouseScrollDelta.y * cameraScalingSpeed;
-        if (playerCamera.GetComponent<Camera>().orthographicSize < 1)
-        {
-            playerCamera.GetComponent<Camera>().orthographicSize = 1;
-        }
-        if (playerCamera.GetComponent<Camera>().orthographicSize > 10)
-        {
-            playerCamera.GetComponent<Camera>().orthographicSize = 10;
-        }
-        */
 
     }
 
