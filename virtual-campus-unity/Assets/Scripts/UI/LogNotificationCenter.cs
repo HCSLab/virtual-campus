@@ -29,6 +29,11 @@ public class LogNotificationCenter : MonoBehaviour
 			0.2f
 			);
 
-		LeanTween.delayedCall(displayDuration, () => { Destroy(notification); });
+		LeanTween.delayedCall(
+			displayDuration,
+			() => {
+				notification.LeanScale(Vector3.one * 0.8f, 0.2f).setOnComplete(() => { Destroy(notification); });
+			}
+			);
 	}
 }

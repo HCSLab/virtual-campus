@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class StoryManager : MonoBehaviour

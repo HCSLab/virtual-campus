@@ -21,7 +21,7 @@ public class InkTalk : MonoBehaviour
 
     [HideInInspector] public string speakerNameForDisplay;
 
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI text, nameText;
     public Transform buttons;
     public GameObject button;
     public Button panelSizedButton;
@@ -80,6 +80,7 @@ public class InkTalk : MonoBehaviour
         if (sentences != "")
         {
             text.text = sentences;
+            nameText.text = speakerNameForDisplay;
             LogPanel.Instance.AddLog(speakerNameForDisplay, sentences);
         }
 
