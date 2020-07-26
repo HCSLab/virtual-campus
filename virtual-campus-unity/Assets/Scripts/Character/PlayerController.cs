@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     new Rigidbody rigidbody;
     private AntiPenetration antiPene;
     public float Ysensitivity;
+    private Vector3 forward;
 
     void Start()
     {
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviour
         movement.z = movement2D.x;
         if (movement.magnitude > 0.1f)
         {
+            transform.forward = forward;
+            //playerCamera.GetComponent<ThirdPersonCamera.DisableFollow>().moving = true;
             if (GetSprintInput())
             {
                 animator.SetBool("Run", true);
@@ -53,6 +56,7 @@ public class PlayerController : MonoBehaviour
             model.transform.Rotate(0f, playerCamera.transform.eulerAngles.y + 90f, 0f);
         }
         else {
+            //playerCamera.GetComponent<ThirdPersonCamera.DisableFollow>().moving = false;
             animator.SetBool("Walk", false);
             animator.SetBool("Run", false);
         }
@@ -63,42 +67,15 @@ public class PlayerController : MonoBehaviour
 
     void UpdateCamera()
     {
-
         float cameraRotation = 0f;
-        float cameraRotationY = 0f;
         
         if (Input.GetKey(KeyCode.Q)) cameraRotation -= 1f;
         if(Input.GetKey(KeyCode.E)) cameraRotation += 1f;
-        if (Input.GetMouseButton(1))
-        {
-            cameraRotation = (Input.mousePosition - lastMousePosition).x * mouseSensitivity;
-            cameraRotationY = (Input.mousePosition - lastMousePosition).y * mouseSensitivity;
-        }
 
         playerCamera.transform.RotateAround(transform.position + new Vector3(0f, 0.5f, 0f), Vector3.up, cameraRotation * cameraRotationSpeed);
 
-        if (cameraRotationY > 0.3f || cameraRotationY < -0.3f)
-        {
-            if (antiPene.m_distanceUp >= 1 && antiPene.m_distanceUp <= 4.5)
-            {
-                antiPene.m_distanceUp += cameraRotationY * Ysensitivity;
-                antiPene.m_distanceAway = Mathf.Sqrt(antiPene.sqrDist - antiPene.m_distanceUp * antiPene.m_distanceUp);
-                if (antiPene.m_distanceUp < 1)
-                {
-                    antiPene.m_distanceUp = 1;
-                    antiPene.m_distanceAway = Mathf.Sqrt(antiPene.sqrDist - antiPene.m_distanceUp * antiPene.m_distanceUp);
-                }
-                else if (antiPene.m_distanceUp > 4.5)
-                {
-                    antiPene.m_distanceUp = 4.5f;
-                    antiPene.m_distanceAway = Mathf.Sqrt(antiPene.sqrDist - antiPene.m_distanceUp * antiPene.m_distanceUp);
-                }
-             }
-        }
-
-        Vector3 newForward = playerCamera.transform.forward;
-        newForward.Scale(new Vector3(1f, 0f, 1f));
-        transform.forward = newForward;
+        forward = playerCamera.transform.forward;
+        forward.Scale(new Vector3(1f, 0f, 1f));
 
     }
 
