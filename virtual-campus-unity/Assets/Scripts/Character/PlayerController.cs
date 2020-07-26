@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     new Rigidbody rigidbody;
     Vector3 cameraPositionOffset;
 
+    private bool active = true;
+
     void Start()
     {
         animator = model.GetComponent<Animator>();
@@ -25,8 +27,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        UpdateCamera();
-        UpdatePlayerRotationAndAnimation();
+        if (active)
+        {
+            UpdateCamera();
+            UpdatePlayerRotationAndAnimation();
+        }
 
         lastMousePosition = Input.mousePosition;
     }
@@ -95,4 +100,14 @@ public class PlayerController : MonoBehaviour
 	{
         return Input.GetKey(KeyCode.LeftShift);
 	}
+
+    public void SetActive(bool state)
+    {
+        active = state;
+        if (active == false)
+        {
+            animator.SetBool("Walk", false);
+            animator.SetBool("Run", false);
+        }
+    }
 }

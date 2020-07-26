@@ -23,7 +23,7 @@ public class NPCInfo : MonoBehaviour
         mainCam.SetActive(false);
 
         var player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<PlayerController>().SetActive(false);
         player.GetComponent<ScriptedFirstPersonAIO>().playerCanMove = false;
         var model = player.GetComponent<PlayerController>().model;
         player.transform.position = playerDialoguePos.position;
@@ -36,7 +36,7 @@ public class NPCInfo : MonoBehaviour
         mainCam.SetActive(true);
 
         var player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<PlayerController>().enabled = true;
+        player.GetComponent<PlayerController>().SetActive(true);
         player.GetComponent<ScriptedFirstPersonAIO>().playerCanMove = true;
     }
 }
