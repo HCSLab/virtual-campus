@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity;
     Animator animator;
     new Rigidbody rigidbody;
-    private AntiPenetration antiPene;
     public float Ysensitivity;
     private Vector3 forward;
 
@@ -22,7 +21,6 @@ public class PlayerController : MonoBehaviour
         animator = model.GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         lastMousePosition = Input.mousePosition;
-        antiPene = playerCamera.GetComponent<AntiPenetration>();
     }
 
     void Update()
