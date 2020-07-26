@@ -81,7 +81,7 @@ public class InkTalk : MonoBehaviour
         {
             text.text = sentences;
             nameText.text = speakerNameForDisplay;
-            LogPanel.Instance.AddLog(speakerNameForDisplay, sentences);
+            LogPanel.Instance.AddLog(speakerNameForDisplay, sentences, false);
         }
 
         foreach (var choice in inkStory.currentChoices)
@@ -133,7 +133,7 @@ public class InkTalk : MonoBehaviour
 
         if (text != "")
         {
-            LogPanel.Instance.AddLog("Me", text);
+            LogPanel.Instance.AddLog("Me", text, false);
         }
     }
 
@@ -154,6 +154,8 @@ public class InkTalk : MonoBehaviour
         }
 
         NPCManager.Instance.RefreshTalk();
+
+        LogPanel.Instance.AddLog("", "", false);
 
         UIManager.Instance.CloseTalk(gameObject);
     }

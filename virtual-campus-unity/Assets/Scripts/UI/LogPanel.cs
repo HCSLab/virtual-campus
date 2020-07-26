@@ -24,7 +24,7 @@ public class LogPanel : MonoBehaviour
 		logHolderRectTransform = logHolderTransform.GetComponent<RectTransform>();
 	}
 
-	public void AddLog(string npcName, string logContent)
+	public void AddLog(string npcName, string logContent, bool popout = true)
 	{
 		var log = Instantiate(logPrefab);
 		log.transform.SetParent(logHolderTransform);
@@ -40,6 +40,9 @@ public class LogPanel : MonoBehaviour
 
 		log.GetComponent<TextMeshProUGUI>().text = s.ToString();
 
-		LogNotificationCenter.Instance.Post(s.ToString());
+		if (popout)
+		{
+			LogNotificationCenter.Instance.Post(s.ToString());
+		}
 	}
 }
