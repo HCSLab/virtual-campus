@@ -27,7 +27,7 @@ public class AttachToTalk : MonoBehaviour
         var talkObj = (GameObject)data;
 
         var talkCreater = GetComponent<CreateInkTalk>();
-        talkCreater.speakerNameForDisplay = talkObj.GetComponent<InkTalk>().speakerNameForDisplay;
+        talkCreater.speaker = talkObj.GetComponent<InkTalk>().speaker;
 
         var buttons = talkObj.transform.Find("Panel/Buttons");
         var btn = Instantiate(gameObject).GetComponent<Button>();

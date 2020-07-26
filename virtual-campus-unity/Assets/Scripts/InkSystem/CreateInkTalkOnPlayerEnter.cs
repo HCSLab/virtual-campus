@@ -9,6 +9,11 @@ public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 	public List<string> require = new List<string>();
 	public List<string> without = new List<string>();
 
+	private void Start()
+	{
+		speaker = GetComponent<NPCInfo>();
+	}
+
 	private void OnTriggerEnter(Collider other)
 	{
 		if (!enabled) return;
@@ -18,13 +23,6 @@ public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 			if (FlagBag.Instance.HasFlags(require) &&
 				FlagBag.Instance.WithoutFlags(without))
 			{
-				if (speakerNameForDisplay == null || speakerNameForDisplay == "")
-				{
-					speakerNameForDisplay = transform.Find("Canvas/Name")
-						.GetComponent<TextMeshProUGUI>()
-						.text.Trim();
-				}
-
 				UIManager.Instance.pressToTalk.SetActive(true);
 				var btn = UIManager.Instance.pressToTalk.GetComponent<Button>();
 				btn.onClick.RemoveAllListeners();

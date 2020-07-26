@@ -19,7 +19,7 @@ public class InkTalk : MonoBehaviour
 
     [HideInInspector] public StoryScript storyScript;
 
-    [HideInInspector] public string speakerNameForDisplay;
+    [HideInInspector] public NPCInfo speaker;
 
     public TextMeshProUGUI text, nameText;
     public Transform buttons;
@@ -44,6 +44,8 @@ public class InkTalk : MonoBehaviour
         }
 
         PlayerInfo.WriteToInkStory(inkStory);
+
+        speaker.StartTalkMode();
 
         if (inkStory.HasFunction(executeFunction))
         {
@@ -80,8 +82,8 @@ public class InkTalk : MonoBehaviour
         if (sentences != "")
         {
             text.text = sentences;
-            nameText.text = speakerNameForDisplay;
-            LogPanel.Instance.AddLog(speakerNameForDisplay, sentences, false);
+            nameText.text = speaker.npcName;
+            LogPanel.Instance.AddLog(speaker.npcName, sentences, false);
         }
 
         foreach (var choice in inkStory.currentChoices)
@@ -156,6 +158,8 @@ public class InkTalk : MonoBehaviour
         NPCManager.Instance.RefreshTalk();
 
         LogPanel.Instance.AddLog("", "", false);
+
+        speaker.EndTalkMode();
 
         UIManager.Instance.CloseTalk(gameObject);
     }

@@ -39,7 +39,6 @@ public class UIManager : MonoBehaviour
 	public GameObject currentTalk;
 
 	// Cache
-	ScriptedFirstPersonAIO playerSFPAIO;
 	TabButton[] tabButtonCaches;
 
 	int currentTabIndex = 0;
@@ -51,9 +50,6 @@ public class UIManager : MonoBehaviour
 
 	private void Start()
 	{
-		playerSFPAIO = GameObject.FindGameObjectWithTag("Player")
-			.GetComponent<ScriptedFirstPersonAIO>();
-
 		// GetPaintersFromHub();
 
 		// Initialize tab buttons.
@@ -149,29 +145,18 @@ public class UIManager : MonoBehaviour
             Destroy(currentTalk);
         }
         currentTalk = talk;
-        playerSFPAIO.playerCanMove = false;
         pressToTalk.SetActive(false);
+		hudCanvas.SetActive(false);
     }
 
 	public void CloseTalk(GameObject talk = null)
 	{
-		if (talk == null)
+		if (!currentTalk) return;
+		if (talk == null || talk == currentTalk)
 		{
-			if (currentTalk)
-			{
-				Destroy(currentTalk);
-				currentTalk = null;
-				playerSFPAIO.playerCanMove = true;
-			}
-		}
-		else
-		{
-			if (currentTalk == talk)
-			{
-				Destroy(currentTalk);
-				currentTalk = null;
-				playerSFPAIO.playerCanMove = true;
-			}
+			Destroy(currentTalk);
+			currentTalk = null;
+			hudCanvas.SetActive(true);
 		}
 	}
 
