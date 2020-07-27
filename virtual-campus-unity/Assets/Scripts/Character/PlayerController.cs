@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity;
     Animator animator;
     new Rigidbody rigidbody;
-    Vector3 cameraPositionOffset;
+    public float Ysensitivity;
+    private Vector3 forward;
 
     private bool active = true;
 
@@ -21,7 +22,6 @@ public class PlayerController : MonoBehaviour
     {
         animator = model.GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
-        cameraPositionOffset = playerCamera.transform.position - transform.position;
         lastMousePosition = Input.mousePosition;
     }
 
@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
         movement.z = movement2D.x;
         if (movement.magnitude > 0.1f)
         {
+            transform.forward = forward;
+            //playerCamera.GetComponent<ThirdPersonCamera.DisableFollow>().moving = true;
             if (GetSprintInput())
             {
                 animator.SetBool("Run", true);
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
             model.transform.Rotate(0f, playerCamera.transform.eulerAngles.y + 90f, 0f);
         }
         else {
+            //playerCamera.GetComponent<ThirdPersonCamera.DisableFollow>().moving = false;
             animator.SetBool("Walk", false);
             animator.SetBool("Run", false);
         }
@@ -64,27 +67,21 @@ public class PlayerController : MonoBehaviour
 
 
     Vector3 lastMousePosition;
+
     void UpdateCamera()
     {
-        playerCamera.transform.position = transform.position + cameraPositionOffset;
-
         float cameraRotation = 0f;
-        if(Input.GetKey(KeyCode.Q)) cameraRotation -= 1f;
+        
+        if (Input.GetKey(KeyCode.Q)) cameraRotation -= 1f;
         if(Input.GetKey(KeyCode.E)) cameraRotation += 1f;
-        //if (Input.GetMouseButton(0)) minimapCamera.GetComponent<MinimapCamera>().ZoomInButtonClick();
-        if (Input.GetMouseButton(1))
-            cameraRotation = (Input.mousePosition - lastMousePosition).x * mouseSensitivity;
-       
-        playerCamera.transform.RotateAround(transform.position, Vector3.up, cameraRotation * cameraRotationSpeed);
 
-        cameraPositionOffset = playerCamera.transform.position - transform.position;
+        playerCamera.transform.RotateAround(transform.position + new Vector3(0f, 0.5f, 0f), Vector3.up, cameraRotation * cameraRotationSpeed);
 
-        Vector3 newForward = playerCamera.transform.forward;
-        newForward.Scale(new Vector3(1f, 0f, 1f));
-        transform.forward = newForward;
+        forward = playerCamera.transform.forward;
+        forward.Scale(new Vector3(1f, 0f, 1f));
 
-        playerCamera.GetComponent<Camera>().orthographicSize += -Input.mouseScrollDelta.y * cameraScalingSpeed;
     }
+
 
     public Vector2 GetMovementInput()
 	{
