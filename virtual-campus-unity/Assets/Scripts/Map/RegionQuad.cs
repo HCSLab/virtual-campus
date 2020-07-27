@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RegionQuad : MonoBehaviour
 {
-    public string name;
-    public string tag;
+    public new string name;
+    public new string tag;
 
     [HideInInspector]
     public bool isVisited;
