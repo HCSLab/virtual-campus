@@ -396,7 +396,11 @@ public class BETA_SETTINGS{
             yVelocity += jumpPowerInternal;
             IsGrounded = false;
             didJump = false;
-            if (playerCanMove) { fps_Rigidbody.velocity = (Vector3.up * yVelocity); }
+            if (playerCanMove) 
+            { 
+                fps_Rigidbody.velocity = (Vector3.up * yVelocity);
+                GetComponent<JumpSound>().RandomPlay();
+            }
         }
         if (advanced._maxSlopeAngle > 0 && IsGrounded && SlopeCheck() <= 0.25f) { yVelocity *= SlopeCheck(); }
 
@@ -632,6 +636,7 @@ public class BETA_SETTINGS{
                     {
                         if (dynamicFootstep.currentClipSet.Any()) { audioSource.PlayOneShot(dynamicFootstep.currentClipSet[Random.Range(0, dynamicFootstep.currentClipSet.Count)], Volume / 10); }
                         nextStepTime = headbobCycle + 0.5f;
+                        
                     }
                     else
                     {

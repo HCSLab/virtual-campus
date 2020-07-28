@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class JumpSound : MonoBehaviour
 {
-    private bool wasGrounded = false;
-    private bool air;
+    
     public AudioSource audioSource;
     public AudioClip[] jumpClips;
-    public KeyCode jump;
+
+    private bool wasGrounded = false;
     private bool isGrounded;
+
     public bool enableSound;
     public float playerToGround;
     void Start()
@@ -21,28 +22,21 @@ public class JumpSound : MonoBehaviour
 
     void Update()
     {
+
         enableSound = gameObject.GetComponent<PlayerController>().enabled;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerToGround, 1 << LayerMask.NameToLayer("VoxWorld"));
+
         if (!enableSound)
         {
             audioSource.Stop();
-            air = false;
+            //air = false;
             wasGrounded = true;
             return;
-        }
-        if (Input.GetKey(jump) && isGrounded)
-        {
-            if (!air)
-            {
-                RandomPlay();
-                air = true;
-            }
         }
 
         if ((wasGrounded == false) && (isGrounded == true))
         {
             RandomPlay();
-            air = false;
         }
 
         wasGrounded = isGrounded;
