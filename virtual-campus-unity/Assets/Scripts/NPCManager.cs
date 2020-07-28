@@ -28,7 +28,7 @@ public class NPCManager : MonoBehaviour
 
     public void EnableDisableNPCOrigTalk(string who, bool state)
     {
-        if (npcCreaters.ContainsKey(who))
+        if (npcCreaters.ContainsKey(who) && npcCreaters[who])
         {
             npcCreaters[who].enabled = state;
         }
