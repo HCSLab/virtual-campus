@@ -64,6 +64,7 @@ public class ItemPanel : MonoBehaviour
 	{
 		itemRight.SetActive(false);
 		skinRight.SetActive(false);
+		realWorldPhotoRight.SetActive(false);
 	}
 
 	GameObject InstantiateDisplayAndAddToContainer(GameObject prefab)

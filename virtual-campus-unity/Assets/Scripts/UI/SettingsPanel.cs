@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsPanel : MonoBehaviour
+public class SettingsPanel : SavableMonoBehavior
 {
 	public Toggle fullscreenToggle;
 	public TMP_Dropdown resolutionDropdownMenu;
@@ -28,8 +28,10 @@ public class SettingsPanel : MonoBehaviour
 
 	CoroutineState attemptAutoResetCoroutineState;
 
-	private void Start()
+	protected override void Start()
 	{
+		base.Start();
+
 		Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
 		attemptAutoResetCoroutineState = CoroutineState.NotStartedYet;
 
@@ -52,11 +54,19 @@ public class SettingsPanel : MonoBehaviour
 
 		fullscreenToggle.isOn = Screen.fullScreen;
 		resolutionDropdownMenu.value = resolutions.Length - currentResolutionIndex - 1;
-
+		masterVolumeSlider.value = PlayerPrefs.GetFloat(SaveSystem.GetMasterVolumeName(), 1f);
+		OnMasterVolumeChanged(masterVolumeSlider.value);
 
 		fullscreenToggle.onValueChanged.AddListener(OnFullscreenModeChanged);
 		resolutionDropdownMenu.onValueChanged.AddListener(OnResolutionChanged);
 		masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
+	}
+
+	protected override void Save(object data)
+	{
+		base.Save(data);
+
+		PlayerPrefs.SetFloat(SaveSystem.GetMasterVolumeName(), masterVolumeSlider.value);
 	}
 
 	/// <param name="newMode">true -> Fullscreen; false -> windowed</param>

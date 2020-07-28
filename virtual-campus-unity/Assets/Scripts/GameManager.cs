@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
 	private void Awake()
 	{
-		PlayerPrefs.DeleteAll();
+		//PlayerPrefs.DeleteAll();
 	}
 
 	private void Start()

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Achievement : MonoBehaviour
+public class Achievement : SavableMonoBehavior
 {
 	[Header("Achievement")]
 	public EventCenter.AchievementEvent eventToListenTo;
@@ -14,7 +14,7 @@ public class Achievement : MonoBehaviour
 
 	protected bool isFinished;
 
-	protected virtual void Start()
+	protected override void Start()
 	{
 		EventCenter.AddListener(eventToListenTo, OnEventTriggered);
 		EventCenter.AddListener(EventCenter.GlobalEvent.Save, Save);
@@ -27,16 +27,18 @@ public class Achievement : MonoBehaviour
 
 	}
 
-	protected virtual void Save(object data)
+	protected override void Save(object data)
 	{
+		base.Save(data);
+
 		PlayerPrefs.SetInt(SaveSystem.GetAchievementStateName(gameObject), isFinished ? 1 : 0);
 	}
 
-	protected virtual void OnDestroy()
+	protected override void OnDestroy()
 	{
-		Save(null);
+		base.OnDestroy();
+
 		EventCenter.RemoveListener(eventToListenTo, OnEventTriggered);
-		EventCenter.RemoveListener(EventCenter.GlobalEvent.Save, Save);
 	}
 
 	protected void Finish()
