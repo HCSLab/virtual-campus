@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ItemPanel : MonoBehaviour
 {
 	// 物品三类：item、skin、real world photo
-	// item只能看预览，skin可以预览+装备,real world photo 可以预览+大图预览
+	// item只能看预览，skin可以预览+装备，real world photo可以预览+大图预览
 
 	public enum ItemType
 	{
@@ -44,6 +44,11 @@ public class ItemPanel : MonoBehaviour
 	SkinScriptableObject currentSelectedSkin;
 	RealWorldPhotoScriptableObject currentSelectedPhoto;
 
+	[Header("Item Skin Photo ScriptableObject List")]
+	public List<ItemScriptableObject> itemList = new List<ItemScriptableObject>();
+	public List<SkinScriptableObject> skinList = new List<SkinScriptableObject>();
+	public List<RealWorldPhotoScriptableObject> photoList = new List<RealWorldPhotoScriptableObject>();
+
 	private void Awake()
 	{
 		Instance = this;
@@ -78,6 +83,18 @@ public class ItemPanel : MonoBehaviour
 		nameToItemDisplay[item.name] = itemDisplay;
 	}
 
+	public void AddItem(string itemName)
+	{
+		foreach (var item in itemList)
+		{
+			if (item.name == itemName)
+			{
+				AddItem(item);
+				break;
+			}
+		}
+	}
+
 	public void ShowItem(ItemScriptableObject item)
 	{
 		itemRight.SetActive(true);
@@ -87,9 +104,20 @@ public class ItemPanel : MonoBehaviour
 		itemNameText.text = item.name;
 		itemDescriptionText.text = item.description;
 	}
+
 	public void RemoveItem(ItemScriptableObject item)
 	{
-		Destroy(nameToItemDisplay[item.name]);
+		RemoveItem(item.name);
+	}
+
+	public void RemoveItem(string itemName)
+	{
+		if (nameToItemDisplay.ContainsKey(itemName))
+		{
+			var itemToRemove = nameToItemDisplay[itemName];
+			nameToItemDisplay.Remove(itemName);
+			Destroy(itemToRemove);
+		}
 	}
 	#endregion
 
@@ -98,6 +126,18 @@ public class ItemPanel : MonoBehaviour
 	{
 		var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
 		skinDisplay.GetComponent<SkinDisplay>().Initialize(skin);
+	}
+
+	public void AddSkin(string skinName)
+	{
+		foreach (var skin in skinList)
+		{
+			if (skin.name == skinName)
+			{
+				AddSkin(skin);
+				break;
+			}
+		}
 	}
 
 	public void ShowSkin(SkinScriptableObject skin)
@@ -121,6 +161,18 @@ public class ItemPanel : MonoBehaviour
 	{
 		var photoDisplay = InstantiateDisplayAndAddToContainer(realWorldPhotoDisplayPrefab);
 		photoDisplay.GetComponent<RealWorldPhotoDisplay>().Initialize(photo);
+	}
+
+	public void AddPhoto(string photoName)
+	{
+		foreach (var photo in photoList)
+		{
+			if (photo.name == photoName)
+			{
+				AddPhoto(photo);
+				break;
+			}
+		}
 	}
 
 	public void ShowPhoto(RealWorldPhotoScriptableObject photo)

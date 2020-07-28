@@ -262,6 +262,26 @@ public class StoryScript : MonoBehaviour
             ProcessEnableDisableFlag("disableNPC:" + data, "enableNPC:" + data);
             NPCManager.Instance.RefreshEnable();
         }
+        else if (op == "additem")
+        {
+            ItemPanel.Instance.AddItem(data);
+            FlagBag.Instance.AddFlag("item_" + data);
+        }
+        else if (op == "delitem")
+        {
+            ItemPanel.Instance.RemoveItem(data);
+            FlagBag.Instance.DelFlag("item_" + data);
+        }
+        else if (op == "addskin")
+        {
+            ItemPanel.Instance.AddSkin(data);
+            FlagBag.Instance.AddFlag("skin_" + data);
+        }
+        else if (op == "addphoto")
+        {
+            ItemPanel.Instance.AddPhoto(data);
+            FlagBag.Instance.AddFlag("photo_" + data);
+        }
     }
 
     private void ProcessEnableDisableFlag(string toAdd, string toDel)
@@ -320,6 +340,18 @@ public class StoryScript : MonoBehaviour
             else if (op == "override")
             {
                 isOverride = true;
+            }
+            else if (op == "require_item")
+            {
+                requireTags.Add("item_" + data);
+            }
+            else if (op == "require_skin")
+            {
+                requireTags.Add("skin_" + data);
+            }
+            else if (op == "require_photo")
+            {
+                requireTags.Add("photo_" + data);
             }
         }
 
