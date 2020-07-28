@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 7653973849802187602}
   - component: {fileID: 7431163039514935331}
   - component: {fileID: 7213175762622335963}
+  - component: {fileID: -3238569474818253886}
   m_Layer: 0
   m_Name: BadgesDisplay
   m_TagString: Untagged
@@ -491,7 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -521,3 +522,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-3238569474818253886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6998622636093607604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350e0417666f35741b5d5d435b77ad32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterClip: {fileID: 8300000, guid: e57bcf815b18547a7a8b44a99e4d9c99, type: 3}
+  clickClip: {fileID: 8300000, guid: f02e1cfbfa3064be0acccbbc7e750507, type: 3}
+  exitClip: {fileID: 0}

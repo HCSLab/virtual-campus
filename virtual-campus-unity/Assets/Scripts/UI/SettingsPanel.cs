@@ -90,8 +90,8 @@ public class SettingsPanel : MonoBehaviour
 
 	public void OnMasterVolumeChanged(float newVolume)
 	{
-		print("Volume: " + newVolume);
-	}
+        AudioListener.volume = newVolume;
+    }
 
 	public void RefuseAutoReset()
 	{

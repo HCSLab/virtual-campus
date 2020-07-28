@@ -9,6 +9,7 @@ public class BackgroundMusic : MonoBehaviour
     public float remainingTime;
     private bool switchMusic;
     public KeyCode switchMusicKey;
+    public bool switchable;
 
     void Start()
     {
@@ -53,7 +54,7 @@ public class BackgroundMusic : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(switchMusicKey) && switchMusic)
+        if (Input.GetKey(switchMusicKey) && switchMusic && switchable)
         {
             switchMusic = false;
             RandomPlay();
