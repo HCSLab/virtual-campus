@@ -50,11 +50,10 @@ public class SceneLoadingManager : MonoBehaviour
 					totalProgress += op2.progress;
 				totalProgress /= scenesLoading.Count;
 				progressBar.fillAmount = totalProgress;
-
-				yield return null;
-			}
+                yield return null;
+            }
 		}
-		loadingScreen.SetActive(false);
+        loadingScreen.SetActive(false);
 		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.MainGame));
 	}
 
