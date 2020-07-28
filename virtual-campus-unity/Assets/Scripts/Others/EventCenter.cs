@@ -1,35 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class EventCenter
+public static class EventCenter
 {
-    private static Dictionary<string, Action<object>> eventDict = new Dictionary<string, Action<object>>();
+	private static Dictionary<string, Action<object>> eventDict = new Dictionary<string, Action<object>>();
 
-    public static void AddListener(string eventType, Action<object> callback)
-    {
-        if (! eventDict.ContainsKey(eventType))
-        {
-            eventDict.Add(eventType, null);
-        }
-        eventDict[eventType] += callback;
-    }
+	public enum GlobalEvent
+	{
+		Save,
+	};
 
-    public static void RemoveListener(string eventType, Action<object> callback)
-    {
-        if (! eventDict.ContainsKey(eventType))
-            return;
+	public enum AchievementEvent
+	{
+		TickPerMinute,
+	};
 
-        if (eventDict[eventType] == null)
-            return;
+	public static void AddListener<T>(T eventType, Action<object> callback)
+	{
+		if (!eventDict.ContainsKey(eventType.ToString()))
+		{
+			eventDict.Add(eventType.ToString(), null);
+		}
+		eventDict[eventType.ToString()] += callback;
+	}
 
-        eventDict[eventType] -= callback;
-    }
+	public static void RemoveListener<T>(T eventType, Action<object> callback)
+	{
+		if (!eventDict.ContainsKey(eventType.ToString()))
+			return;
 
-    public static void Broadcast(string eventType, object data)
-    {
-        if (! eventDict.ContainsKey(eventType))
-            return;
+		if (eventDict[eventType.ToString()] == null)
+			return;
 
-        eventDict[eventType]?.Invoke(data);
-    }
+		eventDict[eventType.ToString()] -= callback;
+	}
+
+	public static void Broadcast<T>(T eventType, object data)
+	{
+		if (!eventDict.ContainsKey(eventType.ToString()))
+			return;
+
+		eventDict[eventType.ToString()]?.Invoke(data);
+	}
 }

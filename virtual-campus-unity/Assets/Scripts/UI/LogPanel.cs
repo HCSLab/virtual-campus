@@ -11,6 +11,7 @@ public class LogPanel : MonoBehaviour
 	public Transform logHolderTransform;
 	public GameObject logPrefab;
 	public string npcNameColor;
+	public string achievementColor;
 
 	RectTransform logHolderRectTransform;
 	
@@ -44,5 +45,23 @@ public class LogPanel : MonoBehaviour
 		{
 			LogNotificationCenter.Instance.Post(s.ToString());
 		}
+	}
+
+	public void AddAchievementFinishLog(string achievementName)
+	{
+		var log = Instantiate(logPrefab);
+		log.transform.SetParent(logHolderTransform);
+		log.transform.localScale = Vector3.one;
+
+		StringBuilder s = new StringBuilder();
+		s.Append("你刚刚完成了成就 <color=");
+		s.Append(npcNameColor);
+		s.Append(">");
+		s.Append(achievementName);
+		s.Append("</color>!");
+
+		log.GetComponent<TextMeshProUGUI>().text = s.ToString();
+
+		LogNotificationCenter.Instance.Post(s.ToString());
 	}
 }
