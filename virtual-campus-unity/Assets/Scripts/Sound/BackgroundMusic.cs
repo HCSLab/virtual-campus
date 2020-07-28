@@ -8,6 +8,7 @@ public class BackgroundMusic : MonoBehaviour
     [HideInInspector]
     public float remainingTime;
     private bool switchMusic;
+    public KeyCode switchMusicKey;
 
     void Start()
     {
@@ -53,7 +54,7 @@ public class BackgroundMusic : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Tab) && switchMusic)
+        if (Input.GetKey(switchMusicKey) && switchMusic)
         {
             switchMusic = false;
             RandomPlay();
