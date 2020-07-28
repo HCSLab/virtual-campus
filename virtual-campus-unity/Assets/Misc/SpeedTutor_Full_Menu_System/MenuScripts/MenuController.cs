@@ -32,9 +32,7 @@ namespace SpeedTutorMainMenuSystem
         [SerializeField] private GameObject gameplayMenu;
         [SerializeField] private GameObject controlsMenu;
         [SerializeField] private GameObject confirmationMenu;
-        [SerializeField] private GameObject loadingScreen;
-        public Image progressBar;
-        List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+
         [Space(10)]
         [Header("Menu Popout Dialogs")]
         [SerializeField] private GameObject noSaveDialog;
@@ -245,42 +243,8 @@ namespace SpeedTutorMainMenuSystem
             }
         }
         #endregion
-        IEnumerator GetSceneLoadProgress()
-        {
-            foreach (AsyncOperation op in scenesLoading)
-            {
-                if (op == null)
-                {
-                    continue;
-                }
-                while (!op.isDone)
-                {
-                    var totalProgress = 0f;
-                    foreach (AsyncOperation op2 in scenesLoading)
-                    {
-                        if (op2 != null)
-                            totalProgress += op2.progress;
-                    }
-                        
-                    totalProgress /= scenesLoading.Count;
-                    progressBar.fillAmount = totalProgress;
-                    yield return null;
-                }
-            }
 
-            loadingScreen.SetActive(false);
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.MainGame));
-        }
 
-        public void LoadGame()
-        {
-            loadingScreen.SetActive(true);
-
-            scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MainMenu));
-            scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MainGame, LoadSceneMode.Additive));
-
-            StartCoroutine(GetSceneLoadProgress());
-        }
 
         #region Dialog Options - This is where we load what has been saved in player prefs!
         public void ClickNewGameDialog(string ButtonType)
@@ -288,7 +252,7 @@ namespace SpeedTutorMainMenuSystem
             if (ButtonType == "Yes")
             {
                 //SceneManager.LoadScene(_newGameButtonLevel);
-                LoadGame();
+                SceneLoadingManager.instance.LoadGame();
             }
 
             if (ButtonType == "No")

@@ -23,13 +23,23 @@ public class SceneLoadingManager : MonoBehaviour
 	{
 		loadingScreen.SetActive(true);
 
-		scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MainGame));
+		scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MainMenu));
 		scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MainGame, LoadSceneMode.Additive));
 
 		StartCoroutine(GetSceneLoadProgress());
 	}
 
-	IEnumerator GetSceneLoadProgress()
+    public void LoadMenu()
+    {
+        loadingScreen.SetActive(true);
+
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MainGame));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MainMenu, LoadSceneMode.Additive));
+
+        StartCoroutine(GetSceneLoadProgress());
+    }
+
+    IEnumerator GetSceneLoadProgress()
 	{
 		foreach (AsyncOperation op in scenesLoading)
 		{
@@ -44,7 +54,6 @@ public class SceneLoadingManager : MonoBehaviour
 				yield return null;
 			}
 		}
-
 		loadingScreen.SetActive(false);
 		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.MainGame));
 	}
@@ -58,8 +67,8 @@ public class SceneLoadingManager : MonoBehaviour
 		}
 		instance = this;
 
-		SceneManager.LoadScene((int)SceneIndexes.MainGame, LoadSceneMode.Additive);
-		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.MainGame));
+		SceneManager.LoadScene((int)SceneIndexes.MainMenu, LoadSceneMode.Additive);
+		//SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.MainMenu));
 
 	}
 }
