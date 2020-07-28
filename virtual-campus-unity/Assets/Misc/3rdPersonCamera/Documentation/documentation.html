@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>3rdPerson Camera - Documentation</title>
+</head>
+
+<body>
+<hr />
+<p style="text-align: center;"><strong>3rd Person Camera</strong></p>
+
+<p style="text-align: center;">Copyright &copy; 2015-2016 Thomas Enzenebner<br />
+Version 1.0.4<br />
+t.enzenebner@gmail.com</p>
+
+<hr />
+<p>If you have any questions, suggestions, comments or feature requests, please send an email to: <a>t.enzenebner@gmail.com<br>
+</a></p>
+<p>Visit the forum: <a href="http://enzenebner.com/forum">http://enzenebner.com/forum</a> <br>
+  Beta access: <a href="http://enzenebner.com/beta">http://enzenebner.com/beta </a></p>
+<hr />
+<p style="text-align: center;"><span style="font-size:20px;"><strong>Upgrade from 1.0.3</strong></span></p>
+<hr />
+<p>I've added a namespace "ThirdPersonCamera" to all scripts, so if you happen to reference it somewhere in your projects just add the namespace at the top of the script:
+<code>
+	using ThirdPersonCamera;
+</code>
+</p>
+<hr />
+<p style="text-align: center;"><span style="font-size:20px;"><strong>Upgrade from <1.0.2</strong></span></p>
+<hr />
+<p>CameraController was split into CameraController and FreeForm. If you want the same functionality add the FreeForm component to the camera.</p>
+<hr />
+<p style="text-align: center;"><span style="font-size:20px;"><strong>How To use 3rd Person Camera</strong></span></p>
+<hr />
+<p>There are several prebuilt camera gameobjects in the &quot;Prefabs&quot; folder to choose from. These are: </p>
+<p>- 3rdPersonCamera_Basic: Most basic setup to enable clipping logic <br>
+  - 3rdPersonCamera_FreeForm: 360 Orbit Camera with distance. <br>
+  - 3rdPersonCamera_FreeFormAndTargeting: Orbit camera with lookAt/targeting support <br>
+  - 3rdPersonCamera_Follow: smoothly aligns itself to the transform.forward of the target <br>
+  - 3rdPersonCamera_Ultimate: FreeForm, Follow in one, controlled with DisableFollow</p>
+<p> There&#39;s also 4 demoscenes to see how it&#39;s done. (Freeform demo, Follow demo, Freeform + Target demo, Ball demo)</p>
+<p>There are 5 important components:<br>
+  - CameraController<br>
+  - Freeform<br>
+  - Follow<br>
+  - DisableFollow<br>
+  - LockOnTarget/Targetable</p>
+<p><span style="font-size:16px;"><strong>Camera Controller Compontent:</strong></span></p>
+
+<p>The main part of the asset. Handles occlusion, smart pivoting and thickness checks.</p>
+
+<p>There are a number of inputs and options you can tweak.<br />
+The most important is, which Transform to follow. Set this in &quot;Target&quot;.</p>
+
+<p>Options:<br />
+&nbsp;&nbsp; &nbsp;- Target (transform): Set this to the transform the camera should follow<br />
+&nbsp;&nbsp; &nbsp;- Offset vector (Vector3): change this vector to offset the pivot the camera is rotating around&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;- Smart Pivot (bool): Uses a pivot when the camera hits the ground and prevents moving the camera closer to the target<br />
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; when looking up.<br />
+&nbsp;&nbsp; &nbsp;- Occlusion Check (bool): Automatically reposition the camera when the character is blocked by an obstacle.<br />
+&nbsp;&nbsp; &nbsp;- Thickness Check (bool): Thickness checking can be configured to ignore&nbsp; smaller obstacles like sticks,<br />
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; trees, etc... to not reposition or zoom in the camera.<br />
+&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;- Desired Distance (float): The distance how far away the camera should be<br />
+&nbsp;&nbsp; &nbsp;- Collision Distance (float): Offset for the camera to not clip in objects&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;- Max Thickness (float): Adjusts the thickness check. The higher, the thicker the objects can be and there will be no<br />
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; occlusion check. Warning: Very high values could make Occlusion checking obsolete and as a result<br />
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; the followed target can be occluded<br />
+&nbsp;&nbsp; &nbsp;- Max Thickness Iterations (int): The number of iterations with that the thickness is calculated. The higher, the more performance<br />
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;it will take. Consider this as the number of objects the thickness ray will go through.<br />
+&nbsp;&nbsp; &nbsp;- Zoom Out Step Value (float): The increment steps how fast the player can zoom out<br />
+&nbsp;&nbsp; &nbsp;- Zoom Out Step Value per Frame (float): The increment steps how fast the camera can zoom out per frame<br />
+&nbsp;&nbsp; &nbsp;- Collision Layer (LayerMask): Set this layermask to specify with which layers the camera should collide<br />
+&nbsp;&nbsp; &nbsp;- Player Layer (int): Set this to your player layer so ground checks will ignore the player collider<br />
+&nbsp;&nbsp; &nbsp;<br />
+Public variables:<br />
+&nbsp;&nbsp; &nbsp;- bool playerCollision (get/set): Set to true to deactivate the player model&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp;&nbsp; - float Distance (get): The current distance from the target plus offsetvector to the camera<br />
+&nbsp;&nbsp; &nbsp;</p>
+
+<p><span style="font-size:16px;"><strong>Freeform compontent:</strong></span><br />
+&nbsp;&nbsp; &nbsp;This script handles the main rotation mechanic of the camera and is used for Freeform camera movement. It&#39;s not needed if you just<br />
+&nbsp;&nbsp; &nbsp;want follow mode! It&#39;s dependency is the CameraController. It can be extended with the LockOnTarget component.<br />
+&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;- Camera Enabled (bool): Enables/Disables the camera rotation updates. Useful when you want to lock the camera in place or<br />
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; to turn off the camera, for example, when hovering an interface element with the mouse<br />
+&nbsp;&nbsp; &nbsp;- Camera Mode (enum): Always and hold - Either the camera rotation is always on or you have to press the mouse button to look around<br />
+&nbsp;&nbsp; &nbsp;- Controller Enabled (bool): Enables controller support<br />
+&nbsp;&nbsp; &nbsp;- Controller Invert Y (bool): Inverts the Y-axis<br />
+&nbsp;&nbsp; &nbsp;- Mouse Invert Y (bool): Inverts the Y-Axis<br />
+&nbsp;&nbsp; &nbsp;- Lock Mouse Cursor (bool): When looking around the mouse cursor will be locked&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;- Mouse Sensitivity (Vector2): Adjusts the sensitivity of looking around with the mouse<br />
+&nbsp;&nbsp; &nbsp;- Controller Sensitivity (Vector2): Adjusts the sensitivity of looking around with the controller&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;<br />
+<span style="font-size:16px;"><strong>Follow component:</strong></span><br />
+&nbsp;&nbsp; &nbsp;This script handles following the target without any manual camera input. Useful for games that handle non-humanoid targets<br />
+&nbsp;&nbsp; &nbsp;like racing or flying games. It&#39;s dependency is the CameraController.<br />
+&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;- Follow (bool): Enables/Disables the follow mode<br />
+&nbsp;&nbsp; &nbsp;- Align on Slopes (bool): Enables/Disables automatic alignment of the camera when the target is moving on upward or downward slopes<br />
+&nbsp;&nbsp; &nbsp;- Rotation Speed (float): How fast the camera should align to the transform.forward of the target<br />
+&nbsp;&nbsp; &nbsp;- Look Backwards (bool): Enables/Disables looking backwards<br />
+&nbsp;&nbsp; &nbsp;- Check Motion for Backwards (bool): Enables/Disables automatic checking when the camera should look back<br />
+&nbsp;&nbsp; &nbsp;- Backwards Motion Threshold (float): The minimum magnitude of the motion vector when the camera should consider looking back<br />
+&nbsp;&nbsp; &nbsp;- Angle Threshold (float): The minimum angle when the camera should consider looking back<br />
+&nbsp;&nbsp; &nbsp;- Tilt Vector (Vector3): Applies an additional vector to tilt the camera in place. Useful when the offset vector gets too big<br />
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;and leaves the collision box of the model<br />
+&nbsp;&nbsp; &nbsp;- Layer Mask (LayerMask): The layer which should be used for the ground/slope checks. Usually just the Default layer.<br />
+&nbsp;&nbsp; &nbsp;<br />
+<span style="font-size:16px;"><strong>LockOnTarget component:</strong></span><br />
+&nbsp;&nbsp; &nbsp;This script handles locking onto targets. It&#39;s dependencies are the CameraController and Freeform component.<br />
+&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;- Follow Target (Targetable): When not null, the camera will align itself to focus the Follow Target.<br />
+&nbsp;&nbsp; &nbsp;- Rotation Speed (float): How fast the camera should align to the Follow Target</p>
+
+<p><span style="font-size:16px;"><strong>Targetable component:</strong></span><br />
+&nbsp;&nbsp; &nbsp;Every Target that&#39;s focusable needs a Targetable component.<br />
+&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp; &nbsp;- Offset (Vector3): Give the target an offset when the transform.position is not fitting.<br />
+&nbsp;&nbsp; &nbsp;<br />
+&nbsp;&nbsp; &nbsp;<br />
+<strong>Additional setup for controller support:</strong><br />
+For an easier setup use the preconfigured InputManager.asset from the 3rdPersonCamera/ProjectSettings folder.<br />
+!Caution! - Doing so will overwrite any InputManager data you already have!</p>
+
+<p>If you get this warning: &quot;Controller Error - Right axis not set in InputManager. Controller is disabled!&quot;<br />
+you have to set the following axis in the InputManager:<br />
+&quot;Right_3&quot;: 3rd axis<br />
+&quot;Right_4&quot;: 4th axis<br />
+&quot;Right_5&quot;: 5th axis<br />
+0 gravity, 0.3 dead, 1 sensitivity are good standard values.</p>
+
+<p>If you need other names you can change them in the script.</p>
+
+<hr />
+<p style="text-align: center;"><span style="font-size:20px;"><strong>Controls for demos</strong></span></p>
+
+<hr />
+<p>- WASD for movement<br>
+  - Left/right click to rotate in freeform demo<br>
+  - Right click, lock on target in target demo<br>
+  - &quot;r&quot; key to reset car/ball<br>
+  - &quot;q&quot; and &quot;e&quot; to rotate camera in ball demo </p>
+<hr />
+<p style="text-align: center;"><span style="font-size:20px;"><strong>Version History</strong></span></p>
+
+<hr />
+<p> 
+ 	1.0.4<br>
+    &nbsp;&nbsp; &nbsp;- added smart DisableFollow script to utilize FreeForm + Follow <br>
+    &nbsp;&nbsp; &nbsp;- added Ball demo scene - added simple BallController script <br>
+    &nbsp;&nbsp; &nbsp;- added namespace "ThirdPersonCamera" to scripts <br>
+    &nbsp;&nbsp; &nbsp;- added more camera prefabs (Basic, Follow, FreeForm and Ultimate (Freeform/Follow/DisableFollow)) <br>
+    &nbsp;&nbsp; &nbsp;- improved smart pivot transition from sloped surfaces<br>
+    &nbsp;&nbsp; &nbsp;- improved smoothness of alignToSlopes feature <br>
+    &nbsp;&nbsp; &nbsp;- improved camera when offset clips into geometry <br>
+    &nbsp;&nbsp; &nbsp;- restored Ethan crouch animation <br>
+    &nbsp;&nbsp; &nbsp;- removed Ethan air-&gt;ground crouch animation<br>
+    1.0.3<br>
+    &nbsp;&nbsp; &nbsp;- added 2 new demo scenes (follow and follow+lock on)<br>
+    &nbsp;&nbsp; &nbsp;- added support for follow mode<br>
+    &nbsp;&nbsp; &nbsp;- added support for target locking<br>
+    &nbsp;&nbsp; &nbsp;- split CameraController into CameraController and Freeform <br>
+    &nbsp;&nbsp; &nbsp;- improved smart pivot and occurances of snapping<br>
+    &nbsp;&nbsp; &nbsp;- improved thickness check<br>
+    &nbsp;&nbsp; &nbsp;- changed hardcoded raycast layermasks to be configured in the editor<br>
+    1.0.2<br>
+    &nbsp;&nbsp; &nbsp;- changed collision sensitivity to be spherical<br>
+    &nbsp;&nbsp; &nbsp;- removed camera position/rotation initialization, editor values are now taken<br>
+    &nbsp;&nbsp; &nbsp;- improved smart pivoting and smart pivoting start and resets<br>
+    &nbsp;&nbsp; &nbsp;- improved detection algorithm when multiple raycasts are hit<br>
+    &nbsp;&nbsp; &nbsp;- added terrain to demoscene<br>
+    &nbsp;&nbsp; &nbsp;- added RotateTo public method<br>
+    &nbsp;&nbsp; &nbsp;- added x/y, playerCollision, Distance public get or/and set<br>
+    1.0.1<br>
+    &nbsp;&nbsp; &nbsp;- improved thickness checking<br>
+    &nbsp;&nbsp; &nbsp;- improved smart pivoting on slopes<br>
+    &nbsp;&nbsp; &nbsp;- added collision distance to improve clipping occurrences&nbsp;&nbsp; <br>
+    &nbsp;&nbsp; &nbsp;- added automatic mouse cursor locking when looking around (currently unstable in WebGL)<br>
+    &nbsp;&nbsp; &nbsp;- added interface handling to demo scene&nbsp;&nbsp; <br>
+    &nbsp;&nbsp; &nbsp;- changed sensitivity handling<br>
+    &nbsp;&nbsp; &nbsp;- removed unnecessary files<br>
+    &nbsp;&nbsp; &nbsp;- added a script only package<br>
+    1.0.0<br>
+    &nbsp;&nbsp; &nbsp;- initial release</p>
+<p>&nbsp;</p>
+
+
+</body>
+</html>

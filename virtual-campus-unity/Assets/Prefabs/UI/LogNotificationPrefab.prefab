@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1542699559381552915}
   - component: {fileID: 1542699559381552916}
   - component: {fileID: 1542699559381552917}
+  - component: {fileID: 3719847738650599148}
   m_Layer: 5
   m_Name: LogNotificationPrefab
   m_TagString: Untagged
@@ -90,6 +91,21 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &3719847738650599148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542699559381552919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350e0417666f35741b5d5d435b77ad32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterClip: {fileID: 8300000, guid: e57bcf815b18547a7a8b44a99e4d9c99, type: 3}
+  clickClip: {fileID: 8300000, guid: f02e1cfbfa3064be0acccbbc7e750507, type: 3}
+  exitClip: {fileID: 0}
 --- !u!1 &1542699559797456893
 GameObject:
   m_ObjectHideFlags: 0

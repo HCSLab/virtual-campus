@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 3207844573475549741}
   - component: {fileID: 2965354830057466417}
   - component: {fileID: 8619884351074628892}
+  - component: {fileID: 6167758126275561023}
   m_Layer: 0
   m_Name: ItemDisplay
   m_TagString: Untagged
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -216,3 +217,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconImage: {fileID: 1545310613773444493}
+--- !u!114 &6167758126275561023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178782223637786462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350e0417666f35741b5d5d435b77ad32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterClip: {fileID: 8300000, guid: e57bcf815b18547a7a8b44a99e4d9c99, type: 3}
+  clickClip: {fileID: 8300000, guid: f02e1cfbfa3064be0acccbbc7e750507, type: 3}
+  exitClip: {fileID: 0}

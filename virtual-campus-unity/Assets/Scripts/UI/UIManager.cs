@@ -163,7 +163,11 @@ public class UIManager : MonoBehaviour
 	public void OpenTab(int tabIndex)
 	{
 		if (!tabMenuCanvas.activeSelf)
-			tabMenuCanvas.SetActive(true);
+        {
+            tabMenuCanvas.SetActive(true);
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera.FreeForm>().enabled = false;
+        }
+			
 
 		CloseTab(currentTabIndex);
 
@@ -192,4 +196,10 @@ public class UIManager : MonoBehaviour
 
 		tabs[tabIndex].SetActive(false);
 	}
+
+    public void CloseCanvas()
+    {
+        tabMenuCanvas.SetActive(false);
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera.FreeForm>().enabled = true;
+    }
 }

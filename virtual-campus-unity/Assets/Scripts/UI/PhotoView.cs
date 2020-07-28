@@ -10,6 +10,7 @@ public class PhotoView : MonoBehaviour
     Image image;
 	RectTransform rectTransform;
 	Vector2 defaultSizeDelta;
+	AspectRatioFitter aspectRatioFitter;
 
 	private void Awake()
 	{
@@ -22,6 +23,8 @@ public class PhotoView : MonoBehaviour
 		rectTransform = GetComponent<RectTransform>();
 		defaultSizeDelta = rectTransform.sizeDelta;
 
+		aspectRatioFitter = GetComponent<AspectRatioFitter>();
+
 		gameObject.SetActive(false);
 	}
 
@@ -31,16 +34,6 @@ public class PhotoView : MonoBehaviour
 		image.sprite = photo;
 		// Reset the aspect of the preview image container
 		// to fit the aspect ratio of the photo.
-		var newSizeDelta = defaultSizeDelta;
-		var aspect = (float)photo.rect.width / photo.rect.height;
-		if (aspect > (float)Screen.width / Screen.height)
-		{
-			newSizeDelta.y = newSizeDelta.x / aspect;
-		}
-		else
-		{
-			newSizeDelta.x = newSizeDelta.y * aspect;
-		}
-		rectTransform.sizeDelta = newSizeDelta;
+		aspectRatioFitter.aspectRatio = (float)image.sprite.rect.width / image.sprite.rect.height;
 	}
 }
