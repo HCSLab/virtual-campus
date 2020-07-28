@@ -6,33 +6,33 @@ public class GameTimeAchievement : Achievement
 {
 	[Header("Game Time")]
     public int targetMinute;
-	int progress = 0;
+	int currentProgress = 0;
 
 	protected override void Start()
 	{
 		base.Start();
-		UpdateProgress(PlayerPrefs.GetInt(SaveSystem.GetAchievementProgressName(gameObject), 0), false);
+		UpdateProgress(PlayerPrefs.GetInt(SaveSystem.GetAchievementProgressName(gameObject), 0));
 	}
 
 	protected override void OnEventTriggered(object data)
 	{
 		base.OnEventTriggered(data);
-		UpdateProgress(progress + 1);
+		UpdateProgress(currentProgress + 1);
 	}
 
 	protected override void Save(object data)
 	{
 		base.Save(data);
-		PlayerPrefs.SetInt(SaveSystem.GetAchievementProgressName(gameObject), progress);
+		PlayerPrefs.SetInt(SaveSystem.GetAchievementProgressName(gameObject), currentProgress);
 	}
 
-	void UpdateProgress(int newProgress, bool enableLogging = true)
+	void UpdateProgress(int newProgress)
 	{
 		if (newProgress > targetMinute)
-			Finish(enableLogging);
+			Finish();
 
-		progress = newProgress;
-		fillImage.fillAmount = Mathf.Min(1f, (float)progress / targetMinute);
-		descriptionText.text = "总游戏时间 " + progress + " Min / " + targetMinute + " Min";
+		currentProgress = newProgress;
+		fillImage.fillAmount = Mathf.Min(1f, (float)currentProgress / targetMinute);
+		descriptionText.text = "总游戏时间 " + currentProgress + " Min / " + targetMinute + " Min";
 	}
 }

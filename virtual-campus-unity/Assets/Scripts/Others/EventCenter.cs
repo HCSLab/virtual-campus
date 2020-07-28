@@ -12,7 +12,9 @@ public static class EventCenter
 
 	public enum AchievementEvent
 	{
+		None, // The event that will never happen.
 		TickPerMinute,
+		OneMissionFinished,
 	};
 
 	public static void AddListener<T>(T eventType, Action<object> callback)

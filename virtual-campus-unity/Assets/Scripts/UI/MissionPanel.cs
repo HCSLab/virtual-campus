@@ -56,10 +56,13 @@ public class MissionPanel : MonoBehaviour
 
 		if (!isFinished)
 			MissionPreviewPanel.Instance.AddMission(missionName, missionDescription, currentIndex);
+		else
+			EventCenter.Broadcast(EventCenter.AchievementEvent.OneMissionFinished, null);
 	}
 
 	public void FinishMission(string finishedMissionName)
 	{
+		EventCenter.Broadcast(EventCenter.AchievementEvent.OneMissionFinished, null);
 		MissionPreviewPanel.Instance.FinishMission(finishedMissionName);
 
 		for (int i = 0; i < missionNames.Count; i++)

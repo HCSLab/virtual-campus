@@ -8,4 +8,12 @@ public static class SaveSystem
 	{
 		return "AchievementProgress." + achievementItem.name;
 	}
+
+	// Corresponding int key in PlayerPerfs
+	//	   0: not finished
+	//	   1: finished
+	public static string GetAchievementStateName(GameObject achievementItem)
+	{
+		return "AchievementState." + achievementItem.name;
+	}
 }

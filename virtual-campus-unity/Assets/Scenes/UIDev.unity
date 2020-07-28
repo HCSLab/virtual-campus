@@ -6041,7 +6041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16250be02e13cb4ea5a26598a046df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventToListenTo: 0
+  eventToListenTo: 1
   finishedContainer: {fileID: 511240050}
   descriptionText: {fileID: 1845396958}
   nameText: {fileID: 935836963}
@@ -8869,6 +8869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 340653810}
   - component: {fileID: 340653811}
+  - component: {fileID: 340653812}
   m_Layer: 5
   m_Name: MissionFinishRate
   m_TagString: Untagged
@@ -8922,6 +8923,23 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &340653812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340653809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914aefbed64c24a459fe2ae2a70ddfc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToListenTo: 2
+  finishedContainer: {fileID: 511240050}
+  descriptionText: {fileID: 540050503}
+  nameText: {fileID: 1856898317}
+  fillImage: {fileID: 445643454}
 --- !u!1 &352884175
 GameObject:
   m_ObjectHideFlags: 0
@@ -9218,7 +9236,7 @@ MonoBehaviour:
   logPrefab: {fileID: 3158105867454199942, guid: f70ad40b7e1e279489bbdd2f4c9b4196,
     type: 3}
   npcNameColor: orange
-  achievementColor: 
+  achievementColor: green
 --- !u!114 &356610168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25299,7 +25317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16250be02e13cb4ea5a26598a046df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventToListenTo: 0
+  eventToListenTo: 1
   finishedContainer: {fileID: 511240050}
   descriptionText: {fileID: 928816339}
   nameText: {fileID: 164956572}
@@ -30518,7 +30536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16250be02e13cb4ea5a26598a046df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventToListenTo: 0
+  eventToListenTo: 1
   finishedContainer: {fileID: 511240050}
   descriptionText: {fileID: 1843282332}
   nameText: {fileID: 724414799}

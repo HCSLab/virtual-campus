@@ -14,18 +14,22 @@ public class LogPanel : MonoBehaviour
 	public string achievementColor;
 
 	RectTransform logHolderRectTransform;
-	
+	bool enableAchievementLogging;
+
 	private void Awake()
 	{
 		Instance = this;
+		enableAchievementLogging = false;
 	}
 
 	private void Start()
 	{
 		logHolderRectTransform = logHolderTransform.GetComponent<RectTransform>();
+
+		LeanTween.delayedCall(1f, () => { enableAchievementLogging = true; });
 	}
 
-	public void AddLog(string npcName, string logContent, bool popout = true)
+	public void AddLog(string npcName, string logContent, bool popOut = true)
 	{
 		var log = Instantiate(logPrefab);
 		log.transform.SetParent(logHolderTransform);
@@ -41,7 +45,7 @@ public class LogPanel : MonoBehaviour
 
 		log.GetComponent<TextMeshProUGUI>().text = s.ToString();
 
-		if (popout)
+		if (popOut)
 		{
 			LogNotificationCenter.Instance.Post(s.ToString());
 		}
@@ -49,6 +53,9 @@ public class LogPanel : MonoBehaviour
 
 	public void AddAchievementFinishLog(string achievementName)
 	{
+		if (!enableAchievementLogging)
+			return;
+
 		var log = Instantiate(logPrefab);
 		log.transform.SetParent(logHolderTransform);
 		log.transform.localScale = Vector3.one;

@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	private void Start()
+	private void Awake()
 	{
 		PlayerPrefs.DeleteAll();
+	}
 
+	private void Start()
+	{
 		StartCoroutine(MinuteTick());
 	}
 
 	IEnumerator MinuteTick()
 	{
-		while(true)
+		while (true)
 		{
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(60f);
 			EventCenter.Broadcast(EventCenter.AchievementEvent.TickPerMinute, null);
 		}
 	}
