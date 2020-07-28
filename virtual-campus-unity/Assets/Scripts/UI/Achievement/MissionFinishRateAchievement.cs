@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class MissionFinishRateAchievement : Achievement
 {
-    int totalNumberOfMissions, currentProgress;
+	int totalNumberOfMissions, currentProgress;
+
+	private void Awake()
+	{
+		UpdateProgress(0);
+	}
 
 	protected override void Start()
 	{
 		base.Start();
 
 		totalNumberOfMissions = StoryManager.Instance.stories.Count;
-		UpdateProgress(0);
 	}
 
 	protected override void OnEventTriggered(object data)
