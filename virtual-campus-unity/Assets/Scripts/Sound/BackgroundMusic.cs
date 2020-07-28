@@ -39,7 +39,6 @@ public class BackgroundMusic : MonoBehaviour
         currentMusic = index;
         this.GetComponent<AudioSource>().Play();
         remainingTime = audios[index].length;
-
     }
 
     public IEnumerator DelayedEnableSwitch()
