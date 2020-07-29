@@ -7,6 +7,8 @@ public class FinishSpecificMissionAchievement : Achievement
 	protected override void Start()
 	{
 		base.Start();
+
+		fillImage.fillAmount = 0f;
 	}
 
 	protected override void OnEventTriggered(object data)
