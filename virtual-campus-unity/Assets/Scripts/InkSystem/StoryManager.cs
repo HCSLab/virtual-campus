@@ -106,5 +106,10 @@ public class StoryManager : MonoBehaviour
             MissionPanel.Instance.FinishMission(story.nameForDisplay);
             Destroy(story.gameObject);
         }
+        
+        if (name.StartsWith("greetings of "))
+        {
+            EventCenter.Broadcast(EventCenter.AchievementEvent.OneWelcomeMissionFinished, null);
+        }
     }
 }

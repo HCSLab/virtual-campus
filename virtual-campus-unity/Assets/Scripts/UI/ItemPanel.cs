@@ -82,6 +82,24 @@ public class ItemPanel : MonoBehaviour
 		var itemDisplay = InstantiateDisplayAndAddToContainer(itemDisplayPrefab);
 		itemDisplay.GetComponent<ItemDisplay>().Initialize(item);
 		nameToItemDisplay[item.name] = itemDisplay;
+
+		// 成就
+		if (item.name == "同理心徽章")
+		{
+			EventCenter.Broadcast(EventCenter.AchievementEvent.EmpathyBadgeEarned, null);
+		}
+		else if (item.name == "猫咪徽章")
+		{
+			EventCenter.Broadcast(EventCenter.AchievementEvent.CatBadgeEarned, null);
+		}
+		else if (item.name == "摄影徽章")
+		{
+			EventCenter.Broadcast(EventCenter.AchievementEvent.PhotographyBadgeEarned, null);
+		}
+		else if (item.name == "学术徽章")
+		{
+			EventCenter.Broadcast(EventCenter.AchievementEvent.SchoolBadgeEarned, null);
+		}
 	}
 
 	public void AddItem(string itemName)
