@@ -21,7 +21,6 @@ public class CurrentRegion : MonoBehaviour
 
         regions = GameObject.FindObjectsOfType<RegionQuad>();
         regionCount = regions.Length;
-        print(regionCount);
     }
 
 	void Start()

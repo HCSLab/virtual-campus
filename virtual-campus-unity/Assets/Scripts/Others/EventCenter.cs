@@ -16,6 +16,11 @@ public static class EventCenter
 		TickPerMinute,
 		OneMissionFinished,
 		NewAreaExplored,
+		EmpathyBadgeEarned,
+		CatBadgeEarned,
+		PhotographyBadgeEarned,
+		SchoolBadgeEarned,
+		OneWelcomeMissionFinished,
 	};
 
 	public static void AddListener<T>(T eventType, Action<object> callback)
