@@ -16,6 +16,8 @@ public class FlagBag : MonoBehaviour
     public void AddFlag(string name)
     {
         bag.Add(name);
+
+        StoryManager.Instance.refreshFlag = true;
     }
 
     public bool HasFlag(string name)
@@ -50,6 +52,8 @@ public class FlagBag : MonoBehaviour
     public void DelFlag(string name)
     {
         bag.Remove(name);
+
+        StoryManager.Instance.refreshFlag = true;
     }
 
     public void DelFlagsWithPrefix(string prefix)
@@ -68,5 +72,7 @@ public class FlagBag : MonoBehaviour
         //}
 
         bag.RemoveAll((string flag) => { return flag.StartsWith(prefix); });
+
+        StoryManager.Instance.refreshFlag = true;
     }
 }

@@ -89,10 +89,9 @@ TODO:显示照片
 
 === func_sucess ===
 #require: func_start
-#require_global: photo_task(I)
+#require_photo: task(I)
 #attach: PM_staff
 *给，这是我拍的照片
-#delflag_global: photo_task(I)
 哦，看起来不错嘛。
 -
 +n

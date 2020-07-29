@@ -470,12 +470,6 @@ public class StoryScript : MonoBehaviour
         npcOverrided.Clear();
     }
 
-    public void EndStory()
-    {
-        FlagBag.Instance.AddFlag(inkFile.name);
-        StoryManager.Instance.EndStory(this);
-    }
-
     private void OnDestroy()
     {
         FlagBag.Instance.DelFlagsWithPrefix(inkFile.name + "_");

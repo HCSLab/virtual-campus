@@ -322,7 +322,7 @@
 +n
 请收下吧，这是你应得的。
 -
-TODO: 获得徽章
+#additem: 猫咪徽章
 *……谢谢
 #endstory
 ->END

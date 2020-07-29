@@ -63,7 +63,7 @@
 ->DONE
 
 === func_dark_area1 ===
-TODO: #without 手电筒标记
+#without_global: item_手电筒
 #collidetrigger:dark_area
 +n
 你感觉这里似乎有些暗。
@@ -93,7 +93,7 @@ TODO: #without 手电筒标记
 -
 *知道了，谢谢
 #enable: engine_key
-//玩家的背包里出现手电筒
+#additem: 手电筒
 ->DONE
 
 === func_founded ===
@@ -120,7 +120,7 @@ TODO: #without 手电筒标记
 +n
 你把钥匙放到了兜里。你准备回去把它交给物业人员。
 -
-TODO：获取钥匙
+#additem: 发电机钥匙
 #disable: engine_key
 ->DONE
 

@@ -317,7 +317,13 @@ VAR flag = 0
 因此这枚<color=\#800080><b>学术徽章</b></color>，我认为是应该给你的。请收好它吧。
 -
 *……谢谢院长
-TODO: 获取学院徽章（、学院皮肤？）
+{ school:
+    - "SSE": #additem: SSE学术徽章
+    - "SME": #additem: SME学术徽章
+    - "HSS": #additem: HSS学术徽章
+    - "LHS": #additem: LHS学术徽章
+    - "SDS": #additem: SDS学术徽章
+}
 #endstory
 ->END
 

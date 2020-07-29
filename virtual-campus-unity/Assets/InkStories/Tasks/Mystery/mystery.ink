@@ -1,6 +1,5 @@
 //mission name: mystery man
-#after：power cut
-TODO: require:至少一个徽章
+#after: power cut
 
 #name: 神秘人
 #description: 神秘的面具人出现在了校园里，这个人的目的是什么？似乎一切都和ta有千丝万缕的关系……
@@ -44,6 +43,7 @@ ta戴着奇怪的面具，你并不认识这个人，但是总觉得ta身上有�
 *<color=\#808080>（你想看清前面是谁，准备拿出手电筒）</color>
 -
 *<color=\#808080>（黑色羽毛顺带着掉了出来）</color>
+#delitem: 黑色羽毛
 <color=\#808080>（神秘人看到了羽毛）</color>
 这是……你在这里发现的……？
 -
@@ -53,12 +53,13 @@ ta戴着奇怪的面具，你并不认识这个人，但是总觉得ta身上有�
 *……能解释一下你到底是谁吗……
 去收集徽章。
 -
-*徽章？我倒是确实有一个……
-得到目前的所有徽章，来找我，我会告诉你。
+*徽章？……
+得到所有的徽章，来找我，我会告诉你。
 -
 *<color=\#808080>（真是一个奇怪的人）</color>
 <color=\#808080>（神秘人捡起了羽毛，收了起来）</color>
-TODO:失去黑色羽毛
+-
+*（我的羽毛……算了给你吧）
 -
 +n
 <color=\#808080>（神秘人并没有再说什么）</color>
@@ -212,7 +213,8 @@ TODO:失去黑色羽毛
 VAR badge = 0
 
 === func_kitten ===
-TODO: #require: 猫咪徽章
+#require_item: 猫咪徽章
+#after: func_return_to_mystery
 #attach: mystery
 *我拿到猫咪徽章了
 是嘛。
@@ -264,7 +266,8 @@ TODO: #require: 猫咪徽章
 ->DONE
 
 === func_academic ===
-TODO: #require: 学术徽章
+#require_item: 学术徽章
+#after: func_return_to_mystery
 #attach: mystery
 *我拿到学术徽章了
 是嘛。
@@ -311,7 +314,8 @@ TODO: #require: 学术徽章
 
 
 === func_empathy ===
-TODO: #require: 同理心徽章
+#require_item: 同理心徽章
+#after: func_return_to_mystery
 #attach: mystery
 *我拿到同理心徽章了
 是嘛。
@@ -385,7 +389,7 @@ TODO: #require: 同理心徽章
 
 
 === func_photo ===
-TODO: #require: 摄影徽章
+#require_item: 摄影徽章
 #attach: mystery
 *我拿到<color=\#800080><b>摄影徽章</b></color>了
 是嘛。

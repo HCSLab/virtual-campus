@@ -164,5 +164,6 @@
 再见咯。
 -
 *再见
+#additem: 废旧杂志
 #endstory
 ->DONE

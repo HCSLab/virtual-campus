@@ -29,7 +29,7 @@ public class AttachToTalk : MonoBehaviour
         var talkCreater = GetComponent<CreateInkTalk>();
         talkCreater.speaker = talkObj.GetComponent<InkTalk>().speaker;
 
-        var buttons = talkObj.transform.Find("Panel/Buttons");
+        var buttons = talkObj.transform.Find("Buttons");
         var btn = Instantiate(gameObject).GetComponent<Button>();
         btn.transform.SetParent(buttons);
         btn.transform.localScale = Vector3.one;
