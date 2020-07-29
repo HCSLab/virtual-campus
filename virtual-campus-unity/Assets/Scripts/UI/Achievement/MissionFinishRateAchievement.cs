@@ -8,6 +8,7 @@ public class MissionFinishRateAchievement : Achievement
 
 	private void Awake()
 	{
+		totalNumberOfMissions = 100000;
 		UpdateProgress(0);
 	}
 

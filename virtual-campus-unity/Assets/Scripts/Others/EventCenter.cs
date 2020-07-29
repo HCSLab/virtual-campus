@@ -15,6 +15,7 @@ public static class EventCenter
 		None, // The event that will never happen.
 		TickPerMinute,
 		OneMissionFinished,
+		NewAreaExplored,
 	};
 
 	public static void AddListener<T>(T eventType, Action<object> callback)

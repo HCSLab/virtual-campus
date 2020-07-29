@@ -21,4 +21,12 @@ public static class SaveSystem
 	{
 		return "MasterVolume";
 	}
+
+	// Corresponding int key in PlayerPerfs
+	//	   0: not visited
+	//	   1: visited
+	public static string GetRegionName(GameObject region)
+	{
+		return "RegionState." + region.name;
+	}
 }

@@ -5,20 +5,30 @@ using UnityEngine.UI;
 
 public class CurrentRegion : MonoBehaviour
 {
-    private Transform player;
+    public static CurrentRegion Instance;
+
     public TMPro.TextMeshProUGUI tm;
-    public int visitCount;
+
+    [HideInInspector]
     public int regionCount;
 
-    void Start()
+    Transform player;
+    RegionQuad[] regions;
+
+	private void Awake()
+	{
+        Instance = this;
+
+        regions = GameObject.FindObjectsOfType<RegionQuad>();
+        regionCount = regions.Length;
+        print(regionCount);
+    }
+
+	void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    public float GetExplorationPercentage()
-    {
-        return ((float)visitCount / regionCount) * 100;
-    }
     void Update()
     {
         RaycastHit hit;
@@ -26,15 +36,10 @@ public class CurrentRegion : MonoBehaviour
         if (inRegion)
         {
             RegionQuad regionQuad = hit.collider.gameObject.GetComponent<RegionQuad>();
-            if (!regionQuad.isVisited && regionQuad.tag != "Ignored")
+            if (!regionQuad.isVisited)
             {
                 regionQuad.isVisited = true;
-                visitCount++;
-                if (visitCount == regionCount)
-                {
-                    Debug.Log("All Explored!");
-                    //TODO: Unlock the achievement
-                }
+                EventCenter.Broadcast(EventCenter.AchievementEvent.NewAreaExplored, null);
             }
             string regionName = regionQuad.name;
             tm.text = regionName;
