@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlagBag : MonoBehaviour
+public class FlagBag : SavableMonoBehavior
 {
     static public FlagBag Instance;
 
@@ -11,9 +11,22 @@ public class FlagBag : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        var flagCount = PlayerPrefs.GetInt(SaveSystem.GetFlagCountName(), 0);
+        for (int i = 0; i < flagCount; i++)
+            bag.Add(PlayerPrefs.GetString(SaveSystem.GetIthFlagName(i)));
     }
 
-    public void AddFlag(string name)
+	protected override void Save(object data)
+	{
+		base.Save(data);
+
+        PlayerPrefs.SetInt(SaveSystem.GetFlagCountName(), bag.Count);
+        for (int i = 0; i < bag.Count; i++)
+            PlayerPrefs.SetString(SaveSystem.GetIthFlagName(i), bag[i]);
+	}
+
+	public void AddFlag(string name)
     {
         bag.Add(name);
 

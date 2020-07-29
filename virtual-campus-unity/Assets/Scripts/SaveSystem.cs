@@ -29,4 +29,19 @@ public static class SaveSystem
 	{
 		return "RegionState." + region.name;
 	}
+
+	public static string GetFlagCountName()
+	{
+		return "FlagCount";
+	}
+
+	public static string GetIthFlagName(int i)
+	{
+		return "FlagName." + i;
+	}
+
+	public static string GetInfoValueName(string keyword)
+	{
+		return "InfoValue." + keyword;
+	}
 }
