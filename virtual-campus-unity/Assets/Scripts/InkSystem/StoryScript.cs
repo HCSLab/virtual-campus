@@ -303,6 +303,7 @@ public class StoryScript : MonoBehaviour
         List<string> requireTags = new List<string>();
         List<string> withoutTags = new List<string>();
         bool isOverride = false;
+        bool talkImediatelyAfterCollision = false;
 
         foreach (var tag in tags)
         {
@@ -353,6 +354,10 @@ public class StoryScript : MonoBehaviour
             {
                 requireTags.Add("photo_" + data);
             }
+            else if (op == "talk_immediately_after_collision")
+            {
+                talkImediatelyAfterCollision = true;
+            }
         }
 
         withoutTags.Add(inkFile.name + "_" + funcName);
@@ -369,12 +374,12 @@ public class StoryScript : MonoBehaviour
             {
                 if (OverrideNPCTalk(who, requireTags, withoutTags))
                 {
-                    AddCollideTrigger(who, funcName, requireTags, withoutTags);
+                    AddCollideTrigger(who, funcName, requireTags, withoutTags, talkImediatelyAfterCollision);
                 }
             }
             else
             {
-                AddCollideTrigger(who, funcName, requireTags, withoutTags);
+                AddCollideTrigger(who, funcName, requireTags, withoutTags, talkImediatelyAfterCollision);
             }
         }
     }
@@ -407,7 +412,7 @@ public class StoryScript : MonoBehaviour
         }
     }
 
-    private void AddCollideTrigger(string who, string funcName, List<string> require, List<string> without)
+    private void AddCollideTrigger(string who, string funcName, List<string> require, List<string> without, bool talkImediatelyAfterCollision)
     {
         var obj = transform.Find(who);
         if (!obj)
@@ -428,6 +433,7 @@ public class StoryScript : MonoBehaviour
         creater.storyScript = this;
         creater.require.AddRange(require);
         creater.without.AddRange(without);
+        creater.talkImmediatelyAfterCollision = talkImediatelyAfterCollision;
     }
 
     private bool OverrideNPCTalk(string who, List<string> require, List<string> without)

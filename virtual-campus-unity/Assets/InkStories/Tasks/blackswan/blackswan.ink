@@ -1,5 +1,5 @@
 // mission name: blackswan
-// #require: greetings of library
+#require: greetings of library
 
 #name: 黑天鹅事件
 #description: 学校里飞进来了一只黑天鹅？这可不是什么大概率事件。目击者们各执一词，真相到底是什么样的呢？

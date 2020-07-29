@@ -9,6 +9,8 @@ public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 	public List<string> require = new List<string>();
 	public List<string> without = new List<string>();
 
+	public bool talkImmediatelyAfterCollision = false;
+
 	private void Start()
 	{
 		speaker = GetComponent<NPCInfo>();
@@ -23,10 +25,18 @@ public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 			if (FlagBag.Instance.HasFlags(require) &&
 				FlagBag.Instance.WithoutFlags(without))
 			{
-				UIManager.Instance.pressToTalk.SetActive(true);
-				var btn = UIManager.Instance.pressToTalk.GetComponent<Button>();
-				btn.onClick.RemoveAllListeners();
-				btn.onClick.AddListener(() => { Create(); });
+				if (!talkImmediatelyAfterCollision)
+				{
+					UIManager.Instance.pressToTalk.SetActive(true);
+					var btn = UIManager.Instance.pressToTalk.GetComponent<Button>();
+					btn.onClick.RemoveAllListeners();
+					btn.onClick.AddListener(() => { Create(); });
+				}
+				else
+				{
+					speaker = GetComponent<NPCInfo>();
+					Create();
+				}
 			}
 		}
 	}

@@ -11,13 +11,16 @@ public class FlagBag : SavableMonoBehavior
     private void Awake()
     {
         Instance = this;
+    }
 
+    public void Initialize()
+    {
         var flagCount = PlayerPrefs.GetInt(SaveSystem.GetFlagCountName(), 0);
         for (int i = 0; i < flagCount; i++)
             bag.Add(PlayerPrefs.GetString(SaveSystem.GetIthFlagName(i)));
     }
 
-	protected override void Save(object data)
+    protected override void Save(object data)
 	{
 		base.Save(data);
 

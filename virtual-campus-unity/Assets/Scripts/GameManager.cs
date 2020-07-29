@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 		PlayerPrefs.DeleteAll();
+		FlagBag.Instance.Initialize();
 	}
 
 	private void Start()
