@@ -15,6 +15,11 @@ public class UIManager : MonoBehaviour
 		public Image image;
 	};
 
+	[Header("SFX")]
+	public AudioClip buttonPointerEnterClip;
+	public AudioClip buttonPointerClickClip;
+	public AudioSource sfxSource;
+
 	[Header("HUD")]
 	public GameObject hudCanvas;
 	public GameObject pressToTalk;
@@ -48,6 +53,7 @@ public class UIManager : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
+		AddSFXToButtons();
 	}
 
 	private void Start()
@@ -69,11 +75,12 @@ public class UIManager : MonoBehaviour
 			CloseTab(i);
 		}
 
-		tabMenuCanvas.SetActive(false);
+		// Delay the disabling to ensure the Start() of every panel is called.
+		StartCoroutine(DisableTabCanvas());
 
 		// StartCoroutine(TestTask1());
 		// StartCoroutine(TestTask2());
-		StartCoroutine(TestTask3());
+		// StartCoroutine(TestTask3());
 		StartCoroutine(TestTask4());
 	}
 
@@ -120,6 +127,8 @@ public class UIManager : MonoBehaviour
 			ItemPanel.Instance.AddPhoto(photo);
 	}
 	#endregion
+
+	#region Painter
 	//void GetPaintersFromHub()
 	//{
 	//	//PainterHub ph = painterHub.GetComponent<PainterHub>();
@@ -139,6 +148,24 @@ public class UIManager : MonoBehaviour
 	//		painter.SetActive(false);
 	//	}
 	//}
+	#endregion
+
+	void AddSFXToButtons()
+	{
+		var buttons = GameObject.FindObjectsOfType<Button>();
+		foreach(var button in buttons)
+		{
+			var buttonSound = button.gameObject.AddComponent<ButtonSound>();
+			buttonSound.enterClip = buttonPointerEnterClip;
+			buttonSound.clickClip = buttonPointerClickClip;
+		}
+	}
+
+	IEnumerator DisableTabCanvas()
+	{
+		yield return null;
+		tabMenuCanvas.SetActive(false);
+	}
 
     public void OpenTalk(GameObject talk)
     {

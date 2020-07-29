@@ -11,15 +11,10 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public AudioClip clickClip;
     public AudioClip exitClip;
 
-    protected AudioSource m_AudioSource;
+    public AudioSource audioSource;
     void Start()
     {
-        m_AudioSource = GetComponent<AudioSource>();
-        if (m_AudioSource == null)
-        {
-            m_AudioSource = gameObject.AddComponent<AudioSource>();
-            m_AudioSource.playOnAwake = false;
-        }
+        audioSource = UIManager.Instance.sfxSource;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -39,6 +34,6 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             //Debug.LogError(name + ":audioClip is Null !");
         }
-        m_AudioSource.PlayOneShot(ac);
+        audioSource.PlayOneShot(ac);
     }
 }

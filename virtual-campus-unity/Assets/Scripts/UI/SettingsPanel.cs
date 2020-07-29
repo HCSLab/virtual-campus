@@ -60,6 +60,8 @@ public class SettingsPanel : SavableMonoBehavior
 		fullscreenToggle.onValueChanged.AddListener(OnFullscreenModeChanged);
 		resolutionDropdownMenu.onValueChanged.AddListener(OnResolutionChanged);
 		masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
+
+		autoResetPanel.SetActive(false);
 	}
 
 	protected override void Save(object data)
