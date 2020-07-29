@@ -30,6 +30,8 @@ public class UIManager : MonoBehaviour
 
 	[Header("Photography")]
 	public GameObject photographyCanvas;
+	public RectTransform splashWhenTakingPhoto;
+	public GameObject photographyHint;
 
 	// [Header("Painter")]
 	// public GameObject painterHub;

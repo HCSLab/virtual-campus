@@ -9,6 +9,8 @@ public class PhotographyManager : MonoBehaviour
 	[Header("Photography Settings")]
 	public Camera photographyCamera;
 	public float maxPositionError, maxAngleError;
+	public AudioClip shutterSFX;
+	public AudioSource audioSourceForSFX;
 
 	[Header("Camera Controll Settings")]
 	[Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
@@ -61,7 +63,7 @@ public class PhotographyManager : MonoBehaviour
 	{
 		if (isTakingPhoto)
 		{
-			if (Input.GetKeyDown(KeyCode.P))
+			if (Input.GetKeyDown(KeyCode.Escape))
 			{
 				StopTakingPhoto();
 				return;
@@ -71,14 +73,6 @@ public class PhotographyManager : MonoBehaviour
 
 			if (Input.GetKeyDown(KeyCode.Space))
 				StartCoroutine(TakePhotoCoroutine());
-		}
-		else
-		{
-			if (Input.GetKeyDown(KeyCode.P))
-			{
-				StartTakingPhoto();
-				return;
-			}
 		}
 	}
 
@@ -134,7 +128,29 @@ public class PhotographyManager : MonoBehaviour
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 
+		UIManager.Instance.photographyHint.SetActive(false);
+
+		yield return null;
+
 		var filePath = Capture.TakeScreenShot(photoIndex++);
+
+		yield return null;
+
+		LeanTween.color(
+			UIManager.Instance.splashWhenTakingPhoto,
+			Color.white,
+			0.2f
+			)
+			.setEase(LeanTweenType.easeOutQuad)
+			.setLoopPingPong(1)
+			.setOnComplete(
+				() => { UIManager.Instance.photographyHint.SetActive(true); }
+			);
+
+		audioSourceForSFX.Stop();
+		audioSourceForSFX.clip = shutterSFX;
+		audioSourceForSFX.Play();
+
 		while (!File.Exists(filePath))
 			yield return null;
 
@@ -185,6 +201,7 @@ public class PhotographyManager : MonoBehaviour
 
 		// Disable all UI
 		UIManager.Instance.hudCanvas.SetActive(false);
+		UIManager.Instance.photographyCanvas.SetActive(true);
 
 		// Initialize the camera
 		photographyCamera.enabled = true;
@@ -203,6 +220,7 @@ public class PhotographyManager : MonoBehaviour
 
 		// Enable all UI
 		UIManager.Instance.hudCanvas.SetActive(true);
+		UIManager.Instance.photographyCanvas.SetActive(false);
 
 		// Initialize the camera
 		photographyCamera.enabled = false;
