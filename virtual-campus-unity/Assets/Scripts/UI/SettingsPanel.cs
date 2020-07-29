@@ -100,8 +100,8 @@ public class SettingsPanel : SavableMonoBehavior
 
 	public void OnMasterVolumeChanged(float newVolume)
 	{
-        AudioListener.volume = newVolume;
-    }
+		AudioListener.volume = newVolume;
+	}
 
 	public void RefuseAutoReset()
 	{
@@ -148,5 +148,15 @@ public class SettingsPanel : SavableMonoBehavior
 		}
 
 		AcceptAutoReset();
+	}
+
+	public void Save()
+	{
+		EventCenter.Broadcast(EventCenter.GlobalEvent.Save, null);
+	}
+
+	public void Quit()
+	{
+		Application.Quit();
 	}
 }
