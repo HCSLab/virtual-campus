@@ -18,7 +18,6 @@ public class CubeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Color textUnselected, textSelected;
 
     [Header("SFX")]
-    public AudioSource sfxSource;
     public AudioClip enterClip;
     public AudioClip clickClip;
 
@@ -28,7 +27,7 @@ public class CubeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     RectTransform[] rectTransforms;
     Color[] unselectedColors;
     Color[] selectedColors;
-
+    AudioSource sfxSource;
     private void Start()
     {
         rectTransforms = new RectTransform[]
@@ -51,10 +50,16 @@ public class CubeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             leftFaceSelected,
             bottomFaceSelected
         };
+
+        sfxSource = SceneLoadingManager.Instance.sfxSource;
     }
 
 	public void OnPointerEnter(PointerEventData eventData)
     {
+        sfxSource.Stop();
+        sfxSource.clip = enterClip;
+        sfxSource.Play();
+
         for(int i = 0; i < 3; i++)
 		{
             LeanTween.color(
@@ -86,6 +91,11 @@ public class CubeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (isJustClicked)
             return;
+
+        sfxSource.Stop();
+        sfxSource.clip = clickClip;
+        sfxSource.Play();
+
         isJustClicked = true;
 
         LeanTween.delayedCall(0.2f, () => { onClick.Invoke(); isJustClicked = false; });
@@ -94,4 +104,11 @@ public class CubeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             .setEaseOutQuad()
             .setLoopPingPong(1);
     }
+
+	private void OnDisable()
+	{
+        for (int i = 0; i < 3; i++)
+            rectTransforms[i].GetComponent<Image>().color = unselectedColors[i];
+        textHolder.color = textUnselected;
+	}
 }

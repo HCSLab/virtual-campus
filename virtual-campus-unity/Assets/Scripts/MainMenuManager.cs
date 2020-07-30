@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class MainMenuManager : MonoBehaviour
 
 		isThereAnySaveFiles = PlayerPrefs.GetInt(SaveSystem.GetIsThereAnySaveFileName(), 0) > 0;
 		continueButton.SetActive(isThereAnySaveFiles);
+
 	}
 
 	void LoadGame()

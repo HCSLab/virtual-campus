@@ -32,7 +32,6 @@ public class SettingsPanel : SavableMonoBehavior
 	{
 		base.Start();
 
-		Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
 		attemptAutoResetCoroutineState = CoroutineState.NotStartedYet;
 
 		resolutions = Screen.resolutions;

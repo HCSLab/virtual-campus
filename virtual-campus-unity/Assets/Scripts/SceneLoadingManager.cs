@@ -17,6 +17,7 @@ public class SceneLoadingManager : MonoBehaviour
 
 	[Header("Skybox Animation")]
 	public GameObject skyboxAnimationContainer;
+	public AudioSource sfxSource;
 	public Skybox skybox;
 	public float cycle;
 

@@ -164,6 +164,7 @@ public class UIManager : MonoBehaviour
 	IEnumerator DisableTabCanvas()
 	{
 		yield return null;
+		yield return null;
 		tabMenuCanvas.SetActive(false);
 	}
 
