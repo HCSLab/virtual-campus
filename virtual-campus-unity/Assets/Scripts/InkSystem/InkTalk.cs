@@ -45,7 +45,10 @@ public class InkTalk : MonoBehaviour
 
         PlayerInfo.WriteToInkStory(inkStory);
 
-        speaker.StartTalkMode();
+        if (speaker)
+        {
+            speaker.StartTalkMode();
+        }
 
         if (inkStory.HasFunction(executeFunction))
         {
@@ -82,8 +85,15 @@ public class InkTalk : MonoBehaviour
         if (sentences != "")
         {
             text.text = sentences;
-            nameText.text = speaker.npcName;
-            LogPanel.Instance.AddLog(speaker.npcName, sentences, false);
+            if (speaker)
+            {
+                nameText.text = speaker.npcName;
+            }
+            else
+            {
+                nameText.text = "旁白";
+            }
+            LogPanel.Instance.AddLog(nameText.text, sentences, false);
         }
 
         foreach (var choice in inkStory.currentChoices)
@@ -159,7 +169,10 @@ public class InkTalk : MonoBehaviour
 
         LogPanel.Instance.AddLog("", "", false);
 
-        speaker.EndTalkMode();
+        if (speaker)
+        {
+            speaker.EndTalkMode();
+        }
 
         UIManager.Instance.CloseTalk(gameObject);
     }

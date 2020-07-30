@@ -478,7 +478,6 @@ public class StoryScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        FlagBag.Instance.DelFlagsWithPrefix(inkFile.name + "_");
         EliminateEffects();
     }
 }

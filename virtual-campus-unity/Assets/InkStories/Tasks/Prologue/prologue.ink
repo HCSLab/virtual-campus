@@ -1,9 +1,6 @@
-// 这个任务的触发非常特殊23333
-#require: do_not_start
-
-=== func_prologue ===
-#collidetrigger: birthpoint_collider
-#talk_immediately_after_collision
+// === func_prologue ===
+//#collidetrigger: birthpoint_collider
+//#talk_immediately_after_collision
 今天是个大晴天。
 -
 +n

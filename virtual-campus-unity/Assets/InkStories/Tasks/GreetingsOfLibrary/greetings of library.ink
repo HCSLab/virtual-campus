@@ -3,7 +3,7 @@
 #after: greetings of school
 
 #name: 图书馆的问候
-#description:  图书馆可是大学期间必定会拜访的地方，因此也有必要了解一下。不过似乎图书馆前站着一个和你有相似想法的新生，你决定去认识一下……
+#description: 图书馆可是大学期间必定会拜访的地方，因此也有必要了解一下。不过似乎图书馆前站着一个和你有相似想法的新生，你决定去认识一下……
 
 === func_start_of_mission ===
 #without: func_talk_with_studentZBW
@@ -20,8 +20,7 @@
 ->DONE
 
 === func_talk_with_studentZBW ===
-#override
-#collidetrigger: student_ZBW
+#collidetrigger: student_ZBW_lib
 ……
 *你好啊
 你好啊！你也是新生嘛……你好你好，我叫<color=blue>张博闻</color>。
@@ -62,12 +61,13 @@
 那你快去吧，我先去看看食堂咯。饿死了饿死了……
 -
 *似乎是个急性子啊……
+#disable: student_ZBW_lib
+#enableNPC: lib_receptionist
 ->DONE
 
 === func_talk_with_lib_recp ===
 #override
 #collidetrigger:lib_receptionist
-#require:func_talk_with_studentZBW
 同学你好，欢迎来到香港中文大学（深圳）大学图书馆。
 * 你好，我是刚来的新生
 新同学你好，有什么需要帮助的吗。
@@ -77,8 +77,7 @@
 ->introduction
 
 === func_return_to_studentLL ===
-#override
-#collidetrigger:student_ZBW
+#collidetrigger: student_ZBW_lib
 #require: func_talk_with_lib_recp
 怎么样，打听完了吗？
 *打听完了
@@ -121,7 +120,8 @@
     没有其他问题了吗。那么如果对我校图书馆有其他问题的话，可以浏览图书馆官网以获取更多更详细的信息。
     -
     **谢谢你的介绍
-        ->DONE
+    #enable: student_ZBW_lib
+    ->DONE
 
 = lib_time
 +n

@@ -7,8 +7,7 @@
 
 
 === func_pandora ===
-#override
-#collidetrigger:student_ZBW
+#collidetrigger: student_ZBW_pandora
 你走的可真慢。
 *来了来了，你跑的太快了
 我都已经把这个潘多拉食堂逛完了。
@@ -28,12 +27,12 @@
 +n 
 走吧，我先去下一个食堂了，就在这楼上，<color=red>学生活动中心二楼</color>。准备好了就来找我咯。
 -
+#disable: student_ZBW_pandora
+#enable: student_ZBW_second_floor
 ->DONE
 
 === func_second_floor ===
-#override
-#collidetrigger:student_ZBW
-#after: func_pandora
+#collidetrigger: student_ZBW_second_floor
 *这个食堂怎么样？
 我觉得，看起来要比一楼那个传统一些，看起来更像食堂。
 -
@@ -53,12 +52,12 @@
 不说这些了，我们走吧！还有两个食堂要去。我先去<color=red>乐天一楼</color>的食堂了。我在那里等你咯。
 -
 *好的
+#disable: student_ZBW_second_floor
+#enable: student_ZBW_letian
 ->DONE
 
 === func_letian ===
-#override
-#collidetrigger:student_ZBW
-#after: func_second_floor
+#collidetrigger:student_ZBW_letian
 *怎么样，感觉如何？
 哦哦哦，这里就是传说中的乐天一楼啊，有一个学长在来学校之前跟我提过这里来着。
 -
@@ -93,12 +92,12 @@
 不要急，货比三家，此乃专业吃货的第一要义。
 -
 *……学到了
+#disable: student_ZBW_letian
+#enable: student_ZBW_shaw
 ->DONE
 
 === func_shaw ===
-#override
-#collidetrigger:student_ZBW
-#after: func_letian
+#collidetrigger: student_ZBW_shaw
 *这地方可也太难找了吧
 确实，但是酒香可不怕巷子深。听学长说，有理工学院大佬用人工智能统计过，每天这里的火爆程度在所有食堂里都数一数二呐。
 -
@@ -163,5 +162,7 @@
 我建议你也去看看吧，说不定你大学可以走运动路线呢……？<color=red>室内体育馆</color>就在下园的<color=red>最西边</color>。
 -
 *也有道理
+#disable: student_ZBW_shaw
+#enableNPC: student_ZBW
 #endstory
 ->DONE

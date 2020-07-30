@@ -105,11 +105,15 @@ public class StoryManager : MonoBehaviour
             FlagBag.Instance.AddFlag(name);
             MissionPanel.Instance.FinishMission(story.nameForDisplay);
             Destroy(story.gameObject);
-        }
-        
-        if (name.StartsWith("greetings of "))
-        {
-            EventCenter.Broadcast(EventCenter.AchievementEvent.OneWelcomeMissionFinished, null);
+
+            // 清除任务内flag（任务结束就失效了）
+            FlagBag.Instance.DelFlagsWithPrefix(name + "_");
+
+            // 成就
+            if (name.StartsWith("greetings of "))
+            {
+                EventCenter.Broadcast(EventCenter.AchievementEvent.OneWelcomeMissionFinished, null);
+            }
         }
     }
 }
