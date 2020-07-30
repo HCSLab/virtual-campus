@@ -6,8 +6,10 @@ public class WelcomeMissionAchievement : Achievement
 {
 	int totalNumberOfMissions, currentProgress;
 
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
+
 		totalNumberOfMissions = 9;
 		UpdateProgress(0);
 	}

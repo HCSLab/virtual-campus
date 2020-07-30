@@ -14,11 +14,9 @@ public class Achievement : SavableMonoBehavior
 
 	protected bool isFinished;
 
-	protected override void Start()
+	protected virtual void Awake()
 	{
 		EventCenter.AddListener(eventToListenTo, OnEventTriggered);
-		EventCenter.AddListener(EventCenter.GlobalEvent.Save, Save);
-
 		isFinished = PlayerPrefs.GetInt(SaveSystem.GetAchievementStateName(gameObject), 0) > 0;
 	}
 

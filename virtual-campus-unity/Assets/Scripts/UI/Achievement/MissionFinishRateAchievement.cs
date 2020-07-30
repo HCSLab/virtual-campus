@@ -6,8 +6,10 @@ public class MissionFinishRateAchievement : Achievement
 {
 	int totalNumberOfMissions, currentProgress;
 
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
+
 		totalNumberOfMissions = 100000;
 		UpdateProgress(0);
 	}
@@ -17,6 +19,7 @@ public class MissionFinishRateAchievement : Achievement
 		base.Start();
 
 		totalNumberOfMissions = StoryManager.Instance.stories.Count;
+		UpdateProgress(currentProgress);
 	}
 
 	protected override void OnEventTriggered(object data)

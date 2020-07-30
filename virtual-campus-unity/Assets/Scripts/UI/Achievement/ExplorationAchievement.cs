@@ -7,10 +7,12 @@ public class ExplorationAchievement : Achievement
 	[Header("Exploration Achievement")]
 	public float targetRate;
 
-    int currentProgress, targetProgress, regionCount;
+	int currentProgress, targetProgress, regionCount;
 
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
+
 		targetProgress = 100000;
 		UpdateProgress(0);
 	}
@@ -21,6 +23,7 @@ public class ExplorationAchievement : Achievement
 
 		targetProgress = Mathf.FloorToInt(CurrentRegion.Instance.regionCount * targetRate);
 		regionCount = CurrentRegion.Instance.regionCount;
+		UpdateProgress(currentProgress);
 	}
 
 	protected override void OnEventTriggered(object data)
@@ -39,9 +42,9 @@ public class ExplorationAchievement : Achievement
 		fillImage.fillAmount = Mathf.Min(1f, (float)newProgress / targetProgress);
 		descriptionText.text =
 			"地图探索率 " +
-			Mathf.FloorToInt((float)newProgress / regionCount * 100) + 
+			Mathf.FloorToInt((float)newProgress / regionCount * 100) +
 			"% / " +
-			Mathf.FloorToInt(targetRate * 100) + 
+			Mathf.FloorToInt(targetRate * 100) +
 			"%";
 	}
 }
