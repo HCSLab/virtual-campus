@@ -81,7 +81,7 @@ public class UIManager : MonoBehaviour
 		// StartCoroutine(TestTask1());
 		// StartCoroutine(TestTask2());
 		// StartCoroutine(TestTask3());
-		StartCoroutine(TestTask4());
+		// StartCoroutine(TestTask4());
 	}
 
 	#region Test Tasks
