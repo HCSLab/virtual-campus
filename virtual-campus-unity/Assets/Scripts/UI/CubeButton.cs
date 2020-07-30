@@ -81,9 +81,14 @@ public class CubeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         LeanTween.value(gameObject, (c) => { textHolder.color = c; }, textSelected, textUnselected, 0.2f);
     }
 
+    bool isJustClicked = false;
     public void OnPointerClick(PointerEventData eventData)
     {
-        onClick.Invoke();
+        if (isJustClicked)
+            return;
+        isJustClicked = true;
+
+        LeanTween.delayedCall(0.2f, () => { onClick.Invoke(); isJustClicked = false; });
 
         LeanTween.value(gameObject, (x) => { var newPos = transform.localPosition; newPos.z = x; transform.localPosition = newPos; }, 0f, 40f, 0.1f)
             .setEaseOutQuad()

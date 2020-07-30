@@ -6,22 +6,29 @@ using UnityEngine.UI;
 
 public enum SceneIndexes
 {
+	PersistentScene,
 	MainMenu,
 	MainGame
 }
 
 public class SceneLoadingManager : MonoBehaviour
 {
-	static public SceneLoadingManager instance;
+	static public SceneLoadingManager Instance;
 
-	public GameObject loadingScreen;
+	[Header("Skybox Animation")]
+	public GameObject skyboxAnimationContainer;
+	public Skybox skybox;
+	public float cycle;
+
+	[Header("Loading Screen")]
+	public GameObject loadingCanvas;
 	public Image progressBar;
 
 	List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
 	public void LoadGame()
 	{
-		loadingScreen.SetActive(true);
+		loadingCanvas.SetActive(true);
 
 		scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MainMenu));
 		scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MainGame, LoadSceneMode.Additive));
@@ -31,7 +38,7 @@ public class SceneLoadingManager : MonoBehaviour
 
     public void LoadMenu()
     {
-        loadingScreen.SetActive(true);
+        loadingCanvas.SetActive(true);
 
         scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MainGame));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MainMenu, LoadSceneMode.Additive));
@@ -53,21 +60,34 @@ public class SceneLoadingManager : MonoBehaviour
                 yield return null;
             }
 		}
-        loadingScreen.SetActive(false);
+
+        loadingCanvas.SetActive(false);
+		skyboxAnimationContainer.SetActive(false);
+		gameObject.LeanCancel();
+
 		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.MainGame));
 	}
 
 	void Start()
 	{
-		if (instance)
+		if (Instance)
 		{
 			Destroy(gameObject);
 			return;
 		}
-		instance = this;
+		Instance = this;
 
 		SceneManager.LoadScene((int)SceneIndexes.MainMenu, LoadSceneMode.Additive);
-		//SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneIndexes.MainMenu));
 
+		loadingCanvas.SetActive(false);
+		skyboxAnimationContainer.SetActive(true);
+
+		LeanTween.value(
+			gameObject,
+			(x) => { skybox.material.SetFloat("_Rotation", x); },
+			0f,
+			360f,
+			cycle
+			).setEaseLinear().setRepeat(-1);
 	}
 }

@@ -44,4 +44,9 @@ public static class SaveSystem
 	{
 		return "InfoValue." + keyword;
 	}
+
+	public static string GetIsThereAnySaveFileName()
+	{
+		return "IsAnySaveFileExist";
+	}
 }

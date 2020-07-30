@@ -29,7 +29,7 @@ public class LogInManager : MonoBehaviour
 				LeanTween.delayedCall(2f, () =>
 				{
 					LogInNotificationCenter.instance.Remove(LogInNotificationCenter.NotificationType.LoggingIn);
-					SceneLoadingManager.instance.LoadGame();
+					SceneLoadingManager.Instance.LoadGame();
 				});
 				break;
 			case LogInResult.WrongPasswordOrUsername:

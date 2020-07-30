@@ -252,7 +252,7 @@ namespace SpeedTutorMainMenuSystem
             if (ButtonType == "Yes")
             {
                 //SceneManager.LoadScene(_newGameButtonLevel);
-                SceneLoadingManager.instance.LoadGame();
+                SceneLoadingManager.Instance.LoadGame();
             }
 
             if (ButtonType == "No")
