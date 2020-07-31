@@ -167,6 +167,7 @@ public class InkTalk : MonoBehaviour
 
         NPCManager.Instance.RefreshTalk();
 
+        // 添加一个空行作区隔
         LogPanel.Instance.AddLog("", "", false);
 
         if (speaker)
@@ -174,6 +175,13 @@ public class InkTalk : MonoBehaviour
             speaker.EndTalkMode();
         }
 
+        // 销毁对话面板
         UIManager.Instance.CloseTalk(gameObject);
+
+        // 如果任务结束，销毁整个任务
+        if (storyScript && storyScript.endStory)
+        {
+            StoryManager.Instance.EndStory(storyScript);
+        }
     }
 }

@@ -5,8 +5,7 @@
 #description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。目前教务处老师提供的可能地点有食堂、室内体育馆、东南门、小广场。
 
 === func_start ===
-#override
-#collidetrigger: HSS_dean
+#collidetrigger: HSS_dean_tmp
 你好，我是人文学院的院长。
 *你好，您就是人文学院院长吗？
 啊呀，同学你好啊。是的是的，我是人文学院的院长范息涛。
@@ -26,8 +25,9 @@
         ***确认跳过
             好吧，那再见啦！如果以后想找我的话，就去<color=red>TC</color>楼下找我！
             ****好的
-                #endstory
-                ->END
+            #enableNPC: HSS_dean
+            #endstory
+            ->END
     
 === ending ===
 +n
@@ -40,6 +40,7 @@
 那再见啦！如果以后想找我的话，就去<color=red>TC</color>楼下找我咯。
 -
 *嗯嗯
+#enableNPC: HSS_dean
 #endstory
 ->END
 

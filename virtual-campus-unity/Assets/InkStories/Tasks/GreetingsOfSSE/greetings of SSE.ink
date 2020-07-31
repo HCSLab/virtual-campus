@@ -6,8 +6,7 @@
 #description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。目前教务处老师提供的可能地点有食堂、室内体育馆、东南门、小广场。
 
 === func_start ===
-#override
-#collidetrigger:SSE_dean
+#collidetrigger: SSE_dean_tmp
 你好，我是理工学院院长陈长汶。
 *你好，您就是理工学院院长吗？
 啊呀，同学你好啊。是的是的，我是院长陈长汶。
@@ -27,6 +26,7 @@
     ***确认跳过
     真可惜，那我先回去了。如果以后想找我的话，就去<color=red>TD</color>楼下吧。
         ****好的
+        #enableNPC: SSE_dean
         #endstory
         ->END
     
@@ -41,6 +41,7 @@
 如果以后想找我的话，就去<color=red>TD</color>楼下找我。
 -
 *嗯嗯
+#enableNPC: SSE_dean
 #endstory
 ->END
 

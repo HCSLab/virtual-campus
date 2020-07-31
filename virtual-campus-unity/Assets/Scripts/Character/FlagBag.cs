@@ -74,20 +74,20 @@ public class FlagBag : SavableMonoBehavior
 
     public void DelFlagsWithPrefix(string prefix)
     {
-        //var tmp = new List<string>();
-        //foreach (var flag in bag)
-        //{
-        //    if (flag.StartsWith(prefix))
-        //    {
-        //        tmp.Add(flag);
-        //    }
-        //}
-        //foreach (var flag in tmp)
-        //{
-        //    bag.Remove(flag);
-        //}
+        var tmp = new List<string>();
+        foreach (var flag in bag)
+        {
+            if (flag.StartsWith(prefix))
+            {
+                tmp.Add(flag);
+            }
+        }
+        foreach (var flag in tmp)
+        {
+            bag.Remove(flag);
+        }
 
-        bag.RemoveAll((string flag) => { return flag.StartsWith(prefix); });
+        //bag.RemoveAll((string flag) => { return flag.StartsWith(prefix); });
 
         StoryManager.Instance.refreshFlag = true;
     }

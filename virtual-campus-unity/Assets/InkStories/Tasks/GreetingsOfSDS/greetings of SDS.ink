@@ -4,9 +4,8 @@
 #name: 数据科学院的问候
 #description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。目前教务处老师提供的可能地点有食堂、室内体育馆、东南门、小广场。
 
-=== start ===
-#override
-#collidetrigger: SDS_dean
+=== func_start ===
+#collidetrigger: SDS_dean_tmp
 //SDS院长此时应该在乐天一食堂门口，完成任务后，常驻位置为道远楼下
 你好，我是数据科学院的院长戴建岗。
 *你好，您就是数据科学院院长吗
@@ -27,6 +26,7 @@
     ***确认跳过
     真可惜，那我先回去了。如果以后想找我的话，就去<color=red>道远</color>楼下找我。
         ****好的
+        #enableNPC: SDS_dean
         #endstory
         ->END
     
@@ -41,6 +41,7 @@
 如果以后想找我的话，就去<color=red>道远</color>楼下找我。
 -
 *嗯嗯
+#enableNPC: SDS_dean
 #endstory
 ->END
 

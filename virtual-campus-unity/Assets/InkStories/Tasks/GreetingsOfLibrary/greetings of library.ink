@@ -1,6 +1,6 @@
 //mission name: greetings of library
 
-#after: greetings of school
+#after: greetings of headmaster
 
 #name: 图书馆的问候
 #description: 图书馆可是大学期间必定会拜访的地方，因此也有必要了解一下。不过似乎图书馆前站着一个和你有相似想法的新生，你决定去认识一下……

@@ -10,6 +10,7 @@ public class StoryScript : MonoBehaviour
     public Story inkStory;
 
     [HideInInspector] public int talkCount = 0;
+    [HideInInspector] public bool endStory = false;
 
     [HideInInspector] public string nameForDisplay;
     [HideInInspector] public string description;
@@ -246,7 +247,7 @@ public class StoryScript : MonoBehaviour
         }
         else if (op == "endstory")
         {
-            StoryManager.Instance.EndStory(this);
+            endStory = true;
         }
         else if (op == "upd_info")
         {

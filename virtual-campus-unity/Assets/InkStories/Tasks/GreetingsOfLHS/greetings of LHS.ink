@@ -5,8 +5,7 @@
 #description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。目前教务处老师提供的可能地点有食堂、室内体育馆、东南门、小广场。
 
 === func_start ===
-#override
-#collidetrigger:LHS_dean
+#collidetrigger: LHS_dean_tmp
 同学你好，我是生命与健康科学学院的院长叶德全。
 *你好，您就是生命与健康科学学院院长吗？
 啊呀，同学你好啊。是的是的，我是院长叶德全。
@@ -25,6 +24,7 @@
  哦？你可要想好了，如果你对生命科学学院有兴趣的话，跳过这些介绍，可能也会错过一些有用的<color=blue>信息</color>哦。
     ***确认跳过
     可惜，那我先回去了。以后如果想来找我的话，就去<color=red>RA</color>楼下。
+    #enableNPC: LHS_dean
     #endstory
     ->END
     
@@ -39,6 +39,7 @@
 以后如果想来找我的话，就去<color=red>RA</color>楼下。
 -
 *嗯嗯
+#enableNPC: LHS_dean
 #endstory
 ->END
 
