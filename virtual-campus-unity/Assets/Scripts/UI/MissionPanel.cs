@@ -37,6 +37,11 @@ public class MissionPanel : MonoBehaviour
 
 	public void AddMission(string missionName, string missionDescription, bool isFinished)
 	{
+		if (missionName == "")
+		{
+			return;
+		}
+
 		var currentIndex = nextMissionIndex;
 		nextMissionIndex++;
 
@@ -62,6 +67,11 @@ public class MissionPanel : MonoBehaviour
 
 	public void FinishMission(string finishedMissionName)
 	{
+		if (!missionNames.Contains(finishedMissionName))
+		{
+			return;
+		}
+
 		EventCenter.Broadcast(EventCenter.AchievementEvent.OneMissionFinished, null);
 		MissionPreviewPanel.Instance.FinishMission(finishedMissionName);
 
