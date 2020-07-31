@@ -98,13 +98,16 @@ public class PlayerController : MonoBehaviour
         return Input.GetKey(KeyCode.LeftShift);
 	}
 
-    public void SetActive(bool state)
+    public void FreezeUnfreezePlayer(bool isFreeze)
     {
-        active = state;
+        active = !isFreeze;
         if (active == false)
         {
             animator.SetBool("Walk", false);
             animator.SetBool("Run", false);
         }
+
+        GetComponent<ScriptedFirstPersonAIO>().playerCanMove = !isFreeze;
+        GetComponent<Rigidbody>().isKinematic = isFreeze;
     }
 }
