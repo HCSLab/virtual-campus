@@ -26,22 +26,23 @@ public class StoryScript : MonoBehaviour
     private List<UnityEngine.Object> dynamicallyGenerated = new List<UnityEngine.Object>();
     private List<string> npcOverrided = new List<string>();
 
+    private List<string> headerTags = new List<string>();
+
     public void GetStartConditions()
     {
         var tempStory = new Story(inkFile.text);
         PlayerInfo.WriteToInkStory(tempStory);
 
-        var tags = new List<string>();
         while (tempStory.canContinue)
         {
             tempStory.Continue();
-            tags.AddRange(tempStory.currentTags);
+            headerTags.AddRange(tempStory.currentTags);
         }
         
         bool allowMultiTry = false;
         require.Clear();
         without.Clear();
-        foreach (var tag in tags)
+        foreach (var tag in headerTags)
         {
             string op, data;
             StandardizationTag(tag, out op, out data);
@@ -97,6 +98,7 @@ public class StoryScript : MonoBehaviour
         inkStory = new Story(inkFile.text);
 
         ProcessObjectEnableDisableWhenStart();
+        ProcessInitializeTags();
 
         inkFunctions = GetAllInkFunctions(inkFile);
         ProcessFunctionHeaderTags();
@@ -123,6 +125,33 @@ public class StoryScript : MonoBehaviour
                 {
                     obj.gameObject.SetActive(false);
                 }
+            }
+        }
+    }
+
+    public void ProcessInitializeTags()
+    {
+        // initialize只会执行一次，哪怕在任务中间退出，然后重新启动，也不会执行第二次
+        if (FlagBag.Instance.HasFlag(inkFile.name + "_initialize"))
+        {
+            return;
+        }
+        FlagBag.Instance.AddFlag(inkFile.name + "_initialize");
+
+        foreach (var tag in headerTags)
+        {
+            string op, data;
+            StandardizationTag(tag, out op, out data);
+
+            if (op == "enableNPC")
+            {
+                ProcessEnableDisableFlag("enableNPC:" + data);
+                NPCManager.Instance.RefreshEnable();
+            }
+            else if (op == "disableNPC")
+            {
+                ProcessEnableDisableFlag("disableNPC:" + data);
+                NPCManager.Instance.RefreshEnable();
             }
         }
     }
@@ -226,8 +255,7 @@ public class StoryScript : MonoBehaviour
             var obj = transform.Find(data);
             if (obj)
             {
-                ProcessEnableDisableFlag(inkFile.name + "_enable:" + data, 
-                                         inkFile.name + "_disable:" + data);
+                ProcessEnableDisableFlag(inkFile.name + "_enable:" + data);
                 obj.gameObject.SetActive(true);
             }
         }
@@ -236,8 +264,7 @@ public class StoryScript : MonoBehaviour
             var obj = transform.Find(data);
             if (obj)
             {
-                ProcessEnableDisableFlag(inkFile.name + "_disable:" + data, 
-                                         inkFile.name + "_enable:" + data);
+                ProcessEnableDisableFlag(inkFile.name + "_disable:" + data);
                 obj.gameObject.SetActive(false);
             }
         }
@@ -255,12 +282,12 @@ public class StoryScript : MonoBehaviour
         }
         else if (op == "enableNPC")
         {
-            ProcessEnableDisableFlag("enableNPC:" + data, "disableNPC:" + data);
+            ProcessEnableDisableFlag("enableNPC:" + data);
             NPCManager.Instance.RefreshEnable();
         }
         else if (op == "disableNPC")
         {
-            ProcessEnableDisableFlag("disableNPC:" + data, "enableNPC:" + data);
+            ProcessEnableDisableFlag("disableNPC:" + data);
             NPCManager.Instance.RefreshEnable();
         }
         else if (op == "additem")
@@ -285,8 +312,22 @@ public class StoryScript : MonoBehaviour
         }
     }
 
-    private void ProcessEnableDisableFlag(string toAdd, string toDel)
+    private void ProcessEnableDisableFlag(string toAdd)
     {
+        string toDel;
+        if (toAdd.StartsWith("enable"))
+        {
+            toDel = toAdd.Replace("enable", "disable");
+        }
+        else if (toAdd.StartsWith("disable"))
+        {
+            toDel = toAdd.Replace("disable", "enable");
+        }
+        else
+        {
+            return;
+        }
+
         if (FlagBag.Instance.HasFlag(toDel))
         {
             FlagBag.Instance.DelFlag(toDel);

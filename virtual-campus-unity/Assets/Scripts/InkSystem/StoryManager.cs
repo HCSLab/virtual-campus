@@ -78,6 +78,7 @@ public class StoryManager : MonoBehaviour
     {
         var obj = Instantiate(s.gameObject);
         obj.transform.parent = transform;
+        obj.GetComponent<StoryScript>().GetStartConditions();
     }
 
     public void StartStory(StoryScript story)

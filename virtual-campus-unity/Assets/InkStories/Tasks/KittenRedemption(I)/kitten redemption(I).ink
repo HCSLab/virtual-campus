@@ -4,6 +4,7 @@
 #name: 猫咪的救赎（I）
 #description: 你似乎发现了一只很不得了的小白猫，它似乎……能听得懂你说话？
 
+#enableNPC: cat_whitey
 
 === func_begin ===
 #override
