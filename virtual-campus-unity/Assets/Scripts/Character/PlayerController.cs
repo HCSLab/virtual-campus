@@ -140,6 +140,5 @@ public class PlayerController : MonoBehaviour
         }
 
         GetComponent<ScriptedFirstPersonAIO>().playerCanMove = !isFreeze;
-        GetComponent<Rigidbody>().isKinematic = isFreeze;
     }
 }

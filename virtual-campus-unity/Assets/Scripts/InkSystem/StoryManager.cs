@@ -40,6 +40,7 @@ public class StoryManager : MonoBehaviour
             else if (s.CheckStartConditions())
             {
                 storyStatus.Add(name, "avaliable");
+                MissionPanel.Instance.AddMission(s.nameForDisplay, s.description, false);
                 InstantiateStory(s);
             }
             else
@@ -68,6 +69,7 @@ public class StoryManager : MonoBehaviour
                 if (s.CheckStartConditions())
                 {
                     storyStatus[name] = "avaliable";
+                    MissionPanel.Instance.AddMission(s.nameForDisplay, s.description, false);
                     InstantiateStory(s);
                 }
             }
@@ -88,7 +90,6 @@ public class StoryManager : MonoBehaviour
         {
             storyStatus[name] = "running";
             FlagBag.Instance.AddFlag(name + "_running");
-            MissionPanel.Instance.AddMission(story.nameForDisplay, story.description, false);
         }
     }
 
