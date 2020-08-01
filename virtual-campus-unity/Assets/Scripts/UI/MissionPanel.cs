@@ -25,10 +25,7 @@ public class MissionPanel : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
-	}
 
-	private void Start()
-	{
 		inProgressFlag.SetActive(false);
 		finishedFlag.SetActive(false);
 		missionName.text = string.Empty;

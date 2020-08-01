@@ -21,12 +21,6 @@ public class MissionPreviewPanel : MonoBehaviour
 		Instance = this;
 	}
 
-	private void Start()
-	{
-		gameObject.SetActive(false);
-	}
-
-
 	public void AddMission(string missionName, string missionDescription, int indexInMissionPanel)
 	{
 		if (existingPreviews.Count >= maxNumOfPreviews)
