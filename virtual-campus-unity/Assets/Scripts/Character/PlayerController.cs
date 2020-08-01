@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
 
     private bool active = true;
 
+    [HideInInspector] public int isInWater = 0;
+    public ParticleSystem sprayParticle;
+
+
     void Start()
     {
         animator = model.GetComponent<Animator>();
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
         {
             UpdateCamera();
             UpdatePlayerRotationAndAnimation();
+            UpdateSpray();
         }
 
         lastMousePosition = Input.mousePosition;
@@ -80,6 +85,33 @@ public class PlayerController : MonoBehaviour
         forward = playerCamera.transform.forward;
         forward.Scale(new Vector3(1f, 0f, 1f));
 
+    }
+
+    void UpdateSpray()
+    {
+        if (isInWater > 0)
+        {
+            if (!sprayParticle.isPlaying)
+                sprayParticle.Play();
+        }
+        else
+        {
+            if (sprayParticle.isPlaying)
+                sprayParticle.Stop();
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Water")
+            isInWater += 1;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Water")
+            isInWater -= 1;
     }
 
 
