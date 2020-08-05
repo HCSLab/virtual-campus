@@ -3,7 +3,7 @@
 #after: greetings of library
 
 #name: 食堂的问候
-#description: 张博闻已经逛过所有的食堂了，根据约定，他会带你去逛一遍学校里所有的食堂。他似乎是个急性子，记得每次看清楚他下次会去哪里，别跟丢了！
+#description: 张博闻已经逛过所有的食堂了，根据约定，他会带你去逛一遍学校里所有的食堂。你们的第一站是<color=red>学生活动中心</color>一楼的<color=blue>潘多拉美食广场</color>。
 
 
 === func_pandora ===
@@ -29,10 +29,12 @@
 -
 #disable: student_ZBW_pandora
 #enable: student_ZBW_second_floor
+#upd_description:第二站：<color=red>学生活动中心二楼</color>的餐厅！
 ->DONE
 
 === func_second_floor ===
 #collidetrigger: student_ZBW_second_floor
+你这次可算稍微快一点了。
 *这个食堂怎么样？
 我觉得，看起来要比一楼那个传统一些，看起来更像食堂。
 -
@@ -53,11 +55,13 @@
 -
 *好的
 #disable: student_ZBW_second_floor
+#upd_description:第三站：<color=red>乐天一楼</color>食堂！
 #enable: student_ZBW_letian
 ->DONE
 
 === func_letian ===
 #collidetrigger:student_ZBW_letian
+你终于找到了。
 *怎么样，感觉如何？
 哦哦哦，这里就是传说中的乐天一楼啊，有一个学长在来学校之前跟我提过这里来着。
 -
@@ -93,11 +97,13 @@
 -
 *……学到了
 #disable: student_ZBW_letian
+#upd_description:最后一站：<color=red>逸夫书院</color>食堂！
 #enable: student_ZBW_shaw
 ->DONE
 
 === func_shaw ===
 #collidetrigger: student_ZBW_shaw
+来了，这里就是下园最后一家食堂了。
 *这地方可也太难找了吧
 确实，但是酒香可不怕巷子深。听学长说，有理工学院大佬用人工智能统计过，每天这里的火爆程度在所有食堂里都数一数二呐。
 -
@@ -164,5 +170,6 @@
 *也有道理
 #disable: student_ZBW_shaw
 #enableNPC: student_ZBW
+#upd_description: 
 #endstory
 ->DONE

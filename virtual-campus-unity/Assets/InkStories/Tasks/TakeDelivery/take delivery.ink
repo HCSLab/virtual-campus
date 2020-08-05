@@ -1,10 +1,8 @@
 //mission name: take delivery
-#require: greetings of library
 #require: missing computer
 
 #name: 取外卖
-#description: 张博闻订了一份迈挡捞套餐，但是他似乎不清楚到底送到了哪里，为了蹭一份外卖，你需要分别去东南门、西南门、北门看看是否有外卖小哥。
-
+#description: 电脑找到了之后，张博闻似乎心情大好，他给你打电话，让你去<color=red>逸夫书院东座</color>找他，似乎有什么事情。
 
 VAR SW_door = false
 VAR SE_door = false
@@ -33,13 +31,13 @@ VAR N_door = false
 就知道你靠谱！
 -
 +n
-额……好像是哪个大门来着……<color=blue>东南门</color>……？
+额……好像是哪个大门来着……<color=blue>南门</color>……？
 -
 +n
-额……好像是哪个大门来着……<color=blue>东南门</color>……<color=blue>西南门</color>……？
+额……好像是哪个大门来着……<color=blue>南门</color>……<color=blue>东南门</color>……？
 -
 +n
-额……好像是哪个大门来着……<color=blue>东南门</color>……<color=blue>西南门</color>……还是<color=blue>北门</color>……？
+额……好像是哪个大门来着……<color=blue>南门</color>……<color=blue>东南门</color>……还是<color=blue>东门</color>……？
 -
 +n
 要不……麻烦你都去看看？
@@ -51,6 +49,7 @@ VAR N_door = false
 诶，不急不急，谢谢啦。辛苦你啦，嘿嘿。
 -
 *……别忘了刚刚说好的跑腿费
+#upd_description: 你本来以为有什么好事，结果又是被帮忙跑腿。这次需要分别去学校的三个大门：<color=red>东门</color>，<color=red>东南门</color>，<color=red>北门</color>看看。
 ->DONE
 
 === func_north_door ===

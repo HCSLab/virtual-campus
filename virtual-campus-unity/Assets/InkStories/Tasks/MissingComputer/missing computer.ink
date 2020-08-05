@@ -1,10 +1,8 @@
 //mission name: missing computer
-#after: parkour(I)
-#after: workout time
-
+#after: greetings of canteen
 
 #name: 电脑不见了
-#description: 图书馆发生了盗窃事件，五台电脑被盗；张博闻似乎也是受害人之一，他拜托你去安保处问问有没有什么消息。
+#description: 张博闻似乎闷闷不乐的……不知道发生了什么，你有些好奇，或许去问一问他？
 
 === func_start ===
 #override
@@ -60,6 +58,7 @@
 你能帮我去找安保处的人问问情况怎么样了吗？我知道的一定可以拜托你的。安保处就在<color=blue>启动区广场</color>，你去帮我找那里的工作人员问问吧。
 -
 *好吧
+#upd_description: 旧图书馆发生了盗窃事件，张博闻作为受害者之一，似乎对旧图书馆的安保有很大的怨气。他担心自己的作业写不完，拜托你去<color=red>小广场</color>监控室找安保处问问。
 ->DONE
 
 === func_ZBW ===
@@ -114,7 +113,8 @@
 +n 
 这件事情也不能完全怪到图书馆头上，学生自己的安全意识也要提高啊……
 -
-*谢谢，知道了
+*……谢谢，知道了
+#upd_description: 安保处已经查到了丢失电脑的去向了，你决定把好消息带回去。但安保处的一席话也让你沉默良久……
 ->DONE
 
 === func_return_to_ZBW ===
@@ -176,7 +176,7 @@
 你能帮我去看一下她嘛……
 -
 +n
-她可能就在<color=red>图书馆门前</color>吧。
+她可能就在<color=red>知新楼的旧图书馆门前</color>吧。
 -
 +n
 谢谢了……

@@ -62,6 +62,23 @@ public class MissionPanel : MonoBehaviour
 			EventCenter.Broadcast(EventCenter.AchievementEvent.OneMissionFinished, null);
 	}
 
+	public void UpdateMissionDescription(string updatedMissionName, string updatedDescription)
+	{
+		if (!missionNames.Contains(updatedMissionName))
+		{
+			return;
+		}
+		for (int i = 0; i < missionNames.Count; i++)
+		{
+			if (missionNames[i] == updatedMissionName)
+			{
+				string temp = missionDescriptions[i];
+				missionDescriptions[i] = updatedDescription + "\n\n" + "<color=grey>" + temp + "</color>";
+				return;
+			}
+		}
+	}
+
 	public void FinishMission(string finishedMissionName)
 	{
 		if (!missionNames.Contains(finishedMissionName))
@@ -78,6 +95,8 @@ public class MissionPanel : MonoBehaviour
 			{
 				missionStates[i] = true;
 				missionButtons[i].GetComponent<Image>().color = finishedButtonColor;
+				string temp = missionDescriptions[i];
+				missionDescriptions[i] = "<color=grey>" + temp + "</color>";
 
 				// Update detail if the mission is currently selected.
 				if (missionName.text == finishedMissionName)

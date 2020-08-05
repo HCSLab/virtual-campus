@@ -13,9 +13,12 @@ public class StoryScript : MonoBehaviour
     [HideInInspector] public bool endStory = false;
 
     [HideInInspector] public string nameForDisplay;
-    [HideInInspector] public string description;
+
+    [HideInInspector] public string description; 
+    [HideInInspector] public bool updated = false;
 
     public GameObject talkPrefab;
+   
     private GameObject buttonPrefab;
 
     private List<string> inkFunctions = new List<string>();
@@ -279,6 +282,10 @@ public class StoryScript : MonoBehaviour
         else if (op == "upd_info")
         {
             PlayerInfo.UpdateFromInkStory(tempStory);
+        }
+        else if (op == "upd_description")
+        {
+            MissionPanel.Instance.UpdateMissionDescription(nameForDisplay, data);
         }
         else if (op == "enableNPC")
         {

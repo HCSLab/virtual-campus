@@ -3,7 +3,7 @@
 #after: greetings of registry
 
 #name: 理工学院的问候
-#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。目前教务处老师提供的可能地点有食堂、室内体育馆、东南门、小广场。
+#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。根据教务处老师的信息，理工学院教授在<color=red>室内体育馆</color>附近。
 
 === func_start ===
 #collidetrigger: SSE_dean_tmp
@@ -27,6 +27,7 @@
     真可惜，那我先回去了。如果以后想找我的话，就去<color=red>TD</color>楼下吧。
         ****好的
         #enableNPC: SSE_dean
+        #upd_description:你已经在<color=red>室内体育馆</color>附近找到了<color=red>理工学院院长</color>了。现在该去找剩下的院长了！
         #endstory
         ->END
     
@@ -42,6 +43,7 @@
 -
 *嗯嗯
 #enableNPC: SSE_dean
+#upd_description:你已经在<color=red>室内体育馆</color>附近找到了<color=red>理工学院院长</color>了。现在该去找剩下的院长了！
 #endstory
 ->END
 
