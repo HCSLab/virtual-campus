@@ -84,7 +84,7 @@
 喵！
 -
 +n
-#upd_description: 这只猫似乎懂人话？！根据这只白猫的指引，你决定去找<colo=red>逸夫书院西栋</color>的<color=red>宿管阿姨</color>问问究竟。
+#upd_description: 这只猫似乎懂人话？！根据这只白猫的指引，你决定去找<color=red>逸夫书院西栋</color>的<color=red>宿管阿姨</color>问问究竟。
 ->DONE
 
 === func_whitey ===

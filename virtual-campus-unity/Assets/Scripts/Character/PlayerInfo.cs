@@ -6,16 +6,22 @@ using UnityEngine;
 
 public class PlayerInfo : SavableMonoBehavior
 {
+	public int likeness;
+	public string school;
+	private void Update()
+	{
+		likeness = digit["likeness"];
+		school = info["school"];
+	}
 	public enum InfoKeyword
 	{
 		Name,
 		ID,
 		Gender,
 		School,
-		College
+		College,
 	};
-
-	public readonly string[] KeywordEnumToString =
+	public readonly string[] InfoKeywordEnumToString =
 	{
 		"name",
 		"id",
@@ -24,36 +30,61 @@ public class PlayerInfo : SavableMonoBehavior
 		"college"
 	};
 
+	public enum DigitKeyword
+	{
+		ACFlag,        // Academic Career Index
+		KittenLikeness  // Likeness of the Two Cats
+	}
+	public readonly string[] DigitKeywordEnumToString =
+	{
+		"flag",
+		"likeness"
+	};
+
 
 	public static Dictionary<string, string> info = new Dictionary<string, string>();
+	public static Dictionary<string, int> digit = new Dictionary<string, int>();
 
 	private void Awake()
 	{
-		info[KeywordEnumToString[(int)InfoKeyword.Name]] =
+		info[InfoKeywordEnumToString[(int)InfoKeyword.Name]] =
 			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				KeywordEnumToString[(int)InfoKeyword.Name]),
+				InfoKeywordEnumToString[(int)InfoKeyword.Name]),
 				"test player"
 				);
-		info[KeywordEnumToString[(int)InfoKeyword.ID]] =
+		info[InfoKeywordEnumToString[(int)InfoKeyword.ID]] =
 			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				KeywordEnumToString[(int)InfoKeyword.ID]),
+				InfoKeywordEnumToString[(int)InfoKeyword.ID]),
 				"119010000"
 				);
-		info[KeywordEnumToString[(int)InfoKeyword.Gender]] =
+		info[InfoKeywordEnumToString[(int)InfoKeyword.Gender]] =
 			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				KeywordEnumToString[(int)InfoKeyword.Gender]),
+				InfoKeywordEnumToString[(int)InfoKeyword.Gender]),
 				"female"
 				);
-		info[KeywordEnumToString[(int)InfoKeyword.School]] =
+		info[InfoKeywordEnumToString[(int)InfoKeyword.School]] =
 			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				KeywordEnumToString[(int)InfoKeyword.School]),
+				InfoKeywordEnumToString[(int)InfoKeyword.School]),
 				"SME"
 				);
-		info[KeywordEnumToString[(int)InfoKeyword.College]] =
+		info[InfoKeywordEnumToString[(int)InfoKeyword.College]] =
 			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				KeywordEnumToString[(int)InfoKeyword.College]),
+				InfoKeywordEnumToString[(int)InfoKeyword.College]),
 				"Shaw"
 				);
+
+		// Digit saving
+		digit[DigitKeywordEnumToString[(int)DigitKeyword.ACFlag]] =
+			PlayerPrefs.GetInt(SaveSystem.GetInfoValueName(
+				DigitKeywordEnumToString[(int)DigitKeyword.ACFlag]),
+				0
+				);
+		digit[DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]] =
+			PlayerPrefs.GetInt(SaveSystem.GetInfoValueName(
+				DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]),
+				0
+				);
+
 
 		// info["name"] = "test player";
 		// info["id"] = "119010000";
@@ -67,24 +98,33 @@ public class PlayerInfo : SavableMonoBehavior
 		base.Save(data);
 
 		PlayerPrefs.SetString(
-			KeywordEnumToString[(int)InfoKeyword.Name],
-			info[KeywordEnumToString[(int)InfoKeyword.Name]]
+			InfoKeywordEnumToString[(int)InfoKeyword.Name],
+			info[InfoKeywordEnumToString[(int)InfoKeyword.Name]]
 			);
 		PlayerPrefs.SetString(
-			KeywordEnumToString[(int)InfoKeyword.ID],
-			info[KeywordEnumToString[(int)InfoKeyword.ID]]
+			InfoKeywordEnumToString[(int)InfoKeyword.ID],
+			info[InfoKeywordEnumToString[(int)InfoKeyword.ID]]
 			);
 		PlayerPrefs.SetString(
-			KeywordEnumToString[(int)InfoKeyword.Gender],
-			info[KeywordEnumToString[(int)InfoKeyword.Gender]]
+			InfoKeywordEnumToString[(int)InfoKeyword.Gender],
+			info[InfoKeywordEnumToString[(int)InfoKeyword.Gender]]
 			);
 		PlayerPrefs.SetString(
-			KeywordEnumToString[(int)InfoKeyword.School],
-			info[KeywordEnumToString[(int)InfoKeyword.School]]
+			InfoKeywordEnumToString[(int)InfoKeyword.School],
+			info[InfoKeywordEnumToString[(int)InfoKeyword.School]]
 			);
 		PlayerPrefs.SetString(
-			KeywordEnumToString[(int)InfoKeyword.College],
-			info[KeywordEnumToString[(int)InfoKeyword.College]]
+			InfoKeywordEnumToString[(int)InfoKeyword.College],
+			info[InfoKeywordEnumToString[(int)InfoKeyword.College]]
+			);
+
+		PlayerPrefs.SetInt(
+			DigitKeywordEnumToString[(int)DigitKeyword.ACFlag],
+			digit[DigitKeywordEnumToString[(int)DigitKeyword.ACFlag]]
+			);
+		PlayerPrefs.SetInt(
+			DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness],
+			digit[DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]]
 			);
 	}
 
@@ -97,16 +137,40 @@ public class PlayerInfo : SavableMonoBehavior
 				story.variablesState[i.Key] = i.Value;
 			}
 		}
+
+		foreach (var i in digit)
+		{
+			if (story.variablesState.Contains(i.Key))
+			{
+				story.variablesState[i.Key] = i.Value;
+			}
+		}
+
 	}
 
 	public static void UpdateFromInkStory(Story story)
 	{
+		string tempInfo = "";
 		foreach (var key in info.Keys)
 		{
 			if (story.variablesState.Contains(key))
 			{
-				info[key] = (string)story.variablesState[key];
+				Debug.Log(key);
+				tempInfo = key;
 			}
 		}
+		if (tempInfo != "") info[tempInfo] = (string)story.variablesState[tempInfo];
+
+		string tempDigit = "";
+		foreach (var key in digit.Keys)
+		{
+			if (story.variablesState.Contains(key))
+			{
+				Debug.Log(key);
+				tempDigit = key;
+			}
+		}
+
+		if (tempDigit != "") digit[tempDigit] = (int)story.variablesState[tempDigit];
 	}
 }

@@ -109,31 +109,23 @@ VAR flag = 0
 +n
 你决定选择：
     ++经管学院
-    是经管学院啊，好的。那么我会尽快为你办理好手续，让你进入该学院的。
-        ~school = "SME"
-        -
+    ~school = "SME"
     ++人文学院
-    是人文学院啊，好的。那么我会尽快为你办理好手续，让你进入该学院的。
-        ~school = "HSS"
-        -
+    ~school = "HSS"
     ++生命健康学院
-    是生命健康学院啊，好的。那么我会尽快为你办理好手续，让你进入该学院的。
-        ~school = "LHS"
-        -
+    ~school = "LHS"
     ++理工学院
-    是理工学院啊，好的。那么我会尽快为你办理好手续，让你进入该学院的。
-        ~school = "SSE"
-        -
+    ~school = "SSE"
     ++数据科学院
-    是数据科学院啊，好的。那么我会尽快为你办理好手续，让你进入该学院的。
-        ~school = "SDS"
-        -
-#upd_info
+    ~school = "SDS"
+    是<color=red>{chi_school(school)}</color>啊，好的，那么我会为你尽快办理好入院手续的。
+    -
 +n
 现在，去找<color=red>{chi_school(school)}的院长</color>聊聊吧，或许还会有一些别的事情要告诉你呢。
 -
 *知道了
-#upd_description:你已经决定好选择的学院了！教务处老师建议你去找<color=red>{chi_school(school)}的院长</color>院长聊聊，似乎在进入学院之前，院长还有一些考验。
+#upd_info
+#upd_description:你已经决定好选择的学院了！教务处老师建议你去找<color=red>对应学院的院长</color>院长聊聊，似乎在进入学院之前，院长还有一些考验。
 ->DONE
 
 === func_return_to_dean ===
@@ -198,7 +190,8 @@ VAR flag = 0
 #upd_description:和院长交谈过之后，你才意识到逾期进入学院并没有那么简单。在答题之前，或许你会想再去收集收集学校里的信息。
 ->DONE
 
-=== func_hint ===
+//暂时弃用
+=== funchint ===
 #require: func_return_to_dean
 ->attach_school_dean->
 +关于问答
@@ -246,18 +239,21 @@ VAR flag = 0
     +n
     恭喜你！完成了第一部分的题目。当你准备好之后，就可以来进行第二阶段的答题了！
         ++n
+        #upd_info
         #upd_description:你完成了第一阶段的问答，干得很好！去准备准备之后，再返回这里进行第二阶段的答题吧！
         ->DONE
     -2:
     +n
     恭喜你！完成了第二部分的题目。当你准备好之后，就可以来进行最后的答题了！
         ++n
+        #upd_info
         #upd_description:你完成了第二阶段的问答，干得很好！去准备准备之后，再返回这里进行第三阶段的答题吧！
         ->DONE
     -3:
     +n
     恭喜你！完成了最后的题目！
         ++n
+        #upd_info
         ->ending
 }
 
