@@ -4,7 +4,6 @@
 #name: 平凡的故事（II）
 #description: 图书馆前台拜托你帮她还几本杂志给逸夫阿姨；似乎这位阿姨也有属于自己的故事要讲述。
 
-
 === func_start ===
 #override
 #collidetrigger: Shaw_dorm_admin
@@ -180,5 +179,6 @@
 -
 *谢谢
 #additem: 同理心徽章
+#upd_description: 很意外的，你得到了一枚徽章：同理心徽章，你是否值得佩戴呢？你是否听到了她们的故事呢？你又是否拥有属于自己的故事呢？无论怎样，无论是谁，每个人的故事都值得被讲述。
 #endstory
 ->DONE

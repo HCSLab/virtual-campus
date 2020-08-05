@@ -2,7 +2,7 @@
 #require: missing computer
 
 #name: 平凡的故事（I）
-#description: 张博闻拜托你去看看那位即将被调走的旧图书馆的前台，她现在就在小广场的旧图书馆前；似乎她有属于自己的故事要讲述。 
+#description: 张博闻拜托你去看看那位即将被调走的旧图书馆的前台，她现在就在<color=red>小广场的旧图书馆</color>前；似乎她有属于自己的故事要讲述。 
 
 === func_start ===
 #collidetrigger: temp_lib_recp

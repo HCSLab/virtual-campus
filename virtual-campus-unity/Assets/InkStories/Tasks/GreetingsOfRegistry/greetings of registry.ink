@@ -2,7 +2,7 @@
 #after: greetings of headmaster
 
 #name: 教务处的问候
-#description: 大学的学习可不像之前那么简单了，有很多细则都需要明确。去行政楼找教务处的老师为你讲解一下吧！
+#description: 大学的学习可不像之前那么简单了，有很多细则都需要明确。去<color=red>行政楼</color>找<color=red>教务处老师</color>为你讲解一下吧！
 
 === func_start ===
 #override
@@ -65,15 +65,27 @@
     大致的位置可能会有……让我想想……
     -
     +n
-    有可能在<color=blue>图书馆</color>……<color=blue>每个食堂</color>都有可能……<color=blue>室内体育馆</color>也有可能……说不定也可能在<color=blue>东南门</color>那里……或者在<color=blue>小广场</color>……
+    我刚刚好像就看到<color=red>人文院长</color>在<color=blue>东南门</color>附近……
+    -
+    +n 
+    <color=red>数据科学院院长</color>刚刚似乎说要先去吃饭？你可以去<color=red>乐天楼一楼</color>的食堂找找看。
     -
     +n
-    这么一想，好像跟没说一样啊……
+    <color=red>理工学院院长</color>好像是想去打会羽毛球……你可以去<color=red>室内体育馆</color>看看？
     -
     +n
-    不管怎么样，你先去我上面说的几个地方看一下吧。真是不好意思，谢谢你了！
+    <color=red>经管学院院长</color>好像是去上园了，这会估计刚回来，你可以去<color=red>小广场</color>的车站附近看看。
     -
-    *好的
+    +n
+    <color=red>生命科学院院长</color>？嘶……他一向喜欢在学校里有花花草草的地方逛，说是观察学校生态。或许<color=red>行政楼后山</color>会有他的身影？
+    -
+    +n
+    似乎要麻烦你找的人有点多啊……
+    -
+    +n
+    不管怎么样，你先去我上面说的几个地方看一下吧。谢谢你了！
+    -
+    *嗯嗯
     #endstory
     ->END
 
@@ -124,66 +136,18 @@
 总的来说，分为五部分：
 -
 +n
-<color=blue>大学核心课程(U-core)</color>
--
-+n
-<color=blue>大学核心课程(U-core)</color>
-<color=blue>学院大礼包(school package)</color>
--
-+n
-<color=blue>大学核心课程(U-core)</color>
-<color=blue>学院大礼包(school package)</color>
-<color=blue>专业必修(major required)</color>
--
-+n
-<color=blue>大学核心课程(U-core)</color>
-<color=blue>学院大礼包(school package)</color>
-<color=blue>专业必修(major required)</color>
-<color=blue>专业选修（major elective）</color>
--
-+n
-<color=blue>大学核心课程(U-core)</color>
-<color=blue>学院大礼包(school package)</color>
-<color=blue>专业必修(major required)</color>
-<color=blue>专业选修（major elective）</color>
-<color=blue>自由选修（free elective）</color>
--
-+n
-而为了方便起见，我们一般用英文简称来代指，分别是：
--
-+n
 <color=blue>大学核心课程(U-core)</color> <color=red>U-core</color>
-<color=blue>学院大礼包(school package)</color> 
-<color=blue>专业必修(major required)</color>   
-<color=blue>专业选修（major elective）</color> 
-<color=blue>自由选修（free elective）</color>  
 -
 +n
-<color=blue>大学核心课程(U-core)</color> <color=red>U-core</color>
 <color=blue>学院大礼包(school package)</color>   <color=red>Package</color>
-<color=blue>专业必修(major required)</color>   
-<color=blue>专业选修（major elective）</color> 
-<color=blue>自由选修（free elective）</color>  
 -
 +n
-<color=blue>大学核心课程(U-core)</color> <color=red>U-core</color>
-<color=blue>学院大礼包(school package)</color>   <color=red>Package</color>
 <color=blue>专业必修(major required)</color>   <color=red>MR</color>
-<color=blue>专业选修（major elective）</color>  
-<color=blue>自由选修（free elective）</color>   
 -
 +n
-<color=blue>大学核心课程(U-core)</color> <color=red>U-core</color>
-<color=blue>学院大礼包(school package)</color>   <color=red>Package</color>
-<color=blue>专业必修(major required)</color>   <color=red>MR</color>
 <color=blue>专业选修（major elective）</color>   <color=red>ME</color>
-<color=blue>自由选修（free elective）</color>   
 -
 +n
-<color=blue>大学核心课程(U-core)</color> <color=red>U-core</color>
-<color=blue>学院大礼包(school package)</color>   <color=red>Package</color>
-<color=blue>专业必修(major required)</color>   <color=red>MR</color>
-<color=blue>专业选修（major elective）</color>   <color=red>ME</color>
 <color=blue>自由选修（free elective）</color>   <color=red>Free</color>
 -
 +n 

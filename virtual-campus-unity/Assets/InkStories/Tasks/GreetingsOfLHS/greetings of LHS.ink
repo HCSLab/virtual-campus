@@ -2,7 +2,7 @@
 #after: greetings of registry
 
 #name: 生命科学学院的问候
-#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。目前教务处老师提供的可能地点有食堂、室内体育馆、东南门、小广场。
+#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。根据教务处老师的消息，生命科学院院长可能在<color=red>行政楼后山</color>。
 
 === func_start ===
 #collidetrigger: LHS_dean_tmp
@@ -25,6 +25,7 @@
     ***确认跳过
     可惜，那我先回去了。以后如果想来找我的话，就去<color=red>RA</color>楼下。
     #enableNPC: LHS_dean
+    #upd_description:你已经在<color=red>行政楼后山</color>找到了<color=red>生命科学学院院长</color>了。现在该去找剩下的院长了！
     #endstory
     ->END
     
@@ -40,6 +41,7 @@
 -
 *嗯嗯
 #enableNPC: LHS_dean
+#upd_description:你已经在<color=red>行政楼后山</color>找到了<color=red>生命科学学院院长</color>了。现在该去找剩下的院长了！
 #endstory
 ->END
 

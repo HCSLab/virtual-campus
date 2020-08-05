@@ -2,42 +2,50 @@
 
 #require: blackswan
 
-#name: 大停电事件
-#description: 学校有部分设施停电了！作为学校的一份子，你决定提供一些力所能及的帮助。
-
+#name: 停电事件
+#description: 在寻找黑天鹅时，<color=red>逸夫宿管阿姨</color>似乎有一些别的想要让你帮忙的事情，或许是时候去找她问问看了。
 
 === func_start ===
 #override
 #collidetrigger: Shaw_dorm_admin
-诶同学，你来的正好，这栋楼怎么突然停电了。
-*需要帮忙吗
-那麻烦你了，帮我去<color=red>TD旁边的物业处</color>问问好嘛。
+同学你可算是来了，我这边都忙不开手了！
+*发生什么了？
+逸夫书院大部分楼层都停电了，我这边一直在帮同学解决问题，一直有同学打电话过来询问电什么时候来……
+-
++n
+往常停电，很快就好了，但是这次不知道为什么，似乎很久都没有来电……
+-
+*需要我帮什么忙？
+可能得麻烦你帮我去<color=red>TD旁边的物业处</color>问问，你之前应该去过吧。
 -
 *好的
+#upd_description:逸夫书院停电了？受宿管阿姨的委托，你决定去<color=red>TD旁边的物业处</color>问问看是怎么一回事。
 ->DONE
 
 === func_Shaw_dorm_admin ===
+#require: func_start
 #override
 #collidetrigger: Shaw_dorm_admin
 麻烦你了，帮我去<color=red>TD旁边的物业处</color>问问有关停电的事好嘛。
-*好的
++好的
 ->DONE
 
 === func_with_PM_staff ===
+#require: func_start
 #override
 #collidetrigger: PM_staff
 同学好，不好意思，我们这边有一些紧急情况要处理……
-*是不是学校部分停电了
+*是不是逸夫书院停电了？
 啊，是的是的，是这样的，真的不好意思，我们会马上处理好的。
 -
 +n
 啊呀……
 -
 *怎么了
-我们的<color=blue>发电机钥匙<color>好像找不到了，丢到哪里去了……
+我们的<color=blue>发电机钥匙</color>好像找不到了，丢到哪里去了……
 -
 +n
-不会是丢到了<color=blue>外面的草丛<color>里了吧……我今天就只去过那里了。
+不会是丢到了<color=blue>外面的草丛</color>里了吧……我今天就只去过那里了。
 -
 +n
 但是我没法离开啊，这里需要有一个人照看。
@@ -52,9 +60,11 @@
 那怎么办……对了，你去找<color=red>宿管阿姨</color>问问，她肯定有<color=red>手电筒</color>！
 -
 *怎么又回去了……
+#upd_description:根据物业处的描述，你需要回去找逸夫的宿管老师借一个手电筒，之后到<color=red>TD外面的草丛</color>去找找看。
 ->DONE
 
 === func_PM_staff ==
+#require: func_with_PM_staff
 #override
 #collidetrigger:PM_staff
 同学，你找到钥匙了吗？
@@ -63,6 +73,7 @@
 ->DONE
 
 === func_dark_area1 ===
+#require: func_with_PM_staff
 #without_global: item_手电筒
 #collidetrigger:dark_area
 +n
@@ -76,6 +87,7 @@
 ->DONE
 
 === func_dialogue_with_dorm_admin ===
+#require: func_with_PM_staff
 #override
 #collidetrigger: dorm_admin
 问的怎么样啦？
@@ -97,7 +109,7 @@
 ->DONE
 
 === func_founded ===
-//玩家在草丛中寻找钥匙
+#require: func_dialogue_with_dorm_admin
 #collidetrigger: engine_key
 +n
 你找到了钥匙。
@@ -109,19 +121,20 @@
 身前的草丛里，似乎还有一个人，但是逆着光，你只能看到ta的背影。
 -
 +n
-似乎是因为注意到了你，他迅速关掉了手电筒。
+这个人似乎和你身材相仿，但是戴着一个面具，你看不到ta的长相。
 -
 +n
-你想要接近，但是他马上跑掉了，消失在你的视野之中。
+你想要接近，草丛发出的声音似乎被ta听到了，戴面具的神秘人迅速跑开了，似乎跑向了<color=red>行政楼后山</color>的方向。
 -
 +n
-你耸了耸肩， 没有想太多，或许只是一个普通的同学呢。
+你耸了耸肩，也没有想太多。大白天戴着面具，虽然很古怪，但也不违反校规，大概只是这个同学太无聊了吧。
 -
 +n
-你把钥匙放到了兜里。你准备回去把它交给物业人员。
+你把钥匙放到了兜里，准备赶去把它交给物业人员。
 -
 #additem: 发电机钥匙
 #disable: engine_key
+#upd_description:你在找钥匙的过程中看到了一个<color=red>戴着面具的神秘人</color>，ta跑向了<color=red>行政楼后山</color>方向。但既然找到了钥匙，似乎神秘人也不是很重要，还是先把钥匙还回去吧。
 ->DONE
 
 === returning ===
@@ -139,6 +152,7 @@
 你用的那个手电筒，是借宿管阿姨的吧，别忘了还回去啊。
 -
 *谢谢提醒
+#upd_description:现在，把手电筒还给逸夫的<color=red>宿管阿姨</color>吧。
 ->DONE
 
 === ending ===
@@ -183,6 +197,6 @@
 同学，还有什么事情嘛，没有的话，我就先去忙别的啦？
 -
 *好的
+#upd_description:奇怪的是，宿管阿姨说你已经还过手电筒了，可是你明明才刚刚找到钥匙啊。你想起了之前见过的神秘人……
 #endstory
 ->DONE
-

@@ -2,7 +2,7 @@
 // mission name: greetings of SDS 
 
 #name: 数据科学院的问候
-#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。目前教务处老师提供的可能地点有食堂、室内体育馆、东南门、小广场。
+#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。根据教务处老师的信息，数据科学院院长可能在<color=red>乐天楼</color>一楼食堂。
 
 === func_start ===
 #collidetrigger: SDS_dean_tmp
@@ -27,6 +27,7 @@
     真可惜，那我先回去了。如果以后想找我的话，就去<color=red>道远</color>楼下找我。
         ****好的
         #enableNPC: SDS_dean
+        #upd_description:你已经在<color=red>乐天楼</color>食堂附近找到了<color=red>数据科学学院院长</color>了。现在该去找剩下的院长了！
         #endstory
         ->END
     
@@ -42,6 +43,7 @@
 -
 *嗯嗯
 #enableNPC: SDS_dean
+#upd_description:你已经在<color=red>乐天楼</color>食堂附近找到了<color=red>数据科学学院院长</color>了。现在该去找剩下的院长了！
 #endstory
 ->END
 
@@ -61,7 +63,7 @@ VAR flag = true
     ~ flag = !flag
     {flag == false:
     ++n 
-    那么你目前已经听完了理工学院<color=blue>本科生</color>所有专业的简介了。你还想要听一下<color=blue>研究生</color>的吗？（一旦要听，就要把所有研究生专业全部听完）
+    那么你目前已经听完了数据科学学院<color=blue>本科生</color>所有专业的简介了。你还想要听一下<color=blue>研究生</color>的吗？（一旦要听，就要把所有研究生专业全部听完）
         +++是
         ->graduate
         +++不了，谢谢
@@ -182,7 +184,7 @@ VAR flag = true
     ~ flag = !flag
     {flag == false:
     ++n 
-    那么你目前已经听完了理工学院<color=blue>研究生</color>所有专业的简介了。你还想要听一下<color=blue>本科生</color>的吗？（一旦要听，就要把所有本科生专业全部听完）
+    那么你目前已经听完了数据科学学院<color=blue>研究生</color>所有专业的简介了。你还想要听一下<color=blue>本科生</color>的吗？（一旦要听，就要把所有本科生专业全部听完）
         +++是
         ->undergraduate
         +++不了，谢谢

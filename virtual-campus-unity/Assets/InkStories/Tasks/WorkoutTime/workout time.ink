@@ -1,6 +1,5 @@
 //mission name: workout time
 //任务名：革命的本钱
-#after: greetings of school
 #after: greetings of canteen
 
 #name: 革命的本钱
