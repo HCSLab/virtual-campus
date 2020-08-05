@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
 	public GameObject hudCanvas;
 	public GameObject pressToTalk;
 	public Transform talkContainer;
+    //public GameObject fullScreenMap;
 
 	[Header("Tab Menu")]
 	public GameObject tabMenuCanvas;
