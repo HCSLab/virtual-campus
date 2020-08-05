@@ -33,6 +33,6 @@ public class GameTimeAchievement : Achievement
 
 		currentProgress = newProgress;
 		fillImage.fillAmount = Mathf.Min(1f, (float)currentProgress / targetMinute);
-		descriptionText.text = "总游戏时间 " + currentProgress + " Min / " + targetMinute + " Min";
+		descriptionText.text = "总游戏时间 " + currentProgress + " 分钟 / " + targetMinute + " 分钟";
 	}
 }

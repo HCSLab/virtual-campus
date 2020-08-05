@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 	public GameObject hudCanvas;
 	public GameObject pressToTalk;
 	public Transform talkContainer;
-    //public GameObject fullScreenMap;
+    public GameObject fullScreenMap;
 
 	[Header("Tab Menu")]
 	public GameObject tabMenuCanvas;
@@ -39,11 +39,14 @@ public class UIManager : MonoBehaviour
 	public RectTransform splashWhenTakingPhoto;
 	public GameObject photographyHint;
 
-	// [Header("Painter")]
-	// public GameObject painterHub;
-	// public List<GameObject> painters;
+    [Header("Others")]
+    public Scrollbar settingsVerticalScrollbar;
 
-	[HideInInspector]
+    // [Header("Painter")]
+    // public GameObject painterHub;
+    // public List<GameObject> painters;
+
+    [HideInInspector]
 	public GameObject currentTalk;
 
 	// Cache
@@ -232,5 +235,10 @@ public class UIManager : MonoBehaviour
     {
         tabMenuCanvas.SetActive(false);
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera.FreeForm>().enabled = true;
+    }
+
+    public void resetSettingsPanel()
+    {
+        settingsVerticalScrollbar.value = 1f;
     }
 }

@@ -36,9 +36,65 @@ public class PlayerController : MonoBehaviour
             UpdateCamera();
             UpdatePlayerRotationAndAnimation();
             UpdateSpray();
+            UpdateHotkeys();
         }
 
         lastMousePosition = Input.mousePosition;
+    }
+
+    public float timer = 0;
+    void UpdateHotkeys()
+    {
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+        if (timer < 0)
+        {
+            timer = 0;
+        }
+        if (GetMapInput())
+        {
+            if (timer > 0)
+            {
+                return;
+            }
+            timer = 0.5f;
+            if (!UIManager.Instance.fullScreenMap.activeSelf)
+            {
+                UIManager.Instance.fullScreenMap.SetActive(true);
+            }
+            else
+            {
+                UIManager.Instance.fullScreenMap.SetActive(false);
+            }
+        }
+        else if (GetSettingsInput())
+        {
+            if (timer > 0)
+            {
+                return;
+            }
+            timer = 0.5f;
+            if (UIManager.Instance.photographyCanvas.activeSelf)
+            {
+                return;
+            }
+            else if (UIManager.Instance.fullScreenMap.activeSelf)
+            {
+                UIManager.Instance.fullScreenMap.SetActive(false);
+                return;
+            }
+            if (!UIManager.Instance.tabMenuCanvas.activeSelf)
+            {
+                UIManager.Instance.OpenTab(6);
+                UIManager.Instance.resetSettingsPanel();
+            }
+            else
+            {
+                UIManager.Instance.CloseCanvas();
+            }
+        }
     }
 
     void UpdatePlayerRotationAndAnimation()
@@ -129,6 +185,16 @@ public class PlayerController : MonoBehaviour
 	{
         return Input.GetKey(KeyCode.LeftShift);
 	}
+
+    public bool GetMapInput()
+    {
+        return Input.GetKey(KeyCode.M);
+    }
+
+    public bool GetSettingsInput()
+    {
+        return Input.GetKey(KeyCode.Escape);
+    }
 
     public void FreezeUnfreezePlayer(bool isFreeze)
     {
