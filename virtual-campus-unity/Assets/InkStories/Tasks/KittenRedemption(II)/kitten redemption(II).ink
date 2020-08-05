@@ -1,6 +1,6 @@
 // mission name: kitten redemption(II)
 #after: kitten redemption(I)
-#after: mediocre story(II)
+#num_condition: likeness_30
 
 #name: 猫咪的救赎（II）
 #description: 小可爱今天似乎举止有一些反常，总是走来走去。发生什么了？不如直接去问问她看？

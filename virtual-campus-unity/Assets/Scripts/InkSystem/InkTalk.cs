@@ -81,6 +81,19 @@ public class InkTalk : MonoBehaviour
                     storyScript.InProcessTag(tag, this, inkStory);
                 }
             }
+            else if ((inkFile.name == "$cat_whitey") || (inkFile.name == "$cat_cutey"))
+            {
+                foreach (var tag in tags)
+                {
+                    string op, data;
+                    StoryScript.StandardizationTag(tag, out op, out data);
+                    if (op == "upd_info") 
+                    {
+                        PlayerInfo.UpdateFromInkStory(inkStory);
+                    }
+                }
+                StoryManager.Instance.refreshFlag = true;
+            }
         }
         if (sentences != "")
         {
@@ -91,7 +104,7 @@ public class InkTalk : MonoBehaviour
             }
             else
             {
-                nameText.text = "旁白";
+                nameText.text = "";
             }
             LogPanel.Instance.AddLog(nameText.text, sentences, false);
         }

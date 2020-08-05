@@ -1,6 +1,5 @@
 //mission name: kitten redemption
 #after: greetings of HSS
-#after: greetings of library
 
 #name: 猫咪的救赎（I）
 #description: <color=red>乐天一楼食堂门口</color>似乎有一只小白猫经常出现，你决定去看看是什么情况。

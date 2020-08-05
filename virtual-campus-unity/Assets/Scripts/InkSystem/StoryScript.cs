@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Globalization;
+using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
@@ -25,6 +27,8 @@ public class StoryScript : MonoBehaviour
 
     private List<string> require = new List<string>();
     private List<string> without = new List<string>();
+    private Dictionary<string, string> strCond = new Dictionary<string, string>();
+    private Dictionary<string, int>    numCond = new Dictionary<string, int>();
 
     private List<UnityEngine.Object> dynamicallyGenerated = new List<UnityEngine.Object>();
     private List<string> npcOverrided = new List<string>();
@@ -62,6 +66,27 @@ public class StoryScript : MonoBehaviour
             {
                 without.Add(data);
             }
+            else if (op == "num_condition")   // eg. #num_condition: likeness_50
+            {
+                string variable;
+                int condition;
+                var sep = data.IndexOf("_");
+                
+                variable = data.Substring(0, sep);
+                condition = (int)Convert.ToDouble(data.Substring(sep + 1));
+                if (!numCond.ContainsKey(variable))
+                    numCond.Add(variable, condition);
+            }
+            else if (op == "str_condition")   // eg. #str_condition: school_SME
+            {
+                string variable;
+                string condition;
+                var sep = data.IndexOf("_");
+                
+                variable = data.Substring(0, sep);
+                condition = data.Substring(sep + 1);
+                strCond.Add(variable, condition);
+            }
             else if (op == "allow_multi_try")
             {
                 allowMultiTry = true;
@@ -84,13 +109,35 @@ public class StoryScript : MonoBehaviour
 
     public bool CheckStartConditions()
     {
+        foreach (var i in numCond)
+        {
+            if (PlayerInfo.digit.ContainsKey(i.Key))
+            {
+                if (PlayerInfo.digit[i.Key] < i.Value)
+                { // Debug.Log("Failure Detected"); 
+                    return false; }
+                // else Debug.Log("Success in Initiating");
+            }
+            else Debug.Log("The num conditions is not found! Please check your ink file tags.");
+        }
         if (!FlagBag.Instance.HasFlags(require))
         {
+            // Debug.Log("Flags Failure Detected");
+            // Debug.Log(require[require.Count - 1]);
             return false;
         }
         if (!FlagBag.Instance.WithoutFlags(without))
         {
             return false;
+        }
+
+        foreach (var i in strCond)
+        {
+            if (PlayerInfo.info.ContainsKey(i.Key))
+            {
+                if (PlayerInfo.info[i.Key] != i.Value) return false;
+            }
+            else Debug.Log("The string conditions is not found! Please check your ink file tags.");
         }
         return true;
     }
@@ -236,7 +283,6 @@ public class StoryScript : MonoBehaviour
     {
         string op, data;
         StandardizationTag(tag, out op, out data);
-
         if (op == "addflag")
         {
             AddLocalFlag(data);

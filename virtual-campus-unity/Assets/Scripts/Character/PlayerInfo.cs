@@ -145,7 +145,6 @@ public class PlayerInfo : SavableMonoBehavior
 				story.variablesState[i.Key] = i.Value;
 			}
 		}
-
 	}
 
 	public static void UpdateFromInkStory(Story story)
@@ -155,7 +154,6 @@ public class PlayerInfo : SavableMonoBehavior
 		{
 			if (story.variablesState.Contains(key))
 			{
-				Debug.Log(key);
 				tempInfo = key;
 			}
 		}
@@ -166,7 +164,6 @@ public class PlayerInfo : SavableMonoBehavior
 		{
 			if (story.variablesState.Contains(key))
 			{
-				Debug.Log(key);
 				tempDigit = key;
 			}
 		}

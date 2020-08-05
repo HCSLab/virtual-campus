@@ -118,8 +118,9 @@ VAR flag = 0
     ~school = "SSE"
     ++数据科学院
     ~school = "SDS"
-    是<color=red>{chi_school(school)}</color>啊，好的，那么我会为你尽快办理好入院手续的。
     -
+是<color=red>{chi_school(school)}</color>啊，好的，那么我会为你尽快办理好入院手续的。    
+-
 +n
 现在，去找<color=red>{chi_school(school)}的院长</color>聊聊吧，或许还会有一些别的事情要告诉你呢。
 -

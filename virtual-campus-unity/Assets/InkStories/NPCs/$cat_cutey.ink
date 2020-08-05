@@ -26,13 +26,12 @@ VAR likeness = 0
 
 === checkFood ===
 TODO:#判断喂食是否过于频繁
+->success
 {~->success|->failure}
 
 === success ===
-TODO:改变好感值
-+n
 嗯嗯，真好吃。
--
+~likeness += 10
 +n
 <color=\#808080>（喂食成功，小白和小可爱更喜欢你了）</color>
 -
@@ -43,12 +42,11 @@ TODO:改变好感值
 {likeness>=100:<color=\#808080>（你感觉小白的眼睛里偶尔会展现出不一样的眼神）</color>}
 -
 +n
+    #upd_info
     ->DONE
     
 === failure ===
-+n
 我不是很饿啊，不是刚刚才吃过嘛……
--
 *<color=\#808080>（喂的太频繁啦，等会再来喂食吧）</color>
     ->DONE
     
