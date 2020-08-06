@@ -41,25 +41,10 @@ public class PlayerController : MonoBehaviour
 
         lastMousePosition = Input.mousePosition;
     }
-
-    public float timer = 0;
     void UpdateHotkeys()
     {
-        if (timer > 0)
-        {
-            timer -= Time.deltaTime;
-        }
-        if (timer < 0)
-        {
-            timer = 0;
-        }
         if (GetMapInput())
         {
-            if (timer > 0)
-            {
-                return;
-            }
-            timer = 0.5f;
             if (!UIManager.Instance.fullScreenMap.activeSelf)
             {
                 UIManager.Instance.fullScreenMap.SetActive(true);
@@ -71,11 +56,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (GetSettingsInput())
         {
-            if (timer > 0)
-            {
-                return;
-            }
-            timer = 0.5f;
             if (UIManager.Instance.photographyCanvas.activeSelf)
             {
                 return;
@@ -188,12 +168,12 @@ public class PlayerController : MonoBehaviour
 
     public bool GetMapInput()
     {
-        return Input.GetKey(KeyCode.M);
+        return Input.GetKeyDown(KeyCode.M);
     }
 
     public bool GetSettingsInput()
     {
-        return Input.GetKey(KeyCode.Escape);
+        return Input.GetKeyDown(KeyCode.Escape);
     }
 
     public void FreezeUnfreezePlayer(bool isFreeze)

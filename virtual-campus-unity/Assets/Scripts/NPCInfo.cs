@@ -9,12 +9,11 @@ public class NPCInfo : MonoBehaviour
     public GameObject npcCamera;
     public Transform playerDialoguePos;
 
-    private GameObject mainCam;
+    public GameObject mainCam;
 
-    private void Start()
+    private void Awake()
     {
         npcName = transform.Find("Canvas/Name").GetComponent<TextMeshProUGUI>().text;
-        mainCam = Camera.main.gameObject;
     }
 
     public void StartTalkMode()
