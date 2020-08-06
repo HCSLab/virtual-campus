@@ -72,7 +72,8 @@ public class MissionPanel : MonoBehaviour
 		{
 			if (missionNames[i] == updatedMissionName)
 			{
-				missionDescriptions[i] = updatedDescription;
+				string temp = missionDescriptions[i];
+				missionDescriptions[i] = updatedDescription + "\n\n" + "<color=grey>" + temp + "</color>";
 				return;
 			}
 		}
