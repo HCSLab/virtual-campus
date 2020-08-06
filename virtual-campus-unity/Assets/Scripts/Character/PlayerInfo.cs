@@ -8,10 +8,16 @@ public class PlayerInfo : SavableMonoBehavior
 {
 	public int likeness;
 	public string school;
-	private void Update()
+	protected override void Start()
 	{
+		base.Start();
 		likeness = digit["likeness"];
 		school = info["school"];
+	}
+	private void Update()
+	{
+		digit["likeness"] = likeness;
+		info["school"] = school;
 	}
 	public enum InfoKeyword
 	{
@@ -37,7 +43,7 @@ public class PlayerInfo : SavableMonoBehavior
 	}
 	public readonly string[] DigitKeywordEnumToString =
 	{
-		"flag",
+		"acflag",
 		"likeness"
 	};
 
@@ -48,49 +54,42 @@ public class PlayerInfo : SavableMonoBehavior
 	private void Awake()
 	{
 		info[InfoKeywordEnumToString[(int)InfoKeyword.Name]] =
-			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				InfoKeywordEnumToString[(int)InfoKeyword.Name]),
+			PlayerPrefs.GetString(
+				SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.Name]),
 				"test player"
 				);
 		info[InfoKeywordEnumToString[(int)InfoKeyword.ID]] =
-			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				InfoKeywordEnumToString[(int)InfoKeyword.ID]),
+			PlayerPrefs.GetString(
+				SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.ID]),
 				"119010000"
 				);
 		info[InfoKeywordEnumToString[(int)InfoKeyword.Gender]] =
-			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				InfoKeywordEnumToString[(int)InfoKeyword.Gender]),
+			PlayerPrefs.GetString(
+				SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.Gender]),
 				"female"
 				);
 		info[InfoKeywordEnumToString[(int)InfoKeyword.School]] =
-			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				InfoKeywordEnumToString[(int)InfoKeyword.School]),
+			PlayerPrefs.GetString(
+				SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.School]),
 				"SME"
 				);
 		info[InfoKeywordEnumToString[(int)InfoKeyword.College]] =
-			PlayerPrefs.GetString(SaveSystem.GetInfoValueName(
-				InfoKeywordEnumToString[(int)InfoKeyword.College]),
+			PlayerPrefs.GetString(
+				SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.College]),
 				"Shaw"
 				);
 
 		// Digit saving
 		digit[DigitKeywordEnumToString[(int)DigitKeyword.ACFlag]] =
-			PlayerPrefs.GetInt(SaveSystem.GetInfoValueName(
-				DigitKeywordEnumToString[(int)DigitKeyword.ACFlag]),
+			PlayerPrefs.GetInt(
+				SaveSystem.GetInfoValueName(DigitKeywordEnumToString[(int)DigitKeyword.ACFlag]),
 				0
 				);
 		digit[DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]] =
-			PlayerPrefs.GetInt(SaveSystem.GetInfoValueName(
-				DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]),
+			PlayerPrefs.GetInt(
+				SaveSystem.GetInfoValueName(DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]),
 				0
 				);
-
-
-		// info["name"] = "test player";
-		// info["id"] = "119010000";
-		// info["gender"] = "female";
-		// info["school"] = "SME";
-		// info["collage"] = "Shaw";
 	}
 
 	protected override void Save(object data)
@@ -98,32 +97,32 @@ public class PlayerInfo : SavableMonoBehavior
 		base.Save(data);
 
 		PlayerPrefs.SetString(
-			InfoKeywordEnumToString[(int)InfoKeyword.Name],
+			SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.Name]),
 			info[InfoKeywordEnumToString[(int)InfoKeyword.Name]]
 			);
 		PlayerPrefs.SetString(
-			InfoKeywordEnumToString[(int)InfoKeyword.ID],
+			SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.ID]),
 			info[InfoKeywordEnumToString[(int)InfoKeyword.ID]]
 			);
 		PlayerPrefs.SetString(
-			InfoKeywordEnumToString[(int)InfoKeyword.Gender],
+			SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.Gender]),
 			info[InfoKeywordEnumToString[(int)InfoKeyword.Gender]]
 			);
 		PlayerPrefs.SetString(
-			InfoKeywordEnumToString[(int)InfoKeyword.School],
+			SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.School]),
 			info[InfoKeywordEnumToString[(int)InfoKeyword.School]]
 			);
 		PlayerPrefs.SetString(
-			InfoKeywordEnumToString[(int)InfoKeyword.College],
+			SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.College]),
 			info[InfoKeywordEnumToString[(int)InfoKeyword.College]]
 			);
 
 		PlayerPrefs.SetInt(
-			DigitKeywordEnumToString[(int)DigitKeyword.ACFlag],
+			SaveSystem.GetInfoValueName(DigitKeywordEnumToString[(int)DigitKeyword.ACFlag]),
 			digit[DigitKeywordEnumToString[(int)DigitKeyword.ACFlag]]
 			);
 		PlayerPrefs.SetInt(
-			DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness],
+			SaveSystem.GetInfoValueName(DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]),
 			digit[DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]]
 			);
 	}
