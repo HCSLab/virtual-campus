@@ -59,7 +59,7 @@ public class ItemPanel : MonoBehaviour
 	{
 		foreach (var skin in skins)
 			AddSkin(skin);
-        AddItem(itemList[15]);
+        AddItem("炉石");
 	}
 
 	private void OnEnable()

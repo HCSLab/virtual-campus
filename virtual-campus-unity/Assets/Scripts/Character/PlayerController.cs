@@ -54,6 +54,17 @@ public class PlayerController : MonoBehaviour
                 UIManager.Instance.fullScreenMap.SetActive(false);
             }
         }
+        else if (GetBagInput())
+        {
+            if (!UIManager.Instance.tabMenuCanvas.activeSelf)
+            {
+                UIManager.Instance.OpenTab(1);
+            }
+            else
+            {
+                UIManager.Instance.CloseCanvas();
+            }
+        }
         else if (GetSettingsInput())
         {
             if (UIManager.Instance.photographyCanvas.activeSelf)
@@ -169,6 +180,11 @@ public class PlayerController : MonoBehaviour
     public bool GetMapInput()
     {
         return Input.GetKeyDown(KeyCode.M);
+    }
+
+    public bool GetBagInput()
+    {
+        return Input.GetKeyDown(KeyCode.B);
     }
 
     public bool GetSettingsInput()
