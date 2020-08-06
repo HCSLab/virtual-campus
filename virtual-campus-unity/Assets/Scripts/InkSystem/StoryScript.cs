@@ -331,7 +331,8 @@ public class StoryScript : MonoBehaviour
         }
         else if (op == "upd_description")
         {
-            MissionPanel.Instance.UpdateMissionDescription(nameForDisplay, data);
+            description = data + "\n\n" + "<color=grey>" + description + "</color>";
+            StoryManager.Instance.UpdateStory(this);
         }
         else if (op == "enableNPC")
         {
