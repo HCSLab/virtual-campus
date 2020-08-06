@@ -23,6 +23,7 @@ public class ItemPanel : MonoBehaviour
 	[Header("Item")]
 	public GameObject itemDisplayPrefab;
 	public GameObject itemRight;
+    public GameObject itemUseButton;
 	public TextMeshProUGUI itemNameText, itemDescriptionText;
 	public Image itemIcon;
 
@@ -58,6 +59,7 @@ public class ItemPanel : MonoBehaviour
 	{
 		foreach (var skin in skins)
 			AddSkin(skin);
+        AddItem(itemList[15]);
 	}
 
 	private void OnEnable()
@@ -114,9 +116,20 @@ public class ItemPanel : MonoBehaviour
 		}
 	}
 
-	public void ShowItem(ItemScriptableObject item)
+    public void ShowItem(ItemScriptableObject item)
 	{
 		itemRight.SetActive(true);
+        if (item.GetType().IsSubclassOf(typeof(GadgetScriptableObject)))
+        {
+            GadgetScriptableObject gadget = (GadgetScriptableObject) item;
+            itemUseButton.SetActive(true);
+            itemUseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+            itemUseButton.GetComponent<Button>().onClick.AddListener(gadget.Use);
+        }
+        else
+        {
+            itemUseButton.SetActive(false);
+        }
 		skinRight.SetActive(false);
 		realWorldPhotoRight.SetActive(false);
 		itemIcon.sprite = item.icon;
