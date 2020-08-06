@@ -4,7 +4,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 
-public class LogPanel : MonoBehaviour
+public class LogPanel : SavableMonoBehavior
 {
 	static public LogPanel Instance;
 
@@ -16,25 +16,47 @@ public class LogPanel : MonoBehaviour
 	RectTransform logHolderRectTransform;
 	bool enableAchievementLogging;
 
+	private List<string> records = new List<string>();
+
 	private void Awake()
 	{
 		Instance = this;
 		enableAchievementLogging = false;
 	}
 
-	private void Start()
+	protected override void Start()
 	{
+		base.Start();
+
 		logHolderRectTransform = logHolderTransform.GetComponent<RectTransform>();
 
 		LeanTween.delayedCall(1f, () => { enableAchievementLogging = true; });
+
+		int logCount = PlayerPrefs.GetInt(SaveSystem.GetDialogueLogCountName());
+		for (int i = 0; i < logCount; i++)
+		{
+			AddLog(PlayerPrefs.GetString(SaveSystem.GetIthDialogueLogName(i)), false);
+		}
 	}
 
-	public void AddLog(string npcName, string logContent, bool popOut = true)
+	public void AddLog(string content, bool popOut = true)
 	{
 		var log = Instantiate(logPrefab);
 		log.transform.SetParent(logHolderTransform);
 		log.transform.localScale = Vector3.one;
 
+		log.GetComponent<TextMeshProUGUI>().text = content;
+
+		records.Add(content);
+
+		if (popOut)
+		{
+			LogNotificationCenter.Instance.Post(content);
+		}
+	}
+
+	public void AddLog(string npcName, string logContent, bool popOut = true)
+	{
 		StringBuilder s = new StringBuilder();
 		s.Append("<color=");
 		s.Append(npcNameColor);
@@ -43,12 +65,7 @@ public class LogPanel : MonoBehaviour
 		s.Append("</color>: ");
 		s.Append(logContent);
 
-		log.GetComponent<TextMeshProUGUI>().text = s.ToString();
-
-		if (popOut)
-		{
-			LogNotificationCenter.Instance.Post(s.ToString());
-		}
+		AddLog(s.ToString(), popOut);
 	}
 
 	public void AddAchievementFinishLog(string achievementName)
@@ -70,5 +87,22 @@ public class LogPanel : MonoBehaviour
 		log.GetComponent<TextMeshProUGUI>().text = s.ToString();
 
 		LogNotificationCenter.Instance.Post(s.ToString());
+	}
+
+	protected override void Save(object data)
+	{
+		base.Save(data);
+
+		PlayerPrefs.SetInt(
+			SaveSystem.GetDialogueLogCountName(),
+			records.Count
+			);
+		for (int i = 0; i < records.Count; i++)
+		{
+			PlayerPrefs.SetString(
+				SaveSystem.GetIthDialogueLogName(i),
+				records[i]
+				);
+		}
 	}
 }

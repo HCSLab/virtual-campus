@@ -49,4 +49,14 @@ public static class SaveSystem
 	{
 		return "IsAnySaveFileExist";
 	}
+
+	public static string GetDialogueLogCountName()
+	{
+		return "DialogueLogCount";
+	}
+
+	public static string GetIthDialogueLogName(int i)
+	{
+		return "DialogueLog." + i;
+	}
 }

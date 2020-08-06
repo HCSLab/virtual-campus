@@ -181,7 +181,7 @@ public class InkTalk : MonoBehaviour
         NPCManager.Instance.RefreshTalk();
 
         // 添加一个空行作区隔
-        LogPanel.Instance.AddLog("", "", false);
+        LogPanel.Instance.AddLog(" ", false);
 
         if (speaker)
         {
