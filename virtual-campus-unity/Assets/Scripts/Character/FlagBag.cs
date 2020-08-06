@@ -72,16 +72,22 @@ public class FlagBag : SavableMonoBehavior
         StoryManager.Instance.refreshFlag = true;
     }
 
-    public void DelFlagsWithPrefix(string prefix)
+    public List<string> GetFlagsWithPrefix(string prefix)
     {
-        var tmp = new List<string>();
+        var res = new List<string>();
         foreach (var flag in bag)
         {
             if (flag.StartsWith(prefix))
             {
-                tmp.Add(flag);
+                res.Add(flag);
             }
         }
+        return res;
+    }
+
+    public void DelFlagsWithPrefix(string prefix)
+    {
+        var tmp = GetFlagsWithPrefix(prefix);
         foreach (var flag in tmp)
         {
             bag.Remove(flag);

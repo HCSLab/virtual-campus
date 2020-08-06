@@ -5,6 +5,7 @@ using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class StoryScript : MonoBehaviour
 {
@@ -105,6 +106,13 @@ public class StoryScript : MonoBehaviour
         {
             without.Add(inkFile.name);
         }
+
+        var tmp = FlagBag.Instance.GetFlagsWithPrefix("description_" + inkFile.name + ":");
+        if (tmp.Count > 0)
+        {
+            StandardizationTag(tmp[0], out var op, out var data);
+            description = data;
+        }
     }
 
     public bool CheckStartConditions()
@@ -144,6 +152,8 @@ public class StoryScript : MonoBehaviour
 
     private void Start()
     {
+        GetStartConditions();
+
         buttonPrefab = talkPrefab.GetComponent<InkTalk>().button;
         inkStory = new Story(inkFile.text);
 
@@ -331,8 +341,11 @@ public class StoryScript : MonoBehaviour
         }
         else if (op == "upd_description")
         {
+            FlagBag.Instance.DelFlagsWithPrefix("description_" + inkFile.name + ":");
             description = data + "\n\n" + "<color=grey>" + description + "</color>";
-            StoryManager.Instance.UpdateStory(this);
+            FlagBag.Instance.AddFlag("description_" + inkFile.name + ":" + description);
+            MissionPanel.Instance.UpdateMissionDescription(nameForDisplay, description);
+            MissionPreviewPanel.Instance.UpdateMission(nameForDisplay, description);
         }
         else if (op == "enableNPC")
         {

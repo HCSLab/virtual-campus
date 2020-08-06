@@ -9,16 +9,20 @@ public class NPCInfo : MonoBehaviour
     public GameObject npcCamera;
     public Transform playerDialoguePos;
 
-    public GameObject mainCam;
+    public static GameObject mainCam;
 
     private void Awake()
     {
         npcName = transform.Find("Canvas/Name").GetComponent<TextMeshProUGUI>().text;
+
+        if (!mainCam)
+            mainCam = Camera.main.gameObject;
     }
 
     public void StartTalkMode()
     {
         npcCamera.SetActive(true);
+        if (!mainCam) mainCam = Camera.main.gameObject;
         mainCam.SetActive(false);
 
         var player = GameObject.FindGameObjectWithTag("Player");
