@@ -10,7 +10,9 @@ public class StoryManager : MonoBehaviour
 
     public List<StoryScript> stories = new List<StoryScript>();
 
-    private Dictionary<string, string> storyStatus = new Dictionary<string, string>();
+    private Dictionary<string, string> storyStatus  = new Dictionary<string, string>();
+    private Dictionary<string, bool>   storyUpdated = new Dictionary<string, bool>();
+    private Dictionary<string, string> storyDescript = new Dictionary<string, string>();
 
     [HideInInspector] public bool refreshFlag = false;
 
@@ -47,6 +49,9 @@ public class StoryManager : MonoBehaviour
             {
                 storyStatus.Add(name, "unavailable");
             }
+
+            storyUpdated.Add(name, false);
+            storyDescript.Add(name, s.description);
         }
     }
 
@@ -64,6 +69,13 @@ public class StoryManager : MonoBehaviour
         foreach (var s in stories)
         {
             var name = s.inkFile.name;
+            if (storyUpdated[name] == true)
+            {
+                Debug.Log("Used2");
+                MissionPanel.Instance.UpdateMissionDescription(s.nameForDisplay, storyDescript[name]);
+                MissionPreviewPanel.Instance.UpdateMission(s.nameForDisplay, storyDescript[name]);
+                storyUpdated[name] = false;
+            }
             if (storyStatus[name] == "unavailable")
             {
                 if (s.CheckStartConditions())
@@ -73,6 +85,7 @@ public class StoryManager : MonoBehaviour
                     InstantiateStory(s);
                 }
             }
+            // else Debug.Log("Warning: Something may be wrong with the story status.");
         }
     }
 
@@ -91,6 +104,14 @@ public class StoryManager : MonoBehaviour
             storyStatus[name] = "running";
             FlagBag.Instance.AddFlag(name + "_running");
         }
+    }
+
+    public void UpdateStory(StoryScript story)
+    {
+        var name = story.inkFile.name;
+        storyUpdated[name] = true;
+        storyDescript[name] = story.description;
+        Refresh();
     }
 
     public void EndStory(StoryScript story)

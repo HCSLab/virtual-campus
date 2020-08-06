@@ -40,6 +40,17 @@ public class MissionPreviewPanel : MonoBehaviour
 		existingPreviews.Add(preview);
 	}
 
+	public void UpdateMission(string missionName, string missionDescription) 
+	{
+		foreach (GameObject preview in existingPreviews)
+		{
+			if (preview.GetComponent<MissionPreview>().missionNameText.text == missionName)
+			{
+				Debug.Log("Preview Updated");
+				preview.GetComponent<MissionPreview>().missionDescriptionText.text = missionDescription;
+			}
+		}
+	}
 	public void FinishMission(string missionName)
 	{
 		foreach (GameObject preview in existingPreviews)
