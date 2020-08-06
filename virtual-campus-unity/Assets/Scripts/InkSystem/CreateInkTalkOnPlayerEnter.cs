@@ -11,7 +11,7 @@ public class CreateInkTalkOnPlayerEnter : CreateInkTalk
 
 	public bool talkImmediatelyAfterCollision = false;
 
-	private void Start()
+	private void Awake()
 	{
 		speaker = GetComponent<NPCInfo>();
 	}
