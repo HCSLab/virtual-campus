@@ -136,19 +136,19 @@
 总的来说，分为五部分：
 -
 +n
-<color=blue>大学核心课程(U-core)</color> <color=red>U-core</color>
+大学核心课程(U-core)  U-core
 -
 +n
-<color=blue>学院大礼包(school package)</color>   <color=red>Package</color>
+学院大礼包(school package)  Package
 -
 +n
-<color=blue>专业必修(major required)</color>   <color=red>MR</color>
+专业必修(major required)  MR
 -
 +n
-<color=blue>专业选修（major elective）</color>   <color=red>ME</color>
+专业选修（major elective)  ME  
 -
 +n
-<color=blue>自由选修（free elective）</color>   <color=red>Free</color>
+自由选修（free elective)  Free  
 -
 +n 
 <color=blue>大学核心课程</color>为每个中大（深圳）学生都必须修读的课程，主要包含4节英语课(12分)、6节通识课(18分)、1节中文课（3分）、2门体育课（2分）、1门IT课（1分）。一共<color=blue>36</color>学分。

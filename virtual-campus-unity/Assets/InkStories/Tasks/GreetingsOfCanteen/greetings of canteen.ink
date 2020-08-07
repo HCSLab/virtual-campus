@@ -153,7 +153,7 @@
 你不吃外卖的话，那就此别过咯。
 -
 +n
-以后，如果要找我的话，我就在<color=red>逸夫A栋</color>门前。
+以后，如果要找我的话，我就在<color=red>逸夫书院东座</color>。
 -
 *……
 真是可惜啊，就此道别了，本来还想和你一起去室内体育馆看看的，不过这些看来是不行了。
@@ -170,6 +170,5 @@
 *也有道理
 #disable: student_ZBW_shaw
 #enableNPC: student_ZBW
-#upd_description: 
 #endstory
 ->DONE

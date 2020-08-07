@@ -27,9 +27,7 @@ VAR likeness = 0
     ->DONE
 
 === checkFood ===
-TODO:#判断喂食是否过于频繁
-->success
-{~->success|->failure}
+{~->success|->success|->failure}
 
 === success ===
 嗯嗯，真好吃。

@@ -16,8 +16,8 @@ public class PlayerInfo : SavableMonoBehavior
 	}
 	private void Update()
 	{
-		digit["likeness"] = likeness;
-		info["school"] = school;
+		likeness = digit["likeness"];
+		school = info["school"];
 	}
 	public enum InfoKeyword
 	{

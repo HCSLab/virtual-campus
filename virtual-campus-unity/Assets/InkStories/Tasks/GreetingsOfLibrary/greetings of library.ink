@@ -8,6 +8,7 @@
 === func_start_of_mission ===
 #without: func_talk_with_studentZBW
 #collidetrigger: university_library_collider
+#talk_immediately_after_collision
 在走进图书馆之前，你看到了门口站着一个人，瘦瘦高高，在图书馆门口，脸上有些迷茫。
 -
 +n

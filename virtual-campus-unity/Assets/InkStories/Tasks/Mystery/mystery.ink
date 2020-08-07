@@ -1,6 +1,7 @@
 //mission name: mystery man
 #after: power cut
 
+
 #name: 神秘人
 #description: 停电事件解决了，但在找钥匙的过程中，你见到了一个奇怪的人。还手电筒时，又似乎出现了奇怪的情况。你想起了那个戴着面具的怪人，<color=red>行政楼后山</color>，你决定去探索一下。
 
@@ -23,8 +24,7 @@
 // ->DONE
 
 === func_talk_to_mystery ===
-#override
-#collidetrigger: mystery
+#attach: mystery
 *你是……？
 ……
 -
@@ -67,27 +67,28 @@
 *<color=\#808080>（或许……我该去找<color=red>安保处</color>问问？）</color>
 ->DONE
 
-=== func_mystery1 ===
-#after: func_talk_to_mystery
-#override
-#collidetrigger: mystery
-+n
-<color=\#808080>（神秘人并没有再说什么）</color>
--
-*<color=\#808080>（或许……我该去找<color=red>安保处</color>问问？）</color>
-->DONE
+// === func_mystery1 ===
+// #after: func_talk_to_mystery
+// #override
+// #collidetrigger: mystery
+// +n
+// <color=\#808080>（神秘人并没有再说什么）</color>
+// -
+// *<color=\#808080>（或许……我该去找<color=red>安保处</color>问问？）</color>
+// #upd_description: 奇怪的人！或许我该去找安保处问问怎么办，刚刚在下沉广场那里看到他了// ，说不定可以让<color=red>安保处</color>查查监控。去<color=red>小广场</color// >南侧问问吧。
+// ->DONE
 
 === func_talk_to_guard ===
 #attach: security_guard
 #after: func_talk_to_mystery
-*保安大哥，刚刚我看见了一个怪人
+*保安大哥，我刚才看见了一个怪人
 怪人！哪里？有伤着你吗？
 -
-*额……倒也没有，但是行为举止都挺奇怪的……
-在哪个位置？让我看看监控，得提前留个心眼。
+*刚刚应该是路过了下沉广场……
+是嘛，让我看看监控，看看这是个什么人，怎么着得提前留个心眼。
 -
-*（告诉安保大哥位置）
-好嘞，让我看看……
++n
+<color=\#808080>（开始调监控……）</color>
 -
 +n
 诶？奇怪啊……这里没有人啊？
@@ -110,17 +111,17 @@
 *<color=\#808080>（他提到了徽章……难道是要我收集完所有徽章？）</color>
 总之，不仅身体安全要注意，心理安全也要搞好啊……
 -
-*<color=\#808080>（算了，先回去找找看，ta还在不在那里）</color>
+*<color=\#808080>（算了，不如直接回去问问）</color>
 同学？
 -
 *啊，好的好的，谢谢保安大哥！
+#upd_description: 监控里没有这个人的身影！事情变的越来越奇怪了……总之，得回到<color=red>行政楼后山</color>那里问问ta是怎么一回事。
 ->DONE
 
 === func_return_to_mystery ===
-#override
-#collidetrigger: mystery
+#attach: mystery
 #after: func_talk_to_guard
-*……
+*<color=\#808080>（尝试接近……）</color>
 ……
 -
 *你是鬼吗？
@@ -196,21 +197,11 @@
 是的。
 -
 *还是会说话的嘛……
+#upd_description: 神秘人似乎想让你收集完所有的徽章。每次收集到一个新的，就可以去找ta。似乎只有见到徽章，神秘人才会说话。
 ->DONE
-
-=== func_mystery_idling ===
-#after: func_return_to_mystery
-#override
-#collidetrigger: mystery
-+n
-<color=\#808080>（神秘人很沉默）</color>
--
-+<color=\#808080>（看起来只有看到徽章才会说话了……）</color>
-#notfinished
-->DONE
-
 
 VAR badge = 0
+VAR MAX_BADGE = 4
 
 === func_kitten ===
 #require_item: 猫咪徽章
@@ -255,7 +246,7 @@ VAR badge = 0
 +n
 ……
 -
-{~badge == 5: ->func_ending}
+{badge == MAX_BADGE: ->func_ending}
 +n
 好了，不聊天了。
 -
@@ -304,7 +295,7 @@ VAR badge = 0
 +n
 ……
 -
-{~badge == 5: ->func_ending}
+{badge == MAX_BADGE: ->func_ending}
 +n
 好了，不聊天了。
 -
@@ -345,7 +336,7 @@ VAR badge = 0
 +n
 ……
 -
-{~badge == 5: ->func_ending}
+{badge == MAX_BADGE: ->func_ending}
 +n
 好了，不聊天了。
 -
@@ -353,9 +344,20 @@ VAR badge = 0
 你也该去收集下一个徽章了。
 ->END
 
+//=== func_mystery_idling ===
+//#after: func_return_to_mystery
+//#override
+//#collidetrigger: mystery
+//+n
+//<color=\#808080>（神秘人很沉默）</color>
+//-
+//+<color=\#808080>（看起来只有看到徽章才会说话了……）</color>
+//#notfinished
+//->DONE
 
 // === func_parkour ===
 // TODO: #require: 跑酷徽章
+// #after: func_return_to_mystery
 // #attach: mystery
 // *我拿到<color=\#800080><b>跑酷徽章</b></color>了
 // 是嘛。
@@ -390,6 +392,7 @@ VAR badge = 0
 
 === func_photo ===
 #require_item: 摄影徽章
+#after: func_return_to_mystery
 #attach: mystery
 *我拿到<color=\#800080><b>摄影徽章</b></color>了
 是嘛。
@@ -413,11 +416,13 @@ VAR badge = 0
 +n
 不过偶尔当当老师，也蛮不错的……
 -
++n 
+而且学校里风景也蛮适合摄影的，不拍几张照都有点可惜咯。
 -
 +n
 ……
 -
-{~badge == 5: ->func_ending}
+{badge == MAX_BADGE: ->func_ending}
 +n
 好了，不聊天了。
 -

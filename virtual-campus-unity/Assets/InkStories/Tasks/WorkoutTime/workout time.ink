@@ -15,8 +15,6 @@
 那么，需要我给你介绍一下吗？
     **好的
         ->introduction
-    **不用了
-        ->END
 
 
 === endings ===

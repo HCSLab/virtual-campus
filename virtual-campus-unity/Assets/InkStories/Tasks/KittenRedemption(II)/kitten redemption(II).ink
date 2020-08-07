@@ -107,10 +107,8 @@
 
 === func_dorm ===
 #require: func_library
-#override
-#collidetrigger: Shaw_dorm_admin
-怎么了，又出什么问题了吗？
-*如此这般……
+#attach: Shaw_dorm_admin
+*述说小白和小可爱的问题……
 哦……你是说小可爱和小白灵魂互换？
 -
 +n
@@ -212,10 +210,8 @@
 
 === func_dorm2 ===
 # require: func_canteen
-#override
-#collidetrigger: Shaw_dorm_admin
-小白和小可爱的事情是怎么回事？
-*您猜的果然没错
+#attach: Shaw_dorm_admin
+*小白和小可爱的事您说的果然没错
 哈！果然如此。
 -
 +n

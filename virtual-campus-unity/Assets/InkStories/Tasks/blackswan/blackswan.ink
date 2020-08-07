@@ -5,7 +5,9 @@
 #description: 图书馆前台的小姐姐似乎心不在焉，难道发生了什么？你决定去找她问问看。
 
 === func_start ===
-#attach: lib_receptionist
+#override
+#collidetrigger: lib_receptionist
+<color=\#808080>（似乎在思考什么的样子）</color>
 *怎么了，看起来有些心事？
 听说学校里飞进来一只黑天鹅，刚刚还在图书馆后面的水池里呢。
 -
@@ -29,7 +31,7 @@
 #require: func_start
 #attach: PM_staff
 *有听过黑天鹅的消息吗？
-黑天鹅吗，好像听过，刚刚物业处有人去找了，但是现在也没有找到它在哪里。
+哦哦，黑天鹅啊，好像听过。刚刚物业处有人去找了，但是现在也没有找到它在哪里。
 -
 +n 
 不过，刚刚有个学生事务处的老师来这里了。
@@ -55,7 +57,9 @@
 
 === func_OSA_part ===
 #require: func_PM_part
-#attach: OSA_receptionist
+#override
+#collidetrigger: OSA_receptionist
+同学你好啊，来找我有什么事吗？
 *老师，这是你的饭卡嘛？
 啊，是的是的！
 -
@@ -81,15 +85,17 @@
 不过，我听说，逸夫的宿管阿姨好像也去找了。
 -
 +n
-或许你可以去<color=red>逸夫宿舍楼</color>那里找她问问……
+或许你可以去<color=red>逸夫书院西座</color>那里找她问问……
 -
 *嗯嗯，谢谢
-#upd_description: 你已经跑了大半个校园了！但是至今为止还是没有人知道黑天鹅的行踪。这次你被引向了<color=red>逸夫书院</color>的<color=red>宿管阿姨</color>。
+#upd_description: 你已经跑了大半个校园了！但是至今为止还是没有人知道黑天鹅的行踪。这次你被引向了<color=red>逸夫书院（西座）</color>的<color=red>宿管阿姨</color>。
 ->DONE
 
 === func_Shaw_part ===
 #require: func_OSA_part
-#attach: Shaw_dorm_admin
+#override
+#collidetrigger: Shaw_dorm_admin
+同学你好啊，有什么需要帮忙的吗？
 *阿姨好，你有找到黑天鹅吗
 黑色的天鹅？
 -

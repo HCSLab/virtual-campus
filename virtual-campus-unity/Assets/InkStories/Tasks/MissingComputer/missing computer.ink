@@ -9,7 +9,7 @@
 #collidetrigger:student_ZBW
 <color=\#808080>（闷闷不乐的样子）</color>
 …………
-*\*离开*
++\*离开*
     #notfinished
     ->END
 *怎么了？
@@ -121,6 +121,7 @@
 #override
 #collidetrigger:student_ZBW
 #require:func_security
+怎么样？有什么消息吗？
 *如此这般……
 这样啊……那我心里就有数了。
 -
@@ -136,7 +137,7 @@
 +n
 犯了错就是要承担责任。
 -
-*可是你就没有错吗
+*可是你就没有错吗……？
 ……
 -
 +n
