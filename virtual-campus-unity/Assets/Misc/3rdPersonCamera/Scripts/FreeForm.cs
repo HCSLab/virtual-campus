@@ -33,6 +33,9 @@ namespace ThirdPersonCamera
         private float yAngle;
         private float angle;
 
+        public float maxFieldOfView;
+        public float minFieldOfView;
+
         private string rightAxisXName;
         private string rightAxisYName;
         private bool mouse0;
@@ -130,14 +133,14 @@ namespace ThirdPersonCamera
 
                 if (Input.GetAxis("Mouse ScrollWheel") < 0) // back
                 {
-                    if (cameraController.desiredDistance < 8)
+                    if (cameraController.desiredDistance < maxFieldOfView)
                     {
                         cameraController.desiredDistance += cameraController.zoomOutStepValue;
                     }
                 }
                 if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
                 {
-                    if (cameraController.desiredDistance > 1)
+                    if (cameraController.desiredDistance > minFieldOfView)
                     {
                         cameraController.desiredDistance -= cameraController.zoomOutStepValue;
                     }
