@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFile: {fileID: 4900000, guid: 8d4db829882ead34db4b1d5ad861c8d1, type: 3}
+  talkCount: 0
+  endStory: 0
+  nameForDisplay: 
+  description: 
+  updated: 0
   talkPrefab: {fileID: 7845050267080054249, guid: b097a1a43b8aff2409fa10ab1282016b,
     type: 3}
 --- !u!1001 &3782801513834748905
@@ -67,17 +72,17 @@ PrefabInstance:
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -99.56
+      value: -106.036
       objectReference: {fileID: 0}
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.56
+      value: 3.547
       objectReference: {fileID: 0}
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26.63
+      value: 23.434
       objectReference: {fileID: 0}
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
@@ -87,7 +92,7 @@ PrefabInstance:
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.2588191
+      value: -0.86602545
       objectReference: {fileID: 0}
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
@@ -97,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9659258
+      value: 0.49999994
       objectReference: {fileID: 0}
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
@@ -112,7 +117,7 @@ PrefabInstance:
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 30
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 6080431462720044903, guid: 774b3b599d920894b952b891d53dcd40,
         type: 3}
@@ -148,6 +153,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.spaceCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097706178963451529, guid: 774b3b599d920894b952b891d53dcd40,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742431856907616107, guid: 774b3b599d920894b952b891d53dcd40,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6080431462720044902, guid: 774b3b599d920894b952b891d53dcd40, type: 3}

@@ -75,7 +75,7 @@
 === func_dark_area1 ===
 #require: func_with_PM_staff
 #without_global: item_手电筒
-#collidetrigger:dark_area
+#collidetrigger: dark_area_collider
 +n
 你感觉这里似乎有些暗。
 -
@@ -89,7 +89,7 @@
 === func_dialogue_with_dorm_admin ===
 #require: func_with_PM_staff
 #override
-#collidetrigger: dorm_admin
+#collidetrigger: Shaw_dorm_admin
 问的怎么样啦？
 *如此这般……
 哦……原来是这样啊。
@@ -137,8 +137,8 @@
 #upd_description:你在找钥匙的过程中看到了一个<color=red>戴着面具的神秘人</color>，ta跑向了<color=red>行政楼后山</color>方向。但既然找到了钥匙，似乎神秘人也不是很重要，还是先把钥匙还回去吧。
 ->DONE
 
-=== returning ===
-#after:start
+=== func_returning ===
+#after:func_founded
 #override
 #collidetrigger: PM_staff
 同学，你找到钥匙了吗？
@@ -155,8 +155,9 @@
 #upd_description:现在，把手电筒还给逸夫的<color=red>宿管阿姨</color>吧。
 ->DONE
 
-=== ending ===
-#attach: dorm_admin
+=== func_ending ===
+#after:func_returning
+#attach: Shaw_dorm_admin
 *我来还手电筒了，谢谢阿姨啦
 哦？你刚刚来还过了啊。
 -
