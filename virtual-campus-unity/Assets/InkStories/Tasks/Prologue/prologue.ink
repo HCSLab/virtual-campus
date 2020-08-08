@@ -1,7 +1,7 @@
 // === func_prologue ===
 //#collidetrigger: birthpoint_collider
 //#talk_immediately_after_collision
-今天是个大晴天。
+今天天气晴朗。
 -
 +n
 刚刚度过了高考的你，享受完了美妙自由的高三暑假，终于要迎接属于自己的大学生活了。
@@ -38,6 +38,12 @@
 -
 *知道了
 以上就是所有的基础操作了。
+-
+*有关地图
+在收到录取通知书的同时，你也收到了一份<color=red>地图</color>。上面清晰地标注了每个主要地点的位置。
+-
++n
+<color=red>M键</color>可以调出大地图。这会帮助你省去很多寻路的时间
 -
 +n
 那么，请你沿着地图<color=red>上方</color>前往<color=red>小广场</color>吧，<color=red>校长</color>将在那里等着你。
