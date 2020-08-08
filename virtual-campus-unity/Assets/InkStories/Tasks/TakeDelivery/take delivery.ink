@@ -4,13 +4,6 @@
 #name: 取外卖
 #description: 电脑找到了之后，张博闻似乎心情大好，他给你打电话，让你去<color=red>逸夫书院东座</color>找他，似乎有什么事情。
 
-VAR SE_door = false
-VAR S_door = false
-VAR E_door = false
-
-=== finish_description ===
-#upd_description: 三个门都没有！你白跑了一趟！你决定回去找张博闻问问是怎么一回事。
-->->
 
 === func_start ===
 #override
@@ -53,58 +46,54 @@ VAR E_door = false
 诶，不急不急，谢谢啦。辛苦你啦，嘿嘿。
 -
 *……别忘了刚刚说好的跑腿费
-#upd_description: 你本来以为有什么好事，结果又是被帮忙跑腿。这次需要分别去学校的三个大门：<color=red>东门</color>，<color=red>东南门</color>，<color=red>北门</color>看看。
+#upd_description: 你本来以为有什么好事，结果又是被帮忙跑腿。这次需要分别去学校的三个大门：<color=red>南门</color>，<color=red>东南门</color>，<color=red>东门</color>看看。
 ->DONE
 
 === func_east_door ===
 #after: func_start
-#collidetrigger: north_gate_collider
+#collidetrigger: east_gate_collider
 #talk_immediately_after_collision
-~E_door = true
-{S_door == true && SE_door == true:
-似乎哪里都没有，你决定回去找张博文问问看。
--else:
 似乎<color=red>东门</color>并没有外卖小哥，去别的地方看看吧。
-}
 +n
 #upd_description: <color=red>东门</color>并没有外卖小哥，去别的地方看看吧。
-{SE_door && S_door && E_door: ->finish_description->}
 ->DONE
 
 === func_south_door ===
 #after: func_start
-#collidetrigger: southeast_gate_collider
+#collidetrigger: south_gate_collider
 #talk_immediately_after_collision
-~SE_door = true
-{E_door == true && SE_door == true:
-似乎哪里都没有，你决定回去找张博文问问看。
--else:
 似乎<color=red>南门</color>并没有外卖小哥，去别的地方看看吧。
-}
 +n
 #upd_description: <color=red>南门</color>并没有外卖小哥，去别的地方看看吧。
-{SE_door && S_door && E_door: ->finish_description->}
 ->DONE
 
 === func_southeast_door ===
 #after: func_start
-#collidetrigger: southwest_gate_collider
+#collidetrigger: southeast_gate_collider
 #talk_immediately_after_collision
-~SE_door = true
-{E_door == true && S_door == true:
-似乎哪里都没有，你决定回去找张博文问问看。
--else:
 似乎<color=red>东南门</color>并没有外卖小哥，去别的地方看看吧。
-}
 +n
 #upd_description: <color=red>东南门</color>并没有外卖小哥，去别的地方看看吧。
-{SE_door && S_door && E_door: ->finish_description->}
+->DONE
+
+=== func_all_doors_finished ===
+#after: func_east_door
+#after: func_southeast_door
+#after: func_south_door
+#collidetrigger: southeast_gate_collider
+#collidetrigger: east_gate_collider
+#collidetrigger: south_gate_collider
+#talk_immediately_after_collision
+似乎三个门都没有人……
+这是怎么一回事？你决定回去找张博文问问。
++n
+#upd_description: 三个门都没有！你白跑了一趟！你决定回去找张博闻问问是怎么一回事。
 ->DONE
 
 === func_ending === 
-#after: func_north_door
+#after: func_east_door
 #after: func_southeast_door
-#after: func_southwest_door
+#after: func_south_door
 #override
 #collidetrigger: student_ZBW
 啊，你来了，抱歉，我刚刚……
