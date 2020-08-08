@@ -45,11 +45,6 @@ public class InkTalk : MonoBehaviour
 
         PlayerInfo.WriteToInkStory(inkStory);
 
-        if (speaker)
-        {
-            speaker.StartTalkMode();
-        }
-
         if (inkStory.HasFunction(executeFunction))
         {
             inkStory.CheckInFunction(executeFunction);

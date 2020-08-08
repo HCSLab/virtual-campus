@@ -31,5 +31,10 @@ public class CreateInkTalk : MonoBehaviour
         EventCenter.Broadcast("create_" + gameObject.name + "_talk", talk);
 
         UIManager.Instance.OpenTalk(talk);
+
+        if (speaker)
+        {
+            speaker.StartTalkMode();
+        }
     }
 }
