@@ -8,6 +8,7 @@ public class PlayerInfo : SavableMonoBehavior
 {
 	public int likeness;
 	public string school;
+	public int flag;
 	protected override void Start()
 	{
 		base.Start();
@@ -18,6 +19,7 @@ public class PlayerInfo : SavableMonoBehavior
 	{
 		likeness = digit["likeness"];
 		school = info["school"];
+		flag = digit["acflag"];
 	}
 	public enum InfoKeyword
 	{
