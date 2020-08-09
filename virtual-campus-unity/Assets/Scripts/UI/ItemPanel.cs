@@ -31,9 +31,10 @@ public class ItemPanel : MonoBehaviour
 	public GameObject skinDisplayPrefab;
 	public GameObject skinRight;
 	public TextMeshProUGUI skinNameText;
-	public PlayerSkin player, previewPlayer;
+	public PlayerSkin player, previewPlayer, iconPlayer;
 	public float rotateSpeed;
 	public SkinScriptableObject[] skins;
+    public RenderTexture skinIconRenderTexture;
 
 	[Header("Real World Photo")]
 	public GameObject realWorldPhotoDisplayPrefab;
@@ -57,9 +58,9 @@ public class ItemPanel : MonoBehaviour
 
 	private void Start()
 	{
-		foreach (var skin in skins)
-			AddSkin(skin);
         AddItem("炉石");
+        foreach (var skin in skins)
+			StartCoroutine(AddSkin(skin));
 	}
 
 	private void OnEnable()
@@ -154,19 +155,34 @@ public class ItemPanel : MonoBehaviour
 	#endregion
 
 	#region Skin
+    /*
 	public void AddSkin(SkinScriptableObject skin)
 	{
 		var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
-		skinDisplay.GetComponent<SkinDisplay>().Initialize(skin);
-	}
+		skinDisplay.GetComponent<SkinDisplay>().Initialize(skin, iconPlayer, skinIconRenderTexture);
 
-	public void AddSkin(string skinName)
+    }
+    */
+
+    IEnumerator AddSkin(SkinScriptableObject skin)
+    {
+        yield return new WaitForEndOfFrame();
+        while (SkinDisplay.busy)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
+        skinDisplay.GetComponent<SkinDisplay>().Initialize(skin, iconPlayer, skinIconRenderTexture);
+        yield return null;
+    }
+
+    public void AddSkin(string skinName)
 	{
 		foreach (var skin in skinList)
 		{
 			if (skin.name == skinName)
 			{
-				AddSkin(skin);
+				StartCoroutine(AddSkin(skin));
 				break;
 			}
 		}
