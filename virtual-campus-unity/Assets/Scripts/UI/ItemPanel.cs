@@ -120,9 +120,9 @@ public class ItemPanel : MonoBehaviour
     public void ShowItem(ItemScriptableObject item)
 	{
 		itemRight.SetActive(true);
-        if (item.GetType().IsSubclassOf(typeof(GadgetScriptableObject)))
+        if (item.GetType().IsSubclassOf(typeof(UsableItemScriptableObject)))
         {
-            GadgetScriptableObject gadget = (GadgetScriptableObject) item;
+            UsableItemScriptableObject gadget = (UsableItemScriptableObject) item;
             itemUseButton.SetActive(true);
             itemUseButton.GetComponent<Button>().onClick.RemoveAllListeners();
             itemUseButton.GetComponent<Button>().onClick.AddListener(gadget.Use);
