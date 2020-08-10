@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class SettingsPanel : SavableMonoBehavior
 {
+	static public SettingsPanel Instance;
+
 	public Toggle fullscreenToggle;
 	public TMP_Dropdown resolutionDropdownMenu;
 	public Slider masterVolumeSlider;
@@ -27,6 +29,11 @@ public class SettingsPanel : SavableMonoBehavior
 	};
 
 	CoroutineState attemptAutoResetCoroutineState;
+
+	private void Awake()
+	{
+		Instance = this;
+	}
 
 	protected override void Start()
 	{

@@ -45,20 +45,20 @@ public class PlayerController : MonoBehaviour
     {
         if (GetMapInput())
         {
-            if (!UIManager.Instance.fullScreenMap.activeSelf)
+            if (!UIManager.Instance.fullScreenMapCanvas.activeSelf)
             {
-                UIManager.Instance.fullScreenMap.SetActive(true);
+                UIManager.Instance.fullScreenMapCanvas.SetActive(true);
             }
             else
             {
-                UIManager.Instance.fullScreenMap.SetActive(false);
+                UIManager.Instance.fullScreenMapCanvas.SetActive(false);
             }
         }
         else if (GetBagInput())
         {
             if (!UIManager.Instance.tabMenuCanvas.activeSelf)
             {
-                UIManager.Instance.OpenTab(1);
+                UIManager.Instance.OpenTab(ItemPanel.Instance.gameObject);
             }
             else
             {
@@ -71,14 +71,14 @@ public class PlayerController : MonoBehaviour
             {
                 return;
             }
-            else if (UIManager.Instance.fullScreenMap.activeSelf)
+            else if (UIManager.Instance.fullScreenMapCanvas.activeSelf)
             {
-                UIManager.Instance.fullScreenMap.SetActive(false);
+                UIManager.Instance.fullScreenMapCanvas.SetActive(false);
                 return;
             }
             if (!UIManager.Instance.tabMenuCanvas.activeSelf)
             {
-                UIManager.Instance.OpenTab(6);
+                UIManager.Instance.OpenTab(SettingsPanel.Instance.gameObject);
                 UIManager.Instance.resetSettingsPanel();
             }
             else
