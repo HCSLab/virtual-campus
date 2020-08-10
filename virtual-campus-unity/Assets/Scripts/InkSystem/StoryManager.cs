@@ -8,6 +8,8 @@ public class StoryManager : MonoBehaviour
 {
     public static StoryManager Instance;
 
+    public int treasureCount;
+
     public List<StoryScript> stories = new List<StoryScript>();
 
     private Dictionary<string, string> storyStatus = new Dictionary<string, string>();

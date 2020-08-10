@@ -5,6 +5,7 @@ using UnityEngine;
 public class MissionFinishRateAchievement : Achievement
 {
 	int totalNumberOfMissions, currentProgress;
+    public int treasureCount;
 
 	protected override void Awake()
 	{
@@ -18,7 +19,8 @@ public class MissionFinishRateAchievement : Achievement
 	{
 		base.Start();
 
-		totalNumberOfMissions = StoryManager.Instance.stories.Count;
+        treasureCount = StoryManager.Instance.treasureCount;
+        totalNumberOfMissions = StoryManager.Instance.stories.Count - treasureCount;
 		UpdateProgress(currentProgress);
 	}
 
