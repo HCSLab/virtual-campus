@@ -21,7 +21,8 @@ public static class EventCenter
 		PhotographyBadgeEarned,
 		SchoolBadgeEarned,
 		OneWelcomeMissionFinished,
-	};
+        OneTreasureFound,
+    };
 
 	public static void AddListener<T>(T eventType, Action<object> callback)
 	{

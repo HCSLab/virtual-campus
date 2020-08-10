@@ -40,6 +40,10 @@ public class MissionPanel : MonoBehaviour
 		}
         else if (missionName.EndsWith("宝箱"))
         {
+            if (isFinished)
+            {
+                EventCenter.Broadcast(EventCenter.AchievementEvent.OneTreasureFound, null);
+            }
             return;
         }
 
