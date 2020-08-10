@@ -58,7 +58,6 @@ public class ItemPanel : MonoBehaviour
 
 	private void Start()
 	{
-        AddItem("炉石");
         foreach (var skin in skins)
 			StartCoroutine(AddSkin(skin));
 	}
