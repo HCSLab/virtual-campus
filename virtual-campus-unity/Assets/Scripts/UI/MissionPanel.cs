@@ -40,10 +40,6 @@ public class MissionPanel : MonoBehaviour
 		}
         else if (missionName.EndsWith("宝箱"))
         {
-            if (isFinished)
-            {
-                EventCenter.Broadcast(EventCenter.AchievementEvent.OneTreasureFound, null);
-            }
             return;
         }
 
@@ -88,7 +84,11 @@ public class MissionPanel : MonoBehaviour
 
 	public void FinishMission(string finishedMissionName)
 	{
-		if (!missionNames.Contains(finishedMissionName))
+        if (finishedMissionName.EndsWith("宝箱"))
+        {
+            EventCenter.Broadcast(EventCenter.AchievementEvent.OneTreasureFound, null);
+        }
+        if (!missionNames.Contains(finishedMissionName))
 		{
 			return;
 		}

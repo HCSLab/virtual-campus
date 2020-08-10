@@ -28,7 +28,7 @@ public class TreasureAchievement : Achievement
 
     void UpdateProgress(int newProgress)
     {
-        if (newProgress > targetTreasure)
+        if (newProgress >= targetTreasure)
             Finish();
 
         currentProgress = newProgress;
