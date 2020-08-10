@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GadgetScriptableObject : ItemScriptableObject
+public class UsableItemScriptableObject : ItemScriptableObject
 {
     public virtual void Use()
     {
