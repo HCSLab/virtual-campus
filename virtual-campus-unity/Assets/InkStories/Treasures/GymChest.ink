@@ -7,7 +7,6 @@
 #collidetrigger:GymChest
 哇！是体育老师的私藏！
 * 打开
-#additem: 炉石
 #addskin: 墨西哥摔角手
 获得皮肤<color=red>[墨西哥摔角手]</color>！
 -

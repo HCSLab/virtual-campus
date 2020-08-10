@@ -8,7 +8,7 @@ public class SkinDisplay : MonoBehaviour
 	public Image image;
     public static bool busy = false;
 
-	SkinScriptableObject skin;
+	public SkinScriptableObject skin;
 
     Texture2D RenderTextureToTexture2D(RenderTexture rt)
     {

@@ -59,14 +59,24 @@ public class ItemPanel : MonoBehaviour
 	private void Start()
 	{
         foreach (var skin in skins)
-			StartCoroutine(AddSkin(skin));
-	}
+        {
+            AddSkin(skin);
+        }
+        foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
+        {
+            StartCoroutine(GenerateSkinIcon(skinDisplay));
+        }
+    }
 
 	private void OnEnable()
 	{
 		itemRight.SetActive(false);
 		skinRight.SetActive(false);
 		realWorldPhotoRight.SetActive(false);
+        foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
+        {
+            StartCoroutine(GenerateSkinIcon(skinDisplay));
+        }
 	}
 
 	GameObject InstantiateDisplayAndAddToContainer(GameObject prefab)
@@ -163,16 +173,21 @@ public class ItemPanel : MonoBehaviour
     }
     */
 
-    IEnumerator AddSkin(SkinScriptableObject skin)
+    IEnumerator GenerateSkinIcon(SkinDisplay skinDisplay)
     {
         yield return new WaitForEndOfFrame();
         while (SkinDisplay.busy)
         {
             yield return new WaitForEndOfFrame();
         }
-        var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
-        skinDisplay.GetComponent<SkinDisplay>().Initialize(skin, iconPlayer, skinIconRenderTexture);
+        skinDisplay.GetComponent<SkinDisplay>().Initialize(skinDisplay.skin, iconPlayer, skinIconRenderTexture);
         yield return null;
+    }
+
+    public void AddSkin(SkinScriptableObject skin)
+    {
+        var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
+        skinDisplay.GetComponent<SkinDisplay>().skin = skin;
     }
 
     public void AddSkin(string skinName)
@@ -181,7 +196,7 @@ public class ItemPanel : MonoBehaviour
 		{
 			if (skin.name == skinName)
 			{
-				StartCoroutine(AddSkin(skin));
+				AddSkin(skin);
 				break;
 			}
 		}
