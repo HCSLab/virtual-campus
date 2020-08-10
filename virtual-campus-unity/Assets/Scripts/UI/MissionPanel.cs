@@ -38,6 +38,10 @@ public class MissionPanel : MonoBehaviour
 		{
 			return;
 		}
+        else if (missionName.EndsWith("宝箱"))
+        {
+            return;
+        }
 
 		var currentIndex = nextMissionIndex;
 		nextMissionIndex++;
