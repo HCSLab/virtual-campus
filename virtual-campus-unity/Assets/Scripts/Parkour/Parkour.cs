@@ -72,7 +72,7 @@ public class Parkour : MonoBehaviour
 
     IEnumerator DelayedCloseTimer()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
         timer.gameObject.SetActive(false);
         UIManager.Instance.successText.SetActive(false);
         UIManager.Instance.failureText.SetActive(false);
