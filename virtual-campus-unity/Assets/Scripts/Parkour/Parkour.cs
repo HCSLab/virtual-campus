@@ -10,13 +10,24 @@ public class Parkour : MonoBehaviour
     [HideInInspector]
     public int nextPathPoint;
 
+    public static Parkour Instance;
+
     void Start()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Instance.Fail();
+            Instance = this;
+        }
     }
 
     public void StartParkour()
     {
+        timer.gameObject.SetActive(true);
         timer.StartTiming(timeLimit);
         nextPathPoint = 0;
         pathPoints[0].SetActive(true);
@@ -30,16 +41,22 @@ public class Parkour : MonoBehaviour
     }
     public void Success()
     {
-        
+        End();
     }
 
     public void Fail()
     {
+        End();
+    }
 
+    public void End()
+    {
+        timer.gameObject.SetActive(false);
     }
     
     void Update()
     {
         //if (pathPoints[nextPathPoint].GetComponent<BoxCollider>())
     }
+
 }
