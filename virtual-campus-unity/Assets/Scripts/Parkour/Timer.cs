@@ -32,6 +32,7 @@ public class Timer : MonoBehaviour
     public void EndTiming()
     {
         start = false;
+        Parkour.Instance.Fail();
     }
 
     void Update()
