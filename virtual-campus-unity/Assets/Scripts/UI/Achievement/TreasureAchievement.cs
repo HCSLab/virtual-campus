@@ -11,8 +11,7 @@ public class TreasureAchievement : Achievement
     protected override void Start()
     {
         base.Start();
-        if (currentProgress == 0)
-            UpdateProgress(PlayerPrefs.GetInt(SaveSystem.GetAchievementProgressName(gameObject), 0));
+        UpdateProgress(PlayerPrefs.GetInt(SaveSystem.GetAchievementProgressName(gameObject), 0));
     }
 
     protected override void OnEventTriggered(object data)
