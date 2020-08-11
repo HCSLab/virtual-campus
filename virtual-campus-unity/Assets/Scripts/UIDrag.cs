@@ -12,9 +12,22 @@ public class UIDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     public int xShift;
     public int yShift;
 
-    void Start()
+    //Vector2 = (x, z)
+    public Vector2 center;
+    public Vector2 buttonLeft;
+
+    private float half_width;
+    private float half_height;
+    private int rect_half_width;
+    private int rect_half_height;
+
+    void Awake()
     {
         m_rt = gameObject.GetComponent<RectTransform>();
+        half_height = Mathf.Abs(center.x - buttonLeft.x);
+        half_width = Mathf.Abs(center.y - buttonLeft.y);
+        rect_half_width = Mathf.FloorToInt(m_rt.rect.width / 2);
+        rect_half_height = Mathf.FloorToInt(m_rt.rect.height / 2);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -31,6 +44,15 @@ public class UIDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         }
 
         SetDraggedPosition(eventData);
+    }
+
+    private void OnEnable()
+    {
+        Transform player = GameObject.FindGameObjectWithTag("Player").transform;
+        float down = -(center.x - player.position.x) / half_width;
+        float left = (center.y - player.position.z) / half_height;
+        m_rt.localPosition = new Vector3(rect_half_width * left, rect_half_height * down, 0);
+        CheckForBoundary();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -52,9 +74,8 @@ public class UIDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         }
     }
 
-    void Update()
+    private void CheckForBoundary()
     {
-
         if (m_rt.anchoredPosition.x > xShift)
         {
             m_rt.anchoredPosition = new Vector2(xShift, m_rt.anchoredPosition.y);
@@ -71,5 +92,9 @@ public class UIDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         {
             m_rt.anchoredPosition = new Vector2(m_rt.anchoredPosition.x, -yShift);
         }
+    }
+    void Update()
+    {
+         CheckForBoundary();
     }
 }
