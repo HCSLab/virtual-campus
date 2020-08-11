@@ -26,7 +26,7 @@ public class Timer : MonoBehaviour
         start = true;
         time = 0f;
         maxTime = max;
-        
+        SetTimeLimitText();
     }
 
     public void EndTiming()
