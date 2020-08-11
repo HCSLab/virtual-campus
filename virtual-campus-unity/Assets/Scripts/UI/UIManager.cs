@@ -75,8 +75,6 @@ public class UIManager : MonoBehaviour
 			var currentIndex = i;
 			tabButtonCaches[i].button.onClick.RemoveAllListeners();
 			tabButtonCaches[i].button.onClick.AddListener(() => { OpenTab(currentIndex); });
-
-			CloseTab(i);
 		}
 
 		// Delay the disabling to ensure the Start() of every panel is called.
@@ -169,6 +167,8 @@ public class UIManager : MonoBehaviour
 	{
 		yield return null;
 		yield return null;
+		for(int i = 0; i < tabs.Length; i++)
+			CloseTab(i);
 		tabMenuCanvas.SetActive(false);
 	}
 
