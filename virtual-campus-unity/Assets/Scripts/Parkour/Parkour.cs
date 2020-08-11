@@ -23,6 +23,7 @@ public class Parkour : MonoBehaviour
             Instance.Fail();
             Instance = this;
         }
+        StartParkour();
     }
 
     public void StartParkour()
@@ -37,6 +38,11 @@ public class Parkour : MonoBehaviour
     {
         pathPoints[nextPathPoint].SetActive(false);
         nextPathPoint++;
+        if (nextPathPoint == pathPoints.Count)
+        {
+            Success();
+            return;
+        }
         pathPoints[nextPathPoint].SetActive(true);
     }
     public void Success()

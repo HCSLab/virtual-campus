@@ -18,7 +18,6 @@ public class Timer : MonoBehaviour
     {
         time = 0f;
         start = false;
-        StartTiming(10);
     }
 
     public void StartTiming(float max)
