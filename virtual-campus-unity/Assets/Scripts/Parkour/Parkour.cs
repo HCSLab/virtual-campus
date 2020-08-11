@@ -5,7 +5,10 @@ using UnityEngine;
 public class Parkour : MonoBehaviour
 {
     public List<GameObject> pathPoints;
+    [HideInInspector]
     public Timer timer;
+    [HideInInspector]
+    public GameObject parkourCanvas;
     public float timeLimit;
     [HideInInspector]
     public int nextPathPoint;
@@ -20,9 +23,11 @@ public class Parkour : MonoBehaviour
         }
         else
         {
-            Instance.Fail();
+            Instance.Failure();
             Instance = this;
         }
+        timer = UIManager.Instance.timer;
+        parkourCanvas = UIManager.Instance.parkourCanvas;
         StartParkour();
     }
 
@@ -47,22 +52,29 @@ public class Parkour : MonoBehaviour
     }
     public void Success()
     {
+        UIManager.Instance.successText.SetActive(true);
+        UIManager.Instance.counddownSFXSource.PlayOneShot(UIManager.Instance.successSFX);
+        timer.start = false;
         End();
     }
 
-    public void Fail()
+    public void Failure()
     {
+        UIManager.Instance.failureText.SetActive(true);
+        UIManager.Instance.counddownSFXSource.PlayOneShot(UIManager.Instance.failureSFX);
         End();
     }
 
     public void End()
     {
-        timer.gameObject.SetActive(false);
-    }
-    
-    void Update()
-    {
-        //if (pathPoints[nextPathPoint].GetComponent<BoxCollider>())
+        StartCoroutine(DelayedCloseTimer());
     }
 
+    IEnumerator DelayedCloseTimer()
+    {
+        yield return new WaitForSeconds(5);
+        timer.gameObject.SetActive(false);
+        UIManager.Instance.successText.SetActive(false);
+        UIManager.Instance.failureText.SetActive(false);
+    }
 }

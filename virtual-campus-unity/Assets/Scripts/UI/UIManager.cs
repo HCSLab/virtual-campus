@@ -42,6 +42,18 @@ public class UIManager : MonoBehaviour
     [Header("Others")]
     public Scrollbar settingsVerticalScrollbar;
 
+    [Header("Parkour")]
+    public GameObject parkourCanvas;
+    public Timer timer;
+    public GameObject successText;
+    public GameObject failureText;
+    public AudioClip pathPointSFX;
+    public AudioClip countdownSFX;
+    public AudioSource pathPointSFXSource;
+    public AudioSource counddownSFXSource;
+    public AudioClip successSFX;
+    public AudioClip failureSFX;
+
     // [Header("Painter")]
     // public GameObject painterHub;
     // public List<GameObject> painters;

@@ -31,13 +31,15 @@ public class Timer : MonoBehaviour
     public void EndTiming()
     {
         start = false;
-        Parkour.Instance.Fail();
+        Parkour.Instance.Failure();
     }
 
+    float lastTime;
     void Update()
     {
         if (start)
         {
+            lastTime = time;
             time += Time.deltaTime;         
             if (time > maxTime)
             {
@@ -45,6 +47,7 @@ public class Timer : MonoBehaviour
                 EndTiming();
             }
             UpdateText();
+            UpdateCountDownSound();
         }
     }
 
@@ -80,6 +83,8 @@ public class Timer : MonoBehaviour
         }
         timeLimitText.text = m + ":" + s + ":" + ms;
     }
+
+    
     private void UpdateText()
     {
         int minute = Mathf.FloorToInt(time / 60);
@@ -114,6 +119,22 @@ public class Timer : MonoBehaviour
         if (maxTime - time < 3)
         {
             timeText.color = Color.red;
+        }
+    }
+
+    public void UpdateCountDownSound()
+    {
+        if (maxTime - lastTime > 3 && maxTime - time < 3)
+        {
+            UIManager.Instance.counddownSFXSource.PlayOneShot(UIManager.Instance.countdownSFX);
+        }
+        if (maxTime - lastTime > 2 && maxTime - time < 2)
+        {
+            UIManager.Instance.counddownSFXSource.PlayOneShot(UIManager.Instance.countdownSFX);
+        }
+        if (maxTime - lastTime > 1 && maxTime - time < 1)
+        {
+            UIManager.Instance.counddownSFXSource.PlayOneShot(UIManager.Instance.countdownSFX);
         }
     }
 }

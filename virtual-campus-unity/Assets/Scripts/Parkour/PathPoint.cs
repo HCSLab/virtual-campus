@@ -12,6 +12,7 @@ public class PathPoint : MonoBehaviour
         if (other.tag == "Player")
         {
             reached = true;
+            UIManager.Instance.pathPointSFXSource.PlayOneShot(UIManager.Instance.pathPointSFX);
             Parkour.Instance.NextPathPoint();
         }
     }
