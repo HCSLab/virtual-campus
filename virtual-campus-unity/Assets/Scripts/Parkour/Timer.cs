@@ -12,6 +12,7 @@ public class Timer : MonoBehaviour
     [HideInInspector]
     public float maxTime;
     public TextMeshProUGUI timeText;
+    public TextMeshProUGUI timeLimitText;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class Timer : MonoBehaviour
         start = true;
         time = 0f;
         maxTime = max;
+        
     }
 
     public void EndTiming()
@@ -46,6 +48,38 @@ public class Timer : MonoBehaviour
         }
     }
 
+    private void SetTimeLimitText()
+    {
+        int minute = Mathf.FloorToInt(maxTime / 60);
+        int second = Mathf.FloorToInt(maxTime - 60 * minute);
+        int msecond = Mathf.FloorToInt((maxTime - Mathf.FloorToInt(maxTime)) * 100);
+        string m, s, ms;
+        if (minute < 10)
+        {
+            m = "0" + minute.ToString();
+        }
+        else
+        {
+            m = minute.ToString();
+        }
+        if (second < 10)
+        {
+            s = "0" + second.ToString();
+        }
+        else
+        {
+            s = second.ToString();
+        }
+        if (msecond < 10)
+        {
+            ms = "0" + msecond.ToString();
+        }
+        else
+        {
+            ms = msecond.ToString();
+        }
+        timeLimitText.text = m + ":" + s + ":" + ms;
+    }
     private void UpdateText()
     {
         int minute = Mathf.FloorToInt(time / 60);
