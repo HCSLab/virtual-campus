@@ -12,6 +12,8 @@ public class Parkour : MonoBehaviour
     public float timeLimit;
     [HideInInspector]
     public int nextPathPoint;
+    [HideInInspector]
+    public bool success;
 
     public static Parkour Instance;
 
@@ -28,6 +30,7 @@ public class Parkour : MonoBehaviour
         }
         timer = UIManager.Instance.timer;
         parkourCanvas = UIManager.Instance.parkourCanvas;
+        success = false;
         StartParkour();
     }
 
@@ -55,6 +58,7 @@ public class Parkour : MonoBehaviour
         UIManager.Instance.successText.SetActive(true);
         UIManager.Instance.counddownSFXSource.PlayOneShot(UIManager.Instance.successSFX);
         timer.start = false;
+        success = true;
         End();
     }
 
