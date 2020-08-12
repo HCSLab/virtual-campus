@@ -13,11 +13,13 @@ public class Timer : MonoBehaviour
     public float maxTime;
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI timeLimitText;
+    private Color defaultColor;
 
     private void Awake()
     {
         time = 0f;
         start = false;
+        defaultColor = timeText.color;
     }
 
     public void StartTiming(float max)
@@ -25,6 +27,7 @@ public class Timer : MonoBehaviour
         start = true;
         time = 0f;
         maxTime = max;
+        timeText.color = defaultColor;
         SetTimeLimitText();
     }
 

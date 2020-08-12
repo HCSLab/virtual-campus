@@ -79,17 +79,17 @@ public class Parkour : MonoBehaviour
 
     public void End()
     {
-        StartCoroutine(DelayedCloseTimer());
-        startPoint.SetActive(false);
-        paths.SetActive(false);
-        startPoint.SetActive(true);
+        StartCoroutine(DelayedDestroy());
+        //startPoint.SetActive(false);
+        //paths.SetActive(false);
     }
 
-    IEnumerator DelayedCloseTimer()
+    IEnumerator DelayedDestroy()
     {
         yield return new WaitForSeconds(8);
-        timer.gameObject.SetActive(false);
-        UIManager.Instance.successText.SetActive(false);
-        UIManager.Instance.failureText.SetActive(false);
+        Destroy(gameObject);
+        //timer.gameObject.SetActive(false);
+        //UIManager.Instance.successText.SetActive(false);
+        //UIManager.Instance.failureText.SetActive(false);
     }
 }
