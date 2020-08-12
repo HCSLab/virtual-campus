@@ -21,15 +21,21 @@ public class Parkour : MonoBehaviour
 
     void Start()
     {
+        Init();
+    }
+
+    void Init()
+    {
         if (Instance == null)
         {
             Instance = this;
         }
-        else
+        else if (Instance != this)
         {
             Instance.Failure();
             Instance = this;
         }
+        startPoint.SetActive(true);
         timer = UIManager.Instance.timer;
         parkourCanvas = UIManager.Instance.parkourCanvas;
         success = false;
@@ -76,7 +82,7 @@ public class Parkour : MonoBehaviour
         StartCoroutine(DelayedCloseTimer());
         startPoint.SetActive(false);
         paths.SetActive(false);
-
+        startPoint.SetActive(true);
     }
 
     IEnumerator DelayedCloseTimer()
