@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Parkour : MonoBehaviour
 {
+    public GameObject startPoint;
     public List<GameObject> pathPoints;
     [HideInInspector]
     public Timer timer;
@@ -14,6 +15,7 @@ public class Parkour : MonoBehaviour
     public int nextPathPoint;
     [HideInInspector]
     public bool success;
+    public GameObject paths;
 
     public static Parkour Instance;
 
@@ -31,7 +33,6 @@ public class Parkour : MonoBehaviour
         timer = UIManager.Instance.timer;
         parkourCanvas = UIManager.Instance.parkourCanvas;
         success = false;
-        StartParkour();
     }
 
     public void StartParkour()
@@ -40,6 +41,7 @@ public class Parkour : MonoBehaviour
         timer.StartTiming(timeLimit);
         nextPathPoint = 0;
         pathPoints[0].SetActive(true);
+        startPoint.SetActive(false);
     }
 
     public void NextPathPoint()
@@ -72,6 +74,9 @@ public class Parkour : MonoBehaviour
     public void End()
     {
         StartCoroutine(DelayedCloseTimer());
+        startPoint.SetActive(false);
+        paths.SetActive(false);
+
     }
 
     IEnumerator DelayedCloseTimer()
