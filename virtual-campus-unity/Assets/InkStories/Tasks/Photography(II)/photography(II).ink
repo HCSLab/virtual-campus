@@ -11,7 +11,7 @@
 *我来领取下一个拍照任务啦
 好的，是觉得自己准备好了吗。那么，这张就是你要<color=blue>复现</color>的照片了。
 -
-TODO:获得任务照片
+#enable: task(II)_img
 +n
 一定要注意拍摄的<color=blue>位置</color>和<color=blue>角度</color>。
 -
@@ -22,11 +22,13 @@ TODO:获得任务照片
 老规矩，完成作业的话，我就会给你一张和之前一样难得一见的大师级超现实摄影作品。可以供你学习或者收藏哦。
 -
 *好的
+#disable: task(II)_img
+#addphoto: 摄影任务2
 ->DONE
 
 === func_end ===
 #require:func_start
-TODO:拍照任务完成的条件
+#require_photo: task(II)
 #attach: PM_staff
 *给，这是我拍的照片
 哦，这张看起来不错嘛。
@@ -34,7 +36,7 @@ TODO:拍照任务完成的条件
 +n
 好的，这次就算你通过咯。根据约定，这是你的奖励
 -
-TODO：获得真实照片
+#addphoto: 摄影线2
 +n
 怎么样，看着这张照片，是不是感觉自己还有待提升呢？
 -

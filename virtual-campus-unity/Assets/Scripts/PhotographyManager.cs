@@ -173,20 +173,20 @@ public class PhotographyManager : MonoBehaviour
 			}
 		}
 		// Show hint box when success or failure
-		if (undoneTargetCount > 0)
-		{
-			var talkCreater = GetComponent<CreateInkTalk>();
-			if (isSuccess)
-			{
-				talkCreater.executeFunction = "success";
-				talkCreater.Create();
-			}
-			else
-			{
-				talkCreater.executeFunction = "failure";
-				talkCreater.Create();
-			}
-		}
+		//if (undoneTargetCount > 0)
+		//{
+		//	var talkCreater = GetComponent<CreateInkTalk>();
+		//	if (isSuccess)
+		//	{
+		//		talkCreater.executeFunction = "success";
+		//		talkCreater.Create();
+		//	}
+		//	else
+		//	{
+		//		talkCreater.executeFunction = "failure";
+		//		talkCreater.Create();
+		//	}
+		//}
 
 		isTakingPhoto = true;
 	}
