@@ -284,6 +284,7 @@ public class BETA_SETTINGS{
         jumpPowerInternal = jumpPower;
     }
 
+    float playerToGround;
     private void Start()
     {
         #region Modification
@@ -360,6 +361,8 @@ public class BETA_SETTINGS{
         if(playerCamera)
             fOVKick.fovStart = playerCamera.fieldOfView;
         #endregion
+
+        playerToGround = GetComponent<JumpSound>().playerToGround;
     }
 
     private void Update()
@@ -390,8 +393,12 @@ public class BETA_SETTINGS{
         didJump = canHoldJump ? playerController.GetJumpInput() : playerController.GetJumpInput();
         if (!canJump) { didJump = false; }
         yVelocity = fps_Rigidbody.velocity.y;
+
         
-        if (IsGrounded && didJump && jumpPowerInternal > 0)
+        bool IsGroundedForJumping = (Physics.Raycast(transform.position, Vector3.down, playerToGround, 
+            1 << LayerMask.NameToLayer("VoxWorld")) || IsGrounded);
+
+        if (IsGroundedForJumping && didJump && jumpPowerInternal > 0)
         {
             yVelocity += jumpPowerInternal;
             IsGrounded = false;
