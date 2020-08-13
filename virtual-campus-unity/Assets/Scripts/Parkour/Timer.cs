@@ -21,6 +21,7 @@ public class Timer : MonoBehaviour
         time = 0f;
         start = false;
         defaultColor = timeText.color;
+        giveUpButton.SetActive(false);
     }
 
     public void StartTiming(float max)
