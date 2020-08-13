@@ -46,6 +46,9 @@ public class Parkour : MonoBehaviour
         timer = UIManager.Instance.timer;
         parkourCanvas = UIManager.Instance.parkourCanvas;
         success = false;
+        timer.gameObject.SetActive(false);
+        UIManager.Instance.successText.SetActive(false);
+        UIManager.Instance.failureText.SetActive(false);
     }
 
     public void StartParkour()
