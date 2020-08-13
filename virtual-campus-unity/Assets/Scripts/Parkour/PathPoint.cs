@@ -29,5 +29,8 @@ public class PathPoint : MonoBehaviour
         {
             transform.GetChild(0).SetParent(Parkour.Instance.paths.transform);
         }
+        
+        GetComponent<RotatingObject>().horizontal = true;
+        GetComponent<Rigidbody>().ResetCenterOfMass();
     }
 }

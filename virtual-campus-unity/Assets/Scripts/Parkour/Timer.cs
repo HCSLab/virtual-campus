@@ -140,4 +140,9 @@ public class Timer : MonoBehaviour
             UIManager.Instance.counddownSFXSource.PlayOneShot(UIManager.Instance.countdownSFX);
         }
     }
+
+    public void GiveUp()
+    {
+        EndTiming();
+    }
 }
