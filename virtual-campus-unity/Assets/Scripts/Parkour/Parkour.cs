@@ -22,6 +22,11 @@ public class Parkour : MonoBehaviour
 
     public static Parkour Instance;
 
+    private bool alphaIncrease;
+    public float alphaSpeed;
+    public float maxAlpha;
+    public float minAlpha;
+
     void Start()
     {
         Init();
@@ -49,6 +54,13 @@ public class Parkour : MonoBehaviour
         timer.gameObject.SetActive(false);
         UIManager.Instance.successText.SetActive(false);
         UIManager.Instance.failureText.SetActive(false);
+        alphaIncrease = false;
+        Color c = pathPointMaterial.color;
+        Color d = endPointMaterial.color;
+        c.a = (maxAlpha + minAlpha) / 2;
+        d.a = (maxAlpha + minAlpha) / 2;
+        pathPointMaterial.color = c;
+        endPointMaterial.color = d;
     }
 
     public void StartParkour()
@@ -110,35 +122,32 @@ public class Parkour : MonoBehaviour
         UIManager.Instance.failureText.SetActive(false);
     }
 
-    private bool alphaIncrease = false;
-    public float alphaSpeed;
-    public float maxAlpha;
-    public float minAlpha;
     private void Update()
     {
-        
         Color c = pathPointMaterial.color;
+        Color d = endPointMaterial.color;
+        float alpha = c.a;
         if (alphaIncrease)
         {
-            c.a += Time.deltaTime * alphaSpeed;
-            if (c.a >= maxAlpha)
+            alpha += Time.deltaTime * alphaSpeed;
+            if (alpha >= maxAlpha)
             {
-                c.a = maxAlpha;
+                alpha = maxAlpha;
                 alphaIncrease = false;
             }
-            pathPointMaterial.color = c;
         }
         else
         {
-            c.a -= Time.deltaTime * alphaSpeed;
-            if (c.a <= minAlpha)
+            alpha -= Time.deltaTime * alphaSpeed;
+            if (alpha <= minAlpha)
             {
-                c.a = minAlpha;
+                alpha = minAlpha;
                 alphaIncrease = true;
             }
-            pathPointMaterial.color = c;
         }
-        
-
+        c.a = alpha;
+        d.a = alpha;
+        pathPointMaterial.color = c;
+        endPointMaterial.color = d;
     }
 }
