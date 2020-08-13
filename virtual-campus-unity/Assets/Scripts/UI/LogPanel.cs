@@ -87,7 +87,10 @@ public class LogPanel : SavableMonoBehavior
 		log.GetComponent<TextMeshProUGUI>().text = s.ToString();
 
 		LogNotificationCenter.Instance.Post(s.ToString());
-	}
+
+
+        UIManager.Instance.PlayAchievementSFX();
+    }
 
 	protected override void Save(object data)
 	{

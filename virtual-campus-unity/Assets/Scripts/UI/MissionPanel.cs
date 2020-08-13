@@ -87,6 +87,7 @@ public class MissionPanel : MonoBehaviour
         if (finishedMissionName.EndsWith("宝箱"))
         {
             EventCenter.Broadcast(EventCenter.AchievementEvent.OneTreasureFound, null);
+            UIManager.Instance.missionFinishedSource.PlayOneShot(UIManager.Instance.missionFinishedSFX);
         }
         if (!missionNames.Contains(finishedMissionName))
 		{
@@ -94,6 +95,7 @@ public class MissionPanel : MonoBehaviour
 		}
 
 		EventCenter.Broadcast(EventCenter.AchievementEvent.OneMissionFinished, null);
+        UIManager.Instance.missionFinishedSource.PlayOneShot(UIManager.Instance.missionFinishedSFX);
 		MissionPreviewPanel.Instance.FinishMission(finishedMissionName);
 
 		for (int i = 0; i < missionNames.Count; i++)

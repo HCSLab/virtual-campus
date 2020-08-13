@@ -19,8 +19,12 @@ public class UIManager : MonoBehaviour
 	public AudioClip buttonPointerEnterClip;
 	public AudioClip buttonPointerClickClip;
 	public AudioSource sfxSource;
+    public AudioClip missionFinishedSFX;
+    public AudioClip achievementSFX;
+    public AudioSource missionFinishedSource;
+    public AudioSource achievementSource;
 
-	[Header("HUD")]
+   [Header("HUD")]
 	public GameObject hudCanvas;
 	public GameObject pressToTalk;
 	public Transform talkContainer;
@@ -175,7 +179,17 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	IEnumerator DisableTabCanvas()
+    public void PlayAchievementSFX()
+    {
+        StartCoroutine(DelayedAchievementSFX());
+    }
+    public IEnumerator DelayedAchievementSFX()
+    {
+        yield return new WaitForSeconds(0.8f);
+        achievementSource.PlayOneShot(UIManager.Instance.achievementSFX);
+    }
+
+    IEnumerator DisableTabCanvas()
 	{
 		yield return null;
 		yield return null;
