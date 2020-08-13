@@ -20,15 +20,7 @@ public class PathPoint : MonoBehaviour
 
     private void OnEnable()
     {
-        for (int i=0; i<transform.childCount; i++)
-        {
-            transform.GetChild(i).gameObject.SetActive(true);
-            
-        }
-        while (transform.childCount > 0)
-        {
-            transform.GetChild(0).SetParent(Parkour.Instance.paths.transform);
-        }
+       
         
         GetComponent<RotatingObject>().horizontal = true;
         GetComponent<Rigidbody>().ResetCenterOfMass();

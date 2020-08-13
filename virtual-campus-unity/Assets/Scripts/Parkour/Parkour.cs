@@ -15,7 +15,7 @@ public class Parkour : MonoBehaviour
     public int nextPathPoint;
     [HideInInspector]
     public bool success;
-    public GameObject paths;
+    //public GameObject paths;
 
     public Material pathPointMaterial;
     public Material endPointMaterial;
