@@ -73,6 +73,7 @@ public class ItemPanel : MonoBehaviour
 		itemRight.SetActive(false);
 		skinRight.SetActive(false);
 		realWorldPhotoRight.SetActive(false);
+        SkinDisplay.busy = false;
         foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
         {
             StartCoroutine(GenerateSkinIcon(skinDisplay));
@@ -286,7 +287,8 @@ public class ItemPanel : MonoBehaviour
 
 	private void Update()
 	{
-		if (rotateLeft)
+        
+        if (rotateLeft)
 		{
 			previewPlayer.transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime, Space.World);
 		}

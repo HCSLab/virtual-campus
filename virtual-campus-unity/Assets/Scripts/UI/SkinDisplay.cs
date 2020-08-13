@@ -33,6 +33,7 @@ public class SkinDisplay : MonoBehaviour
         busy = true;
 		skin = newSkin;
         playerForSkinIcon.ChangeSkinTexture(newSkin.skinTexture);
+
         StartCoroutine(GenerateIcon(skinIconRenderTexture));
         
         /*
@@ -42,13 +43,14 @@ public class SkinDisplay : MonoBehaviour
         */
     }
 
-    IEnumerator GenerateIcon(RenderTexture skinIconRenderTexture)
+    public IEnumerator GenerateIcon(RenderTexture skinIconRenderTexture)
     {
         yield return new WaitForEndOfFrame();
         Texture2D skinTexture = RenderTextureToTexture2D(skinIconRenderTexture);
         Sprite sprite = Sprite.Create(skinTexture, new Rect(0, 0, skinTexture.width, skinTexture.height), new Vector2(0.5f, 0.5f));
         image.sprite = sprite;
         busy = false;
+        
     }
 
     public void OnButtonClicked()
