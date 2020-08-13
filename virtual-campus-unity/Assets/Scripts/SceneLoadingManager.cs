@@ -62,6 +62,8 @@ public class SceneLoadingManager : MonoBehaviour
             }
 		}
 
+        yield return new WaitForSeconds(0.5f);
+
         loadingCanvas.SetActive(false);
 		skyboxAnimationContainer.SetActive(false);
 		gameObject.LeanCancel();
