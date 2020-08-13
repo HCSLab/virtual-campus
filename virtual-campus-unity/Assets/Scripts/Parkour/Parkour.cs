@@ -38,6 +38,10 @@ public class Parkour : MonoBehaviour
             Instance.Failure();
             Instance = this;
         }
+        foreach (GameObject pathPoint in pathPoints)
+        {
+            pathPoint.SetActive(false);
+        }
         startPoint.SetActive(true);
         timer = UIManager.Instance.timer;
         parkourCanvas = UIManager.Instance.parkourCanvas;
@@ -55,7 +59,7 @@ public class Parkour : MonoBehaviour
 
     public void NextPathPoint()
     {
-        pathPoints[nextPathPoint].SetActive(false);
+        pathPoints[nextPathPoint].GetComponent<ParkourPath>().pathPoint.SetActive(false);
         nextPathPoint++;
         if (nextPathPoint == pathPoints.Count)
         {
@@ -82,6 +86,9 @@ public class Parkour : MonoBehaviour
 
     public void End()
     {
+        timer.giveUpButton.SetActive(false);
+        pathPoints[nextPathPoint].GetComponent<ParkourPath>().pathPoint.SetActive(false);
+        pathPoints[pathPoints.Count - 1].GetComponent<ParkourPath>().pathPoint.SetActive(false);
         StartCoroutine(DelayedDestroy());
         //startPoint.SetActive(false);
         //paths.SetActive(false);

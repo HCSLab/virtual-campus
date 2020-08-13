@@ -14,6 +14,7 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI timeLimitText;
     private Color defaultColor;
+    public GameObject giveUpButton;
 
     private void Awake()
     {
