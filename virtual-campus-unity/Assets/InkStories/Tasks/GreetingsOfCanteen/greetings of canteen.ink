@@ -3,7 +3,7 @@
 #after: greetings of library
 
 #name: 食堂的问候
-#description: 张博闻已经逛过所有的食堂了，根据约定，他会带你去逛一遍学校里所有的食堂。你们的第一站是<color=red>学生活动中心</color>一楼的<color=blue>潘多拉美食广场</color>。
+#description: 张博闻已经逛过所有的食堂了，根据约定，他会带你去逛一遍学校里所有的食堂。你们的第一站是<color=red>学生中心</color>一楼的<color=blue>潘多拉美食广场</color>。
 
 
 === func_pandora ===
@@ -29,7 +29,7 @@
 -
 #disable: student_ZBW_pandora
 #enable: student_ZBW_second_floor
-#upd_description:第二站：<color=red>学生活动中心二楼</color>的餐厅！
+#upd_description:第二站：<color=red>学生中心二楼</color>的餐厅！
 ->DONE
 
 === func_second_floor ===
