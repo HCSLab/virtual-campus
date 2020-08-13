@@ -30,6 +30,8 @@ public class Timer : MonoBehaviour
         time = 0f;
         maxTime = max;
         timeText.color = defaultColor;
+        UIManager.Instance.successText.SetActive(false);
+        UIManager.Instance.failureText.SetActive(false);
         SetTimeLimitText();
     }
 
