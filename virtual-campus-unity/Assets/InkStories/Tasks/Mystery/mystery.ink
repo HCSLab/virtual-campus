@@ -1,7 +1,7 @@
 //mission name: mystery man
 #after: power cut
 
-
+// ->func_kitten
 #name: 神秘人
 #description: 停电事件解决了，但在找钥匙的过程中，你见到了一个奇怪的人。还手电筒时，又似乎出现了奇怪的情况。你想起了那个戴着面具的怪人，<color=red>行政楼后山</color>，你决定去探索一下。
 
@@ -202,6 +202,7 @@
 
 VAR badge = 0
 VAR MAX_BADGE = 4
+VAR name = ""
 
 === func_kitten ===
 #require_item: 猫咪徽章
@@ -210,11 +211,15 @@ VAR MAX_BADGE = 4
 *我拿到猫咪徽章了
 是嘛。
 -
+~badge = 0
+#upd_info
 +n
 ……
 -
-->badge_info->
-+n
+~name = "kitten"
+->badge_info
+
+=dialogue
 哦，是<color=\#800080><b>猫咪徽章</color></b>啊。
 -
 +n 
@@ -246,7 +251,7 @@ VAR MAX_BADGE = 4
 +n
 ……
 -
-{badge == MAX_BADGE: ->func_ending}
+{badge == MAX_BADGE: ->ending}
 +n
 好了，不聊天了。
 -
@@ -256,16 +261,28 @@ VAR MAX_BADGE = 4
 *知道了
 ->DONE
 
+VAR school = ""
 === func_academic ===
-#require_item: 学术徽章
+{ school:
+    - "SSE": #require_item: SSE学术徽章
+    - "SME": #require_item: SME学术徽章
+    - "HSS": #require_item: HSS学术徽章
+    - "LHS": #require_item: LHS学术徽章
+    - "SDS": #require_item: SDS学术徽章
+}
 #after: func_return_to_mystery
 #attach: mystery
 *我拿到学术徽章了
 是嘛。
 -
-+n
-->badge_info->
-+n
++n 
+……
+-
+~name = "academic"
+->badge_info
+
+
+=dialogue
 哦，是<color=\#800080><b>学术徽章</color></b>啊……
 -
 +n
@@ -295,7 +312,7 @@ VAR MAX_BADGE = 4
 +n
 ……
 -
-{badge == MAX_BADGE: ->func_ending}
+{badge == MAX_BADGE: ->ending}
 +n
 好了，不聊天了。
 -
@@ -314,8 +331,11 @@ VAR MAX_BADGE = 4
 +n
 ……
 -
-->badge_info->
-+n
+~name = "empathy"
+->badge_info
+
+
+=dialogue
 哦？是<color=\#800080><b>同理心徽章</b></color>啊……
 -
 +n
@@ -336,7 +356,7 @@ VAR MAX_BADGE = 4
 +n
 ……
 -
-{badge == MAX_BADGE: ->func_ending}
+{badge == MAX_BADGE: ->ending}
 +n
 好了，不聊天了。
 -
@@ -400,8 +420,11 @@ VAR MAX_BADGE = 4
 +n
 ……
 -
-->badge_info->
-+n
+~name = "photo"
+->badge_info
+
+
+=dialogue
 哦？是<color=\#800080><b>摄影徽章</b></color>啊……
 -
 +n
@@ -422,7 +445,7 @@ VAR MAX_BADGE = 4
 +n
 ……
 -
-{badge == MAX_BADGE: ->func_ending}
+{badge == MAX_BADGE: ->ending}
 +n
 好了，不聊天了。
 -
@@ -435,13 +458,15 @@ VAR MAX_BADGE = 4
 ~badge = badge+1
 #upd_info
 {badge:
-    -1: ->badge1->
-    -2: ->badge2->
-    -3: ->badge3->
-    -4: ->badge4->
+    -1: ->badge1
+    -2: ->badge2
+    -3: ->badge3
+    -4: ->badge4
     // -5: ->badge5->
-    -else: ->DONE
+    // -else: ->DONE
 }
+nihaonihaonihao
+->->
 
 =badge1
 +n
@@ -480,7 +505,7 @@ VAR MAX_BADGE = 4
 *……
 让我看看你的徽章……
 -
-->->
+->badge_name
 
 =badge2
 +n 
@@ -498,7 +523,7 @@ VAR MAX_BADGE = 4
 +n
 接下来，让我们看看你的第二枚徽章……
 -
-->->
+->badge_name
 
 =badge3
 +n 
@@ -522,7 +547,7 @@ VAR MAX_BADGE = 4
 +n
 不管怎么样，让我看看你第三枚徽章……
 -
-->->
+->badge_name
 
 // =badge4
 // +n 
@@ -567,9 +592,18 @@ VAR MAX_BADGE = 4
 +n
 不过在那之前，让我看看你的这枚最后的徽章……
 -
-->->
+->badge_name
 
-=== func_ending ===
+=== badge_name ===
+{name:
+    - "kitten": ->func_kitten.dialogue
+    - "photo" : ->func_photo.dialogue
+    - "empathy": ->func_empathy.dialogue
+    - "academic": ->func_academic.dialogue
+    
+}
+
+=== ending ===
 *徽章收集完了
 哦对了，我都差点忘掉了。
 -

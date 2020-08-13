@@ -9,6 +9,7 @@ public class PlayerInfo : SavableMonoBehavior
 	public int likeness;
 	public string school;
 	public int flag;
+	public int badge;
 	protected override void Start()
 	{
 		base.Start();
@@ -20,6 +21,7 @@ public class PlayerInfo : SavableMonoBehavior
 		likeness = digit["likeness"];
 		school = info["school"];
 		flag = digit["acflag"];
+		badge = digit["badge"];
 	}
 	public enum InfoKeyword
 	{
@@ -41,12 +43,14 @@ public class PlayerInfo : SavableMonoBehavior
 	public enum DigitKeyword
 	{
 		ACFlag,        // Academic Career Index
-		KittenLikeness  // Likeness of the Two Cats
+		KittenLikeness, // Likeness of the Two Cats
+		Badge
 	}
 	public readonly string[] DigitKeywordEnumToString =
 	{
 		"acflag",
-		"likeness"
+		"likeness",
+		"badge"
 	};
 
 
@@ -92,6 +96,11 @@ public class PlayerInfo : SavableMonoBehavior
 				SaveSystem.GetInfoValueName(DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]),
 				0
 				);
+		digit[DigitKeywordEnumToString[(int)DigitKeyword.Badge]] =
+			PlayerPrefs.GetInt(
+				SaveSystem.GetInfoValueName(DigitKeywordEnumToString[(int)DigitKeyword.Badge]),
+				0
+				);
 	}
 
 	protected override void Save(object data)
@@ -126,6 +135,10 @@ public class PlayerInfo : SavableMonoBehavior
 		PlayerPrefs.SetInt(
 			SaveSystem.GetInfoValueName(DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]),
 			digit[DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness]]
+			);
+		PlayerPrefs.SetInt(
+			SaveSystem.GetInfoValueName(DigitKeywordEnumToString[(int)DigitKeyword.Badge]),
+			digit[DigitKeywordEnumToString[(int)DigitKeyword.Badge]]
 			);
 	}
 
