@@ -86,7 +86,7 @@
 -
 *好的，我去看看
 #disable: task(I)_img
-#addphoto: 摄影任务1
+#addphoto: 照片模板01
 ->DONE
 
 === func_sucess ===
@@ -105,7 +105,7 @@
 *什么奖励？是吃的吗？
 当然不是，给，是这张照片。
 -
-#addphoto: 摄影线1
+#addphoto: 大师之作01
 +n
 这可是一张大师级的作品，你仔细看看。
 -
