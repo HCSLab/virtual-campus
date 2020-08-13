@@ -29,7 +29,7 @@
 -
 *怎么这次感觉奇奇怪怪的
 #disable: task(III)_img
-#addphoto: 摄影任务3
+#addphoto: 照片模板03
 ->DONE
 
 === func_end ===
@@ -42,7 +42,7 @@
 +n
 好的，这次就算你通过咯。根据约定，这是你的奖励
 -
-#addphoto: 摄影线3
+#addphoto: 大师之作03
 +n
 等一会，还有一个东西需要给你。
 -

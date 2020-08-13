@@ -23,7 +23,7 @@
 -
 *好的
 #disable: task(II)_img
-#addphoto: 摄影任务2
+#addphoto: 照片模板02
 ->DONE
 
 === func_end ===
@@ -36,7 +36,7 @@
 +n
 好的，这次就算你通过咯。根据约定，这是你的奖励
 -
-#addphoto: 摄影线2
+#addphoto: 大师之作02
 +n
 怎么样，看着这张照片，是不是感觉自己还有待提升呢？
 -
