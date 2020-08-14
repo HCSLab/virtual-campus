@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Parkour : MonoBehaviour
 {
+    public string levelName;
     public GameObject startPoint;
     public List<GameObject> pathPoints;
     [HideInInspector]
@@ -11,6 +12,7 @@ public class Parkour : MonoBehaviour
     [HideInInspector]
     public GameObject parkourCanvas;
     public float timeLimit;
+    public float goldTimeLimit;
     [HideInInspector]
     public int nextPathPoint;
     [HideInInspector]
@@ -92,6 +94,31 @@ public class Parkour : MonoBehaviour
         UIManager.Instance.counddownSFXSource.PlayOneShot(UIManager.Instance.successSFX);
         timer.start = false;
         success = true;
+        if (!FlagBag.Instance.HasFlag(levelName))
+        {
+            FlagBag.Instance.AddFlag(levelName);
+            EventCenter.Broadcast(EventCenter.AchievementEvent.OneParkourFinished, null);
+        }
+        if (timer.time < goldTimeLimit)
+        {
+            string goldLevelName = levelName + "Gold";
+            if (!FlagBag.Instance.HasFlag(goldLevelName))
+            {
+                FlagBag.Instance.AddFlag(goldLevelName);
+                if (levelName == "ParkourChengdao")
+                {
+                    EventCenter.Broadcast(EventCenter.AchievementEvent.ParkourChengdaoGold, null);
+                }
+                else if (levelName == "ParkourShaw")
+                {
+                    EventCenter.Broadcast(EventCenter.AchievementEvent.ParkourShawGold, null);
+                }
+                else if (levelName == "ParkourAdmin")
+                {
+                    EventCenter.Broadcast(EventCenter.AchievementEvent.ParkourAdminGold, null);
+                }
+            }
+        }
         End();
     }
 

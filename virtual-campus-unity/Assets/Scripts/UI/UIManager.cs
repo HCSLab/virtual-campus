@@ -187,7 +187,7 @@ public class UIManager : MonoBehaviour
     }
     public IEnumerator DelayedAchievementSFX()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.5f);
         achievementSource.PlayOneShot(UIManager.Instance.achievementSFX);
     }
 

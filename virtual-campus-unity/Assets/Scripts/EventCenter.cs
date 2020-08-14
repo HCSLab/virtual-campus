@@ -22,6 +22,10 @@ public static class EventCenter
 		SchoolBadgeEarned,
 		OneWelcomeMissionFinished,
         OneTreasureFound,
+        OneParkourFinished,
+        ParkourChengdaoGold,
+        ParkourShawGold,
+        ParkourAdminGold,
     };
 
 	public static void AddListener<T>(T eventType, Action<object> callback)
