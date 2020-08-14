@@ -23,7 +23,7 @@ public class ItemPanel : MonoBehaviour
 	[Header("Item")]
 	public GameObject itemDisplayPrefab;
 	public GameObject itemRight;
-    public GameObject itemUseButton;
+	public GameObject itemUseButton;
 	public TextMeshProUGUI itemNameText, itemDescriptionText;
 	public Image itemIcon;
 
@@ -33,8 +33,8 @@ public class ItemPanel : MonoBehaviour
 	public TextMeshProUGUI skinNameText;
 	public PlayerSkin player, previewPlayer, iconPlayer;
 	public float rotateSpeed;
-	public SkinScriptableObject[] skins;
-    public RenderTexture skinIconRenderTexture;
+	public SkinScriptableObject[] initialSkins;
+	public RenderTexture skinIconRenderTexture;
 
 	[Header("Real World Photo")]
 	public GameObject realWorldPhotoDisplayPrefab;
@@ -58,26 +58,36 @@ public class ItemPanel : MonoBehaviour
 
 	private void Start()
 	{
-        foreach (var skin in skins)
-        {
-            AddSkin(skin);
-        }
-        foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
-        {
-            StartCoroutine(GenerateSkinIcon(skinDisplay));
-        }
-    }
+		foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
+		{
+			StartCoroutine(GenerateSkinIcon(skinDisplay));
+		}
+
+		foreach (var item in itemList)
+			if (FlagBag.Instance.HasFlag(SaveSystem.GetItemFlagName(item)))
+				AddItem(item);
+		foreach (var skin in skinList)
+			if (FlagBag.Instance.HasFlag(SaveSystem.GetSkinFlagName(skin)))
+				AddSkin(skin);
+		foreach (var photo in photoList)
+			if (FlagBag.Instance.HasFlag(SaveSystem.GetRealWorldPhotoFlagName(photo)))
+				AddPhoto(photo);
+
+		foreach (var skin in initialSkins)
+			if (!FlagBag.Instance.HasFlag(SaveSystem.GetSkinFlagName(skin)))
+				AddSkin(skin);
+	}
 
 	private void OnEnable()
 	{
 		itemRight.SetActive(false);
 		skinRight.SetActive(false);
 		realWorldPhotoRight.SetActive(false);
-        SkinDisplay.busy = false;
-        foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
-        {
-            StartCoroutine(GenerateSkinIcon(skinDisplay));
-        }
+		SkinDisplay.busy = false;
+		foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
+		{
+			StartCoroutine(GenerateSkinIcon(skinDisplay));
+		}
 	}
 
 	GameObject InstantiateDisplayAndAddToContainer(GameObject prefab)
@@ -87,7 +97,6 @@ public class ItemPanel : MonoBehaviour
 		instance.transform.localScale = Vector3.one;
 		return instance;
 	}
-
 
 	#region Item
 	public void AddItem(ItemScriptableObject item)
@@ -117,6 +126,10 @@ public class ItemPanel : MonoBehaviour
 		LogNotificationCenter.Instance.Post(
 			"你刚刚获得了物品：<color=orange>" + item.name + "</color>"
 			);
+
+		var flagName = SaveSystem.GetItemFlagName(item);
+		if (!FlagBag.Instance.HasFlag(flagName))
+			FlagBag.Instance.AddFlag(flagName);
 	}
 
 	public void AddItem(string itemName)
@@ -131,20 +144,20 @@ public class ItemPanel : MonoBehaviour
 		}
 	}
 
-    public void ShowItem(ItemScriptableObject item)
+	public void ShowItem(ItemScriptableObject item)
 	{
 		itemRight.SetActive(true);
-        if (item.GetType().IsSubclassOf(typeof(UsableItemScriptableObject)))
-        {
-            UsableItemScriptableObject gadget = (UsableItemScriptableObject) item;
-            itemUseButton.SetActive(true);
-            itemUseButton.GetComponent<Button>().onClick.RemoveAllListeners();
-            itemUseButton.GetComponent<Button>().onClick.AddListener(gadget.Use);
-        }
-        else
-        {
-            itemUseButton.SetActive(false);
-        }
+		if (item.GetType().IsSubclassOf(typeof(UsableItemScriptableObject)))
+		{
+			UsableItemScriptableObject gadget = (UsableItemScriptableObject)item;
+			itemUseButton.SetActive(true);
+			itemUseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+			itemUseButton.GetComponent<Button>().onClick.AddListener(gadget.Use);
+		}
+		else
+		{
+			itemUseButton.SetActive(false);
+		}
 		skinRight.SetActive(false);
 		realWorldPhotoRight.SetActive(false);
 		itemIcon.sprite = item.icon;
@@ -169,7 +182,7 @@ public class ItemPanel : MonoBehaviour
 	#endregion
 
 	#region Skin
-    /*
+	/*
 	public void AddSkin(SkinScriptableObject skin)
 	{
 		var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
@@ -178,28 +191,32 @@ public class ItemPanel : MonoBehaviour
     }
     */
 
-    IEnumerator GenerateSkinIcon(SkinDisplay skinDisplay)
-    {
-        yield return new WaitForEndOfFrame();
-        while (SkinDisplay.busy)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-        skinDisplay.GetComponent<SkinDisplay>().Initialize(skinDisplay.skin, iconPlayer, skinIconRenderTexture);
-        yield return null;
-    }
+	IEnumerator GenerateSkinIcon(SkinDisplay skinDisplay)
+	{
+		yield return new WaitForEndOfFrame();
+		while (SkinDisplay.busy)
+		{
+			yield return new WaitForEndOfFrame();
+		}
+		skinDisplay.GetComponent<SkinDisplay>().Initialize(skinDisplay.skin, iconPlayer, skinIconRenderTexture);
+		yield return null;
+	}
 
-    public void AddSkin(SkinScriptableObject skin)
-    {
-        var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
-        skinDisplay.GetComponent<SkinDisplay>().skin = skin;
+	public void AddSkin(SkinScriptableObject skin)
+	{
+		var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
+		skinDisplay.GetComponent<SkinDisplay>().skin = skin;
 
 		LogNotificationCenter.Instance.Post(
 			"你刚刚获得了皮肤：<color=orange>" + skin.name + "</color>"
 			);
+
+		var flagName = SaveSystem.GetSkinFlagName(skin);
+		if (!FlagBag.Instance.HasFlag(flagName))
+			FlagBag.Instance.AddFlag(flagName);
 	}
 
-    public void AddSkin(string skinName)
+	public void AddSkin(string skinName)
 	{
 		foreach (var skin in skinList)
 		{
@@ -236,6 +253,10 @@ public class ItemPanel : MonoBehaviour
 		LogNotificationCenter.Instance.Post(
 			"你刚刚获得了照片：<color=orange>" + photo.name + "</color>"
 			);
+
+		var flagName = SaveSystem.GetRealWorldPhotoFlagName(photo);
+		if (!FlagBag.Instance.HasFlag(flagName))
+			FlagBag.Instance.AddFlag(flagName);
 	}
 
 	public void AddPhoto(string photoName)
@@ -299,8 +320,8 @@ public class ItemPanel : MonoBehaviour
 
 	private void Update()
 	{
-        
-        if (rotateLeft)
+
+		if (rotateLeft)
 		{
 			previewPlayer.transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime, Space.World);
 		}
