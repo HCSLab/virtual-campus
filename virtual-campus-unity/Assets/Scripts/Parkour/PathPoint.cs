@@ -15,14 +15,14 @@ public class PathPoint : MonoBehaviour
             reached = true;
             UIManager.Instance.pathPointSFXSource.PlayOneShot(UIManager.Instance.pathPointSFX);
             Parkour.Instance.NextPathPoint();
+
+            Parkour.Instance.resetPosition = transform.position;
+            Parkour.Instance.resetPosition.y = other.transform.position.y + 0.25f;
         }
     }
 
     private void OnEnable()
     {
-       
-        
-        GetComponent<RotatingObject>().horizontal = true;
         GetComponent<Rigidbody>().ResetCenterOfMass();
     }
 }

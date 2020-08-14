@@ -29,6 +29,9 @@ public class Parkour : MonoBehaviour
     public float maxAlpha;
     public float minAlpha;
 
+    [HideInInspector]
+    public Vector3 resetPosition = Vector3.zero;
+
     void Start()
     {
         Init();
@@ -179,5 +182,11 @@ public class Parkour : MonoBehaviour
         d.a = alpha;
         pathPointMaterial.color = c;
         endPointMaterial.color = d;
+
+        if(resetPosition.magnitude > 0.1f)
+		{
+            if (Input.GetKeyDown(KeyCode.R))
+                PlayerInfo.Instance.transform.position = resetPosition;
+		}
     }
 }
