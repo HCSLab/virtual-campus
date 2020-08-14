@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class PlayerInfo : SavableMonoBehavior
 {
+	static public PlayerInfo Instance;
+
 	public int likeness;
 	public string school;
 	public int flag;
 	public int badge;
+
 	protected override void Start()
 	{
 		base.Start();
@@ -59,6 +62,8 @@ public class PlayerInfo : SavableMonoBehavior
 
 	private void Awake()
 	{
+		Instance = this;
+
 		info[InfoKeywordEnumToString[(int)InfoKeyword.Name]] =
 			PlayerPrefs.GetString(
 				SaveSystem.GetInfoValueName(InfoKeywordEnumToString[(int)InfoKeyword.Name]),
@@ -183,5 +188,8 @@ public class PlayerInfo : SavableMonoBehavior
 		}
 
 		if (tempDigit != "") digit[tempDigit] = (int)story.variablesState[tempDigit];
+
+		if (tempDigit == Instance.DigitKeywordEnumToString[(int)DigitKeyword.KittenLikeness])
+			EventCenter.Broadcast(EventCenter.AchievementEvent.LikenessUpdated, digit[tempDigit]);
 	}
 }
