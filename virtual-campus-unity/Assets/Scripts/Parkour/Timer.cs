@@ -47,14 +47,9 @@ public class Timer : MonoBehaviour
         if (start)
         {
             lastTime = time;
-            time += Time.deltaTime;         
-            if (time > maxTime)
-            {
-                time = maxTime;
-                EndTiming();
-            }
+            time += Time.deltaTime;
             UpdateText();
-            UpdateCountDownSound();
+            // UpdateCountDownSound();
         }
     }
 
@@ -123,10 +118,10 @@ public class Timer : MonoBehaviour
             ms = msecond.ToString();
         }
         timeText.text = m + ":" + s + ":" + ms;
-        if (maxTime - time < 3)
-        {
-            timeText.color = Color.red;
-        }
+        // if (maxTime - time < 3)
+        // {
+        //     timeText.color = Color.red;
+        // }
     }
 
     public void UpdateCountDownSound()

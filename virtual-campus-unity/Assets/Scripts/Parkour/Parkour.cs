@@ -69,7 +69,7 @@ public class Parkour : MonoBehaviour
     public void StartParkour()
     {
         timer.gameObject.SetActive(true);
-        timer.StartTiming(timeLimit);
+        timer.StartTiming(goldTimeLimit);
         timer.giveUpButton.SetActive(true);
         nextPathPoint = 0;
         pathPoints[0].SetActive(true);

@@ -58,11 +58,6 @@ public class ItemPanel : MonoBehaviour
 
 	private void Start()
 	{
-		foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
-		{
-			StartCoroutine(GenerateSkinIcon(skinDisplay));
-		}
-
 		foreach (var item in itemList)
 			if (FlagBag.Instance.HasFlag(SaveSystem.GetItemFlagName(item)))
 				AddItem(item);
@@ -76,6 +71,11 @@ public class ItemPanel : MonoBehaviour
 		foreach (var skin in initialSkins)
 			if (!FlagBag.Instance.HasFlag(SaveSystem.GetSkinFlagName(skin)))
 				AddSkin(skin);
+
+		foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
+		{
+			StartCoroutine(GenerateSkinIcon(skinDisplay));
+		}
 	}
 
 	private void OnEnable()
