@@ -23,7 +23,7 @@ public class NPCInfo : MonoBehaviour
     {
         npcCamera.SetActive(true);
         if (!mainCam) mainCam = Camera.main.gameObject;
-        mainCam.SetActive(false);
+        // mainCam.SetActive(false);
 
         var player = GameObject.FindGameObjectWithTag("Player");
         var controller = player.GetComponent<PlayerController>();
@@ -35,7 +35,7 @@ public class NPCInfo : MonoBehaviour
     public void EndTalkMode()
     {
         npcCamera.SetActive(false);
-        mainCam.SetActive(true);
+        // mainCam.SetActive(true);
 
         var player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<PlayerController>().FreezeUnfreezePlayer(false);
