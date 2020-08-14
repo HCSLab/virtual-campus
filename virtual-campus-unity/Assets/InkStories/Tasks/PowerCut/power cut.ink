@@ -60,7 +60,7 @@
 那怎么办……对了，你去找<color=red>宿管阿姨</color>问问，她肯定有<color=red>手电筒</color>！
 -
 *怎么又回去了……
-#upd_description:根据物业处的描述，你需要回去找逸夫的宿管老师借一个手电筒，之后到<color=red>学生活动中心和图书馆之间</color>的下沉广场草丛去找找看。
+#upd_description:根据物业处的描述，你需要回去找<color=red>逸夫的宿管老师借一个手电筒</color>，之后到<color=red>学生活动中心和图书馆之间</color>的下沉广场草丛去找找看。
 ->DONE
 
 === func_PM_staff ==
@@ -134,7 +134,7 @@
 -
 #additem: 发电机钥匙
 #disable: engine_key
-#upd_description:你在找钥匙的过程中看到了一个<color=red>戴着面具的神秘人</color>，ta跑向了<color=red>行政楼后山</color>方向。但既然找到了钥匙，似乎神秘人也不是很重要，还是先把钥匙还回去吧。
+#upd_description:你在找钥匙的过程中看到了一个戴着面具的神秘人，ta跑向了行政楼后山方向。但既然找到了钥匙，还是先把钥匙还回到<color=red>物业处人员</color>那里吧。
 ->DONE
 
 === func_returning ===

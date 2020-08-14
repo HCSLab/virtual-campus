@@ -204,6 +204,15 @@ VAR badge = 0
 VAR MAX_BADGE = 4
 VAR name = ""
 
+=== func_clear ===
+#after: func_return_to_mystery
+#attach: mystery
+*徽章清零
+    ~badge = 0
+    #upd_info
+    #notfinished
+    ->DONE
+
 === func_kitten ===
 #require_item: 猫咪徽章
 #after: func_return_to_mystery
@@ -211,8 +220,6 @@ VAR name = ""
 *我拿到猫咪徽章了
 是嘛。
 -
-~badge = 0
-#upd_info
 +n
 ……
 -
@@ -220,6 +227,7 @@ VAR name = ""
 ->badge_info
 
 =dialogue
++n
 哦，是<color=\#800080><b>猫咪徽章</color></b>啊。
 -
 +n 
@@ -283,6 +291,7 @@ VAR school = ""
 
 
 =dialogue
++n
 哦，是<color=\#800080><b>学术徽章</color></b>啊……
 -
 +n
@@ -336,6 +345,7 @@ VAR school = ""
 
 
 =dialogue
++n
 哦？是<color=\#800080><b>同理心徽章</b></color>啊……
 -
 +n
@@ -425,6 +435,7 @@ VAR school = ""
 
 
 =dialogue
++n
 哦？是<color=\#800080><b>摄影徽章</b></color>啊……
 -
 +n

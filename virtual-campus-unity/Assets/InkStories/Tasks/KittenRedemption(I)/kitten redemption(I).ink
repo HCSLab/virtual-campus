@@ -198,7 +198,7 @@
 听路人说，最后一次见到她是在TB楼下，你可以去问问<color=blue>人文学院的院长</color>。
 -
 *好吧，我去问问
-#upd_description: 难怪小白以开始那么焦急的喵喵叫！原来是他的妻子<color=red>小可爱</color>走丢了，根据小白的线索，下一步，你需要去<color=red>TB楼下</color>找<color=red>人文学院院长</color>问问。
+#upd_description: 难怪小白一开始那么焦急的喵喵叫！原来是他的妻子<color=red>小可爱</color>走丢了，根据小白的线索，下一步，你需要去<color=red>TB楼下</color>找<color=red>人文学院院长</color>问问。
 ->DONE
 
 === func_whitey2 ===
