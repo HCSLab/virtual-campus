@@ -5,8 +5,6 @@ using UnityEngine;
 public class ParkourTest : MonoBehaviour
 {
     public List<string> parkours;
-    public GameObject talkToSelect;
-    public GameObject pressToTalk;
 
     public void Test(int i)
     {

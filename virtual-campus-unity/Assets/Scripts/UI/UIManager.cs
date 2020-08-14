@@ -51,12 +51,14 @@ public class UIManager : MonoBehaviour
     public Timer timer;
     public GameObject successText;
     public GameObject failureText;
+    public GameObject promptText;
     public AudioClip pathPointSFX;
     public AudioClip countdownSFX;
     public AudioSource pathPointSFXSource;
     public AudioSource counddownSFXSource;
     public AudioClip successSFX;
     public AudioClip failureSFX;
+    
 
     // [Header("Painter")]
     // public GameObject painterHub;
