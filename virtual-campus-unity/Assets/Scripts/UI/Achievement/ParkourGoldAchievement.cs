@@ -35,6 +35,6 @@ public class ParkourGoldAchievement : Achievement
 
         currentProgress = newProgress;
         fillImage.fillAmount = Mathf.Min(1f, (float)currentProgress / targetParkour);
-        descriptionText.text = descText + " " +  currentProgress + " / " + targetParkour;
+        descriptionText.text = descText;
     }
 }
