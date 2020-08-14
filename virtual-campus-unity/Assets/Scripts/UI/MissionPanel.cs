@@ -39,10 +39,10 @@ public class MissionPanel : MonoBehaviour
 		{
 			return;
 		}
-        else if (missionName.EndsWith("宝箱"))
-        {
-            return;
-        }
+		else if (missionName.EndsWith("宝箱"))
+		{
+			return;
+		}
 
 		var currentIndex = nextMissionIndex;
 		nextMissionIndex++;
@@ -52,7 +52,7 @@ public class MissionPanel : MonoBehaviour
 		missionStates.Add(isFinished);
 
 		var newButton = Instantiate(buttonPrefab);
-		if(isFinished)
+		if (isFinished)
 		{
 			newButton.transform.SetParent(finishedButtonHolder);
 		}
@@ -95,19 +95,22 @@ public class MissionPanel : MonoBehaviour
 
 	public void FinishMission(string finishedMissionName)
 	{
-        if (finishedMissionName.EndsWith("宝箱"))
-        {
-            EventCenter.Broadcast(EventCenter.AchievementEvent.OneTreasureFound, null);
-            UIManager.Instance.missionFinishedSource.PlayOneShot(UIManager.Instance.missionFinishedSFX);
-        }
-        if (!missionNames.Contains(finishedMissionName))
+		if (finishedMissionName.EndsWith("宝箱"))
+		{
+			EventCenter.Broadcast(EventCenter.AchievementEvent.OneTreasureFound, null);
+			UIManager.Instance.missionFinishedSource.PlayOneShot(UIManager.Instance.missionFinishedSFX);
+		}
+		if (!missionNames.Contains(finishedMissionName))
 		{
 			return;
 		}
 
 		EventCenter.Broadcast(EventCenter.AchievementEvent.OneMissionFinished, null);
-        UIManager.Instance.missionFinishedSource.PlayOneShot(UIManager.Instance.missionFinishedSFX);
+		UIManager.Instance.missionFinishedSource.PlayOneShot(UIManager.Instance.missionFinishedSFX);
 		MissionPreviewPanel.Instance.FinishMission(finishedMissionName);
+		LogNotificationCenter.Instance.Post(
+			"你刚刚完成了任务 <color=blue>" + finishedMissionName + "</color>！"
+			);
 
 		for (int i = 0; i < missionNames.Count; i++)
 		{
@@ -125,10 +128,6 @@ public class MissionPanel : MonoBehaviour
 					inProgressFlag.SetActive(false);
 					finishedFlag.SetActive(true);
 				}
-
-				LogNotificationCenter.Instance.Post(
-					"你刚刚完成了任务 <color=blue>" + finishedMissionName + "</color>！"
-					);
 
 				return;
 			}

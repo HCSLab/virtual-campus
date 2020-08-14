@@ -10,25 +10,14 @@ public class LogNotificationCenter : MonoBehaviour
 	public GameObject notificationPrefab;
 	public float displayDuration;
 
-	bool isLoggingEnabled = false;
-
 	private void Awake()
 	{
 		Instance = this;
-		StartCoroutine(EnableLoggingCoroutine());
-	}
-
-	IEnumerator EnableLoggingCoroutine()
-	{
-		yield return null;
-		yield return null;
-		yield return null;
-		isLoggingEnabled = true;
 	}
 
 	public void Post(string content)
 	{
-		if (!isLoggingEnabled)
+		if (Time.time < 1f)
 			return;
 
 		var notification = Instantiate(notificationPrefab);
