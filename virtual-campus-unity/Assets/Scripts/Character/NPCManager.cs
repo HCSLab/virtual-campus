@@ -54,6 +54,7 @@ public class NPCManager : MonoBehaviour
         foreach (Transform npc in transform)
         {
             var creater = npcCreaters[npc.name];
+            if (!creater) continue;
             var inkFunctions = StoryScript.GetAllInkFunctions(creater.inkFile);
             var tempStory = new Story(creater.inkFile.text);
             PlayerInfo.WriteToInkStory(tempStory);
