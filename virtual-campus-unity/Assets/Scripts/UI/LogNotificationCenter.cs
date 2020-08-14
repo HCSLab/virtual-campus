@@ -10,14 +10,17 @@ public class LogNotificationCenter : MonoBehaviour
 	public GameObject notificationPrefab;
 	public float displayDuration;
 
+	bool enableLogging = false;
+
 	private void Awake()
 	{
 		Instance = this;
+		LeanTween.delayedCall(1f, () => { enableLogging = true; });
 	}
 
 	public void Post(string content)
 	{
-		if (Time.time < 1f)
+		if (!enableLogging)
 			return;
 
 		var notification = Instantiate(notificationPrefab);
