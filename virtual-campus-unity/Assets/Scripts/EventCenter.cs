@@ -26,6 +26,7 @@ public static class EventCenter
         ParkourChengdaoGold,
         ParkourShawGold,
         ParkourAdminGold,
+		LikenessUpdated
     };
 
 	public static void AddListener<T>(T eventType, Action<object> callback)

@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	private void Awake()
-	{
-		FlagBag.Instance.Initialize();
-	}
-
 	private void Start()
 	{
 		StartCoroutine(MinuteTick());

@@ -14,6 +14,7 @@ public class MissionPanel : MonoBehaviour
 	public GameObject buttonPrefab;
 	public TextMeshProUGUI missionName, missionDescription;
 	public GameObject inProgressFlag, finishedFlag;
+	public Transform inProgressButtonHolder, finishedButtonHolder;
 
 	List<string> missionNames = new List<string>();
 	List<string> missionDescriptions = new List<string>();
@@ -51,7 +52,14 @@ public class MissionPanel : MonoBehaviour
 		missionStates.Add(isFinished);
 
 		var newButton = Instantiate(buttonPrefab);
-		newButton.transform.SetParent(buttonHolder);
+		if(isFinished)
+		{
+			newButton.transform.SetParent(finishedButtonHolder);
+		}
+		else
+		{
+			newButton.transform.SetParent(inProgressButtonHolder);
+		}
 		newButton.transform.localScale = Vector3.one;
 
 		newButton.GetComponentInChildren<TextMeshProUGUI>().text = missionName;
@@ -77,6 +85,9 @@ public class MissionPanel : MonoBehaviour
 			if (missionNames[i] == updatedMissionName)
 			{
 				missionDescriptions[i] = updatedDescription;
+				LogNotificationCenter.Instance.Post(
+					"任务 <color=blue>" + updatedMissionName + "</color> 已更新。"
+					);
 				return;
 			}
 		}
@@ -104,6 +115,7 @@ public class MissionPanel : MonoBehaviour
 			{
 				missionStates[i] = true;
 				missionButtons[i].GetComponent<Image>().color = finishedButtonColor;
+				missionButtons[i].transform.SetParent(finishedButtonHolder);
 				string temp = missionDescriptions[i];
 				missionDescriptions[i] = "<color=grey>" + temp + "</color>";
 
@@ -113,6 +125,10 @@ public class MissionPanel : MonoBehaviour
 					inProgressFlag.SetActive(false);
 					finishedFlag.SetActive(true);
 				}
+
+				LogNotificationCenter.Instance.Post(
+					"你刚刚完成了任务 <color=blue>" + finishedMissionName + "</color>！"
+					);
 
 				return;
 			}

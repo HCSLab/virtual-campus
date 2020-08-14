@@ -59,4 +59,19 @@ public static class SaveSystem
 	{
 		return "DialogueLog." + i;
 	}
+
+	public static string GetItemFlagName(ItemScriptableObject i)
+	{
+		return "ItemPanel.HasItem" + i.name;
+	}
+
+	public static string GetSkinFlagName(SkinScriptableObject s)
+	{
+		return "ItemPanel.HasSkin" + s.name;
+	}
+
+	public static string GetRealWorldPhotoFlagName(RealWorldPhotoScriptableObject r)
+	{
+		return "ItemPanel.HasRealWorldPhoto" + r.name;
+	}
 }

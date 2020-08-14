@@ -11,9 +11,10 @@ public class FlagBag : SavableMonoBehavior
     private void Awake()
     {
         Instance = this;
+        Load();
     }
 
-    public void Initialize()
+    void Load()
     {
         var flagCount = PlayerPrefs.GetInt(SaveSystem.GetFlagCountName(), 0);
         for (int i = 0; i < flagCount; i++)
