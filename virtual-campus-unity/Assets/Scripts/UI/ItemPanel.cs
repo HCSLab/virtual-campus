@@ -113,6 +113,10 @@ public class ItemPanel : MonoBehaviour
 		{
 			EventCenter.Broadcast(EventCenter.AchievementEvent.SchoolBadgeEarned, null);
 		}
+
+		LogNotificationCenter.Instance.Post(
+			"你刚刚获得了物品：<color=orange>" + item.name + "</color>"
+			);
 	}
 
 	public void AddItem(string itemName)
@@ -189,7 +193,11 @@ public class ItemPanel : MonoBehaviour
     {
         var skinDisplay = InstantiateDisplayAndAddToContainer(skinDisplayPrefab);
         skinDisplay.GetComponent<SkinDisplay>().skin = skin;
-    }
+
+		LogNotificationCenter.Instance.Post(
+			"你刚刚获得了皮肤：<color=orange>" + skin.name + "</color>"
+			);
+	}
 
     public void AddSkin(string skinName)
 	{
@@ -224,6 +232,10 @@ public class ItemPanel : MonoBehaviour
 	{
 		var photoDisplay = InstantiateDisplayAndAddToContainer(realWorldPhotoDisplayPrefab);
 		photoDisplay.GetComponent<RealWorldPhotoDisplay>().Initialize(photo);
+
+		LogNotificationCenter.Instance.Post(
+			"你刚刚获得了照片：<color=orange>" + photo.name + "</color>"
+			);
 	}
 
 	public void AddPhoto(string photoName)
