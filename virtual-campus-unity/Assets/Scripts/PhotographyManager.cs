@@ -11,6 +11,7 @@ public class PhotographyManager : MonoBehaviour
 	public float maxPositionError, maxAngleError;
 	public AudioClip shutterSFX;
 	public AudioSource audioSourceForSFX;
+	public GameObject missionCompleteHint;
 
 	[Header("Camera Controll Settings")]
 	[Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
@@ -172,21 +173,9 @@ public class PhotographyManager : MonoBehaviour
 				}
 			}
 		}
-		// Show hint box when success or failure
-		//if (undoneTargetCount > 0)
-		//{
-		//	var talkCreater = GetComponent<CreateInkTalk>();
-		//	if (isSuccess)
-		//	{
-		//		talkCreater.executeFunction = "success";
-		//		talkCreater.Create();
-		//	}
-		//	else
-		//	{
-		//		talkCreater.executeFunction = "failure";
-		//		talkCreater.Create();
-		//	}
-		//}
+
+		// Show hint box when success
+		missionCompleteHint.SetActive(undoneTargetCount > 0 && isSuccess);
 
 		isTakingPhoto = true;
 	}
