@@ -24,7 +24,7 @@
  **不想
  哦？你可要想好了，如果你对数据科学院有兴趣的话，跳过这些介绍，可能也会错过一些有用的<color=blue>信息</color>哦。
     ***确认跳过
-    真可惜，那我先回去了。如果以后想找我的话，就去<color=red>道远</color>楼下找我。
+    真可惜，那我先回去了。如果以后想找我的话，就去<color=red>涂辉龙楼</color>下找我。
         ****好的
         #enableNPC: SDS_dean
         #upd_description:你已经在<color=red>乐天楼</color>食堂附近找到了<color=red>数据科学学院院长</color>了。现在该去找剩下的院长了！
@@ -39,7 +39,7 @@
 啊……也该回去了，新生入学的日子，我也得去看看。
 -
 +n
-如果以后想找我的话，就去<color=red>道远</color>楼下找我。
+如果以后想找我的话，就去<color=red>涂辉龙楼</color>下找我。
 -
 *嗯嗯
 #enableNPC: SDS_dean

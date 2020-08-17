@@ -25,7 +25,9 @@
 在这里，你需要学习你的第一课：如何操作。
 -
 *有关移动
-<color=red>WASD</color>水平移动。<color=red>空格</color>跳跃。
+<color=red>WASD</color>水平移动。
+<color=red>空格</color>跳跃。
+<color=red>Shift</color>键加速。
 -
 +n
 想要在校园里畅游。你需要熟悉如何做基础的移动、跳跃。熟练的操作会为你在校园里奔波省去不少时间。
