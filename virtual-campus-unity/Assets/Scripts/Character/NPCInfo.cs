@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPCInfo : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class NPCInfo : MonoBehaviour
 
     private void Awake()
     {
-        npcName = transform.Find("Canvas/Name").GetComponent<TextMeshProUGUI>().text;
+        var textmesh = transform.Find("Canvas/Name").GetComponent<TextMeshProUGUI>();
+        textmesh.enableCulling = true;
+        npcName = textmesh.text;
 
         if (!mainCam)
             mainCam = Camera.main.gameObject;
