@@ -261,7 +261,7 @@ VAR acflag = 0
 === failure ===
 {egg != "": ->checkEgg}
 啊呀，你这道题答错了呢，再回去多加努力吧。
-*好吧……
++好吧……
 ->END
 
 === ending ===
