@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class SettingsPanel : SavableMonoBehavior
@@ -9,14 +11,19 @@ public class SettingsPanel : SavableMonoBehavior
 	static public SettingsPanel Instance;
 
 	public Toggle fullscreenToggle;
+	public Toggle antiAliasingToggle;
 	public TMP_Dropdown resolutionDropdownMenu;
 	public Slider masterVolumeSlider;
+
+	[Header("Anti-aliasing")]
+	public UniversalAdditionalCameraData urpCameraData;
 
 	[Header("Auto Reset")]
 	public int timeBeforeAutoReset;
 	public GameObject autoResetPanel;
 	public TextMeshProUGUI refuseButtonText;
 
+	UniversalRenderPipelineAsset urpAsset;
 	Resolution[] resolutions;
 	bool originalFullscreenMode;
 	int originalResolutionIndex, currentResolutionIndex;
@@ -41,6 +48,8 @@ public class SettingsPanel : SavableMonoBehavior
 
 		attemptAutoResetCoroutineState = CoroutineState.NotStartedYet;
 
+		urpAsset = GraphicsSettings.renderPipelineAsset as UniversalRenderPipelineAsset;
+
 		resolutions = Screen.resolutions;
 		resolutionDropdownMenu.ClearOptions();
 		List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
@@ -59,11 +68,13 @@ public class SettingsPanel : SavableMonoBehavior
 		}
 
 		fullscreenToggle.isOn = Screen.fullScreen;
+		antiAliasingToggle.isOn = urpCameraData.antialiasing != AntialiasingMode.None;
 		resolutionDropdownMenu.value = resolutions.Length - currentResolutionIndex - 1;
 		masterVolumeSlider.value = PlayerPrefs.GetFloat(SaveSystem.GetMasterVolumeName(), 1f);
 		OnMasterVolumeChanged(masterVolumeSlider.value);
 
 		fullscreenToggle.onValueChanged.AddListener(OnFullscreenModeChanged);
+		antiAliasingToggle.onValueChanged.AddListener(OnAntiAliasingChanged);
 		resolutionDropdownMenu.onValueChanged.AddListener(OnResolutionChanged);
 		masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
 
@@ -89,6 +100,21 @@ public class SettingsPanel : SavableMonoBehavior
 		Screen.fullScreen = newMode;
 
 		StartCoroutine(AttemptAutoReset());
+	}
+
+	public void OnAntiAliasingChanged(bool newMode)
+	{
+		if (newMode)
+		{
+			urpCameraData.antialiasing = AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+			urpCameraData.antialiasingQuality = AntialiasingQuality.High;
+			urpAsset.msaaSampleCount = 8;
+		}
+		else
+		{
+			urpCameraData.antialiasing = AntialiasingMode.None;
+			urpAsset.msaaSampleCount = 1;
+		}
 	}
 
 	public void OnResolutionChanged(int newResolutionIndex)
