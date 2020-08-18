@@ -92,10 +92,10 @@ public class InkTalk : MonoBehaviour
         }
         if (sentences != "")
         {
-            text.text = sentences;
+            SetText(sentences);
             if (speaker)
             {
-                nameText.text = speaker.npcName;
+                SetName(speaker.npcName);
             }
             else
             {
@@ -192,4 +192,14 @@ public class InkTalk : MonoBehaviour
             StoryManager.Instance.EndStory(storyScript);
         }
     }
+
+    private void SetName(string name)
+	{
+        nameText.text = name.Replace('\n', ' ');
+	}
+
+    private void SetText(string sentences)
+	{
+        text.text = sentences;
+	}
 }
