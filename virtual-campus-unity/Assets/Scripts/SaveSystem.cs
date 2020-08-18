@@ -17,6 +17,10 @@ public static class SaveSystem
 		return "AchievementState." + achievementItem.name;
 	}
 
+	public static string GetAntiAliasingModeName()
+	{
+		return "AntiAliasingMode";
+	}
 	public static string GetMasterVolumeName()
 	{
 		return "MasterVolume";

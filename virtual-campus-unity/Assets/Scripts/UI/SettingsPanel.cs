@@ -17,13 +17,13 @@ public class SettingsPanel : SavableMonoBehavior
 
 	[Header("Anti-aliasing")]
 	public UniversalAdditionalCameraData urpCameraData;
+	public UniversalRenderPipelineAsset urpAsset;
 
 	[Header("Auto Reset")]
 	public int timeBeforeAutoReset;
 	public GameObject autoResetPanel;
 	public TextMeshProUGUI refuseButtonText;
 
-	UniversalRenderPipelineAsset urpAsset;
 	Resolution[] resolutions;
 	bool originalFullscreenMode;
 	int originalResolutionIndex, currentResolutionIndex;
@@ -48,7 +48,7 @@ public class SettingsPanel : SavableMonoBehavior
 
 		attemptAutoResetCoroutineState = CoroutineState.NotStartedYet;
 
-		urpAsset = GraphicsSettings.renderPipelineAsset as UniversalRenderPipelineAsset;
+		//urpAsset = GraphicsSettings.renderPipelineAsset as UniversalRenderPipelineAsset;
 
 		resolutions = Screen.resolutions;
 		resolutionDropdownMenu.ClearOptions();
@@ -68,9 +68,11 @@ public class SettingsPanel : SavableMonoBehavior
 		}
 
 		fullscreenToggle.isOn = Screen.fullScreen;
-		antiAliasingToggle.isOn = urpCameraData.antialiasing != AntialiasingMode.None;
+		antiAliasingToggle.isOn = PlayerPrefs.GetInt(SaveSystem.GetAntiAliasingModeName(), 1) == 1;
 		resolutionDropdownMenu.value = resolutions.Length - currentResolutionIndex - 1;
 		masterVolumeSlider.value = PlayerPrefs.GetFloat(SaveSystem.GetMasterVolumeName(), 1f);
+
+		OnAntiAliasingChanged(antiAliasingToggle.isOn);
 		OnMasterVolumeChanged(masterVolumeSlider.value);
 
 		fullscreenToggle.onValueChanged.AddListener(OnFullscreenModeChanged);
@@ -85,6 +87,7 @@ public class SettingsPanel : SavableMonoBehavior
 	{
 		base.Save(data);
 
+		PlayerPrefs.SetInt(SaveSystem.GetAntiAliasingModeName(), antiAliasingToggle.isOn ? 1 : 0);
 		PlayerPrefs.SetFloat(SaveSystem.GetMasterVolumeName(), masterVolumeSlider.value);
 	}
 
