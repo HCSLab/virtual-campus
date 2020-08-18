@@ -601,16 +601,16 @@ nihaonihaonihao
 或许等一切结束了，我就可以好好休息一下了吧。
 -
 +n
-不过在那之前，让我看看你的这枚最后的徽章……
+不过在那之前，让我看看你的最后的这枚徽章……
 -
 ->badge_name
 
 === badge_name ===
 {name:
-    - "kitten": ->func_kitten.dialogue
-    - "photo" : ->func_photo.dialogue
-    - "empathy": ->func_empathy.dialogue
-    - "academic": ->func_academic.dialogue
+    - "kitten":    ->func_kitten.dialogue
+    - "photo" :    ->func_photo.dialogue
+    - "empathy":   ->func_empathy.dialogue
+    - "academic":  ->func_academic.dialogue
     
 }
 
@@ -619,9 +619,9 @@ nihaonihaonihao
 哦对了，我都差点忘掉了。
 -
 +n
-嗯，很好，你已经收集完所有徽章了。
+你已经收集完所有徽章了。
 -
-*所以………
+*所以………你所说的真相是……
 不要着急嘛，你是想要得知所谓的真相嘛？
 -
 +n
@@ -634,7 +634,7 @@ nihaonihaonihao
 其实……也并不是什么大不了的答案。
 -
 +n
-<color=\#808080>（说着，神秘人低下头摘下了面具）</color>
+<color=\#808080>（说着，神秘人看向了你）</color>
 -
 +n
 不过说来话长了……
@@ -643,14 +643,14 @@ nihaonihaonihao
 在那之前，先正式和你打个招呼吧。
 -
 +n
-<color=\#808080>（神秘人抬起了头，看向了你）</color>
+<color=\#808080>（你也看向了ta）</color>
 ……
 -
 +n
-<color=\#808080>（你也抬起头，看向了ta）</color>
+<color=\#808080>（你现在似乎能够透过面具，看到ta真正的相貌了）</color>
 ……
 -
-+n
+*……
 <color=\#808080>（双目对视，你似乎有些犹豫）</color>
 ……
 -
@@ -669,15 +669,16 @@ nihaonihaonihao
 +n
 我还是第一次要这么问候别人，感觉有些奇怪。
 -
-+n
+*……
 不过礼仪还是要做到的。
 -
-+n
+*……
 你好啊。
 -
-+n
+*……
 我自己。
 -
-+n
+*……
+#upd_description: 恭喜你！基本完成了目前游戏的所有内容！之后的故事是怎么样的呢？或许你可以通过继续探索校园来获取一些线索……
 #endstory
 ->DONE
