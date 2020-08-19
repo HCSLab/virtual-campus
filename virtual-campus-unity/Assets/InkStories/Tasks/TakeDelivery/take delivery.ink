@@ -55,7 +55,7 @@
 #talk_immediately_after_collision
 似乎<color=red>东门</color>并没有外卖小哥，去别的地方看看吧。
 +n
-#upd_description: <color=red>东门</color>并没有外卖小哥，去别的地方看看吧。
+#upd_description: <color=red>东门</color>并没有外卖小哥，去别的地方看看吧。（如果都没有的话，就回去找<color=red>张博闻</color>问问看吧！）
 ->DONE
 
 === func_south_door ===
@@ -64,7 +64,7 @@
 #talk_immediately_after_collision
 似乎<color=red>南门</color>并没有外卖小哥，去别的地方看看吧。
 +n
-#upd_description: <color=red>南门</color>并没有外卖小哥，去别的地方看看吧。
+#upd_description: <color=red>南门</color>并没有外卖小哥，去别的地方看看吧。（如果都没有的话，就回去找<color=red>张博闻</color>问问看吧！）
 ->DONE
 
 === func_southeast_door ===
@@ -73,21 +73,7 @@
 #talk_immediately_after_collision
 似乎<color=red>东南门</color>并没有外卖小哥，去别的地方看看吧。
 +n
-#upd_description: <color=red>东南门</color>并没有外卖小哥，去别的地方看看吧。
-->DONE
-
-=== func_all_doors_finished ===
-#after: func_east_door
-#after: func_southeast_door
-#after: func_south_door
-#collidetrigger: southeast_gate_collider
-#collidetrigger: east_gate_collider
-#collidetrigger: south_gate_collider
-#talk_immediately_after_collision
-似乎三个门都没有人……
-这是怎么一回事？你决定回去找张博文问问。
-+n
-#upd_description: 三个门都没有！你白跑了一趟！你决定回去找张博闻问问是怎么一回事。
+#upd_description: <color=red>东南门</color>并没有外卖小哥，去别的地方看看吧。（如果都没有的话，就回去找<color=red>张博闻</color>问问看吧！）
 ->DONE
 
 === func_ending === 
