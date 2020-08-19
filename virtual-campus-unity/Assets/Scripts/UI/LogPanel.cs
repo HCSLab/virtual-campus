@@ -4,7 +4,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 
-public class LogPanel : SavableMonoBehavior
+public class LogPanel : MonoBehaviour
 {
 	static public LogPanel Instance;
 
@@ -16,27 +16,17 @@ public class LogPanel : SavableMonoBehavior
 	RectTransform logHolderRectTransform;
 	bool enableAchievementLogging;
 
-	private List<string> records = new List<string>();
-
 	private void Awake()
 	{
 		Instance = this;
 		enableAchievementLogging = false;
 	}
 
-	protected override void Start()
+	void Start()
 	{
-		base.Start();
-
 		logHolderRectTransform = logHolderTransform.GetComponent<RectTransform>();
 
 		LeanTween.delayedCall(1f, () => { enableAchievementLogging = true; });
-
-		int logCount = PlayerPrefs.GetInt(SaveSystem.GetDialogueLogCountName());
-		for (int i = 0; i < logCount; i++)
-		{
-			AddLog(PlayerPrefs.GetString(SaveSystem.GetIthDialogueLogName(i)), false);
-		}
 	}
 
 	public void AddLog(string content, bool popOut = true)
@@ -46,8 +36,6 @@ public class LogPanel : SavableMonoBehavior
 		log.transform.localScale = Vector3.one;
 
 		log.GetComponent<TextMeshProUGUI>().text = content;
-
-		records.Add(content);
 
 		if (popOut)
 		{
@@ -88,24 +76,6 @@ public class LogPanel : SavableMonoBehavior
 
 		LogNotificationCenter.Instance.Post(s.ToString());
 
-
         UIManager.Instance.PlayAchievementSFX();
     }
-
-	protected override void Save(object data)
-	{
-		base.Save(data);
-
-		PlayerPrefs.SetInt(
-			SaveSystem.GetDialogueLogCountName(),
-			records.Count
-			);
-		for (int i = 0; i < records.Count; i++)
-		{
-			PlayerPrefs.SetString(
-				SaveSystem.GetIthDialogueLogName(i),
-				records[i]
-				);
-		}
-	}
 }
