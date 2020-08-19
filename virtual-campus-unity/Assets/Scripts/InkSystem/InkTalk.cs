@@ -239,8 +239,17 @@ public class InkTalk : MonoBehaviour
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int i = 0; i < sentences.Length; i++)
 		{
-			stringBuilder.Append(sentences[i]);
-			text.text = stringBuilder.ToString();
+			if (sentences[i] == '<' && sentences.IndexOf("<color", i) == i)
+			{
+				int j = sentences.IndexOf("</color>", i) + 8;
+				stringBuilder.Append(sentences.Substring(i, j - i));
+				i = j - 1;
+			}
+			else
+			{
+				stringBuilder.Append(sentences[i]);
+				text.text = stringBuilder.ToString();
+			}
 			yield return new WaitForSeconds(secondsPerCharacter);
 		}
 		isSetTextCoroutineExist = false;
