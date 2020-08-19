@@ -241,7 +241,8 @@ public class InkTalk : MonoBehaviour
 		{
 			if (sentences[i] == '<' && sentences.IndexOf("<color", i) == i)
 			{
-				int j = sentences.IndexOf("</color>", i) + 8;
+				int j = sentences.IndexOf("</color>", i);
+				j = j == -1 ? sentences.Length : j + 8;
 				stringBuilder.Append(sentences.Substring(i, j - i));
 				i = j - 1;
 			}
