@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Voice { Male, Female, Cat, Young, Murmuring};
+public enum VoiceType { Male, Female, Cat, Young, Murmuring};
 
 public class NPCInfo : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class NPCInfo : MonoBehaviour
 
     public static GameObject mainCam;
     
-    public Voice voice;
+    public VoiceType voiceType;
 
     private void Awake()
     {
