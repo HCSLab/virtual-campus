@@ -330,6 +330,7 @@ VAR acflag = 0
     - "LHS": #additem: LHS学术徽章
     - "SDS": #additem: SDS学术徽章
 }
+#addskin: 学霸
 #upd_description:你完成了所有的问答，成功进入了学院，并获得了一枚学术徽章作为奖励！根据院长的描述，你迄今为止所答的题目都来自一个戴着面具的神秘人……
 #endstory
 ->END

@@ -47,5 +47,6 @@
 等到你觉得可以的时候，就可以来找我领取<color=blue>下一份作业</color>咯。
 -
 *知道了
+#addskin: 芝加哥朋克
 #endstory
 ->DONE

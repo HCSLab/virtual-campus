@@ -125,6 +125,7 @@
     **谢谢你的介绍
     #upd_description: 你已经和图书馆管理员了解到了足够多的消息！那么，现在可以回到刚刚的地方去找张博闻了，按照约定，他会带你去游览学校的各个食堂。
     #enable: student_ZBW_lib
+    #addskin: 奔跑者
     ->DONE
 
 = lib_time
