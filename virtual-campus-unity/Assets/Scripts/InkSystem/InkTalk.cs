@@ -38,6 +38,10 @@ public class InkTalk : MonoBehaviour
 	private void Start()
 	{
 		textSFXSource = UIManager.Instance.textSFXSource;
+		if (speaker)
+		{
+			isMaleVoice = speaker.isMale;
+		}
 
 		panelSizedButton.interactable = false;
 

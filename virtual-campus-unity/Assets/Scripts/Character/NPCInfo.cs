@@ -12,6 +12,8 @@ public class NPCInfo : MonoBehaviour
 
     public static GameObject mainCam;
 
+    public bool isMale = true;
+
     private void Awake()
     {
         var textmesh = transform.Find("Canvas/Name").GetComponent<TextMeshProUGUI>();
