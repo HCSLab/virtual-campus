@@ -29,6 +29,7 @@ public class InkTalk : MonoBehaviour
 
 	[Header("Text Transition")]
 	public float secondsPerCharacter;
+	public float secondsPerPauseCharacter;
 	public float secondsPerSFX;
 	public AudioClip maleVoice, femaleVoice, catVoice, youngVoice, murmuringVoice;
 
@@ -251,7 +252,14 @@ public class InkTalk : MonoBehaviour
 				stringBuilder.Append(sentences[i]);
 				text.text = stringBuilder.ToString();
 			}
-			yield return new WaitForSeconds(secondsPerCharacter);
+			if (sentences[i] == '$')
+			{
+				yield return new WaitForSeconds(secondsPerPauseCharacter);
+			}
+			else
+			{
+				yield return new WaitForSeconds(secondsPerCharacter);
+			}
 		}
 		isSetTextCoroutineExist = false;
 	}
