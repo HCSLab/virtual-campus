@@ -247,17 +247,14 @@ public class InkTalk : MonoBehaviour
 				stringBuilder.Append(sentences.Substring(i, j - i));
 				i = j - 1;
 			}
-			else
-			{
-				stringBuilder.Append(sentences[i]);
-				text.text = stringBuilder.ToString();
-			}
-			if (sentences[i] == '$')
+			else if (sentences[i] == '$')
 			{
 				yield return new WaitForSeconds(secondsPerPauseCharacter);
 			}
 			else
 			{
+				stringBuilder.Append(sentences[i]);
+				text.text = stringBuilder.ToString();
 				yield return new WaitForSeconds(secondsPerCharacter);
 			}
 		}

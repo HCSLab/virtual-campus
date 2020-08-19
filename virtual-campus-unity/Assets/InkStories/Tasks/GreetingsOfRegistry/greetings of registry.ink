@@ -26,10 +26,14 @@
 ->introduction
 
 === introduction ===
-*修业期限 -> introduction.duration
-*选课及学分规定 ->introduction.lectures_credits
-*加选及退课(add & drop) ->introduction.add_drop
-*评核及考试 ->introduction.test_grade
+*修业期限 
+    ->introduction.duration
+*选课及学分规定 
+    ->introduction.lectures_credits
+*加选及退课(add & drop) 
+    ->introduction.add_drop
+*评核及考试 
+    ->introduction.test_grade
 * ->
     ++n 
     大学成绩的比拼，将不仅仅是知识单方面的比拼，也会有诸多其他方面的比拼，但最重要的，其实是<color=red>信息</color>。
@@ -85,7 +89,6 @@
     ->END
 
 = duration
-+n
 这一部分官网文件上写的已经很详尽了，我会挑重点念给你听：
 -
 +n 
@@ -118,7 +121,6 @@
 ->introduction
 
 = lectures_credits
-+n
 这一部分的话，我先把文件上有关内容给你摘出来，遍念遍在中间做一些其他的补充。
 -
 +n 
@@ -193,7 +195,6 @@
 ->introduction
 
 = add_drop
-+n 
 如何加退课或许是你们这些新生刚入学时最容易遇到的问题，尽管对于你们大一第一学年的新生来说，只用选择一门体育课就好了，但哪怕如此，也会出现很多问题。
 -
 +n 
@@ -229,7 +230,6 @@
 ->introduction
 
 = test_grade
-+n
 有关成绩的问题应该是每个学生都很关心的事情，但也是较难说明的一条，因为不同的课程评定成绩的方式不同。学生需在学期开始时仔细浏览该课程讲师给出的评分表。而我们在这里仅仅对部分信息和术语做一些强调说明。
 -
 +n 
