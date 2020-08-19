@@ -18,11 +18,12 @@ public class UIManager : MonoBehaviour
 	[Header("SFX")]
 	public AudioClip buttonPointerEnterClip;
 	public AudioClip buttonPointerClickClip;
-	public AudioSource sfxSource;
     public AudioClip missionFinishedSFX;
     public AudioClip achievementSFX;
     public AudioSource missionFinishedSource;
     public AudioSource achievementSource;
+	public AudioSource sfxSource;
+	public AudioSource textSFXSource;
 
    [Header("HUD")]
 	public GameObject hudCanvas;
