@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Others")]
     public Scrollbar settingsVerticalScrollbar;
+    public Scrollbar logVerticalScrollbar;
 
     [Header("Parkour")]
     public GameObject parkourCanvas;
@@ -230,13 +231,18 @@ public class UIManager : MonoBehaviour
             tabMenuCanvas.SetActive(true);
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera.FreeForm>().enabled = false;
         }
+
 			
 
 		CloseTab(currentTabIndex);
 
 		currentTabIndex = tabIndex;
 		tabs[tabIndex].SetActive(true);
-		tabButtonCaches[tabIndex].text.color = openedTabButtonTextColor;
+        if (tabIndex == 0)
+        {
+            resetLogPanel();
+        }
+        tabButtonCaches[tabIndex].text.color = openedTabButtonTextColor;
 		tabButtonCaches[tabIndex].button.interactable = false;
 		tabButtonCaches[tabIndex].image.color = openedTabButtonImageColor;
 	}
@@ -269,5 +275,10 @@ public class UIManager : MonoBehaviour
     public void resetSettingsPanel()
     {
         settingsVerticalScrollbar.value = 1f;
+    }
+
+    public void resetLogPanel()
+    {
+        logVerticalScrollbar.value = 0f;
     }
 }
