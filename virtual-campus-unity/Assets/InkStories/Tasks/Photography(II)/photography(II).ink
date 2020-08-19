@@ -26,6 +26,18 @@
 #addphoto: 照片模板02
 ->DONE
 
+=== func_fail ===
+#require:func_start
+#without_global: photo_task(II)
+#attach: PM_staff
++看，这些是我拍的照片
+哎，没有我想要的那一张哦……似乎<color=blue>位置</color>和<color=blue>角度</color>有一点点偏差？
+别泄气，再去试试吧。拍到合适的照片后屏幕上方会有提示哦~
+-
++好吧
+#notfinished
+->DONE
+
 === func_end ===
 #require:func_start
 #require_photo: task(II)
