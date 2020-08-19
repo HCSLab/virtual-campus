@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Voice { Male, Female, Cat, Young, Murmuring};
+
 public class NPCInfo : MonoBehaviour
 {
     public string npcName { get; private set; }
@@ -11,8 +13,8 @@ public class NPCInfo : MonoBehaviour
     public Transform playerDialoguePos;
 
     public static GameObject mainCam;
-
-    public bool isMale = true;
+    
+    public Voice voice;
 
     private void Awake()
     {

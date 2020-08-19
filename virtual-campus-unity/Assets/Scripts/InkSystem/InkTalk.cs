@@ -30,17 +30,17 @@ public class InkTalk : MonoBehaviour
 	[Header("Text Transition")]
 	public float secondsPerCharacter;
 	public float secondsPerSFX;
-	public AudioClip maleVoice, femaleVoice;
+	public AudioClip maleVoice, femaleVoice, catVoice, youngVoice, murmuringVoice;
 
 	AudioSource textSFXSource;
-	bool isMaleVoice = true;
+	Voice isVoice;
 
 	private void Start()
 	{
 		textSFXSource = UIManager.Instance.textSFXSource;
 		if (speaker)
 		{
-			isMaleVoice = speaker.isMale;
+			isVoice = speaker.voice;
 		}
 
 		panelSizedButton.interactable = false;
@@ -244,7 +244,24 @@ public class InkTalk : MonoBehaviour
 
 	IEnumerator SetTextSFXCoroutine(string sentences)
 	{
-		textSFXSource.clip = isMaleVoice ? maleVoice : femaleVoice;
+		switch (isVoice)
+		{
+			case Voice.Male:
+				textSFXSource.clip = maleVoice;
+				break;
+			case Voice.Female:
+				textSFXSource.clip = femaleVoice;
+				break;
+			case Voice.Cat:
+				textSFXSource.clip = catVoice;
+				break;
+			case Voice.Young:
+				textSFXSource.clip = youngVoice;
+				break;
+			case Voice.Murmuring:
+				textSFXSource.clip = murmuringVoice;
+				break;
+		}
 
 		while (isSetTextCoroutineExist)
 		{
