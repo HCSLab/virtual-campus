@@ -33,14 +33,18 @@ public class InkTalk : MonoBehaviour
 	public AudioClip maleVoice, femaleVoice, catVoice, youngVoice, murmuringVoice;
 
 	AudioSource textSFXSource;
-	Voice isVoice;
+	Voice voiceType;
 
 	private void Start()
 	{
 		textSFXSource = UIManager.Instance.textSFXSource;
 		if (speaker)
 		{
-			isVoice = speaker.voice;
+			voiceType = speaker.voice;
+		}
+		else 
+		{ 
+			voiceType = Voice.Young;
 		}
 
 		panelSizedButton.interactable = false;
@@ -244,7 +248,7 @@ public class InkTalk : MonoBehaviour
 
 	IEnumerator SetTextSFXCoroutine(string sentences)
 	{
-		switch (isVoice)
+		switch (voiceType)
 		{
 			case Voice.Male:
 				textSFXSource.clip = maleVoice;
