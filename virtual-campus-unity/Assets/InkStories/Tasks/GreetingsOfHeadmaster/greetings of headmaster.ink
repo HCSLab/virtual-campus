@@ -1,7 +1,7 @@
 // #after: prologue
 
 #name: 校长的问候
-#description:  刚刚入学，你还对学校不太熟悉吧，去小广场处找校长，他会给你介绍整个学校的大致分布的。
+#description:  刚刚入学，你还对学校不太熟悉吧。去启动去广场找校长谈谈，他会给你介绍整个学校的大致分布的。
 
 === func_start ===
 #override
@@ -39,7 +39,7 @@
 #disable: road to upper
 //镜头给到室内体育馆
 #enable: gym
-同时，西边也坐落着<color=red>室内体育馆</color>。因为某些原因，我们学校还没有操场，因此室内体育馆就成了学生锻炼的不二之选。
+同时，西边也坐落着<color=red>室内体育馆</color>。我们学校目前还没有操场，因此室内体育馆就成了学生锻炼的不二之选。
 -
 +n
 #disable: gym
@@ -51,7 +51,7 @@
 #disable: liwen
 //镜头给到乐天/志仁/诚道区
 #enable: square north
-小广场的北边，是我们学校老校区的几栋教学楼，分别叫做<color=red>乐天</color>，<color=red>志仁</color>，和<color=red>诚道</color>。
+小广场的北边，是我们学校老校区的几栋教学楼，分别叫做<color=red>乐天楼</color>、<color=red>志仁楼</color>，和<color=red>诚道楼</color>。
 -
 +n
 乐天楼作为曾经的食堂，目前只有一楼用作食堂，而二楼仍在装修，三楼是我校的大学创业中心。
@@ -113,7 +113,7 @@
 #disable: student center
 //镜头给到实验楼AB
 #enable: RA RB
-而南侧。则是我校刚刚建好的<color=red>实验楼(Research Buildings)</color>，又叫涂辉龙楼。这里将来会成为我校许多实验室所在地，当然，现在这两座实验楼都才刚刚开始发展，按照字母顺序，两座楼分别被称为<color=red>RA</color>和<color=red>RB</color>。
+而南侧，则是我校的两个<color=red>实验楼(Research Buildings)</color>。这里将来会成为我校许多实验室所在地，现在这两座实验楼都刚刚开始发展。按照字母顺序，两座楼分别被称为<color=red>RA</color>和<color=red>RB</color>，其中<color=red>RB</color>因涂辉龙先生对我校的慷慨捐赠，又名<color=red>涂辉龙楼</color>。
 -
 +n
 继续向东走。

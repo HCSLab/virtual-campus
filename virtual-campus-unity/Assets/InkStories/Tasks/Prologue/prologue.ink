@@ -25,9 +25,7 @@
 在这里，你需要学习你的第一课：如何操作。
 -
 *有关移动
-<color=red>WASD</color>水平移动。
-<color=red>空格</color>跳跃。
-<color=red>Shift</color>键加速。
+<color=red>WASD</color>水平移动；<color=red>空格</color>跳跃；<color=red>按住Shift键</color>奔跑。
 -
 +n
 想要在校园里畅游。你需要熟悉如何做基础的移动、跳跃。熟练的操作会为你在校园里奔波省去不少时间。
@@ -36,7 +34,7 @@
 有的时候，你会走到一些隐秘的角落。为了让你不至于看不到你自己所在的位置，视角的调整也是很有必要的。
 -
 +n
-<color=red>QE</color>转动视角。<color=red>鼠标右键</color>调整视角。<color=red>滚轮</color>缩放。
+<color=red>QE</color>转动视角；<color=red>按住鼠标右键拖动鼠标</color>调整视角；<color=red>滚轮</color>缩放。
 -
 *知道了
 以上就是所有的基础操作了。
@@ -48,7 +46,7 @@
 <color=red>M键</color>可以调出大地图。这会帮助你省去很多寻路的时间。
 -
 +n
-那么，请你沿着地图<color=red>上方</color>前往<color=red>小广场</color>吧，<color=red>校长</color>将在那里等着你。
+那么，请你沿着地图<color=red>上方</color>前往<color=red>启动区广场</color>吧，<color=red>校长</color>将在那里等着你。
 -
 +n
 #endstory
