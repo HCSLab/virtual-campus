@@ -20897,6 +20897,7 @@ GameObject:
   - component: {fileID: 675916687}
   - component: {fileID: 675916686}
   - component: {fileID: 675916685}
+  - component: {fileID: 675916691}
   m_Layer: 5
   m_Name: PressToTalk
   m_TagString: Untagged
@@ -20979,7 +20980,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 675916689}
+  m_TargetGraphic: {fileID: 1145927223}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -21054,6 +21055,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675916683}
   m_CullTransparentMesh: 0
+--- !u!114 &675916691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675916683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350e0417666f35741b5d5d435b77ad32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterClip: {fileID: 8300000, guid: e57bcf815b18547a7a8b44a99e4d9c99, type: 3}
+  clickClip: {fileID: 8300000, guid: 56d8bea77fdee4059a6ba475b5bc4177, type: 3}
+  exitClip: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &676850036
 GameObject:
   m_ObjectHideFlags: 0
@@ -25087,6 +25104,7 @@ GameObject:
   - component: {fileID: 812734795}
   - component: {fileID: 812734798}
   - component: {fileID: 812734799}
+  - component: {fileID: 812734800}
   m_Layer: 5
   m_Name: CameraButton
   m_TagString: Untagged
@@ -25240,6 +25258,22 @@ MonoBehaviour:
   m_ColorMode: 0
   m_BlurMode: 2
   m_AdvancedBlur: 0
+--- !u!114 &812734800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812734793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350e0417666f35741b5d5d435b77ad32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterClip: {fileID: 8300000, guid: e57bcf815b18547a7a8b44a99e4d9c99, type: 3}
+  clickClip: {fileID: 8300000, guid: 56d8bea77fdee4059a6ba475b5bc4177, type: 3}
+  exitClip: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &813965841
 GameObject:
   m_ObjectHideFlags: 0
