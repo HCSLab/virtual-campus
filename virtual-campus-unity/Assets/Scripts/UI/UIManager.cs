@@ -47,6 +47,7 @@ public class UIManager : MonoBehaviour
     [Header("Others")]
     public Scrollbar settingsVerticalScrollbar;
     public Scrollbar logVerticalScrollbar;
+	public GameObject cameraButton;
 
     [Header("Parkour")]
     public GameObject parkourCanvas;

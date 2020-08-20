@@ -105,6 +105,9 @@ public class ItemPanel : MonoBehaviour
 		itemDisplay.GetComponent<ItemDisplay>().Initialize(item);
 		nameToItemDisplay[item.name] = itemDisplay;
 
+		if (item.name == "照相机")
+			UIManager.Instance.cameraButton.SetActive(true);
+
 		// 成就
 		if (item.name == "同理心徽章")
 		{
