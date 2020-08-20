@@ -83,6 +83,8 @@ public class ItemPanel : MonoBehaviour
 		itemRight.SetActive(false);
 		skinRight.SetActive(false);
 		realWorldPhotoRight.SetActive(false);
+        CameraManager.Instance.skinIconCamera.SetActive(true);
+        CameraManager.Instance.skinPreviewCamera.SetActive(true);
 		SkinDisplay.busy = false;
 		foreach (SkinDisplay skinDisplay in elementContainer.GetComponentsInChildren<SkinDisplay>())
 		{
@@ -90,7 +92,13 @@ public class ItemPanel : MonoBehaviour
 		}
 	}
 
-	GameObject InstantiateDisplayAndAddToContainer(GameObject prefab)
+    private void OnDisable()
+    {
+        CameraManager.Instance.skinIconCamera.SetActive(false);
+        CameraManager.Instance.skinPreviewCamera.SetActive(false);
+    }
+
+    GameObject InstantiateDisplayAndAddToContainer(GameObject prefab)
 	{
 		var instance = Instantiate(prefab);
 		instance.transform.SetParent(elementContainer);

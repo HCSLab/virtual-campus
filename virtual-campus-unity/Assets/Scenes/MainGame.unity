@@ -35382,7 +35382,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1994204359}
   m_HandleRect: {fileID: 1994204358}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -35506,6 +35506,7 @@ GameObject:
   - component: {fileID: 1154744581}
   - component: {fileID: 1154744580}
   - component: {fileID: 1154744579}
+  - component: {fileID: 1154744583}
   m_Layer: 5
   m_Name: FullScreenMapCanvas
   m_TagString: Untagged
@@ -35594,6 +35595,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1154744583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154744578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7ba4e549985214aa07f7bfe1c007f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1155637842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39738,6 +39751,7 @@ GameObject:
   - component: {fileID: 1270428117}
   - component: {fileID: 1270428116}
   - component: {fileID: 1270428119}
+  - component: {fileID: 1270428120}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -39928,6 +39942,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fe41729fb67f14c9e511b1880c7c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1270428120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270428114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ec20e02e18a5e4e83e1f8f9247de3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinPreviewCamera: {fileID: 1980470454}
+  skinIconCamera: {fileID: 679033700}
+  bigMapCamera: {fileID: 1771448738}
 --- !u!1 &1270981146
 GameObject:
   m_ObjectHideFlags: 0
@@ -62836,7 +62865,7 @@ GameObject:
   - component: {fileID: 1980470457}
   - component: {fileID: 1980470456}
   m_Layer: 13
-  m_Name: Camera
+  m_Name: SkinPreviewCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
