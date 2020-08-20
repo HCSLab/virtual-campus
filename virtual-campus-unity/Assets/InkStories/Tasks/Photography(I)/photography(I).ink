@@ -84,7 +84,11 @@
 +n
 成为一个好的摄影师，可不是你想的那么容易哦。
 -
-*好的，我去看看
+*我会努力的
+对了，你拍的照片都会保存在游戏目录下<color=blue>Newbie At CUHK(SZ)_Data/ScreenShots</color>这个文件夹里。拍到好看的照片要记得和朋友分享哦！
+-
+*我知道啦
+
 #disable: task(I)_img
 #addphoto: 照片模板01
 ->DONE

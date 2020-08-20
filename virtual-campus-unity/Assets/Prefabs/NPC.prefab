@@ -174,6 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcCamera: {fileID: 8608340601894745138}
   playerDialoguePos: {fileID: 8097706178963451529}
+  voiceType: 0
 --- !u!54 &2110133126571384433
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -423,7 +424,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8742431856907616107}
   - component: {fileID: 1764957924820383608}
-  - component: {fileID: 5406168907124264406}
   - component: {fileID: 9121244704590930288}
   m_Layer: 0
   m_Name: Camera
@@ -489,14 +489,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &5406168907124264406
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8608340601894745138}
-  m_Enabled: 1
 --- !u!114 &9121244704590930288
 MonoBehaviour:
   m_ObjectHideFlags: 0

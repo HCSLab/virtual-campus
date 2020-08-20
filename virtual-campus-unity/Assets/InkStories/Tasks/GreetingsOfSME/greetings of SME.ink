@@ -2,7 +2,7 @@
 #after: greetings of registry
 
 #name: 经管学院的问候
-#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。根据教务处老师的信息，经管学院教授在<color=red>小广场</color>的车站附近。
+#description: 院长们在新生入学期间跑到了学校各处，受教务处老师之托，你需要找到他们。根据教务处老师的信息，经管学院教授在<color=red>启动区广场</color>的车站附近。
 
 === func_start ===
 #collidetrigger: SME_dean_tmp

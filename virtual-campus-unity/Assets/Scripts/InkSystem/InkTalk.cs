@@ -123,7 +123,7 @@ public class InkTalk : MonoBehaviour
 			{
 				nameText.text = "";
 			}
-			LogPanel.Instance.AddLog(nameText.text, sentences, false);
+			LogPanel.Instance.AddLog(nameText.text, sentences.Replace("$", string.Empty), false);
 		}
 
 		foreach (var choice in inkStory.currentChoices)

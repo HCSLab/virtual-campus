@@ -2,7 +2,7 @@
 #require: greetings of library
 
 #name: 黑天鹅事件
-#description: 图书馆前台的小姐姐似乎心不在焉，难道发生了什么？你决定去找她问问看。
+#description: 图书馆前台的姐姐似乎心不在焉，难道发生了什么？你决定去找她问问看。
 
 === func_start ===
 #override

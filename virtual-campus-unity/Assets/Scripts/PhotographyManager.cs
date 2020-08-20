@@ -30,6 +30,7 @@ public class PhotographyManager : MonoBehaviour
 
 	bool isTakingPhoto = false;
 	ScriptedFirstPersonAIO playerFirstPersonAIO;
+	PlayerController playerController;
 	float cameraInitialY;
 
 	SimpleCameraController.CameraState m_TargetCameraState =
@@ -41,7 +42,9 @@ public class PhotographyManager : MonoBehaviour
 
 	private void Start()
 	{
-		playerFirstPersonAIO = GameObject.FindGameObjectWithTag("Player").GetComponent<ScriptedFirstPersonAIO>();
+		var player = GameObject.FindGameObjectWithTag("Player");
+		playerFirstPersonAIO = player.GetComponent<ScriptedFirstPersonAIO>();
+		playerController = player.GetComponent<PlayerController>();
 
 		cameraInitialY = photographyCamera.transform.localPosition.y;
 
@@ -183,6 +186,8 @@ public class PhotographyManager : MonoBehaviour
 
 	public void StartTakingPhoto()
 	{
+		playerController.isTakingPhoto = true;
+
 		// Set the flag
 		isTakingPhoto = true;
 
@@ -202,6 +207,8 @@ public class PhotographyManager : MonoBehaviour
 
 	public void StopTakingPhoto()
 	{
+		LeanTween.delayedCall(0.1f, () => { playerController.isTakingPhoto = false; });
+
 		// Set the flag
 		isTakingPhoto = false;
 

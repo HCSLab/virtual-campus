@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public int isInWater = 0;
     public ParticleSystem sprayParticle;
 
+    [HideInInspector]
+    public bool isTakingPhoto = false;
 
     void Start()
     {
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (GetSettingsInput())
         {
-            if (UIManager.Instance.photographyCanvas.activeSelf)
+            if (isTakingPhoto)
             {
                 return;
             }
