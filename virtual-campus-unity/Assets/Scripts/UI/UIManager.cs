@@ -37,7 +37,6 @@ public class UIManager : MonoBehaviour
 	public GameObject[] tabButtons;
 	public Color openedTabButtonImageColor, closedTabButtonImageColor;
 	public Color openedTabButtonTextColor, closedTabButtonTextColor;
-	public GameObject itemBagPanel;
 
 	[Header("Photography")]
 	public GameObject photographyCanvas;
