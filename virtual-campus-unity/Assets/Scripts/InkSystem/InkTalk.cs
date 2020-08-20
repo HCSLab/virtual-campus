@@ -138,7 +138,14 @@ public class InkTalk : MonoBehaviour
 			}
 			else
 			{
-				panelSizedButton.onClick.AddListener(() => { ChoicePathSelected(); panelSizedButton.interactable = false; });
+				panelSizedButton.onClick.AddListener(
+					() =>
+					{
+						if (!isFinish)
+							ChoicePathSelected();
+						panelSizedButton.interactable = false;
+					}
+					);
 				var btn = Instantiate(button).GetComponent<Button>();
 				btn.transform.SetParent(buttons);
 				btn.transform.localScale = Vector3.one;
