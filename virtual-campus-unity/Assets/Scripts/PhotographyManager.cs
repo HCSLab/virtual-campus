@@ -8,6 +8,7 @@ public class PhotographyManager : MonoBehaviour
 {
 	[Header("Photography Settings")]
 	public Camera photographyCamera;
+	public Camera mainCamera;
 	public float maxPositionError, maxAngleError;
 	public AudioClip shutterSFX;
 	public AudioSource audioSourceForSFX;
@@ -41,7 +42,7 @@ public class PhotographyManager : MonoBehaviour
 	private void Start()
 	{
 		playerFirstPersonAIO = GameObject.FindGameObjectWithTag("Player").GetComponent<ScriptedFirstPersonAIO>();
-		photographyCamera.enabled = false;
+
 		cameraInitialY = photographyCamera.transform.localPosition.y;
 
 		StartCoroutine(AddExistingPhotos());
@@ -193,8 +194,8 @@ public class PhotographyManager : MonoBehaviour
 		UIManager.Instance.photographyCanvas.SetActive(true);
 
 		// Initialize the camera
-		photographyCamera.enabled = true;
-		photographyCamera.depth += 20;
+		mainCamera.enabled = false;
+		photographyCamera.gameObject.SetActive(true);
 		m_TargetCameraState.SetFromTransform(photographyCamera.transform);
 		m_InterpolatingCameraState.SetFromTransform(photographyCamera.transform);
 	}
@@ -212,8 +213,8 @@ public class PhotographyManager : MonoBehaviour
 		UIManager.Instance.photographyCanvas.SetActive(false);
 
 		// Initialize the camera
-		photographyCamera.enabled = false;
-		photographyCamera.depth -= 20;
+		mainCamera.enabled = true;
+		photographyCamera.gameObject.SetActive(false);
 	}
 
 	public bool IsTargetPhotoTaken(Transform target)

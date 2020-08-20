@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    public static CameraManager Instance;
+
     public GameObject skinPreviewCamera;
     public GameObject skinIconCamera;
     public GameObject bigMapCamera;
 
-    public static CameraManager Instance;
     void Awake()
     {
         Instance = this;
@@ -21,5 +22,4 @@ public class CameraManager : MonoBehaviour
         skinIconCamera.SetActive(false);
         bigMapCamera.SetActive(false);
     }
-
 }
