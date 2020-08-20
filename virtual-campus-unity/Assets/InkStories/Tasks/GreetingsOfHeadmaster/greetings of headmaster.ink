@@ -24,6 +24,7 @@
 -
 *戴上眼镜
 #enable: square
+#disableNPC: headmaster
 <color=red>启动区广场</color>，又叫<color=red>小广场</color>，在我们学校可能是人流量最大的地点了。
 -
 +n
@@ -155,6 +156,7 @@
 南侧则是主要的四栋<color=red>教学楼(Teaching Buildings)</color>，各自按ABCD命名，为了方便起见，分别被称为<color=red>TA</color>，<color=red>TB</color>，<color=red>TC</color>以及<color=red>TD</color>。
 -
 +n
+#enableNPC: headmaster
 #disable: teaching
 以上就是我们学校下园的基本介绍了。
 -
