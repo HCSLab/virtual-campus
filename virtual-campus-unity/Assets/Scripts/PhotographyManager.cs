@@ -215,9 +215,10 @@ public class PhotographyManager : MonoBehaviour
 		// Update the player
 		playerFirstPersonAIO.playerCanMove = true;
 
-		// Enable all UI
+		// UI
 		UIManager.Instance.hudCanvas.SetActive(true);
 		UIManager.Instance.photographyCanvas.SetActive(false);
+		missionCompleteHint.SetActive(false);
 
 		// Initialize the camera
 		mainCamera.enabled = true;
