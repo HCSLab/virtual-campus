@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class RealWorldPhotoDisplay : MonoBehaviour
 {
 	public Image image;
+	public AspectRatioFitter aspectRatioFitter;
 
 	RealWorldPhotoScriptableObject photo;
 
@@ -13,21 +14,8 @@ public class RealWorldPhotoDisplay : MonoBehaviour
 	{
 		photo = newPhoto;
 		image.sprite = newPhoto.photo;
-
-		// Reset the aspect of the preview image container
-		// to fit the aspect ratio of the photo.
-		var rectTransform = image.gameObject.GetComponent<RectTransform>();
-		var newSizeDelta = rectTransform.sizeDelta;
-		var aspect = (float)newPhoto.photo.rect.width / newPhoto.photo.rect.height;
-		if(newPhoto.photo.rect.width > newPhoto.photo.rect.height)
-		{
-			newSizeDelta.y = newSizeDelta.x / aspect;
-		}
-		else
-		{
-			newSizeDelta.x = newSizeDelta.y * aspect;
-		}
-		rectTransform.sizeDelta = newSizeDelta;
+		aspectRatioFitter.aspectRatio =
+			(float)newPhoto.photo.rect.width / (float)newPhoto.photo.rect.height;
 	}
 
 	public void OnButtonClicked()

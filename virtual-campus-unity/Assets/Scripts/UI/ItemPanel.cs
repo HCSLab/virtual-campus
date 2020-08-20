@@ -164,6 +164,8 @@ public class ItemPanel : MonoBehaviour
 		skinRight.SetActive(false);
 		realWorldPhotoRight.SetActive(false);
 		itemIcon.sprite = item.icon;
+		itemIcon.GetComponent<AspectRatioFitter>().aspectRatio =
+			(float)item.icon.rect.width / (float)item.icon.rect.height;
 		itemNameText.text = item.name;
 		itemDescriptionText.text = item.description;
 	}

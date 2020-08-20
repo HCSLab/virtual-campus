@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemDisplay : MonoBehaviour
 {
 	public Image iconImage;
+	public AspectRatioFitter aspectRatioFitter;
 
 	ItemScriptableObject item;
 
@@ -13,6 +14,8 @@ public class ItemDisplay : MonoBehaviour
 	{
 		item = newItem;
 		iconImage.sprite = newItem.icon;
+		aspectRatioFitter.aspectRatio =
+			(float)iconImage.sprite.rect.width / (float)iconImage.sprite.rect.height;
 	}
 
 	public void OnButtonClicked()
