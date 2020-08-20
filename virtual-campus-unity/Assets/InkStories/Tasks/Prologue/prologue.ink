@@ -45,7 +45,7 @@
 在收到录取通知书的同时，你也收到了一份<color=red>地图</color>。上面清晰地标注了每个主要地点的位置。
 -
 +n
-<color=red>M键</color>可以调出大地图。这会帮助你省去很多寻路的时间
+<color=red>M键</color>可以调出大地图。这会帮助你省去很多寻路的时间。
 -
 +n
 那么，请你沿着地图<color=red>上方</color>前往<color=red>小广场</color>吧，<color=red>校长</color>将在那里等着你。

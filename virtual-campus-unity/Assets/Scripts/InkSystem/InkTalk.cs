@@ -27,6 +27,8 @@ public class InkTalk : MonoBehaviour
 	public GameObject button;
 	public Button panelSizedButton;
 
+	bool isSkip = false;
+	bool isFinish = false;
 	[Header("Text Transition")]
 	public float secondsPerCharacter;
 	public float secondsPerPauseCharacter;
@@ -126,15 +128,17 @@ public class InkTalk : MonoBehaviour
 
 		foreach (var choice in inkStory.currentChoices)
 		{
+			panelSizedButton.interactable = true;
+			panelSizedButton.onClick.RemoveAllListeners(); 
+
 			if (choice.text == "n")
 			{
-				panelSizedButton.interactable = true;
 				var path = choice.pathStringOnChoice;
-				panelSizedButton.onClick.RemoveAllListeners();
 				panelSizedButton.onClick.AddListener(() => { ChoicePathSelected(path); });
 			}
 			else
 			{
+				panelSizedButton.onClick.AddListener(() => { ChoicePathSelected(); panelSizedButton.interactable = false; });
 				var btn = Instantiate(button).GetComponent<Button>();
 				btn.transform.SetParent(buttons);
 				btn.transform.localScale = Vector3.one;
@@ -143,7 +147,7 @@ public class InkTalk : MonoBehaviour
 				btnText.text = choice.text;
 
 				var path = choice.pathStringOnChoice;
-				btn.onClick.AddListener(() => { ChoicePathSelected(path, choice.text); });
+				btn.onClick.AddListener(() => { ChoicePathSelected(path, true, choice.text); });
 			}
 		}
 
@@ -151,7 +155,7 @@ public class InkTalk : MonoBehaviour
 
 		if (firstStep && sentences == "" && inkStory.currentChoices.Count == 1)
 		{
-			ChoicePathSelected(inkStory.currentChoices[0].pathStringOnChoice,
+			ChoicePathSelected(inkStory.currentChoices[0].pathStringOnChoice, true,
 				inkStory.currentChoices[0].text);
 		}
 
@@ -165,15 +169,22 @@ public class InkTalk : MonoBehaviour
 
 	}
 
-	private void ChoicePathSelected(string path, string text = "")
+	private void ChoicePathSelected(string path = "", bool isButton = false, string text = "")
 	{
-		inkStory.ChoosePathString(path);
-		inkStory.Continue();
-		nextStep = true;
-
-		if (text != "")
+		if (!isFinish && !isButton)
 		{
-			LogPanel.Instance.AddLog("Me", text, false);
+			isSkip = true;
+		}
+		else
+		{
+			inkStory.ChoosePathString(path);
+			inkStory.Continue();
+			nextStep = true;
+
+			if (text != "")
+			{
+				LogPanel.Instance.AddLog("Me", text, false);
+			}
 		}
 	}
 
@@ -238,6 +249,7 @@ public class InkTalk : MonoBehaviour
 	IEnumerator SetTextCoroutine(string sentences)
 	{
 		StringBuilder stringBuilder = new StringBuilder();
+		isFinish = false;
 		for (int i = 0; i < sentences.Length; i++)
 		{
 			if (sentences[i] == '<' && sentences.IndexOf("<color", i) == i)
@@ -249,15 +261,18 @@ public class InkTalk : MonoBehaviour
 			}
 			else if (sentences[i] == '$')
 			{
-				yield return new WaitForSeconds(secondsPerPauseCharacter);
+				if (!isSkip) yield return new WaitForSeconds(secondsPerPauseCharacter);
 			}
 			else
 			{
 				stringBuilder.Append(sentences[i]);
 				text.text = stringBuilder.ToString();
-				yield return new WaitForSeconds(secondsPerCharacter);
+				if (!isSkip) yield return new WaitForSeconds(secondsPerCharacter);
 			}
 		}
+
+		isFinish = true;
+		isSkip = false;
 		isSetTextCoroutineExist = false;
 	}
 
@@ -288,4 +303,5 @@ public class InkTalk : MonoBehaviour
 			yield return new WaitForSeconds(secondsPerSFX);
 		}
 	}
+
 }
