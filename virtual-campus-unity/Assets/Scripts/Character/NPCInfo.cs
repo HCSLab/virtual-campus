@@ -12,7 +12,7 @@ public class NPCInfo : MonoBehaviour
     public GameObject npcCamera;
     public Transform playerDialoguePos;
 
-    public static GameObject mainCam;
+    public static Camera mainCam;
     
     public VoiceType voiceType;
 
@@ -23,14 +23,14 @@ public class NPCInfo : MonoBehaviour
         npcName = textmesh.text;
 
         if (!mainCam)
-            mainCam = Camera.main.gameObject;
+            mainCam = Camera.main;
     }
 
     public void StartTalkMode()
     {
         npcCamera.SetActive(true);
-        if (!mainCam) mainCam = Camera.main.gameObject;
-        // mainCam.SetActive(false);
+        if (!mainCam) mainCam = Camera.main;
+        mainCam.enabled = false;
 
         var player = GameObject.FindGameObjectWithTag("Player");
         var controller = player.GetComponent<PlayerController>();
@@ -42,7 +42,8 @@ public class NPCInfo : MonoBehaviour
     public void EndTalkMode()
     {
         npcCamera.SetActive(false);
-        // mainCam.SetActive(true);
+        if (mainCam)
+            mainCam.enabled = true;
 
         var player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<PlayerController>().FreezeUnfreezePlayer(false);
